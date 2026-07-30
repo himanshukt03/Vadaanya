@@ -1,0 +1,69 @@
+// ============================================================
+//  VADAANYA JANAA SOCIETY — BRAND TOKENS
+//  Extracted from vadaanya-standalone.html :root block.
+//  All Vadaanya components reference these via var(--vad-*)
+//  DO NOT hardcode hex values in component files.
+// ============================================================
+
+:root {
+  // ---- NAVY SCALE (dark background family) ----
+  --vad-navy-950: #0A1030;   // deepest bg — body, footer, nav-scrolled, deep sections
+  --vad-navy-900: #101A44;   // main navy section backgrounds
+  --vad-navy-850: #131F52;   // elevated dark card surface
+  --vad-navy-800: #17265E;   // cards, raised surfaces on dark
+  --vad-navy-750: #1A2A6A;   // hover states on dark cards
+  --vad-navy-700: #1E3080;   // royal brand blue, accessible on light
+  --vad-navy-glow: #26398A;  // hero radial glow centre
+
+  // ---- GOLD (primary accent — use intentionally and sparingly) ----
+  --vad-gold: #F2A712;
+  --vad-gold-soft: #F9CE5E;
+  --vad-gold-deep: #C0820C;
+
+  // ---- GREEN (secondary accent — logo, badges, subtle differentiation) ----
+  --vad-green: #33A64F;
+  --vad-green-soft: #5FC97A;
+
+  // ---- LIGHT / PAPER ----
+  --vad-paper: #FFFFFF;      // primary white section background
+  --vad-paper-2: #F5F7FA;    // light grey section background (was #F5F7FF)
+  --vad-paper-3: #FFFFFF;    // raised card surface on light sections
+  --vad-ink: #0D1436;        // primary text on light
+  --vad-ink-soft: #4A5070;   // secondary/muted text on light
+  --vad-ink-muted: #6B7291;  // tertiary text on light
+
+  // ---- TEXT ON DARK ----
+  --vad-on-navy: #EDEFFB;
+  --vad-on-navy-muted: #9CA6D6;
+
+  // ---- DIVIDERS ----
+  --vad-line: rgba(255,255,255,0.14);
+  --vad-line-soft: rgba(255,255,255,0.08);
+  --vad-line-ink: rgba(13,20,54,0.10);
+
+  // ---- TYPOGRAPHY ----
+  --vad-font-display: var(--font-poppins, "Poppins", -apple-system, BlinkMacSystemFont, sans-serif);
+  --vad-font-body: var(--font-inter, "Inter", -apple-system, BlinkMacSystemFont, sans-serif);
+
+  // ---- SHAPE ----
+  --vad-radius: 18px;
+  --vad-radius-sm: 14px;
+  --vad-radius-xs: 10px;
+
+  // ---- MOTION ----
+  --vad-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  // ---- LAYOUT ----
+  --vad-maxw: 1440px;
+  --vad-section-py: clamp(80px, 10vw, 128px);
+
+  // ---- ELEVATION (subtle, navy-tinted shadows) ----
+  --vad-shadow-sm: 0 2px 8px rgba(10, 16, 48, 0.08);
+  --vad-shadow: 0 8px 24px rgba(10, 16, 48, 0.12);
+  --vad-shadow-lg: 0 24px 48px -16px rgba(10, 16, 48, 0.28);
+  --vad-shadow-xl: 0 32px 64px -20px rgba(10, 16, 48, 0.35);
+  --vad-shadow-dark: 0 24px 48px -16px rgba(0, 0, 0, 0.55);
+
+  // ---- FOCUS ----
+  --vad-focus-ring: 0 0 0 3px rgba(242, 167, 18, 0.35);
+}
