@@ -20,13 +20,29 @@ const LinkedInIcon = () => (
   </svg>
 );
 
+const InstagramIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+  </svg>
+);
+
+const YouTubeIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" />
+    <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" />
+  </svg>
+);
+
 const quickLinks = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
-  { label: "What We Do", href: "#whatwedo" },
-  { label: "Success Stories", href: "#stories" },
-  { label: "Watch Videos", href: "#videos" },
-  { label: "Testimonials", href: "#testimonials" },
+  { label: "What We Do", href: "/#whatwedo" },
+  { label: "Success Stories", href: "/#stories" },
+  { label: "Watch Videos", href: "/#videos" },
+  { label: "Testimonials", href: "/#testimonials" },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 const programLinks = [
@@ -48,11 +64,11 @@ export default function Footer() {
           <div>
             <Link href="/" className="vad-footer__brand-word" aria-label="Vadaanya Janaa Society Home">
             <Image
-              src="/Logo.png"
+              src="/logos/PPT-logo.png"
               alt="Vadaanya Janaa Society"
-              width={280}
-              height={70}
-              style={{ objectFit: "contain", width: "auto", height: "auto", maxWidth: "100%" }}
+              width={180}
+              height={45}
+              style={{ objectFit: "contain", width: "180px", height: "auto", maxWidth: "100%" }}
             />
             </Link>
             <p className="vad-footer__desc">
@@ -60,7 +76,7 @@ export default function Footer() {
             </p>
             <div className="vad-footer__socials" aria-label="Social media links">
               <a
-                href="https://facebook.com/vadaanya"
+                href="https://www.facebook.com/people/Vadaanya-Janaa-Society/100064704815056/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="vad-social-icon"
@@ -69,22 +85,40 @@ export default function Footer() {
                 <FacebookIcon />
               </a>
               <a
-                href="https://twitter.com/vadaanya"
+                href="https://x.com/VadaanyaJanaa"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="vad-social-icon"
-                aria-label="Vadaanya on Twitter / X (opens in new tab)"
+                aria-label="Vadaanya on X (opens in new tab)"
               >
                 <TwitterIcon />
               </a>
               <a
-                href="https://linkedin.com/company/vadaanya-janaa-society"
+                href="https://www.instagram.com/vadaanya_janaa_society/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="vad-social-icon"
+                aria-label="Vadaanya on Instagram (opens in new tab)"
+              >
+                <InstagramIcon />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/vadaanya-janaa-society/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="vad-social-icon"
                 aria-label="Vadaanya on LinkedIn (opens in new tab)"
               >
                 <LinkedInIcon />
+              </a>
+              <a
+                href="https://www.youtube.com/@vadaanyajanaasociety9272"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="vad-social-icon"
+                aria-label="Vadaanya on YouTube (opens in new tab)"
+              >
+                <YouTubeIcon />
               </a>
             </div>
           </div>
@@ -101,23 +135,6 @@ export default function Footer() {
             </ul>
           </nav>
 
-          {/* Programmes / exam links */}
-          <nav aria-label="Footer programme links">
-            <p className="vad-footer__col-title">Programmes</p>
-            <ul className="vad-footer__links">
-              {programLinks.map((item) => (
-                <li key={item.label}>
-                  <a
-                    href={item.href}
-                    target={item.href.startsWith("http") ? "_blank" : undefined}
-                    rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
         </div>
 
         {/* Bottom bar */}
@@ -128,7 +145,6 @@ export default function Footer() {
           <div className="vad-footer__regs" aria-label="Registration numbers">
             <span className="reg-chip">80G Certified</span>
             <span className="reg-chip">12A Certified</span>
-            <span className="reg-chip">FCRA Registered</span>
             <span className="reg-chip">AP Reg. 498/2010</span>
           </div>
         </div>
