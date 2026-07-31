@@ -15,10 +15,6 @@ const About = () => {
       <main className="main-area fix">
         <BreadCrumb title='About Us' sub_title='About Us' />
         <AboutArea />
-        <Cta />
-        <Team />
-        <Testimonial />
-        <Brand />
       </main>
       <FooterThree />
     </>

@@ -70,8 +70,19 @@ export default function SuccessStoriesGrid() {
                   </div>
                   <div className="vad-story-profile__body">
                     <h3 className="vad-story-profile__name">{story.name}</h3>
+                    {story.occupation && (
+                      <span className="vad-story-profile__occupation">{story.occupation}</span>
+                    )}
                     <p className="vad-story-profile__caption">{story.caption}</p>
-                    <span className="vad-story-profile__year">Class of {story.year}</span>
+                    
+                    <div className="vad-story-profile__footer">
+                      <span className="vad-story-profile__year">Class of {story.year}</span>
+                      {story.videoUrl && (
+                        <a href={story.videoUrl} target="_blank" rel="noopener noreferrer" className="vad-story-profile__link">
+                          Know More &rarr;
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </article>
               </SwiperSlide>

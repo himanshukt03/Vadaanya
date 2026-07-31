@@ -5,7 +5,7 @@ import AboutSection from "@/components/vadaanya/AboutSection";
 import WhatWeDoSection from "@/components/vadaanya/WhatWeDoSection";
 import SuccessStoriesGrid from "@/components/vadaanya/SuccessStoriesGrid";
 import VideoGallery from "@/components/vadaanya/VideoGallery";
-import QuoteSection from "@/components/vadaanya/QuoteSection";
+import TimelineSection from "@/components/vadaanya/TimelineSection";
 import DonateCTA from "@/components/vadaanya/DonateCTA";
 import Footer from "@/components/vadaanya/Footer";
 
@@ -17,7 +17,7 @@ const HomeFive = () => {
         <HeroCarousel />
         <StatsStrip />
         <AboutSection />
-        <QuoteSection />
+        <TimelineSection />
         <WhatWeDoSection />
         <SuccessStoriesGrid />
         <VideoGallery />

@@ -6,8 +6,8 @@ export interface Stat {
 }
 
 export const stats: Stat[] = [
-  { id: 1, number: 5000, suffix: "+", label: "Students Supported" },
-  { id: 2, number: 15,   suffix: "+", label: "Years of Impact" },
-  { id: 3, number: 800,  suffix: "+", label: "Scholarships Awarded" },
-  { id: 4, number: 12,   suffix: "+", label: "Districts Reached" },
+  { id: 1, number: 15000, suffix: "+", label: "Students in the talent test" },
+  { id: 2, number: 400,   suffix: "+", label: "Scholarships & stipends" },
+  { id: 3, number: 180,   suffix: "+", label: "Laptops given to students" },
+  { id: 4, number: 15,    suffix: " yrs", label: "Of transforming lives" },
 ];

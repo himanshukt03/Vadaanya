@@ -1,10 +1,6 @@
 import Image from "next/image";
 
-const CheckIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <polyline points="20 6 9 17 4 12" />
-  </svg>
-);
+
 
 const RocketIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -28,36 +24,14 @@ export default function AboutSection() {
                 Turning a Government-School Child&apos;s Hope into a{" "}
                 <span style={{ color: "var(--vad-navy-700)" }}>Degree</span>
               </h2>
-              <p className="vad-lead" style={{ color: "var(--vad-ink-soft)" }}>
-                Vadaanya Janaa Society was founded on a single conviction: every child, regardless of birth, deserves access to quality education. We walk alongside students from Class 1 through post-graduation.
+              <p className="vad-lead" style={{ color: "var(--vad-ink-soft)", marginBottom: "24px" }}>
+                We are a passionate community of volunteers dedicated to bridging the educational divide. By providing scholarships, mentorship, and essential resources like digital tools, we empower underprivileged students across Andhra Pradesh and Telangana to build a brighter, self-reliant future.
               </p>
             </div>
 
-            {/* Feature List */}
-            <ul className="vad-about__features" aria-label="Key highlights">
-              <li>
-                <div className="vad-about__feature-icon">
-                  <CheckIcon />
-                </div>
-                <div>
-                  <h3>Right to Education</h3>
-                  <p>Financial support for schooling is not charity but justice, ensuring no child stops learning due to economic hardship.</p>
-                </div>
-              </li>
-              <li>
-                <div className="vad-about__feature-icon">
-                  <CheckIcon />
-                </div>
-                <div>
-                  <h3>Vadaanya Talent Test</h3>
-                  <p>A statewide examination endorsed by the AP Education Ministry to identify and nurture merit in rural communities.</p>
-                </div>
-              </li>
-            </ul>
-
             <div style={{ marginTop: "36px", display: "flex", gap: "14px", flexWrap: "wrap" }}>
-              <a href="#whatwedo" className="vad-btn vad-btn--navy">
-                Our Programmes <span className="vad-arrow" aria-hidden="true">→</span>
+              <a href="/about" className="vad-btn vad-btn--navy">
+                Know More <span className="vad-arrow" aria-hidden="true">→</span>
               </a>
               <a href="#donate" className="vad-btn vad-btn--outline-dark">
                 Support a Student
@@ -66,7 +40,7 @@ export default function AboutSection() {
           </div>
 
           {/* Visual Content */}
-          <div className="vad-about__visual">
+          <div className="vad-about__visual" style={{ maxWidth: "520px", margin: "0 auto" }}>
             <Image
               src="/JAN_3626 (1).jpg"
               alt="Vadaanya team with students"
@@ -74,11 +48,6 @@ export default function AboutSection() {
               height={500}
               className="vad-about__img"
             />
-            
-            {/* Top Right Floating Badge */}
-            <div className="vad-about__float vad-about__float--tr">
-              Education For All
-            </div>
 
             {/* Bottom Left Floating Card */}
             <div className="vad-about__float-card">
@@ -86,7 +55,7 @@ export default function AboutSection() {
                 <RocketIcon />
               </div>
               <div>
-                <strong>5,000+</strong>
+                <strong>15k+</strong>
                 <span>STUDENTS SUPPORTED</span>
               </div>
             </div>
