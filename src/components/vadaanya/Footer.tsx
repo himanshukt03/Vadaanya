@@ -40,7 +40,7 @@ const quickLinks = [
   { label: "About Us", href: "/about" },
   { label: "What We Do", href: "/#whatwedo" },
   { label: "Success Stories", href: "/#stories" },
-  { label: "Watch Videos", href: "/#videos" },
+  { label: "Gallery", href: "/gallery" },
   { label: "Testimonials", href: "/#testimonials" },
   { label: "Contact Us", href: "/contact" },
 ];

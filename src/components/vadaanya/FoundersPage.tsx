@@ -238,7 +238,7 @@ export default function FoundersPage() {
             <div style={{ flex: "1 1 400px", position: "relative", minHeight: "400px" }}>
               <div style={{ position: "absolute", inset: 0, borderRadius: "30px", overflow: "hidden", boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }}>
                 <Image
-                  src="/about-2.jpg"
+                  src="/about-1.jpg"
                   alt="How it started"
                   fill
                   style={{ objectFit: "cover" }}
