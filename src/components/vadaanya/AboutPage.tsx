@@ -76,6 +76,7 @@ export default function AboutPage() {
                 alt="About Vadaanya Team"
                 width={600}
                 height={500}
+                priority
                 className="vad-about__img"
                 style={{ borderRadius: "24px", boxShadow: "0 24px 48px rgba(10, 16, 48, 0.15)", objectFit: "cover" }}
               />

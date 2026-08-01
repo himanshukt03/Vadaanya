@@ -5,7 +5,7 @@ export default function DonateCTA() {
     <section id="donate" className="vad-section vad-donate-new">
       <div className="vad-donate-new__bg">
         <Image 
-          src="/hero_bg.jpg" 
+          src="/hero-1.jpg" 
           alt="Graduates" 
           fill 
           style={{ objectFit: 'cover' }}

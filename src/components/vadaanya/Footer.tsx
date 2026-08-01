@@ -35,22 +35,13 @@ const YouTubeIcon = () => (
   </svg>
 );
 
-const quickLinks = [
-  { label: "Home", href: "/" },
-  { label: "About Us", href: "/about" },
-  { label: "What We Do", href: "/#whatwedo" },
-  { label: "Success Stories", href: "/#stories" },
+const navLinks = [
+  { label: "About us", href: "/about" },
+  { label: "Impact stories", href: "/#stories" },
+  { label: "Talent Test", href: "/#talent" },
   { label: "Gallery", href: "/gallery" },
-  { label: "Testimonials", href: "/#testimonials" },
-  { label: "Contact Us", href: "/contact" },
-];
-
-const programLinks = [
-  { label: "Vadaanya Talent Test", href: "https://vadaanya.org/talent-test" },
-  { label: "Scholarship Application", href: "https://vadaanya.org/apply" },
-  { label: "Download Hall Ticket", href: "https://vadaanya.org/hall-ticket" },
-  { label: "View Syllabus", href: "https://vadaanya.org/syllabus" },
-  { label: "DSC Results", href: "https://vadaanya.org/dsc-results" },
+  { label: "Founder", href: "/founders" },
+  { label: "Contact us", href: "/contact" },
 ];
 
 export default function Footer() {
@@ -60,19 +51,19 @@ export default function Footer() {
     <footer className="vad-footer" id="contact">
       <div className="vad-container">
         <div className="vad-footer__top">
-          {/* Brand column */}
+          {/* Column 1: Brand & Socials */}
           <div>
             <Link href="/" className="vad-footer__brand-word" aria-label="Vadaanya Janaa Society Home">
-            <Image
-              src="/logos/PPT-logo.png"
-              alt="Vadaanya Janaa Society"
-              width={180}
-              height={45}
-              style={{ objectFit: "contain", width: "180px", height: "auto", maxWidth: "100%" }}
-            />
+              <Image
+                src="/logos/PPT-logo.png"
+                alt="Vadaanya Janaa Society"
+                width={180}
+                height={45}
+                style={{ objectFit: "contain", width: "180px", height: "auto", maxWidth: "100%" }}
+              />
             </Link>
             <p className="vad-footer__desc">
-              Vadaanya Janaa Society (Reg. No. 498/2010) — improving the living standards of the destitute and needy through education. From Class 1 to graduation, we walk beside every student we serve.
+              Vadaanya Janaa Society (Reg. No. 498/2010) — improving the living standards of the destitute and needy through education. From Class 1 to graduation, we walk beside every student we serve across AP & Telangana.
             </p>
             <div className="vad-footer__socials" aria-label="Social media links">
               <a
@@ -121,13 +112,31 @@ export default function Footer() {
                 <YouTubeIcon />
               </a>
             </div>
+
+            {/* Email directly below Socials */}
+            <div style={{ marginTop: "18px" }}>
+              <a
+                href="mailto:vadaanyasociety@gmail.com"
+                style={{
+                  fontSize: "13.5px",
+                  color: "var(--vad-gold-soft)",
+                  textDecoration: "none",
+                  fontWeight: 600,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "6px"
+                }}
+              >
+                <span>✉</span> vadaanyasociety@gmail.com
+              </a>
+            </div>
           </div>
 
-          {/* Quick links */}
-          <nav aria-label="Footer quick links">
-            <p className="vad-footer__col-title">Quick Links</p>
+          {/* Column 2: Navigation */}
+          <nav aria-label="Footer main navigation">
+            <p className="vad-footer__col-title">Navigation</p>
             <ul className="vad-footer__links">
-              {quickLinks.map((item) => (
+              {navLinks.map((item) => (
                 <li key={item.label}>
                   <Link href={item.href}>{item.label}</Link>
                 </li>
@@ -135,16 +144,63 @@ export default function Footer() {
             </ul>
           </nav>
 
+          {/* Column 3: Contact Info Details */}
+          <div>
+            <p className="vad-footer__col-title">Get In Touch</p>
+            <div style={{ display: "flex", flexDirection: "column", gap: "16px", fontSize: "13px", color: "var(--vad-on-navy-muted)", lineHeight: "1.6" }}>
+              <div>
+                <span style={{ display: "block", color: "var(--vad-on-navy)", fontWeight: 700, fontSize: "11px", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "4px" }}>
+                  Our Location
+                </span>
+                <strong style={{ color: "#fff", display: "block", marginBottom: "2px" }}>VADAANYA JANAA SOCIETY</strong>
+                Flat no: 528, Road no: 15, Vasantha Nagar, Kukatpally Housing Board Colony, Hyderabad – 500072
+              </div>
+
+              <div>
+                <span style={{ display: "block", color: "var(--vad-on-navy)", fontWeight: 700, fontSize: "11px", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "4px" }}>
+                  Email Us
+                </span>
+                <a
+                  href="mailto:vadaanyasociety@gmail.com"
+                  style={{ color: "var(--vad-gold-soft)", textDecoration: "none" }}
+                >
+                  vadaanyasociety@gmail.com
+                </a>
+              </div>
+
+              <div>
+                <span style={{ display: "block", color: "var(--vad-on-navy)", fontWeight: 700, fontSize: "11px", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "4px" }}>
+                  Call Us
+                </span>
+                <a
+                  href="https://wa.me/918109598109"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: "var(--vad-gold-soft)", textDecoration: "none" }}
+                >
+                  +91 8109598109 (what's app messages only)
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Bottom bar */}
         <div className="vad-footer__bottom">
-          <p style={{ margin: 0 }}>
-            © {year} Vadaanya Janaa Society. All rights reserved.
-          </p>
+          <div style={{ display: "flex", gap: "16px", alignItems: "center", flexWrap: "wrap" }}>
+            <p style={{ margin: 0 }}>
+              © {year} Vadaanya Janaa Society. All rights reserved.
+            </p>
+            <span>·</span>
+            <Link href="/privacy-policy" style={{ color: "var(--vad-on-navy-muted)", textDecoration: "none" }}>Privacy Policy</Link>
+            <span>·</span>
+            <Link href="/terms-of-service" style={{ color: "var(--vad-on-navy-muted)", textDecoration: "none" }}>Terms of Service</Link>
+          </div>
+
           <div className="vad-footer__regs" aria-label="Registration numbers">
-            <span className="reg-chip">80G Certified</span>
-            <span className="reg-chip">12A Certified</span>
+            <span className="reg-chip">80G & 12A Certified</span>
+            <span className="reg-chip">Darpan ID: TS/2024/0396868</span>
+            <span className="reg-chip">CSR ID: CSR00071897</span>
             <span className="reg-chip">AP Reg. 498/2010</span>
           </div>
         </div>

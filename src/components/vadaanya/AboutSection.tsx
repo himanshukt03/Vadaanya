@@ -42,8 +42,8 @@ export default function AboutSection() {
           {/* Visual Content */}
           <div className="vad-about__visual" style={{ maxWidth: "520px", margin: "0 auto" }}>
             <Image
-              src="/JAN_3626 (1).jpg"
-              alt="Vadaanya team with students"
+              src="/IMG-20230417-WA0004.jpg"
+              alt="Vadaanya Talent Test & Gathering"
               width={600}
               height={500}
               className="vad-about__img"

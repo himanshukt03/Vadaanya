@@ -69,7 +69,7 @@ const ChooseArea = () => {
                                 boxShadow: "0 30px 60px rgba(0,0,0,0.1)",
                             }}>
                                 <Image
-                                    src="/classmates-learning-together-group-study.jpg"
+                                    src="/about-1.jpg"
                                     alt="Building our First Cohort"
                                     fill
                                     sizes="(max-width: 768px) 100vw, 50vw"

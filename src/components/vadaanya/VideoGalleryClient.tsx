@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
@@ -46,6 +46,16 @@ export default function VideoGalleryClient({ videos }: { videos: VideoData[] }) 
   const [activeId, setActiveId] = useState<string | null>(null);
   const swiperRef = useRef<SwiperType | null>(null);
 
+  // Fix initial hydration / SSR container measurement issue on desktop
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (swiperRef.current && !swiperRef.current.destroyed) {
+        swiperRef.current.update();
+      }
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
   const thumbUrl = (videoId: string) =>
     `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
 
@@ -56,20 +66,28 @@ export default function VideoGalleryClient({ videos }: { videos: VideoData[] }) 
   return (
     <>
       {/* Video Carousel */}
-      <div className="vad-video__carousel-wrapper">
+      <div className="vad-video__carousel-wrapper" style={{ width: "100%" }}>
         <Swiper
           modules={[Navigation, Pagination]}
           spaceBetween={30}
           slidesPerView={1}
-          loop={true}
+          loop={videos.length > 3}
+          observer={true}
+          observeParents={true}
+          resizeObserver={true}
+          updateOnWindowResize={true}
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
+            if (swiper && !swiper.destroyed) {
+              swiper.update();
+            }
           }}
           breakpoints={{
             640: { slidesPerView: 2, spaceBetween: 20 },
             1024: { slidesPerView: 3, spaceBetween: 30 },
           }}
           className="vad-video__swiper"
+          style={{ width: "100%" }}
         >
           {videos.map((video) => (
             <SwiperSlide key={video.id}>
