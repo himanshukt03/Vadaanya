@@ -1,17 +1,17 @@
-import HeaderFive from "@/layouts/headers/HeaderFive"
-import PrivacyPolicyArea from "./PrivacyPolicyArea"
-import FooterThree from "@/layouts/footers/FooterThree"
+import Navbar from "@/components/vadaanya/Navbar";
+import PrivacyPolicyArea from "./PrivacyPolicyArea";
+import Footer from "@/components/vadaanya/Footer";
 
 const PrivacyPolicy = () => {
    return (
       <>
-         <HeaderFive />
-         <main className="main-area fix">
+         <Navbar />
+         <main id="top" className="main-area fix" style={{ paddingTop: "100px" }}>
             <PrivacyPolicyArea />
          </main>
-         <FooterThree />
+         <Footer />
       </>
-   )
-}
+   );
+};
 
-export default PrivacyPolicy
+export default PrivacyPolicy;

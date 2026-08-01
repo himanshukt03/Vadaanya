@@ -1,5 +1,5 @@
 const PrivacyPolicyArea = () => {
-  const lastUpdated = "April 4, 2025";
+  const lastUpdated = "August 1, 2025";
 
   return (
     <section style={{ padding: "100px 0 80px", background: "#fff" }}>
@@ -15,54 +15,48 @@ const PrivacyPolicyArea = () => {
             <div style={{ fontSize: "16px", lineHeight: 1.8, color: "#444" }}>
 
               <h2 style={{ fontSize: "22px", fontWeight: 700, color: "#1A1A1A", marginTop: "40px", marginBottom: "12px" }}>1. Who We Are</h2>
-              <p>100exNextGen ("we", "us", or "our") is a venture-building and investment platform headquartered in Bangalore, India. We operate the website at <strong>100exnextgen.com</strong>. For questions about this policy, please contact us at <a href="mailto:ram@100exnextgen.com" style={{ color: "var(--tg-theme-primary)" }}>ram@100exnextgen.com</a> or call <a href="tel:+919845845616" style={{ color: "var(--tg-theme-primary)" }}>+91 98458 45616</a>.</p>
+              <p>Vadaanya Janaa Society ("we", "us", or "our") is a non-profit organization registered in November 2010 (Reg. No. 498/2010) in Andhra Pradesh & Telangana, India. We operate the website at <strong>vadaanya.org</strong>. For questions about this policy, please contact us at <a href="mailto:info@vadaanya.org" style={{ color: "var(--tg-theme-primary)" }}>info@vadaanya.org</a>.</p>
 
               <h2 style={{ fontSize: "22px", fontWeight: 700, color: "#1A1A1A", marginTop: "40px", marginBottom: "12px" }}>2. Information We Collect</h2>
               <p>We may collect the following categories of information:</p>
               <ul style={{ paddingLeft: "24px", marginBottom: "16px" }}>
-                <li style={{ marginBottom: "8px" }}><strong>Contact information</strong> – name, email address, phone number, and company name when you submit our contact or application forms.</li>
+                <li style={{ marginBottom: "8px" }}><strong>Contact & Application information</strong> – name, email address, phone number, school details, and scholarship application details when you submit forms on our website.</li>
                 <li style={{ marginBottom: "8px" }}><strong>Usage data</strong> – pages visited, time spent, referring URL, browser type, and device type, collected automatically via cookies and analytics tools.</li>
-                <li style={{ marginBottom: "8px" }}><strong>Communications</strong> – any messages or documents you share with us directly.</li>
+                <li style={{ marginBottom: "8px" }}><strong>Communications</strong> – any messages or documents you share with us directly regarding donations, volunteering, or scholarships.</li>
               </ul>
 
               <h2 style={{ fontSize: "22px", fontWeight: 700, color: "#1A1A1A", marginTop: "40px", marginBottom: "12px" }}>3. How We Use Your Information</h2>
               <p>We use the information we collect to:</p>
               <ul style={{ paddingLeft: "24px", marginBottom: "16px" }}>
-                <li style={{ marginBottom: "8px" }}>Respond to enquiries and evaluate partnership or investment opportunities.</li>
-                <li style={{ marginBottom: "8px" }}>Improve our website, content, and services.</li>
-                <li style={{ marginBottom: "8px" }}>Send updates or newsletters (only with your explicit consent).</li>
-                <li style={{ marginBottom: "8px" }}>Comply with applicable legal obligations.</li>
+                <li style={{ marginBottom: "8px" }}>Process scholarship applications, talent test hall tickets, and exam results.</li>
+                <li style={{ marginBottom: "8px" }}>Respond to enquiries, volunteer applications, and donation requests.</li>
+                <li style={{ marginBottom: "8px" }}>Improve our website, content, and education programs.</li>
+                <li style={{ marginBottom: "8px" }}>Comply with legal obligations under 80G/12A tax exemption requirements.</li>
               </ul>
               <p>We do <strong>not</strong> sell your personal data to third parties.</p>
 
               <h2 style={{ fontSize: "22px", fontWeight: 700, color: "#1A1A1A", marginTop: "40px", marginBottom: "12px" }}>4. Cookies</h2>
-              <p>We use essential cookies to ensure the website functions correctly and analytical cookies (such as Google Analytics) to understand how visitors interact with our site. You can disable cookies in your browser settings; however, some features may not work as expected.</p>
+              <p>We use essential cookies to ensure the website functions correctly and analytical tools to understand how visitors interact with our site. You can disable cookies in your browser settings; however, some features may not work as expected.</p>
 
               <h2 style={{ fontSize: "22px", fontWeight: 700, color: "#1A1A1A", marginTop: "40px", marginBottom: "12px" }}>5. Data Sharing</h2>
-              <p>We may share your data with trusted third-party service providers (e.g., email platforms, analytics providers) solely for the purpose of operating our business. These providers are contractually obligated to keep your data secure and confidential. We may also disclose data when required by law or court order.</p>
+              <p>We may share your data with trusted third-party service providers solely for operating our organization and delivering student services. These providers are contractually obligated to keep your data secure and confidential. We may also disclose data when required by law or court order.</p>
 
               <h2 style={{ fontSize: "22px", fontWeight: 700, color: "#1A1A1A", marginTop: "40px", marginBottom: "12px" }}>6. Data Retention</h2>
-              <p>We retain personal data only as long as necessary to fulfil the purposes for which it was collected, or as required by applicable law. Contact and application data is generally retained for up to 3 years.</p>
+              <p>We retain personal data only as long as necessary to fulfil the purposes for which it was collected, or as required by applicable Indian law and non-profit record-keeping requirements.</p>
 
               <h2 style={{ fontSize: "22px", fontWeight: 700, color: "#1A1A1A", marginTop: "40px", marginBottom: "12px" }}>7. Your Rights</h2>
-              <p>Depending on your jurisdiction, you may have the right to access, correct, or delete any personal data we hold about you. To exercise any of these rights, email us at <a href="mailto:ram@100exnextgen.com" style={{ color: "var(--tg-theme-primary)" }}>ram@100exnextgen.com</a>.</p>
+              <p>You have the right to access, correct, or delete any personal data we hold about you. To exercise any of these rights, email us at <a href="mailto:info@vadaanya.org" style={{ color: "var(--tg-theme-primary)" }}>info@vadaanya.org</a>.</p>
 
               <h2 style={{ fontSize: "22px", fontWeight: 700, color: "#1A1A1A", marginTop: "40px", marginBottom: "12px" }}>8. Security</h2>
-              <p>We implement industry-standard technical and organisational measures to protect your data. However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.</p>
+              <p>We implement industry-standard technical and organizational measures to protect your data. However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.</p>
 
-              <h2 style={{ fontSize: "22px", fontWeight: 700, color: "#1A1A1A", marginTop: "40px", marginBottom: "12px" }}>9. Third-Party Links</h2>
-              <p>Our website may contain links to third-party sites. We are not responsible for the privacy practices of those sites and encourage you to read their privacy policies.</p>
-
-              <h2 style={{ fontSize: "22px", fontWeight: 700, color: "#1A1A1A", marginTop: "40px", marginBottom: "12px" }}>10. Changes to This Policy</h2>
-              <p>We may update this Privacy Policy from time to time. The revised version will be posted on this page with an updated date. Continued use of the site constitutes acceptance of the revised policy.</p>
-
-              <h2 style={{ fontSize: "22px", fontWeight: 700, color: "#1A1A1A", marginTop: "40px", marginBottom: "12px" }}>11. Contact Us</h2>
+              <h2 style={{ fontSize: "22px", fontWeight: 700, color: "#1A1A1A", marginTop: "40px", marginBottom: "12px" }}>9. Contact Us</h2>
               <p>If you have any questions or concerns about this Privacy Policy, please contact:</p>
               <address style={{ fontStyle: "normal", background: "#f8f8f8", borderRadius: "10px", padding: "20px 24px", marginTop: "12px" }}>
-                <strong>100exNextGen</strong><br />
-                Bangalore, India<br />
-                Email: <a href="mailto:ram@100exnextgen.com" style={{ color: "var(--tg-theme-primary)" }}>ram@100exnextgen.com</a><br />
-                Phone: <a href="tel:+919845845616" style={{ color: "var(--tg-theme-primary)" }}>+91 98458 45616</a>
+                <strong>Vadaanya Janaa Society</strong><br />
+                Flat No. 528, Road No. 15, Vasantha Nagar, KPHB Colony,<br />
+                Hyderabad – 500072, Telangana, India<br />
+                Email: <a href="mailto:info@vadaanya.org" style={{ color: "var(--tg-theme-primary)" }}>info@vadaanya.org</a>
               </address>
 
             </div>

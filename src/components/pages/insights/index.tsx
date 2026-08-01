@@ -1,17 +1,17 @@
-import HeaderFive from "@/layouts/headers/HeaderFive";
+import Navbar from "@/components/vadaanya/Navbar";
 import InsightsArea from "./InsightsArea";
-import FooterThree from "@/layouts/footers/FooterThree";
+import Footer from "@/components/vadaanya/Footer";
 
 const Insights = () => {
    return (
       <>
-         <HeaderFive />
-         <main className="main-area fix">
+         <Navbar />
+         <main id="top" className="main-area fix" style={{ paddingTop: "100px" }}>
             <InsightsArea />
          </main>
-         <FooterThree />
+         <Footer />
       </>
-   )
-}
+   );
+};
 
 export default Insights;

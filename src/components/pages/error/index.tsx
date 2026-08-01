@@ -1,17 +1,17 @@
-import HeaderFive from "@/layouts/headers/HeaderFive"
-import ErrorArea from "./ErrorArea"
-import FooterThree from "@/layouts/footers/FooterThree"
+import Navbar from "@/components/vadaanya/Navbar";
+import ErrorArea from "./ErrorArea";
+import Footer from "@/components/vadaanya/Footer";
 
 const NotFound = () => {
    return (
       <>
-         <HeaderFive />
-         <main className="main-area fix">
+         <Navbar />
+         <main id="top" className="main-area fix" style={{ paddingTop: "100px" }}>
             <ErrorArea />
          </main>
-         <FooterThree />
+         <Footer />
       </>
-   )
-}
+   );
+};
 
-export default NotFound
+export default NotFound;

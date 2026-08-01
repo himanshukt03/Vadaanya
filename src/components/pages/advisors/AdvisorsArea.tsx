@@ -73,7 +73,7 @@ const AdvisorsArea = () => {
                                 fontSize: "18px", color: "#555",
                                 lineHeight: 1.75, marginBottom: "36px", maxWidth: "520px",
                             }}>
-                                The best advisors don&apos;t just counsel from the sidelines — they leave a fingerprint on history. At 100exNextGen, we invite seasoned leaders, domain experts, and industry pioneers to co-create the playbook for the next generation of exponential ventures.
+                                The best advisors don&apos;t just counsel from the sidelines — they leave a fingerprint on history. At Vadaanya Janaa Society, we invite seasoned leaders, domain experts, and industry pioneers to co-create the playbook for the next generation of students.
                             </p>
                             <Link href="/#contact" className="tg-btn tg-btn-seven">
                                 Join Our Advisory Board <Arrow />

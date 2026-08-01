@@ -1,17 +1,17 @@
-import HeaderFive from "@/layouts/headers/HeaderFive"
-import TermsOfServiceArea from "./TermsOfServiceArea"
-import FooterThree from "@/layouts/footers/FooterThree"
+import Navbar from "@/components/vadaanya/Navbar";
+import TermsOfServiceArea from "./TermsOfServiceArea";
+import Footer from "@/components/vadaanya/Footer";
 
 const TermsOfService = () => {
    return (
       <>
-         <HeaderFive />
-         <main className="main-area fix">
+         <Navbar />
+         <main id="top" className="main-area fix" style={{ paddingTop: "100px" }}>
             <TermsOfServiceArea />
          </main>
-         <FooterThree />
+         <Footer />
       </>
-   )
-}
+   );
+};
 
-export default TermsOfService
+export default TermsOfService;
