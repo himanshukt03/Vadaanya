@@ -1228,40 +1228,38 @@ body {
   letter-spacing: 0.08em;
 }
 
-.vad-story-profile__link {
-  font-size: 12.5px;
-  font-weight: 700;
-  color: var(--vad-gold);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  transition: color 0.2s, transform 0.2s;
+.vad-story-card__desc {
+  color: #cbd5e1;
+  font-size: 13.5px;
+  line-height: 1.6;
+  margin: 0;
 
-  &:hover {
-    color: #fff;
-    transform: translateX(4px);
+  @media (max-width: 640px) {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }
 
-// Carousel navigation
+// Carousel navigation for Stories
 .vad-stories__nav {
   position: absolute;
   top: 50%;
-  left: 0;
-  right: 0;
+  left: -22px;
+  right: -22px;
   transform: translateY(-50%);
   display: flex;
   justify-content: space-between;
   pointer-events: none;
   z-index: 10;
-  margin-top: -20px;
 
   @media (max-width: 768px) {
     position: static;
     transform: none;
     justify-content: center;
     gap: 16px;
-    margin-top: 16px;
+    margin-top: 20px;
   }
 }
 
@@ -1298,9 +1296,7 @@ body {
 .vad-video__carousel-wrapper {
   position: relative;
   margin-top: 56px;
-  padding: 0 60px; // space for arrows
-
-  @media (max-width: 768px) { padding: 0; }
+  padding: 0; // flush with container & YouTube banner
 }
 
 .vad-video__swiper {
@@ -1314,7 +1310,7 @@ body {
 
 .vad-video__nav {
   position: absolute;
-  top: -60px;
+  top: -56px;
   right: 0;
   display: flex;
   gap: 12px;
@@ -1322,7 +1318,7 @@ body {
   pointer-events: auto;
 
   @media (max-width: 768px) {
-    top: -50px;
+    top: -48px;
     gap: 8px;
   }
 }
@@ -1448,7 +1444,19 @@ body {
     letter-spacing: 0.05em;
   }
 
-  p { font-size: 13.5px; color: var(--vad-on-navy-muted); margin: 0; line-height: 1.55; }
+  p {
+    font-size: 13.5px;
+    color: var(--vad-on-navy-muted);
+    margin: 0;
+    line-height: 1.55;
+
+    @media (max-width: 640px) {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
 }
 
 // Video lightbox modal
@@ -1726,13 +1734,13 @@ body {
 
 .vad-footer__top {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr;
+  grid-template-columns: 1.3fr 0.9fr 1.3fr;
   gap: 48px;
   padding-bottom: 44px;
   border-bottom: 1px solid rgba(255,255,255,0.07);
 
   @media (max-width: 900px) { grid-template-columns: 1fr 1fr; }
-  @media (max-width: 560px) { grid-template-columns: 1fr; gap: 34px; }
+  @media (max-width: 600px) { grid-template-columns: 1fr; gap: 34px; }
 }
 
 .vad-footer__brand-word {
@@ -2484,3 +2492,108 @@ body {
   .vad-hero__dot,
   .vad-hero__progress-fill { transition: none; }
 }
+
+/* Story Modal Styles */
+.vad-story-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 7, 24, 0.88);
+  backdrop-filter: blur(10px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+
+  &__content {
+    background: #080d28;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 24px;
+    max-width: 800px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+    color: #ffffff;
+    padding: 32px;
+
+    @media (max-width: 640px) {
+      padding: 24px 18px;
+      border-radius: 20px;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  &__grid {
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+
+    @media (max-width: 640px) {
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+
+  &__left {
+    flex: 1 1 240px;
+    max-width: 280px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    @media (max-width: 640px) {
+      max-width: 100%;
+    }
+  }
+
+  &__right {
+    flex: 2 1 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+
+  blockquote {
+    font-style: italic !important;
+    font-size: 14px !important;
+    color: #f1f5f9 !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: none !important;
+    border-left: 3px solid var(--vad-gold) !important;
+    padding: 12px 16px !important;
+    margin: 0 !important;
+    line-height: 1.6 !important;
+    border-radius: 0 8px 8px 0 !important;
+
+    &::before, &::after {
+      display: none !important;
+      content: none !important;
+    }
+  }
+}
+
