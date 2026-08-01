@@ -1,6 +1,8 @@
 import Providers from "@/layouts/Providers";
 import "../styles/index.scss";
 import { Poppins, Inter } from 'next/font/google';
+import type { Metadata } from "next";
+import JsonLd, { getOrganizationJsonLd } from "@/components/common/JsonLd";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -16,12 +18,62 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
-export const metadata = {
-  title: "Vadaanya Janaa Society — From Dreams to Degrees",
+export const metadata: Metadata = {
+  metadataBase: new URL("https://vadaanya.org"),
+  title: {
+    default: "Vadaanya Janaa Society — From Dreams to Degrees",
+    template: "%s | Vadaanya Janaa Society",
+  },
   description:
-    "Vadaanya Janaa Society turns a government-school child's hope into a degree — through talent tests, scholarships, laptops and mentorship across Andhra Pradesh & Telangana since 2010.",
-  keywords:
-    "Vadaanya Janaa Society, education NGO, scholarship Andhra Pradesh, Telangana education, Vadaanya Talent Test, government school students",
+    "Vadaanya Janaa Society turns a government-school child's hope into a degree — through talent tests, scholarships, financial assistance and mentorship across Andhra Pradesh & Telangana since 2010.",
+  keywords: [
+    "Vadaanya Janaa Society",
+    "education NGO",
+    "scholarship Andhra Pradesh",
+    "Telangana education",
+    "Vadaanya Talent Test",
+    "government school students",
+    "non-profit India",
+    "education charity",
+    "laptop donation NGO",
+    "Srinivasa Ramanujan Talent Test",
+    "Ashok Padapati",
+  ],
+  authors: [{ name: "Vadaanya Janaa Society", url: "https://vadaanya.org" }],
+  creator: "Vadaanya Janaa Society",
+  publisher: "Vadaanya Janaa Society",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: "https://vadaanya.org",
+    siteName: "Vadaanya Janaa Society",
+    title: "Vadaanya Janaa Society — From Dreams to Degrees",
+    description:
+      "Empowering government-school children through talent tests, scholarships, financial assistance & mentorship across AP & Telangana since 2010.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@VadaanyaJanaa",
+    creator: "@VadaanyaJanaa",
+    title: "Vadaanya Janaa Society — From Dreams to Degrees",
+    description:
+      "Empowering government-school children through talent tests, scholarships, financial assistance & mentorship across AP & Telangana since 2010.",
+  },
+  alternates: {
+    canonical: "https://vadaanya.org",
+  },
+  category: "education",
 };
 
 export default function RootLayout({
@@ -32,16 +84,15 @@ export default function RootLayout({
   const isDev = process.env.NODE_ENV === 'development';
 
   return (
-    <html lang="en" suppressHydrationWarning={isDev}>
+    <html lang="en" suppressHydrationWarning={isDev} data-scroll-behavior="smooth">
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <link rel="icon" type="image/png" href="/logos/favicon-96x96.png" sizes="96x96" />
         <link rel="icon" type="image/svg+xml" href="/logos/favicon.svg" />
         <link rel="shortcut icon" href="/logos/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/logos/apple-touch-icon.png" />
         <meta name="apple-mobile-web-app-title" content="Vadaanya Janaa Society" />
         <link rel="manifest" href="/site.webmanifest" />
+        <JsonLd data={getOrganizationJsonLd()} />
       </head>
       <body className={`${poppins.variable} ${inter.variable}`} suppressHydrationWarning={true}>
         <Providers>
@@ -50,4 +101,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+}

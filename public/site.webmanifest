@@ -1,6 +1,11 @@
 {
-  "name": "MyWebSite",
-  "short_name": "MySite",
+  "name": "Vadaanya Janaa Society",
+  "short_name": "Vadaanya",
+  "description": "From Dreams to Degrees — empowering government-school children through talent tests, scholarships, financial assistance & mentorship across AP & Telangana since 2010.",
+  "start_url": "/",
+  "display": "standalone",
+  "lang": "en",
+  "categories": ["education", "nonprofit"],
   "icons": [
     {
       "src": "/logos/web-app-manifest-192x192.png",
@@ -15,7 +20,6 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#000000",
-  "background_color": "#000000",
-  "display": "standalone"
+  "theme_color": "#0f1d2e",
+  "background_color": "#0a1628"
 }
