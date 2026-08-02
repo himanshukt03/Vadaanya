@@ -464,14 +464,26 @@ body {
   z-index: 190;
   background: var(--vad-navy-950);
   transform: translateY(-100%);
-  transition: transform 0.45s var(--vad-ease);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 0.45s var(--vad-ease), opacity 0.3s, visibility 0.3s;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 80px 32px 40px;
   gap: 0;
 
-  &.is-open { transform: none; }
+  @media (min-width: 993px) {
+    display: none !important;
+  }
+
+  &.is-open {
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
 
   a {
     font-family: var(--vad-font-display);

@@ -16,7 +16,7 @@ const menuItems: MenuItem[] = [
   { label: "About us", href: "/about" },
   { label: "What we do", href: "/#whatwedo" },
   { label: "Impact stories", href: "/#stories" },
-  { label: "Talent Test", href: "/#talent" },
+  { label: "Talent Test", href: "/talent-test" },
   { label: "Gallery", href: "/gallery" },
   { label: "Founder", href: "/founders" },
   { label: "Contact us", href: "/contact" },
