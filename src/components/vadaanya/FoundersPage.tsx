@@ -9,23 +9,23 @@ export default function FoundersPage() {
       <section className="vad-page-hero vad-section--deep">
         <div className="vad-container vad-page-hero__inner">
           <span className="vad-eyebrow">Our People</span>
-          <h1 className="vad-page-hero__title" style={{ fontSize: "clamp(28px, 4.5vw, 52px)" }}>
+          <h1 className="vad-page-hero__title">
             Team <span className="vad-page-hero__accent">Vadaanya</span>
           </h1>
-          <p className="vad-page-hero__lead" style={{ marginTop: "12px", fontSize: "16px", maxWidth: "660px" }}>
+          <p className="vad-page-hero__lead">
             A collective movement of dedicated volunteers, mentors, and leadership empowering government school students across Andhra Pradesh and Telangana.
           </p>
         </div>
       </section>
 
       {/* 1. Voluntary Service & Collective Impact */}
-      <section className="vad-section vad-section--paper" style={{ padding: "70px 0" }}>
+      <section className="vad-section vad-section--paper" style={{ padding: "60px 0" }}>
         <div className="vad-container">
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "50px" }}>
+          <div style={{ maxWidth: "1060px", margin: "0 auto", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "40px" }}>
             {/* Left: Text Content */}
             <div style={{ flex: "1 1 480px" }}>
               <span className="vad-eyebrow vad-eyebrow--dark">Voluntary Service &amp; Collective Impact</span>
-              <h2 style={{ fontSize: "clamp(26px, 2.8vw, 38px)", margin: "12px 0 14px", color: "var(--vad-navy-950)", fontWeight: 800, fontFamily: "var(--vad-font-display)", lineHeight: 1.15 }}>
+              <h2 style={{ fontSize: "clamp(22px, 2.4vw, 32px)", margin: "10px 0 12px", color: "var(--vad-navy-950)", fontWeight: 800, fontFamily: "var(--vad-font-display)", lineHeight: 1.15 }}>
                 Driven by Purpose, <span style={{ color: "var(--vad-gold-deep)" }}>Powered by Volunteers</span>
               </h2>
               <div style={{ width: "50px", height: "3px", background: "var(--vad-gold-deep)", margin: "14px 0 20px", borderRadius: "2px" }}></div>
@@ -39,7 +39,7 @@ export default function FoundersPage() {
 
             {/* Right: Team Image */}
             <div style={{ flex: "1 1 380px", position: "relative" }}>
-              <div style={{ position: "relative", width: "100%", aspectRatio: "4/3", borderRadius: "24px", overflow: "hidden", boxShadow: "0 20px 40px rgba(0, 0, 0, 0.12)" }}>
+              <div style={{ position: "relative", width: "100%", aspectRatio: "4/3.2", borderRadius: "24px", overflow: "hidden", boxShadow: "0 20px 40px rgba(0, 0, 0, 0.12)" }}>
                 <Image
                   src="/team_vadaanya.avif"
                   alt="Team Vadaanya Volunteers"
@@ -55,9 +55,9 @@ export default function FoundersPage() {
       </section>
 
       {/* 2. Meet the Founder & Collective Leadership */}
-      <section className="vad-section" style={{ background: "#f8fafc", padding: "70px 0 90px", borderTop: "1px solid rgba(0,0,0,0.05)" }}>
+      <section className="vad-section" style={{ background: "#f8fafc", padding: "60px 0", borderTop: "1px solid rgba(0,0,0,0.05)" }}>
         <div className="vad-container">
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "60px" }}>
+          <div style={{ maxWidth: "1060px", margin: "0 auto", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "50px" }}>
             {/* Left: Compact image with soft shadow and floating card */}
             <div style={{ flex: "1 1 360px", position: "relative" }}>
               <div style={{ position: "relative", borderRadius: "26px", overflow: "hidden", boxShadow: "0 24px 48px rgba(0, 0, 0, 0.12)", aspectRatio: "4/4.6", maxWidth: "390px", margin: "0 auto" }}>
@@ -122,7 +122,7 @@ export default function FoundersPage() {
             </div>
 
             {/* Right: Bio text framed to emphasize team effort */}
-            <div style={{ flex: "1 1 500px", padding: "20px 0" }}>
+            <div style={{ flex: "1 1 480px", padding: "10px 0" }}>
               <h2 style={{ fontSize: "clamp(24px, 2.6vw, 36px)", margin: "0", fontFamily: "var(--vad-font-display)", fontWeight: 800, color: "var(--vad-navy-950)", letterSpacing: "-0.03em", lineHeight: 1.1 }}>
                 Meet the <span style={{ color: "var(--vad-gold)" }}>Founder</span>
               </h2>
@@ -141,7 +141,85 @@ export default function FoundersPage() {
         </div>
       </section>
 
-      {/* 3. Recognition & Honors */}
+      {/* 3. The Idea — 0.5% Can Change a Life */}
+      <section className="vad-section vad-section--paper" style={{ padding: "60px 0" }}>
+        <div className="vad-container">
+          <div style={{ maxWidth: "1060px", margin: "0 auto", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "40px" }}>
+            
+            {/* Left Column: Text Content */}
+            <div style={{ flex: "1 1 480px" }}>
+              <span className="vad-eyebrow vad-eyebrow--dark">The Idea</span>
+              <h2 style={{ fontSize: "clamp(22px, 2.4vw, 32px)", margin: "10px 0 14px", color: "var(--vad-navy-950)", fontWeight: 800, fontFamily: "var(--vad-font-display)", lineHeight: 1.15 }}>
+                THE IDEA, <span style={{ color: "var(--vad-gold-deep)" }}>0.5% Can Change a Life</span>
+              </h2>
+              <div style={{ width: "50px", height: "3px", background: "var(--vad-gold-deep)", margin: "14px 0 20px", borderRadius: "2px" }}></div>
+              <p style={{ fontSize: "16.5px", color: "var(--vad-ink)", lineHeight: 1.8, marginBottom: "16px" }}>
+                Vadaanya started in 2010 with a small group of friends who decided to contribute 0.5% of their monthly salary to support students in need. There was no office or staff, just a group of people who wanted to help students.
+              </p>
+              <p style={{ fontSize: "16.5px", color: "var(--vad-ink)", lineHeight: 1.8, marginBottom: "16px" }}>
+                Fifteen years later, the same 0.5% model remains the foundation of Vadaanya. Engineers, teachers, government officers, and other professionals contribute a small part of their income and volunteer their time.
+              </p>
+              <p style={{ fontSize: "16.5px", color: "var(--vad-ink)", lineHeight: 1.8 }}>
+                Many students once supported by Vadaanya are now giving back and helping others. Together, small contributions have helped Vadaanya support thousands of students.
+              </p>
+            </div>
+
+            {/* Right Column: Image matching text height */}
+            <div style={{ flex: "1 1 380px", position: "relative" }}>
+              <div style={{ position: "relative", width: "100%", maxWidth: "390px", aspectRatio: "4/4.2", borderRadius: "24px", overflow: "hidden", boxShadow: "0 20px 40px rgba(0, 0, 0, 0.12)" }}>
+                <Image
+                  src="/team vadaanya/5.jpg"
+                  alt="0.5% Can Change a Life"
+                  fill
+                  style={{ objectFit: "cover", objectPosition: "center" }}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Taking Rural Talent to the World */}
+      <section className="vad-section" style={{ background: "#f8fafc", padding: "60px 0", borderTop: "1px solid rgba(0,0,0,0.05)" }}>
+        <div className="vad-container">
+          <div style={{ maxWidth: "1060px", margin: "0 auto", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "40px" }}>
+            
+            {/* Left Column: Image matching site design */}
+            <div style={{ flex: "1 1 380px", position: "relative" }}>
+              <div style={{ position: "relative", width: "100%", maxWidth: "390px", aspectRatio: "4/4.2", borderRadius: "24px", overflow: "hidden", boxShadow: "0 20px 40px rgba(0, 0, 0, 0.12)" }}>
+                <Image
+                  src="/team vadaanya/6.jpg"
+                  alt="Taking Rural Talent to the World"
+                  fill
+                  style={{ objectFit: "cover", objectPosition: "center" }}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+            </div>
+
+            {/* Right Column: Text Content matching website design system */}
+            <div style={{ flex: "1 1 480px" }}>
+              <span className="vad-eyebrow vad-eyebrow--dark">Global Mentorship</span>
+              <h2 style={{ fontSize: "clamp(22px, 2.4vw, 32px)", margin: "10px 0 14px", color: "var(--vad-navy-950)", fontWeight: 800, fontFamily: "var(--vad-font-display)", lineHeight: 1.15 }}>
+                Taking Rural Talent <span style={{ color: "var(--vad-gold-deep)" }}>to the World</span>
+              </h2>
+              <div style={{ width: "50px", height: "3px", background: "var(--vad-gold-deep)", margin: "14px 0 20px", borderRadius: "2px" }}></div>
+
+              <p style={{ fontSize: "16.5px", color: "var(--vad-ink)", lineHeight: 1.8, marginBottom: "16px" }}>
+                Ashok also works as a <strong>student mentor</strong> with the International Startup Foundation (ISF), supporting its Junicorn programme for young, first-time founders.
+              </p>
+              <p style={{ fontSize: "16.5px", color: "var(--vad-ink)", lineHeight: 1.8 }}>
+                He mentors students from rural backgrounds, helping them develop their business ideas and prepare pitch decks. In May 2025, he travelled with the batch to the <strong>USA</strong>, where the students presented their ideas at Texas State University.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Recognition & Honors */}
       <section className="vad-section vad-section--deep">
         <div className="vad-container">
           <div className="vad-head" style={{ textAlign: "center", marginBottom: "60px" }}>
