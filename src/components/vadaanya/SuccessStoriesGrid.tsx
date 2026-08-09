@@ -196,6 +196,13 @@ export default function SuccessStoriesGrid() {
             </button>
           </div>
         </div>
+
+        {/* View All Success Stories Page Button */}
+        <div style={{ textAlign: "center", marginTop: "36px" }}>
+          <a href="/success-stories" className="vad-btn vad-btn--gold" style={{ padding: "12px 28px", fontSize: "14.5px" }}>
+            View All Impact Stories →
+          </a>
+        </div>
       </div>
 
       {/* Clean 2-Column Pop-up Modal */}
