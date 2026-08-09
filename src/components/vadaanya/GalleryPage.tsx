@@ -3,6 +3,10 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { galleryEvents, GalleryEvent } from "@/data/vadaanya/GalleryData";
+import { printMediaCollections } from "@/data/vadaanya/PrintMediaData";
+import { newsItems } from "@/data/vadaanya/NewsData";
+import VideoGalleryClient from "./VideoGalleryClient";
+import { videos } from "@/data/vadaanya/VideosData";
 
 const CloseIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -23,9 +27,61 @@ const ChevronRight = () => (
   </svg>
 );
 
+const MediaSkeletonGrid = ({ count = 4, type = "gallery" }: { count?: number; type?: "gallery" | "print" | "news" | "youtube" }) => {
+  return (
+    <div style={{
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fill, minmax(265px, 1fr))",
+      gap: "24px"
+    }}>
+      {Array.from({ length: count }).map((_, idx) => (
+        <div 
+          key={idx}
+          style={{
+            background: "#ffffff",
+            borderRadius: "16px",
+            overflow: "hidden",
+            boxShadow: "0 8px 24px rgba(0,0,0,0.04)",
+            border: "1px solid rgba(0,0,0,0.06)",
+            display: "flex",
+            flexDirection: "column"
+          }}
+        >
+          {type !== "news" ? (
+            <div className="vad-skeleton-shimmer" style={{ width: "100%", height: type === "print" ? "200px" : "170px" }} />
+          ) : null}
+          <div style={{ padding: "20px 22px", flex: 1, display: "flex", flexDirection: "column", gap: "10px" }}>
+            {type === "news" && (
+              <div className="vad-skeleton-shimmer" style={{ width: "110px", height: "18px", borderRadius: "12px", marginBottom: "4px" }} />
+            )}
+            <div className="vad-skeleton-shimmer" style={{ width: "85%", height: "20px", borderRadius: "6px" }} />
+            <div className="vad-skeleton-shimmer" style={{ width: "100%", height: "14px", borderRadius: "4px" }} />
+            <div className="vad-skeleton-shimmer" style={{ width: "65%", height: "14px", borderRadius: "4px" }} />
+            {type === "news" && (
+              <div className="vad-skeleton-shimmer" style={{ width: "90px", height: "16px", borderRadius: "4px", marginTop: "12px" }} />
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 export default function GalleryPage() {
+  const [activeTab, setActiveTab] = useState<"gallery" | "print" | "news" | "youtube">("gallery");
   const [activeEvent, setActiveEvent] = useState<GalleryEvent | null>(null);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  // Tab change handler with skeleton loader transition
+  const handleTabChange = (tab: "gallery" | "print" | "news" | "youtube") => {
+    if (tab === activeTab) return;
+    setIsLoading(true);
+    setActiveTab(tab);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 380);
+  };
 
   // Prevent background scrolling when a modal or lightbox is open
   useEffect(() => {
@@ -65,82 +121,355 @@ export default function GalleryPage() {
   return (
     <>
       {/* 1. Page Hero Section */}
-      <section className="vad-page-hero vad-section--deep" style={{ paddingBottom: "clamp(48px, 6vw, 72px)" }}>
+      <section className="vad-page-hero vad-section--deep">
         <div className="vad-container vad-page-hero__inner">
-          <span className="vad-eyebrow" style={{ color: "var(--vad-gold)" }}>Our Gallery</span>
-          <h1 className="vad-page-hero__title" style={{ fontSize: "clamp(32px, 5vw, 56px)" }}>
-            Moments of <span className="vad-page-hero__accent">Impact</span>
+          <span className="vad-eyebrow" style={{ color: "var(--vad-gold)" }}>Our Media</span>
+          <h1 className="vad-page-hero__title">
+            Vadaanya <span className="vad-page-hero__accent">Media</span>
           </h1>
-          <p className="vad-page-hero__lead" style={{ marginTop: "16px", fontSize: "18px", maxWidth: "600px", margin: "16px auto 0" }}>
-            Explore the events, drives, and milestones that have shaped our journey over the years.
+          <p className="vad-page-hero__lead" style={{ marginTop: "12px", fontSize: "16.5px", maxWidth: "620px", margin: "12px auto 0", color: "#ffffff" }}>
+            Explore our photo galleries, newspaper print media, news updates, and YouTube video highlights.
           </p>
         </div>
       </section>
 
-      {/* 2. Events Grid */}
-      <section className="vad-section vad-section--paper" style={{ padding: "80px 0" }}>
+      {/* 2. Media Content Section with 4 Toggle Bars */}
+      <section className="vad-section vad-section--paper" style={{ padding: "50px 0 80px" }}>
         <div className="vad-container">
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
-            gap: "40px"
-          }}>
-            {galleryEvents.map((event) => (
-              <div 
-                key={event.id}
-                onClick={() => setActiveEvent(event)}
+          
+          {/* Pill Tabs Container (Desktop & Mobile) */}
+          <div className="vad-media-tabs-desktop">
+            <div style={{
+              display: "inline-flex",
+              alignItems: "center",
+              padding: "5px",
+              background: "#ffffff",
+              borderRadius: "9999px",
+              boxShadow: "0 10px 30px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0,0,0,0.04)",
+              border: "1px solid rgba(0, 0, 0, 0.08)",
+              gap: "4px"
+            }}>
+              <button
+                type="button"
+                onClick={() => handleTabChange("gallery")}
                 style={{
-                  background: "#fff",
-                  borderRadius: "20px",
-                  overflow: "hidden",
-                  boxShadow: "0 10px 30px rgba(0,0,0,0.06)",
+                  padding: "10px 24px",
+                  borderRadius: "9999px",
+                  fontSize: "14.5px",
+                  fontWeight: 700,
+                  border: "none",
                   cursor: "pointer",
-                  border: "1px solid rgba(0,0,0,0.04)",
-                  transition: "transform 0.3s ease, box-shadow 0.3s ease"
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-5px)";
-                  e.currentTarget.style.boxShadow = "0 15px 40px rgba(0,0,0,0.1)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.06)";
+                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                  background: activeTab === "gallery" ? "linear-gradient(135deg, var(--vad-navy-950), var(--vad-navy-800))" : "transparent",
+                  color: activeTab === "gallery" ? "#ffffff" : "#475569",
+                  boxShadow: activeTab === "gallery" ? "0 4px 14px rgba(7, 14, 39, 0.25)" : "none",
                 }}
               >
-                <div style={{ position: "relative", width: "100%", height: "240px" }}>
-                  <Image
-                    src={event.coverImage}
-                    alt={event.title}
-                    fill
-                    style={{ objectFit: "cover" }}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                  <div style={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    padding: "20px",
-                    background: "linear-gradient(transparent, rgba(10, 16, 48, 0.9))",
-                    color: "white"
-                  }}>
-                    <span style={{ fontSize: "13px", fontWeight: 700, color: "var(--vad-gold)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-                      {event.date}
-                    </span>
-                  </div>
-                </div>
-                <div style={{ padding: "24px" }}>
-                  <h3 style={{ margin: 0, fontSize: "18px", color: "var(--vad-navy-950)", fontWeight: 700, lineHeight: 1.4 }}>
-                    {event.title}
-                  </h3>
-                  <p style={{ margin: "12px 0 0", fontSize: "14px", color: "var(--vad-ink-soft)", display: "flex", alignItems: "center", gap: "6px" }}>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                    {event.images.length} Photos
-                  </p>
-                </div>
-              </div>
-            ))}
+                Gallery
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleTabChange("print")}
+                style={{
+                  padding: "10px 24px",
+                  borderRadius: "9999px",
+                  fontSize: "14.5px",
+                  fontWeight: 700,
+                  border: "none",
+                  cursor: "pointer",
+                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                  background: activeTab === "print" ? "linear-gradient(135deg, var(--vad-navy-950), var(--vad-navy-800))" : "transparent",
+                  color: activeTab === "print" ? "#ffffff" : "#475569",
+                  boxShadow: activeTab === "print" ? "0 4px 14px rgba(7, 14, 39, 0.25)" : "none",
+                }}
+              >
+                Print Media
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleTabChange("news")}
+                style={{
+                  padding: "10px 24px",
+                  borderRadius: "9999px",
+                  fontSize: "14.5px",
+                  fontWeight: 700,
+                  border: "none",
+                  cursor: "pointer",
+                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                  background: activeTab === "news" ? "linear-gradient(135deg, var(--vad-navy-950), var(--vad-navy-800))" : "transparent",
+                  color: activeTab === "news" ? "#ffffff" : "#475569",
+                  boxShadow: activeTab === "news" ? "0 4px 14px rgba(7, 14, 39, 0.25)" : "none",
+                }}
+              >
+                News
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleTabChange("youtube")}
+                style={{
+                  padding: "10px 24px",
+                  borderRadius: "9999px",
+                  fontSize: "14.5px",
+                  fontWeight: 700,
+                  border: "none",
+                  cursor: "pointer",
+                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                  background: activeTab === "youtube" ? "linear-gradient(135deg, var(--vad-navy-950), var(--vad-navy-800))" : "transparent",
+                  color: activeTab === "youtube" ? "#ffffff" : "#475569",
+                  boxShadow: activeTab === "youtube" ? "0 4px 14px rgba(7, 14, 39, 0.25)" : "none",
+                }}
+              >
+                Youtube
+              </button>
+            </div>
           </div>
+
+          {/* Mobile Dropdown Selector (replaces toggle buttons on mobile) */}
+          <div className="vad-media-tabs-mobile">
+            <div className="vad-media-select-wrap">
+              <label htmlFor="vad-media-category-select" className="sr-only" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden" }}>
+                Select Media Category
+              </label>
+              <select
+                id="vad-media-category-select"
+                value={activeTab}
+                onChange={(e) => handleTabChange(e.target.value as "gallery" | "print" | "news" | "youtube")}
+                className="vad-media-select"
+              >
+                <option value="gallery">Gallery</option>
+                <option value="print">Print Media</option>
+                <option value="news">News</option>
+                <option value="youtube">Youtube</option>
+              </select>
+              <div className="vad-media-select-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          {/* SKELETON LOADER STATE */}
+          {isLoading ? (
+            <MediaSkeletonGrid count={activeTab === "print" ? 2 : activeTab === "youtube" ? 8 : 4} type={activeTab} />
+          ) : (
+            <>
+              {/* TAB 1: GALLERY */}
+              {activeTab === "gallery" && (
+                <div className="vad-media-grid">
+                  {galleryEvents.map((event) => (
+                    <div 
+                      key={event.id}
+                      onClick={() => setActiveEvent(event)}
+                      style={{
+                        background: "#fff",
+                        borderRadius: "16px",
+                        overflow: "hidden",
+                        boxShadow: "0 8px 24px rgba(0,0,0,0.06)",
+                        cursor: "pointer",
+                        border: "1px solid rgba(0,0,0,0.04)",
+                        transition: "transform 0.3s ease, box-shadow 0.3s ease"
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = "translateY(-4px)";
+                        e.currentTarget.style.boxShadow = "0 12px 30px rgba(0,0,0,0.1)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = "translateY(0)";
+                        e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.06)";
+                      }}
+                    >
+                      <div className="vad-media-card-img-wrap" style={{ position: "relative", width: "100%", height: "170px" }}>
+                        <Image
+                          src={event.coverImage}
+                          alt={event.title}
+                          fill
+                          style={{ objectFit: "cover" }}
+                          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw"
+                        />
+                        <div style={{
+                          position: "absolute",
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          padding: "10px 12px",
+                          background: "linear-gradient(transparent, rgba(10, 16, 48, 0.9))",
+                          color: "white"
+                        }}>
+                          <span style={{ fontSize: "12px", color: "var(--vad-gold)", fontWeight: 700 }}>{event.date}</span>
+                        </div>
+                      </div>
+
+                      <div className="vad-media-card-body" style={{ padding: "18px 20px" }}>
+                        <h3 className="vad-media-card-title" style={{ margin: 0, fontSize: "16.5px", color: "var(--vad-navy-950)", fontWeight: 800, lineHeight: 1.35 }}>
+                          {event.title}
+                        </h3>
+                        <p className="vad-media-card-sub" style={{ margin: "10px 0 0", fontSize: "13.5px", color: "var(--vad-ink-soft)", display: "flex", alignItems: "center", gap: "6px" }}>
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                          {event.images.length} Photos (Click to View)
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* TAB 2: PRINT MEDIA */}
+              {activeTab === "print" && (
+                <div className="vad-media-grid-print">
+                  {printMediaCollections.map((collection) => (
+                    <div
+                      key={collection.id}
+                      onClick={() => setActiveEvent(collection as unknown as GalleryEvent)}
+                      style={{
+                        background: "#fff",
+                        borderRadius: "16px",
+                        overflow: "hidden",
+                        boxShadow: "0 10px 30px rgba(0,0,0,0.06)",
+                        cursor: "pointer",
+                        border: "1px solid rgba(0,0,0,0.04)",
+                        transition: "transform 0.3s ease, box-shadow 0.3s ease"
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = "translateY(-4px)";
+                        e.currentTarget.style.boxShadow = "0 15px 40px rgba(0,0,0,0.12)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = "translateY(0)";
+                        e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.06)";
+                      }}
+                    >
+                      <div className="vad-media-card-img-wrap" style={{ position: "relative", width: "100%", height: "200px" }}>
+                        <Image
+                          src={collection.coverImage}
+                          alt={collection.title}
+                          fill
+                          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
+                          style={{ objectFit: "cover" }}
+                          priority
+                        />
+                        <div style={{
+                          position: "absolute",
+                          top: "12px",
+                          left: "12px",
+                          background: "var(--vad-navy-950)",
+                          color: "var(--vad-gold)",
+                          padding: "3px 10px",
+                          borderRadius: "20px",
+                          fontSize: "11px",
+                          fontWeight: 700,
+                          textTransform: "uppercase",
+                          letterSpacing: "0.04em"
+                        }}>
+                          {collection.language}
+                        </div>
+                      </div>
+                      <div className="vad-media-card-body" style={{ padding: "20px 22px" }}>
+                        <h3 className="vad-media-card-title" style={{ margin: 0, fontSize: "17px", color: "var(--vad-navy-950)", fontWeight: 800, lineHeight: 1.35 }}>
+                          {collection.title}
+                        </h3>
+                        <p className="vad-media-card-sub" style={{ margin: "10px 0 0", fontSize: "13.5px", color: "var(--vad-ink-soft)", display: "flex", alignItems: "center", gap: "6px" }}>
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                          {collection.images.length} Clippings (Click to View Gallery)
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* TAB 3: NEWS */}
+              {activeTab === "news" && (
+                <div className="vad-media-grid">
+                  {newsItems.map((item) => (
+                    <div
+                      key={item.id}
+                      style={{
+                        background: "#ffffff",
+                        borderRadius: "16px",
+                        overflow: "hidden",
+                        boxShadow: "0 8px 24px rgba(0,0,0,0.06)",
+                        border: "1px solid rgba(0,0,0,0.06)",
+                        padding: "22px 24px",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "space-between",
+                        transition: "transform 0.3s ease, box-shadow 0.3s ease"
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = "translateY(-4px)";
+                        e.currentTarget.style.boxShadow = "0 12px 30px rgba(0,0,0,0.1)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = "translateY(0)";
+                        e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.06)";
+                      }}
+                    >
+                      <div>
+                        {item.publisher && (
+                          <div style={{ marginBottom: "10px" }}>
+                            <span style={{
+                              background: "rgba(30, 48, 128, 0.08)",
+                              color: "var(--vad-navy-800)",
+                              padding: "3px 10px",
+                              borderRadius: "20px",
+                              fontSize: "11px",
+                              fontWeight: 700,
+                              textTransform: "uppercase",
+                              letterSpacing: "0.03em"
+                            }}>
+                              {item.publisher}
+                            </span>
+                          </div>
+                        )}
+                        <h3 className="vad-media-card-title" style={{ margin: "0 0 10px", fontSize: "15.5px", fontWeight: 800, color: "var(--vad-navy-950)", lineHeight: 1.35 }}>
+                          {item.title}
+                        </h3>
+                        <p style={{ margin: "0 0 18px", fontSize: "13.5px", color: "var(--vad-ink-soft)", lineHeight: 1.5, flex: 1 }}>
+                          {item.description}
+                        </p>
+                      </div>
+
+                      {item.link && (
+                        <a
+                          href={item.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: "6px",
+                            fontSize: "13px",
+                            fontWeight: 700,
+                            color: "var(--vad-gold-deep)",
+                            textDecoration: "none",
+                            marginTop: "8px"
+                          }}
+                        >
+                          {item.linkLabel || "Read Article"}
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                          </svg>
+                        </a>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* TAB 4: YOUTUBE */}
+              {activeTab === "youtube" && (
+                <div style={{ width: "100%" }}>
+                  <VideoGalleryClient videos={videos} />
+                </div>
+              )}
+            </>
+          )}
+
         </div>
       </section>
 
@@ -200,17 +529,13 @@ export default function GalleryPage() {
           </div>
 
           {/* Image Grid inside Event */}
-          <div className="vad-container" style={{ padding: "40px 20px", width: "100%" }}>
-            <div style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-              gap: "24px",
-              width: "100%"
-            }}>
+          <div className="vad-container" style={{ padding: "30px 16px", width: "100%" }}>
+            <div className="vad-event-modal-grid">
               {activeEvent.images.map((img, idx) => (
                 <div 
                   key={idx}
                   onClick={() => setLightboxIndex(idx)}
+                  className="vad-gallery-thumb-wrap"
                   style={{
                     position: "relative",
                     width: "100%",
@@ -225,10 +550,9 @@ export default function GalleryPage() {
                     src={img}
                     alt={`${activeEvent.title} - Image ${idx + 1}`}
                     fill
-                    style={{ objectFit: "cover", transition: "transform 0.5s ease" }}
-                    onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.05)"}
-                    onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                    style={{ objectFit: "cover" }}
+                    className="vad-gallery-thumb"
                   />
                 </div>
               ))}
@@ -347,18 +671,6 @@ export default function GalleryPage() {
           >
             <ChevronRight />
           </button>
-          
-          {/* Bottom Counter */}
-          <div style={{
-            position: "absolute",
-            bottom: "24px",
-            color: "rgba(255,255,255,0.7)",
-            fontSize: "15px",
-            fontWeight: 600,
-            letterSpacing: "0.1em"
-          }}>
-            {lightboxIndex + 1} / {activeEvent.images.length}
-          </div>
         </div>
       )}
     </>

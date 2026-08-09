@@ -3,12 +3,12 @@ import React from "react";
 import Wrapper from "@/layouts/Wrapper";
 import Navbar from "@/components/vadaanya/Navbar";
 import Footer from "@/components/vadaanya/Footer";
-import GalleryPage from "@/components/vadaanya/GalleryPage";
+import GalleryPageClient from "@/components/vadaanya/GalleryPageClient";
 
 export const metadata: Metadata = {
-  title: "Gallery — Events, Ceremonies & Impact",
-  description: "Browse photos from Vadaanya Janaa Society's talent tests, scholarship ceremonies, laptop donation drives, and community events across Andhra Pradesh & Telangana.",
-  keywords: ["Vadaanya gallery", "education NGO photos", "talent test ceremony", "scholarship event India", "laptop donation drive photos"],
+  title: "Media — Gallery, Print Media & YouTube",
+  description: "Browse photos, newspaper print coverage, and YouTube videos from Vadaanya Janaa Society's talent tests, scholarship ceremonies, laptop donation drives, and community events across Andhra Pradesh & Telangana.",
+  keywords: ["Vadaanya media", "Vadaanya gallery", "education NGO photos", "print media press coverage", "YouTube videos Vadaanya"],
   alternates: { canonical: "/gallery" },
 };
 
@@ -17,7 +17,7 @@ export default function Gallery() {
     <Wrapper>
       <Navbar />
       <main id="top">
-        <GalleryPage />
+        <GalleryPageClient />
       </main>
       <Footer />
     </Wrapper>
