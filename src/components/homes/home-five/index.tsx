@@ -15,8 +15,10 @@ const HomeFive = async () => {
     <>
       <Navbar />
       <main id="top">
-        <HeroCarouselClient initialSlides={slides} />
-        <StatsStrip />
+        <div className="vad-hero-viewport">
+          <HeroCarouselClient initialSlides={slides} />
+          <StatsStrip />
+        </div>
         <AboutSection />
         <TimelineSection />
         <SuccessStoriesGrid />

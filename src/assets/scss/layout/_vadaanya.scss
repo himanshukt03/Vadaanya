@@ -519,6 +519,17 @@ body {
   }
 }
 
+// Container wrapping Hero Carousel and Stats Strip for mobile full-viewport layout
+.vad-hero-viewport {
+  @media (max-width: 768px) {
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+}
+
 // ============================================================
 //  HERO CAROUSEL — FULL VIEWPORT (REFINED)
 // ============================================================
@@ -548,16 +559,16 @@ body {
   }
 
   @media (max-width: 768px) {
-    height: calc(100vh - 135px);
-    height: calc(100dvh - 135px);
+    flex: 1 1 auto;
     min-height: 0;
+    height: auto;
     max-height: none;
   }
 
   @media (max-width: 480px) {
-    height: calc(100vh - 135px);
-    height: calc(100dvh - 135px);
+    flex: 1 1 auto;
     min-height: 0;
+    height: auto;
     max-height: none;
   }
 
@@ -916,16 +927,13 @@ body {
   border-bottom: 1px solid rgba(255,255,255,0.06);
 
   @media (max-width: 768px) {
-    height: 135px;
+    flex: 0 0 auto;
+    position: static;
     box-sizing: border-box;
     display: flex;
     align-items: center;
     border-top: 1px solid #282828;
-    position: relative;
-    z-index: 1;
-    padding-left: max(12px, env(safe-area-inset-left));
-    padding-right: max(12px, env(safe-area-inset-right));
-    padding-bottom: max(4px, env(safe-area-inset-bottom));
+    padding: 10px max(12px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
   }
 }
 
