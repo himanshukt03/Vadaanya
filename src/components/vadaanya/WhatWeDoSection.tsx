@@ -63,12 +63,12 @@ export default function WhatWeDoSection() {
   return (
     <section id="whatwedo" className="vad-section vad-section--grey">
       <div className="vad-container">
-        <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "20px" }}>
+        <div className="vad-head vad-head--center vad-head--light">
           <span className="vad-eyebrow vad-eyebrow--dark">What We Do</span>
-          <h2 style={{ fontSize: "clamp(30px, 6vw, 42px)", fontWeight: 800, marginTop: "12px", letterSpacing: "-1px" }}>
+          <h2>
             Six ways we clear the path.
           </h2>
-          <p className="vad-lead" style={{ maxWidth: "800px", margin: "20px auto 0", lineHeight: 1.6 }}>
+          <p className="vad-lead">
             Talent is spread evenly across villages. Opportunity is not. Each programme removes one barrier between a capable student and the future they&apos;ve earned.
           </p>
         </div>

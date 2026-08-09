@@ -18,18 +18,18 @@ export default function AboutSection() {
       <div className="vad-container">
         <div className="vad-about__split">
           {/* Text Content */}
-          <div>
+          <div className="vad-about__text">
             <div className="vad-head vad-head--light">
               <h2>
                 Turning a Government-School Child&apos;s Hope into a{" "}
-                <span style={{ color: "var(--vad-navy-700)" }}>Degree</span>
+                <span className="vad-text-navy">Degree</span>
               </h2>
-              <p className="vad-lead" style={{ color: "var(--vad-ink-soft)", marginBottom: "24px" }}>
+              <p className="vad-lead">
                 We are a passionate community of volunteers dedicated to bridging the educational divide. By providing scholarships, mentorship, and essential resources like digital tools, we empower underprivileged students across Andhra Pradesh and Telangana to build a brighter, self-reliant future.
               </p>
             </div>
 
-            <div style={{ marginTop: "36px", display: "flex", gap: "14px", flexWrap: "wrap" }}>
+            <div className="vad-about__actions">
               <a href="/about" className="vad-btn vad-btn--navy">
                 Know More <span className="vad-arrow" aria-hidden="true">→</span>
               </a>
@@ -40,12 +40,12 @@ export default function AboutSection() {
           </div>
 
           {/* Visual Content */}
-          <div className="vad-about__visual" style={{ maxWidth: "520px", margin: "0 auto" }}>
+          <div className="vad-about__visual">
             <Image
               src="/IMG-20230417-WA0004.jpg"
               alt="Vadaanya Talent Test & Gathering"
               width={600}
-              height={500}
+              height={450}
               className="vad-about__img"
             />
 
