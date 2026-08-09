@@ -6,6 +6,7 @@ import Preloader from '@/components/common/Preloader';
 export default function Providers({ children }: { children: React.ReactNode }) {
    return (
       <Provider store={store}>
+         <Preloader />
          {children}
       </Provider>
    );

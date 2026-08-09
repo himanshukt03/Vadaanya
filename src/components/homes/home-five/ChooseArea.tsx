@@ -72,6 +72,7 @@ const ChooseArea = () => {
                                     src="/about-1.jpg"
                                     alt="Building our First Cohort"
                                     fill
+                                    priority
                                     sizes="(max-width: 768px) 100vw, 50vw"
                                     style={{ objectFit: "cover" }}
                                 />

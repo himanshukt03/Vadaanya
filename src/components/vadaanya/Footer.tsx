@@ -37,9 +37,9 @@ const YouTubeIcon = () => (
 
 const navLinks = [
   { label: "About us", href: "/about" },
-  { label: "Impact stories", href: "/#stories" },
+  { label: "Success Stories", href: "/success-stories" },
   { label: "Talent Test", href: "/talent-test" },
-  { label: "Gallery", href: "/gallery" },
+  { label: "Media", href: "/gallery" },
   { label: "Founder", href: "/founders" },
   { label: "Contact us", href: "/contact" },
 ];

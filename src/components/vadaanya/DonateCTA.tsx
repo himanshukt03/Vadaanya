@@ -14,11 +14,11 @@ export default function DonateCTA() {
       </div>
       
       <div className="vad-container vad-donate-new__content">
-        <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "50px" }}>
-          <h2 style={{ fontSize: "clamp(32px, 5vw, 46px)", fontWeight: 800, margin: "0 0 16px", textTransform: "uppercase", letterSpacing: "0.02em", color: "var(--vad-gold)" }}>
+        <div className="vad-head vad-head--center vad-head--light vad-donate-new__header">
+          <h2 style={{ fontSize: "clamp(20px, 2.2vw, 28px)", fontWeight: 800, margin: "0 0 10px", textTransform: "uppercase", letterSpacing: "0.02em", color: "var(--vad-gold)" }}>
             Join the Movement
           </h2>
-          <p style={{ fontSize: "clamp(16px, 1.5vw, 18px)", lineHeight: 1.6, maxWidth: "800px", margin: "0 auto", color: "rgba(255,255,255,0.9)" }}>
+          <p style={{ fontSize: "clamp(14px, 1.3vw, 16px)", lineHeight: 1.55, maxWidth: "720px", margin: "0 auto", color: "rgba(255,255,255,0.9)" }}>
             For 15 years, Vadaanya Janaa Society has been transforming lives through education. Your contribution directly funds scholarships, tuition, and mentorship — the building blocks of a brighter future.
           </p>
         </div>

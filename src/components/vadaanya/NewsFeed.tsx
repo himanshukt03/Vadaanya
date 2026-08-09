@@ -29,12 +29,12 @@ export default function NewsFeed() {
             <article key={item.id} className="vad-news-item">
               {/* Date column */}
               <div>
-                <p className="vad-news-item__date">{item.date}</p>
+                {item.date && <p className="vad-news-item__date">{item.date}</p>}
               </div>
 
               {/* Content column */}
               <div>
-                <span className="vad-news-item__tag">{item.tag}</span>
+                {item.tag && <span className="vad-news-item__tag">{item.tag}</span>}
                 <h3 className="vad-news-item__title">{item.title}</h3>
                 <p className="vad-news-item__desc">{item.description}</p>
                 {item.link && (

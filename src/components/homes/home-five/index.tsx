@@ -1,26 +1,25 @@
 import Navbar from "@/components/vadaanya/Navbar";
-import HeroCarousel from "@/components/vadaanya/HeroCarousel";
+import HeroCarouselClient from "@/components/vadaanya/HeroCarouselClient";
 import StatsStrip from "@/components/vadaanya/StatsStrip";
 import AboutSection from "@/components/vadaanya/AboutSection";
 import WhatWeDoSection from "@/components/vadaanya/WhatWeDoSection";
-import SuccessStoriesGrid from "@/components/vadaanya/SuccessStoriesGrid";
-import VideoGallery from "@/components/vadaanya/VideoGallery";
 import TimelineSection from "@/components/vadaanya/TimelineSection";
 import DonateCTA from "@/components/vadaanya/DonateCTA";
 import Footer from "@/components/vadaanya/Footer";
+import { getHeroSlides } from "@/lib/sanity/queries";
 
-const HomeFive = () => {
+const HomeFive = async () => {
+  const slides = await getHeroSlides();
+
   return (
     <>
       <Navbar />
       <main id="top">
-        <HeroCarousel />
+        <HeroCarouselClient initialSlides={slides} />
         <StatsStrip />
         <AboutSection />
         <TimelineSection />
         <WhatWeDoSection />
-        <SuccessStoriesGrid />
-        <VideoGallery />
         <DonateCTA />
       </main>
       <Footer />
