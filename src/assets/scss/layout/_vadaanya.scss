@@ -479,8 +479,9 @@ body {
   transition: transform 0.45s var(--vad-ease), opacity 0.3s, visibility 0.3s;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 80px 32px 40px;
+  justify-content: flex-start;
+  padding: 85px 28px 36px;
+  overflow-y: auto;
   gap: 0;
 
   @media (min-width: 993px) {
@@ -497,8 +498,8 @@ body {
   a {
     font-family: var(--vad-font-display);
     font-weight: 500;
-    font-size: clamp(18px, 4.5vw, 24px);
-    padding: 11px 0;
+    font-size: clamp(17px, 4.2vw, 22px);
+    padding: 10px 0;
     color: var(--vad-on-navy);
     border-bottom: 1px solid rgba(255,255,255,0.08);
     text-decoration: none;
@@ -510,11 +511,11 @@ body {
   }
 
   .vad-btn {
-    margin-top: 24px;
+    margin-top: 20px;
     align-self: flex-start;
-    font-size: 15px;
+    font-size: 14.5px;
     font-weight: 600;
-    padding: 12px 28px;
+    padding: 11px 26px;
   }
 }
 
@@ -547,13 +548,17 @@ body {
   }
 
   @media (max-width: 768px) {
-    min-height: 500px;
-    max-height: 860px;
+    height: calc(100vh - 160px);
+    height: calc(100dvh - 160px);
+    min-height: 420px;
+    max-height: 540px;
   }
 
   @media (max-width: 480px) {
-    min-height: 460px;
-    max-height: none;
+    height: calc(100vh - 145px);
+    height: calc(100dvh - 145px);
+    min-height: 380px;
+    max-height: 490px;
   }
 
   &--loading {
