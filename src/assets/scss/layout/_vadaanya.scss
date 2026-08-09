@@ -1269,6 +1269,37 @@ body {
   padding-bottom: 20px;
   position: relative;
 
+  .swiper-wrapper {
+    display: flex;
+  }
+
+  // Pre-hydration layout: prevent single large card flash before Swiper JS initializes
+  &:not(.swiper-initialized) {
+    .swiper-wrapper {
+      display: flex;
+      gap: 16px;
+      overflow: hidden;
+
+      .swiper-slide {
+        width: calc(21.7% - 13px) !important;
+        flex: 0 0 calc(21.7% - 13px);
+
+        @media (max-width: 959px) {
+          width: calc(29.4% - 12px) !important;
+          flex: 0 0 calc(29.4% - 12px);
+        }
+        @media (max-width: 699px) {
+          width: calc(43.5% - 10px) !important;
+          flex: 0 0 calc(43.5% - 10px);
+        }
+        @media (max-width: 439px) {
+          width: 83% !important;
+          flex: 0 0 83%;
+        }
+      }
+    }
+  }
+
   .swiper-slide {
     height: auto;
     display: flex;
@@ -1393,16 +1424,16 @@ body {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: var(--vad-navy-850);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--vad-gold);
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: var(--vad-navy-950);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   pointer-events: auto;
-  transition: background 0.3s, transform 0.3s;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: background 0.3s, transform 0.3s, border-color 0.3s, color 0.3s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 
   svg {
     width: 18px;
@@ -1410,8 +1441,9 @@ body {
   }
 
   &:hover {
-    background: var(--vad-gold);
-    color: var(--vad-navy-950);
+    background: var(--vad-navy-950);
+    border-color: var(--vad-navy-950);
+    color: var(--vad-gold);
     transform: scale(1.08);
   }
 }
@@ -2672,8 +2704,8 @@ body {
 .vad-story-modal {
   position: fixed;
   inset: 0;
-  background: rgba(4, 7, 24, 0.88);
-  backdrop-filter: blur(10px);
+  background: rgba(4, 7, 24, 0.75);
+  backdrop-filter: blur(8px);
   z-index: 9999;
   display: flex;
   align-items: center;
@@ -2681,16 +2713,16 @@ body {
   padding: 20px;
 
   &__content {
-    background: #080d28;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
     border-radius: 24px;
     max-width: 800px;
     width: 100%;
     max-height: 90vh;
     overflow-y: auto;
     position: relative;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
-    color: #ffffff;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+    color: #0f172a;
     padding: 32px;
 
     @media (max-width: 640px) {
@@ -2706,9 +2738,9 @@ body {
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    color: #ffffff;
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    color: #0f172a;
     font-size: 16px;
     cursor: pointer;
     display: flex;
@@ -2717,7 +2749,7 @@ body {
     z-index: 20;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: #e2e8f0;
     }
   }
 
@@ -2756,10 +2788,10 @@ body {
   blockquote {
     font-style: italic !important;
     font-size: 14px !important;
-    color: #f1f5f9 !important;
-    background: rgba(255, 255, 255, 0.04) !important;
+    color: #1e293b !important;
+    background: #f8fafc !important;
     border: none !important;
-    border-left: 3px solid var(--vad-gold) !important;
+    border-left: 3px solid var(--vad-gold-dark, #d97706) !important;
     padding: 12px 16px !important;
     margin: 0 !important;
     line-height: 1.6 !important;

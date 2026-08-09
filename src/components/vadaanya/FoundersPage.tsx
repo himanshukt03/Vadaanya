@@ -182,13 +182,13 @@ export default function FoundersPage() {
       </section>
 
       {/* 4. Taking Rural Talent to the World */}
-      <section className="vad-section" style={{ background: "#f8fafc", padding: "60px 0", borderTop: "1px solid rgba(0,0,0,0.05)" }}>
+      <section className="vad-section" style={{ background: "#f8fafc", padding: "30px 0", borderTop: "1px solid rgba(0,0,0,0.05)" }}>
         <div className="vad-container">
-          <div style={{ maxWidth: "1060px", margin: "0 auto", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "40px" }}>
+          <div style={{ maxWidth: "1060px", margin: "0 auto", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "36px" }}>
             
-            {/* Left Column: Image matching site design */}
-            <div style={{ flex: "1 1 380px", position: "relative" }}>
-              <div style={{ position: "relative", width: "100%", maxWidth: "390px", aspectRatio: "4/4.2", borderRadius: "24px", overflow: "hidden", boxShadow: "0 20px 40px rgba(0, 0, 0, 0.12)" }}>
+            {/* Left Column: Image matching site design (wider size) */}
+            <div style={{ flex: "1 1 450px", position: "relative" }}>
+              <div style={{ position: "relative", width: "100%", maxWidth: "460px", aspectRatio: "4/3", borderRadius: "24px", overflow: "hidden", boxShadow: "0 20px 40px rgba(0, 0, 0, 0.12)" }}>
                 <Image
                   src="/team vadaanya/6.jpg"
                   alt="Taking Rural Talent to the World"

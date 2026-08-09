@@ -31,6 +31,9 @@ const YouTubeIcon = () => (
 export default function SuccessStoriesGrid() {
   const swiperRef = useRef<SwiperType | null>(null);
   const [selectedStory, setSelectedStory] = useState<SuccessStory | null>(null);
+  
+  // 6 total featured stories for the homepage carousel
+  const featuredStories = stories.slice(0, 6);
 
   // Fix initial hydration / SSR container measurement issue on desktop
   useEffect(() => {
@@ -45,14 +48,15 @@ export default function SuccessStoriesGrid() {
   const closeModal = () => setSelectedStory(null);
 
   return (
-    <section id="stories" className="vad-section vad-section--deep">
+    <section id="stories" className="vad-section vad-section--paper" style={{ padding: "36px 0", background: "#ffffff" }}>
       <div className="vad-container">
-        <div className="vad-head" style={{ textAlign: "center", marginBottom: "35px" }}>
-          <span className="vad-eyebrow">Impact Stories</span>
-          <h2 style={{ color: "#fff", fontSize: "clamp(26px, 4vw, 38px)", margin: "10px 0" }}>
-            Students Who <span style={{ color: "var(--vad-gold)" }}>Made It</span>
+        {/* Header */}
+        <div className="vad-head" style={{ textAlign: "center", marginBottom: "20px" }}>
+          <span className="vad-eyebrow vad-eyebrow--dark">Impact Stories</span>
+          <h2 style={{ color: "#0a1030", fontSize: "clamp(22px, 2.8vw, 30px)", margin: "4px 0 8px", fontWeight: 800 }}>
+            Students Who <span style={{ color: "var(--vad-gold-dark, #d97706)" }}>Made It</span>
           </h2>
-          <p className="vad-lead" style={{ maxWidth: "700px", margin: "0 auto" }}>
+          <p style={{ fontSize: "14.5px", color: "#475569", maxWidth: "640px", margin: "0 auto", lineHeight: 1.5 }}>
             These are not statistics — they are real people whose lives changed because they had support at the right moment.
           </p>
         </div>
@@ -61,8 +65,8 @@ export default function SuccessStoriesGrid() {
         <div className="vad-stories__carousel-wrapper" style={{ position: "relative", width: "100%" }}>
           <Swiper
             modules={[Navigation, Autoplay]}
-            spaceBetween={24}
-            slidesPerView={1}
+            spaceBetween={16}
+            slidesPerView={4.6}
             loop={true}
             observer={true}
             observeParents={true}
@@ -76,44 +80,56 @@ export default function SuccessStoriesGrid() {
               }
             }}
             breakpoints={{
-              640: { slidesPerView: 2, spaceBetween: 20 },
-              1024: { slidesPerView: 3, spaceBetween: 24 },
+              0: { slidesPerView: 1.2, spaceBetween: 10 },
+              440: { slidesPerView: 2.3, spaceBetween: 12 },
+              700: { slidesPerView: 3.4, spaceBetween: 14 },
+              960: { slidesPerView: 4.6, spaceBetween: 16 },
             }}
             className="vad-stories__swiper"
             style={{ width: "100%" }}
           >
-            {stories.map((story) => (
+            {featuredStories.map((story) => (
               <SwiperSlide key={story.id} style={{ height: "auto" }}>
                 <article
                   onClick={() => setSelectedStory(story)}
                   style={{
-                    background: "rgba(255, 255, 255, 0.03)",
-                    border: "1px solid rgba(255, 255, 255, 0.08)",
-                    borderRadius: "20px",
+                    background: "#ffffff",
+                    border: "1px solid #e2e8f0",
+                    borderRadius: "14px",
                     overflow: "hidden",
                     height: "100%",
                     display: "flex",
                     flexDirection: "column",
-                    backdropFilter: "blur(8px)",
+                    boxShadow: "0 3px 12px rgba(0, 0, 0, 0.04)",
                     cursor: "pointer",
-                    transition: "transform 0.2s, border-color 0.2s",
+                    transition: "transform 0.2s, box-shadow 0.2s, border-color 0.2s",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "translateY(-3px)";
+                    e.currentTarget.style.boxShadow = "0 8px 20px rgba(0, 0, 0, 0.08)";
+                    e.currentTarget.style.borderColor = "var(--vad-gold-dark, #d97706)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow = "0 3px 12px rgba(0, 0, 0, 0.04)";
+                    e.currentTarget.style.borderColor = "#e2e8f0";
                   }}
                 >
-                  {/* 1:1 Square Photo */}
+                  {/* Slim Vertical Portrait Photo */}
                   <div
                     style={{
                       position: "relative",
                       width: "100%",
-                      aspectRatio: "1 / 1",
+                      aspectRatio: "3 / 3.1",
                       overflow: "hidden",
-                      background: "#0f172a",
+                      background: "#f1f5f9",
                     }}
                   >
                     <Image
                       src={story.imageUrl}
                       alt={story.imageAlt}
                       fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      sizes="(max-width: 440px) 100vw, (max-width: 640px) 50vw, 25vw"
                       style={{ objectFit: "cover" }}
                     />
                   </div>
@@ -121,7 +137,7 @@ export default function SuccessStoriesGrid() {
                   {/* Card Content Body */}
                   <div
                     style={{
-                      padding: "20px 22px 22px",
+                      padding: "8px 12px 10px",
                       display: "flex",
                       flexDirection: "column",
                       flex: 1,
@@ -131,11 +147,11 @@ export default function SuccessStoriesGrid() {
                     <div>
                       <h3
                         style={{
-                          color: "#ffffff",
-                          fontSize: "19px",
-                          fontWeight: 700,
-                          margin: "0 0 4px",
-                          lineHeight: 1.3,
+                          color: "#0f172a",
+                          fontSize: "14px",
+                          fontWeight: 800,
+                          margin: "0 0 2px",
+                          lineHeight: 1.25,
                         }}
                       >
                         {story.name}
@@ -143,30 +159,41 @@ export default function SuccessStoriesGrid() {
 
                       <div
                         style={{
-                          color: "var(--vad-gold)",
-                          fontSize: "13.5px",
-                          fontWeight: 600,
-                          marginBottom: "10px",
+                          color: "var(--vad-gold-dark, #d97706)",
+                          fontSize: "11.5px",
+                          fontWeight: 700,
+                          marginBottom: "4px",
                         }}
                       >
                         {story.occupation}
                       </div>
 
-                      <p className="vad-story-card__desc">
+                      <p
+                        style={{
+                          fontSize: "11.5px",
+                          color: "#475569",
+                          lineHeight: 1.4,
+                          margin: 0,
+                          display: "-webkit-box",
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                        }}
+                      >
                         {story.shortCaption}
                       </p>
                     </div>
 
                     {/* Know More link */}
-                    <div style={{ marginTop: "16px", paddingTop: "12px", borderTop: "1px solid rgba(255, 255, 255, 0.08)" }}>
+                    <div style={{ marginTop: "8px", paddingTop: "6px", borderTop: "1px solid #f1f5f9" }}>
                       <span
                         style={{
-                          color: "var(--vad-gold)",
-                          fontSize: "13.5px",
+                          color: "var(--vad-gold-dark, #d97706)",
+                          fontSize: "11.5px",
                           fontWeight: 700,
                           display: "inline-flex",
                           alignItems: "center",
-                          gap: "4px",
+                          gap: "3px",
                         }}
                       >
                         Know More &rarr;
@@ -178,7 +205,7 @@ export default function SuccessStoriesGrid() {
             ))}
           </Swiper>
 
-          {/* Custom Navigation */}
+          {/* Custom Navigation Arrows */}
           <div className="vad-stories__nav">
             <button
               onClick={() => swiperRef.current?.slidePrev()}
@@ -197,22 +224,23 @@ export default function SuccessStoriesGrid() {
           </div>
         </div>
 
-        {/* View All Success Stories Page Button */}
-        <div style={{ textAlign: "center", marginTop: "36px" }}>
-          <a href="/success-stories" className="vad-btn vad-btn--gold" style={{ padding: "12px 28px", fontSize: "14.5px" }}>
-            View All Impact Stories →
+        {/* View All Success Stories Button */}
+        <div style={{ textAlign: "center", marginTop: "20px" }}>
+          <a href="/success-stories" className="vad-btn vad-btn--gold" style={{ padding: "10px 22px", fontSize: "13.5px" }}>
+            View All Success Stories →
           </a>
         </div>
       </div>
 
-      {/* Clean 2-Column Pop-up Modal */}
+      {/* Clean Light-Themed Pop-up Modal */}
       {selectedStory && (
-        <div className="vad-story-modal" onClick={closeModal}>
-          <div className="vad-story-modal__content" onClick={(e) => e.stopPropagation()}>
+        <div className="vad-story-modal" onClick={closeModal} style={{ background: "rgba(15, 23, 42, 0.75)", backdropFilter: "blur(6px)" }}>
+          <div className="vad-story-modal__content" onClick={(e) => e.stopPropagation()} style={{ background: "#ffffff", border: "1px solid #cbd5e1", color: "#0f172a" }}>
             {/* Close Button */}
             <button
               className="vad-story-modal__close"
               onClick={closeModal}
+              style={{ background: "#f1f5f9", color: "#0f172a" }}
               aria-label="Close story popup"
             >
               ✕
@@ -227,10 +255,10 @@ export default function SuccessStoriesGrid() {
                   style={{
                     position: "relative",
                     width: "100%",
-                    aspectRatio: "1 / 1",
-                    borderRadius: "16px",
+                    aspectRatio: "3 / 3.8",
+                    borderRadius: "14px",
                     overflow: "hidden",
-                    background: "#050a1e",
+                    background: "#f1f5f9",
                   }}
                 >
                   <Image
@@ -243,14 +271,14 @@ export default function SuccessStoriesGrid() {
 
                 {/* Details */}
                 <div>
-                  <h2 style={{ fontSize: "22px", fontWeight: 800, margin: "0 0 4px", color: "#ffffff" }}>
+                  <h2 style={{ fontSize: "22px", fontWeight: 800, margin: "0 0 4px", color: "#0f172a" }}>
                     {selectedStory.name}
                   </h2>
-                  <div style={{ fontSize: "14px", fontWeight: 600, color: "var(--vad-gold)", marginBottom: "6px" }}>
+                  <div style={{ fontSize: "14px", fontWeight: 700, color: "var(--vad-gold-dark, #d97706)", marginBottom: "6px" }}>
                     {selectedStory.occupation}
                   </div>
                   {selectedStory.location && (
-                    <div style={{ fontSize: "13px", color: "#94a3b8" }}>
+                    <div style={{ fontSize: "13px", color: "#64748b" }}>
                       📍 {selectedStory.location}
                     </div>
                   )}
@@ -288,10 +316,10 @@ export default function SuccessStoriesGrid() {
               <div className="vad-story-modal__right">
                 {/* Full Journey */}
                 <div>
-                  <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#ffffff", margin: "0 0 8px" }}>
+                  <h3 style={{ fontSize: "15px", fontWeight: 800, color: "#0f172a", margin: "0 0 8px" }}>
                     Full Journey
                   </h3>
-                  <p style={{ fontSize: "14px", lineHeight: 1.65, color: "#cbd5e1", margin: 0 }}>
+                  <p style={{ fontSize: "14px", lineHeight: 1.65, color: "#334155", margin: 0 }}>
                     {selectedStory.fullStory}
                   </p>
                 </div>
@@ -299,16 +327,16 @@ export default function SuccessStoriesGrid() {
                 {/* Student Quote */}
                 {selectedStory.quote && (
                   <div>
-                    <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#ffffff", margin: "0 0 8px" }}>
+                    <h3 style={{ fontSize: "15px", fontWeight: 800, color: "#0f172a", margin: "0 0 8px" }}>
                       What They Say About Vadaanya
                     </h3>
                     <blockquote
                       style={{
                         fontStyle: "italic",
                         fontSize: "14px",
-                        color: "#ffffff",
-                        background: "rgba(255, 255, 255, 0.05)",
-                        borderLeft: "3px solid var(--vad-gold)",
+                        color: "#0f172a",
+                        background: "#f8fafc",
+                        borderLeft: "3px solid var(--vad-gold-dark, #d97706)",
                         padding: "14px 18px",
                         borderRadius: "0 10px 10px 0",
                         margin: 0,
@@ -322,7 +350,7 @@ export default function SuccessStoriesGrid() {
 
                 {/* What Vadaanya Covered */}
                 <div>
-                  <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#ffffff", margin: "0 0 8px" }}>
+                  <h3 style={{ fontSize: "15px", fontWeight: 800, color: "#0f172a", margin: "0 0 8px" }}>
                     What Vadaanya Covered
                   </h3>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
@@ -330,11 +358,11 @@ export default function SuccessStoriesGrid() {
                       <span
                         key={idx}
                         style={{
-                          background: "rgba(255, 255, 255, 0.06)",
-                          border: "1px solid rgba(255, 255, 255, 0.1)",
-                          color: "#cbd5e1",
+                          background: "#f1f5f9",
+                          border: "1px solid #cbd5e1",
+                          color: "#334155",
                           fontSize: "12.5px",
-                          fontWeight: 500,
+                          fontWeight: 600,
                           padding: "4px 12px",
                           borderRadius: "100px",
                         }}

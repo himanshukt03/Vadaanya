@@ -3,6 +3,7 @@ import HeroCarouselClient from "@/components/vadaanya/HeroCarouselClient";
 import StatsStrip from "@/components/vadaanya/StatsStrip";
 import AboutSection from "@/components/vadaanya/AboutSection";
 import TimelineSection from "@/components/vadaanya/TimelineSection";
+import SuccessStoriesGrid from "@/components/vadaanya/SuccessStoriesGrid";
 import DonateCTA from "@/components/vadaanya/DonateCTA";
 import Footer from "@/components/vadaanya/Footer";
 import { getHeroSlides } from "@/lib/sanity/queries";
@@ -18,6 +19,7 @@ const HomeFive = async () => {
         <StatsStrip />
         <AboutSection />
         <TimelineSection />
+        <SuccessStoriesGrid />
         <DonateCTA />
       </main>
       <Footer />
