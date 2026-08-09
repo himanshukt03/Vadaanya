@@ -5,9 +5,9 @@ import Footer from "@/components/vadaanya/Footer";
 import ScrollToTop from "@/components/common/ScrollToTop";
 
 export const metadata: Metadata = {
-  title: "Founder & President — Ashok Padapati",
-  description: "Meet Ashok Padapati, the Founder & President of Vadaanya Janaa Society. From a village in Andhra Pradesh to leading a statewide education non-profit serving 15,000+ students across AP & Telangana.",
-  keywords: ["Ashok Padapati", "Vadaanya founder", "education social entrepreneur India", "Vadaanya Janaa Society president", "NGO founder AP"],
+  title: "Team Vadaanya — Our Volunteers & Leadership",
+  description: "Meet Team Vadaanya, a collective movement of dedicated volunteers, mentors, and leadership empowering government school students across Andhra Pradesh & Telangana.",
+  keywords: ["Team Vadaanya", "Vadaanya volunteers", "Ashok Padapati", "education NGO team India", "Vadaanya Janaa Society leadership"],
   alternates: { canonical: "/founders" },
 };
 
