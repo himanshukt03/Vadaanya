@@ -19,25 +19,30 @@
 	text-align: center;
 	cursor: pointer;
 	background: var(--tg-theme-primary);
-	transition: 1s ease;
+	opacity: 0;
+	pointer-events: none;
+	visibility: hidden;
+	transition: all 0.4s ease;
 	border: none;
     @media #{$lg} {
         right: 25px;
-        bottom: 25px;
     }
     @media #{$md} {
         right: 30px;
     }
     @media #{$xs} {
-        right: 15px;
-        width: 35px;
-        height: 35px;
+        right: 18px;
+        width: 40px;
+        height: 40px;
         font-size: 14px;
     }
     &.open {
         bottom: 30px;
+        opacity: 1;
+        pointer-events: auto;
+        visibility: visible;
         @media #{$xs} {
-            bottom: 15px;
+            bottom: 20px;
         }
     }
     &::after {

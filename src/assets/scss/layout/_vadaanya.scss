@@ -61,11 +61,11 @@ body {
 }
 
 .vad-section {
-  padding: clamp(60px, 8vw, 128px) 0;
+  padding: clamp(44px, 4.5vw, 72px) 0;
   position: relative;
   
   @media (max-width: 768px) {
-    padding: clamp(40px, 6vw, 60px) 0;
+    padding: clamp(32px, 5vw, 44px) 0;
   }
 
   &--navy  { background: var(--vad-navy-900); }
@@ -84,22 +84,26 @@ body {
   @media (max-width: 480px) { padding: 0 18px; }
 }
 
+.vad-text-navy {
+  color: var(--vad-navy-700);
+}
+
 .vad-head {
   h2 {
     font-family: var(--vad-font-display);
-    font-weight: 700;
-    font-size: clamp(30px, 4.2vw, 52px);
-    line-height: 1.08;
-    letter-spacing: -0.025em;
-    margin: 16px 0 0;
+    font-weight: 800;
+    font-size: clamp(24px, 2.6vw, 36px);
+    line-height: 1.14;
+    letter-spacing: -0.02em;
+    margin: 12px 0 0;
   }
   .vad-lead {
-    margin-top: 18px;
+    margin-top: 14px;
     font-family: var(--vad-font-body);
-    font-size: clamp(15px, 1.5vw, 18px);
-    line-height: 1.7;
+    font-size: clamp(14px, 1.05vw, 15.5px);
+    line-height: 1.6;
     color: var(--vad-on-navy-muted);
-    max-width: 660px;
+    max-width: 600px;
   }
   &--center {
     text-align: center;
@@ -352,12 +356,17 @@ body {
   gap: 10px;
   text-decoration: none;
   flex-shrink: 0;
-  padding: 16px 0;
+  padding: 8px 0;
 
   img {
-    max-height: 38px;
+    max-height: 50px;
     width: auto;
     display: block;
+    transition: transform 0.2s ease;
+
+    @media (max-width: 480px) {
+      max-height: 40px;
+    }
   }
 
   .brand-word {
@@ -487,9 +496,9 @@ body {
 
   a {
     font-family: var(--vad-font-display);
-    font-weight: 700;
-    font-size: clamp(26px, 6vw, 38px);
-    padding: 14px 0;
+    font-weight: 500;
+    font-size: clamp(18px, 4.5vw, 24px);
+    padding: 11px 0;
     color: var(--vad-on-navy);
     border-bottom: 1px solid rgba(255,255,255,0.08);
     text-decoration: none;
@@ -501,10 +510,11 @@ body {
   }
 
   .vad-btn {
-    margin-top: 32px;
+    margin-top: 24px;
     align-self: flex-start;
-    font-size: 16px;
-    padding: 15px 32px;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 12px 28px;
   }
 }
 
@@ -545,6 +555,44 @@ body {
     min-height: 460px;
     max-height: none;
   }
+
+  &--loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .vad-hero-spinner-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .vad-hero-spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid rgba(255, 255, 255, 0.15);
+    border-left-color: var(--vad-gold);
+    border-radius: 50%;
+    animation: vadHeroSpinner 0.8s linear infinite;
+  }
+
+  .vad-hero__headline-white {
+    color: #ffffff;
+  }
+
+  .vad-hero__headline-accent {
+    color: var(--vad-gold);
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  }
+}
+
+@keyframes vadHeroSpinner {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 // Slide wrapper
@@ -553,6 +601,15 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
+}
+
+// Background picture element wrapper
+.vad-hero__bg-picture {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 // Background image — subtle Ken Burns zoom
@@ -601,14 +658,14 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding-bottom: clamp(100px, 12vw, 140px);
+  padding-bottom: clamp(44px, 5vw, 76px);
 
   @media (max-width: 768px) {
-    padding-bottom: clamp(80px, 10vw, 110px);
+    padding-bottom: 76px;
   }
 
   @media (max-width: 480px) {
-    padding-bottom: 90px;
+    padding-bottom: 70px;
   }
 }
 
@@ -630,7 +687,7 @@ body {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--vad-gold-soft);
-  margin-bottom: 18px;
+  margin-bottom: 14px;
   opacity: 0.9;
   text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 
@@ -643,18 +700,23 @@ body {
     display: inline-block;
     box-shadow: 0 1px 2px rgba(0,0,0,0.3);
   }
+
+  @media (max-width: 1400px) {
+    margin-bottom: 10px;
+    font-size: 10px;
+  }
 }
 
 // Headline
 .vad-hero__headline {
   font-family: var(--vad-font-display);
   font-weight: 800;
-  font-size: clamp(28px, 4.5vw, 56px);
+  font-size: clamp(24px, 3.4vw, 48px);
   line-height: 1.08;
   letter-spacing: -0.025em;
   color: #fff;
-  margin: 0 0 20px;
-  max-width: 780px;
+  margin: 0 0 16px;
+  max-width: 720px;
   text-shadow: 0 4px 12px rgba(0,0,0,0.4);
 
   span {
@@ -662,14 +724,20 @@ body {
     text-shadow: 0 4px 12px rgba(0,0,0,0.5);
   }
 
+  @media (max-width: 1400px) {
+    font-size: clamp(22px, 2.8vw, 38px);
+    max-width: 560px;
+    margin-bottom: 12px;
+  }
+
   @media (max-width: 768px) {
-    font-size: clamp(26px, 6vw, 38px);
+    font-size: clamp(22px, 5.5vw, 32px);
     max-width: 100%;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
   }
 
   @media (max-width: 480px) {
-    font-size: clamp(22px, 7vw, 30px);
+    font-size: clamp(20px, 6.5vw, 26px);
     line-height: 1.12;
   }
 }
@@ -677,23 +745,30 @@ body {
 // Subtext
 .vad-hero__sub {
   font-family: var(--vad-font-body);
-  font-size: clamp(15px, 1.4vw, 17px);
+  font-size: clamp(14px, 1.2vw, 16px);
   color: rgba(255, 255, 255, 0.85);
-  max-width: 500px;
-  line-height: 1.7;
-  margin-bottom: 36px;
+  max-width: 480px;
+  line-height: 1.65;
+  margin-bottom: 28px;
   font-weight: 400;
   text-shadow: 0 2px 8px rgba(0,0,0,0.5);
 
+  @media (max-width: 1400px) {
+    font-size: 14px;
+    max-width: 440px;
+    margin-bottom: 22px;
+    line-height: 1.6;
+  }
+
   @media (max-width: 768px) {
-    font-size: 14.5px;
+    font-size: 13.5px;
     max-width: 100%;
-    margin-bottom: 28px;
-    line-height: 1.65;
+    margin-bottom: 20px;
+    line-height: 1.6;
   }
 
   @media (max-width: 480px) {
-    font-size: 13.5px;
+    font-size: 13px;
     margin-bottom: 24px;
   }
 }
@@ -708,13 +783,13 @@ body {
   @media (max-width: 480px) {
     gap: 10px;
     .vad-btn {
-      padding: 12px 22px;
+      padding: 11px 20px;
       font-size: 13.5px;
     }
   }
 }
 
-// ---- Carousel controls — bottom-right ----
+// ---- Carousel controls — bottom-right (Desktop) / bottom bar (Mobile) ----
 .vad-hero__controls {
   position: absolute;
   bottom: clamp(28px, 5vw, 48px);
@@ -725,8 +800,20 @@ body {
   align-items: flex-end;
   gap: 14px;
 
+  @media (max-width: 768px) {
+    bottom: 18px;
+    left: clamp(20px, 4vw, 48px);
+    right: clamp(20px, 4vw, 48px);
+    width: auto;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+
   @media (max-width: 480px) {
-    bottom: 24px;
+    bottom: 14px;
+    left: 18px;
     right: 18px;
     gap: 10px;
   }
@@ -829,7 +916,7 @@ body {
 }
 
 .vad-stats__item {
-  padding: 32px 28px;
+  padding: 18px 24px;
   border-left: 1px solid rgba(255,255,255,0.07);
   transition: background 0.3s;
 
@@ -837,30 +924,34 @@ body {
 
   &:hover { background: rgba(255,255,255,0.02); }
 
+  @media (max-width: 992px) {
+    padding: 16px 18px;
+  }
+
   @media (max-width: 768px) {
-    padding: 24px 18px;
+    padding: 14px 14px;
     &:nth-child(3) { border-left: none; }
   }
 
   @media (max-width: 480px) {
-    padding: 20px 16px;
+    padding: 12px 10px;
   }
 }
 
 .vad-stats__num {
   font-family: var(--vad-font-display);
   font-weight: 800;
-  font-size: clamp(26px, 3.6vw, 42px);
+  font-size: clamp(20px, 2.2vw, 32px);
   color: var(--vad-gold);
   line-height: 1;
   letter-spacing: -0.02em;
 }
 
 .vad-stats__label {
-  margin-top: 8px;
-  font-size: 13px;
+  margin-top: 5px;
+  font-size: 12.5px;
   color: var(--vad-on-navy-muted);
-  line-height: 1.45;
+  line-height: 1.4;
   font-weight: 500;
 }
 
@@ -869,14 +960,29 @@ body {
 // ============================================================
 .vad-about__split {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 36px;
+  max-width: 1120px;
+  margin: 0 auto;
   align-items: center;
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 24px;
+    max-width: 100%;
   }
+}
+
+.vad-about__text {
+  max-width: 100%;
+  margin: 0;
+}
+
+.vad-about__actions {
+  margin-top: 24px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 // Feature List
@@ -928,24 +1034,32 @@ body {
 // Visual Side
 .vad-about__visual {
   position: relative;
-  padding: 20px;
+  padding: 10px 0;
+  max-width: 520px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: 0;
+
+  @media (max-width: 900px) {
+    margin: 0 auto;
+  }
 
   @media (max-width: 480px) {
-    padding: 10px 0;
+    padding: 0;
   }
 }
 
 .vad-about__img {
   width: 100%;
   height: auto;
-  border-radius: 120px 120px 20px 20px;
-  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.15);
+  border-radius: 24px;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.12);
   display: block;
   object-fit: cover;
-  aspect-ratio: 4 / 3.5;
+  aspect-ratio: 4 / 3;
 
   @media (max-width: 480px) {
-    border-radius: 40px 40px 16px 16px;
+    border-radius: 20px;
     aspect-ratio: 4 / 3;
   }
 }
@@ -1032,22 +1146,22 @@ body {
 .vad-scaling-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-top: 50px;
+  gap: clamp(16px, 1.8vw, 24px);
+  margin-top: clamp(24px, 3vw, 36px);
 
-  @media (max-width: 991px) { grid-template-columns: repeat(2, 1fr); }
-  @media (max-width: 767px) { grid-template-columns: 1fr; }
+  @media (max-width: 991px) { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media (max-width: 767px) { grid-template-columns: 1fr; gap: 14px; }
 }
 
 .vad-scaling-card {
   background: var(--vad-navy-850);
   border: 1px solid rgba(255,255,255,0.07);
   border-radius: var(--vad-radius);
-  padding: 32px 28px;
+  padding: clamp(20px, 2.2vw, 28px) clamp(18px, 2vw, 24px);
   transition: transform 0.35s var(--vad-ease), box-shadow 0.35s var(--vad-ease), border-color 0.35s;
 
   @media (max-width: 768px) {
-    padding: 24px 20px;
+    padding: 18px 16px;
   }
   cursor: default;
   display: flex;
@@ -1057,23 +1171,23 @@ body {
   overflow: hidden;
 
   &:hover {
-    transform: translateY(-5px);
+    transform: translateY(-4px);
     border-color: rgba(255,255,255,0.14);
-    box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.55);
+    box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.5);
   }
 }
 
 .vad-scaling-number {
   position: absolute;
-  top: 14px;
-  right: 22px;
-  font-size: 64px;
+  top: 10px;
+  right: 16px;
+  font-size: clamp(38px, 4vw, 52px);
   font-weight: 800;
 
   @media (max-width: 768px) {
-    top: 10px;
-    right: 16px;
-    font-size: 52px;
+    top: 8px;
+    right: 14px;
+    font-size: 36px;
   }
   color: rgba(255,255,255,0.04);
   line-height: 1;
@@ -1082,26 +1196,26 @@ body {
 }
 
 .vad-scaling-icon-wrapper {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: rgba(242, 167, 18, 0.1);
   color: var(--vad-gold);
   flex-shrink: 0;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
   position: relative;
   z-index: 2;
 
-  svg { width: 24px; height: 24px; }
+  svg { width: 20px; height: 20px; }
 
   @media (max-width: 768px) {
-    width: 44px;
-    height: 44px;
-    margin-bottom: 12px;
-    svg { width: 20px; height: 20px; }
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+    svg { width: 18px; height: 18px; }
   }
 
   &--green {
@@ -1113,27 +1227,27 @@ body {
 .vad-scaling-title {
   font-family: var(--vad-font-display);
   font-weight: 700;
-  font-size: clamp(17px, 1.8vw, 20px);
+  font-size: clamp(15.5px, 1.3vw, 18px);
   color: var(--vad-on-navy);
-  margin: 0 0 10px;
+  margin: 0 0 6px;
   letter-spacing: -0.01em;
   position: relative;
   z-index: 2;
 
   @media (max-width: 768px) {
-    margin: 0 0 6px;
-    font-size: 17px;
+    margin: 0 0 4px;
+    font-size: 16px;
   }
 }
 
 .vad-scaling-desc {
-  font-size: 14.5px;
+  font-size: clamp(13px, 0.95vw, 14px);
   color: var(--vad-on-navy-muted);
-  line-height: 1.68;
+  line-height: 1.5;
 
   @media (max-width: 768px) {
-    font-size: 13.5px;
-    line-height: 1.5;
+    font-size: 13px;
+    line-height: 1.45;
   }
   margin: 0;
   position: relative;
@@ -1919,8 +2033,13 @@ body {
 //  ABOUT PAGE — page hero, vision/mission, objectives, CTA
 // ============================================================
 .vad-page-hero {
-  padding: clamp(120px, 16vw, 180px) 0 clamp(64px, 9vw, 110px);
+  margin-top: 74px;
+  padding: clamp(16px, 1.8vw, 24px) 0 clamp(20px, 2vw, 28px);
   position: relative;
+
+  @media (max-width: 480px) {
+    margin-top: 64px;
+  }
 
   &__inner {
     text-align: center;
@@ -1928,20 +2047,20 @@ body {
   &__title {
     font-family: var(--vad-font-display);
     font-weight: 800;
-    font-size: clamp(34px, 5.5vw, 64px);
-    line-height: 1.06;
-    letter-spacing: -0.03em;
+    font-size: clamp(26px, 3.2vw, 42px);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
     color: var(--vad-on-navy);
-    margin: 16px 0 0;
+    margin: 12px 0 0;
   }
   &__accent { color: var(--vad-gold); }
   &__lead {
     font-family: var(--vad-font-body);
-    font-size: clamp(15px, 1.6vw, 18px);
-    line-height: 1.7;
-    color: var(--vad-on-navy-muted);
-    max-width: 620px;
-    margin: 22px auto 0;
+    font-size: clamp(14px, 1.05vw, 15.5px);
+    line-height: 1.6;
+    color: #ffffff;
+    max-width: 580px;
+    margin: 14px auto 0;
   }
 }
 
@@ -2061,28 +2180,28 @@ body {
 .vad-about__cta {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
-  gap: 64px;
+  gap: clamp(28px, 4vw, 44px);
   align-items: center;
 
-  @media (max-width: 900px) { grid-template-columns: 1fr; gap: 36px; }
+  @media (max-width: 900px) { grid-template-columns: 1fr; gap: 28px; }
 }
 
 .vad-about__cta-title {
   font-family: var(--vad-font-display);
   font-weight: 800;
-  font-size: clamp(28px, 3.8vw, 46px);
-  line-height: 1.1;
-  letter-spacing: -0.025em;
+  font-size: clamp(22px, 2.4vw, 34px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
   color: var(--vad-on-navy);
-  margin: 16px 0 18px;
+  margin: 10px 0 12px;
   span { color: var(--vad-gold); }
 }
 
 .vad-about__cta-desc {
-  font-size: clamp(15px, 1.4vw, 17px);
+  font-size: clamp(13.5px, 1.05vw, 15px);
   color: var(--vad-on-navy-muted);
-  line-height: 1.68;
-  margin: 0 0 28px;
+  line-height: 1.6;
+  margin: 0 0 20px;
 }
 
 .vad-about__cta-btns {
@@ -2095,7 +2214,7 @@ body {
   background: var(--vad-navy-850);
   border: 1px solid rgba(255,255,255,0.09);
   border-radius: var(--vad-radius);
-  padding: 32px;
+  padding: 24px 22px;
 }
 
 .vad-about__reg-title {
@@ -2250,32 +2369,35 @@ body {
 .vad-timeline-section {
   background-color: var(--vad-navy-900);
   color: white;
-  padding: 80px 0;
+  padding: 44px 0 52px;
   background-image: radial-gradient(circle at 15% 50%, rgba(255,255,255,0.03), transparent 25%),
                     radial-gradient(circle at 85% 30%, rgba(255,255,255,0.03), transparent 25%);
-}
 
+  @media (max-width: 768px) {
+    padding: 32px 0 40px;
+  }
+}
 
 .vad-timeline-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 32px;
-  max-width: 1000px;
-  margin: 0 auto 60px;
+  gap: 16px 20px;
+  max-width: 960px;
+  margin: 0 auto;
   position: relative;
   
   @media (max-width: 768px) {
     flex-direction: column;
-    padding-left: 30px;
-    gap: 20px;
-    margin-bottom: 20px;
+    padding-left: 28px;
+    gap: 14px;
+    margin-bottom: 0;
     
     &::before {
       content: "";
       position: absolute;
-      top: 10px;
-      bottom: 10px;
+      top: 8px;
+      bottom: 8px;
       left: 10px;
       width: 2px;
       background: rgba(255,255,255,0.1);
@@ -2285,25 +2407,43 @@ body {
 }
 
 .vad-timeline-item {
-  width: calc(33.333% - 22px);
+  width: calc(33.333% - 14px);
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   position: relative;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.025);
+  border: none;
+  transition: transform 0.25s ease, background 0.25s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
+  }
 
   @media (max-width: 768px) {
     width: 100%;
     align-items: flex-start;
     text-align: left;
+    background: transparent;
+    border: none;
+    padding: 0;
+
+    &:hover {
+      background: transparent;
+      transform: none;
+    }
     
     &::before {
       content: "";
       position: absolute;
       top: 14px;
-      left: -20px;
-      width: 12px;
-      height: 12px;
+      left: -18px;
+      width: 10px;
+      height: 10px;
       background: var(--vad-gold);
       border-radius: 50%;
       transform: translate(-50%, -50%);
@@ -2314,45 +2454,36 @@ body {
 
 .vad-timeline-year-wrapper {
   position: relative;
-  margin-bottom: 16px;
+  margin-bottom: 4px;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   
   @media (max-width: 768px) {
-    margin-bottom: 4px;
+    margin-bottom: 2px;
   }
 }
 
 .vad-timeline-year {
   font-family: var(--vad-font-display);
-  font-size: clamp(40px, 4vw, 56px);
-  font-weight: 900;
+  font-size: clamp(24px, 2.5vw, 32px);
+  font-weight: 800;
   color: var(--vad-gold);
   z-index: 2;
   position: relative;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 
   @media (max-width: 768px) {
-    font-size: 28px;
+    font-size: 22px;
   }
 }
 
 .vad-timeline-arrow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 120%;
-  height: 80%;
-  background-color: rgba(255, 255, 255, 0.03);
-  z-index: 1;
-  clip-path: polygon(0% 20%, 60% 20%, 60% 0%, 100% 50%, 60% 100%, 60% 80%, 0% 80%);
+  display: none;
 }
 
 .vad-timeline-desc {
-  font-size: 14.5px;
-  line-height: 1.6;
+  font-size: 13px;
+  line-height: 1.45;
   color: var(--vad-on-navy-muted);
   margin: 0;
 }
@@ -2361,8 +2492,12 @@ body {
   position: relative;
   background-color: var(--vad-navy-950);
   color: white;
-  padding: 80px 0;
+  padding: 50px 0;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    padding: 36px 0;
+  }
 }
 
 .vad-donate-new__bg {
@@ -2389,78 +2524,105 @@ body {
   z-index: 3;
 }
 
+.vad-donate-new__header {
+  margin-bottom: 28px;
+  
+  @media (max-width: 768px) {
+    margin-bottom: 20px;
+  }
+}
+
 .vad-donate-new__grid {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 60px;
-  margin-bottom: 60px;
-  gap: 60px;
+  margin-top: 32px;
+  margin-bottom: 24px;
+  gap: 40px;
+  max-width: 1060px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 16px;
 
   @media (max-width: 991px) {
     flex-direction: column;
-    align-items: stretch;
-    gap: 40px;
+    align-items: center;
+    text-align: center;
+    gap: 28px;
+    margin-top: 20px;
+    margin-bottom: 12px;
+    padding: 0;
   }
 }
 
 .vad-donate-new__impact {
   flex: 1;
+  padding-left: clamp(20px, 4vw, 50px);
+
+  @media (max-width: 991px) {
+    padding-left: 0;
+  }
 }
 
 .vad-donate-new__percent {
   font-family: var(--vad-font-display);
-  font-size: clamp(70px, 16vw, 160px);
+  font-size: clamp(48px, 8vw, 100px);
   font-weight: 900;
   color: var(--vad-gold);
-  line-height: 0.9;
-  margin: 0 0 16px;
-  text-shadow: 0 0 30px rgba(245, 166, 35, 0.3);
+  line-height: 0.95;
+  margin: 0 0 10px;
+  text-shadow: 0 0 20px rgba(245, 166, 35, 0.3);
 }
 
 .vad-donate-new__impact-text {
   font-family: var(--vad-font-display);
-  font-size: clamp(24px, 3vw, 32px);
+  font-size: clamp(16px, 1.8vw, 22px);
   font-weight: 800;
-  line-height: 1.2;
+  line-height: 1.25;
   margin: 0;
   color: white;
   
   .vad-text-glow {
-    font-size: clamp(32px, 4vw, 42px);
+    font-size: clamp(20px, 2.2vw, 28px);
     color: var(--vad-gold);
     display: inline-block;
-    margin-top: 8px;
-    text-shadow: 0 0 20px rgba(245, 166, 35, 0.4);
+    margin-top: 6px;
+    text-shadow: 0 0 16px rgba(245, 166, 35, 0.4);
   }
 }
 
 .vad-donate-new__bank-card {
   flex: 1;
+  width: 100%;
+  max-width: 520px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-radius: var(--vad-radius-lg);
-  padding: 40px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  padding: 28px 32px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+
+  @media (max-width: 768px) {
+    padding: 20px 20px;
+  }
 }
 
 .vad-donate-new__bank-title {
   color: var(--vad-gold);
   font-weight: 800;
-  font-size: 20px;
-  margin-bottom: 24px;
+  font-size: 16px;
+  margin-bottom: 16px;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   border-bottom: 1px solid rgba(255,255,255,0.1);
-  padding-bottom: 16px;
+  padding-bottom: 12px;
 }
 
 .vad-donate-new__bank-info {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .vad-bank-row {
@@ -2476,13 +2638,13 @@ body {
 }
 
 .vad-bank-label {
-  font-size: clamp(16px, 1.5vw, 18px);
+  font-size: clamp(13px, 1.2vw, 15px);
   color: rgba(255,255,255,0.7);
   font-weight: 500;
 }
 
 .vad-bank-value {
-  font-size: clamp(18px, 1.8vw, 20px);
+  font-size: clamp(14px, 1.4vw, 16px);
   color: white;
   font-weight: 800;
   text-align: right;
@@ -2608,4 +2770,208 @@ body {
     }
   }
 }
+
+// ============================================================
+//  LAUNCH PRELOADER OVERLAY
+// ============================================================
+.vad-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background-color: var(--vad-navy-950, #0a1030);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+  opacity: 1;
+  visibility: visible;
+
+  &.is-fading {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+.vad-preloader__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.vad-preloader__spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(242, 167, 18, 0.15);
+  border-left-color: var(--vad-gold, #f2a712);
+  border-radius: 50%;
+  animation: vadPreloadSpin 0.75s linear infinite;
+}
+
+.vad-preloader__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.95;
+  animation: vadPreloadPulse 1.4s ease-in-out infinite alternate;
+
+  img {
+    height: 42px;
+    width: auto;
+    object-fit: contain;
+  }
+}
+
+@keyframes vadPreloadSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes vadPreloadPulse {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// Skeleton shimmer animation
+@keyframes vadSkeletonShimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
+}
+
+.vad-skeleton-shimmer {
+  background: linear-gradient(90deg, #f1f5f9 0%, #e2e8f0 50%, #f1f5f9 100%);
+  background-size: 400px 100%;
+  animation: vadSkeletonShimmer 1.4s ease-in-out infinite;
+}
+
+// Gallery modal image hover zoom
+.vad-gallery-thumb {
+  transition: transform 0.5s ease;
+}
+.vad-gallery-thumb-wrap {
+  &:hover .vad-gallery-thumb {
+    transform: scale(1.05);
+  }
+}
+
+// Media Tabs (Desktop Toggle vs Mobile Dropdown)
+.vad-media-tabs-desktop {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 44px;
+
+  @media (max-width: 640px) {
+    display: none !important;
+  }
+}
+
+.vad-media-tabs-mobile {
+  display: none;
+  margin-bottom: 32px;
+
+  @media (max-width: 640px) {
+    display: flex !important;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+.vad-media-select-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  background: #ffffff;
+  border-radius: 9999px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(7, 14, 39, 0.12);
+  display: flex;
+  align-items: center;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus-within {
+    border-color: var(--vad-gold-deep, #c28e00);
+    box-shadow: 0 0 0 3px rgba(220, 160, 0, 0.2);
+  }
+}
+
+.vad-media-select {
+  width: 100%;
+  padding: 12px 42px 12px 22px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--vad-navy-950, #070e27);
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  border-radius: 9999px;
+}
+
+.vad-media-select-icon {
+  position: absolute;
+  right: 18px;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  color: var(--vad-navy-950, #070e27);
+}
+
+// Media Page Responsive Grids
+// Outer cards (Gallery events, Print media collections, News, YouTube) on main page: 1 card per row on mobile
+.vad-media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+  gap: 24px;
+  width: 100%;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+.vad-media-grid-print {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+
+  @media (max-width: 640px) {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+// Inner Event Modal / Drawer Image Grid (Shown when clicking an event card)
+// 2 or 3 images per row on mobile devices
+.vad-event-modal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  width: 100%;
+
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  @media (min-width: 481px) and (max-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+}
+
+
+
 
