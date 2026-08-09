@@ -58,11 +58,11 @@ export default function Navbar() {
   }, [pathname]);
 
   const handleNavLink = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith("/#")) {
+    if (href.startsWith("/#") || href.startsWith("#")) {
+      const hash = href.includes("#") ? href.substring(href.indexOf("#")) : href;
       if (pathname === "/") {
         e.preventDefault();
         setMenuOpen(false);
-        const hash = href.substring(1);
         setTimeout(() => scrollTo(hash), menuOpen ? 420 : 0);
       } else {
         setMenuOpen(false);
@@ -119,9 +119,9 @@ export default function Navbar() {
           {/* Actions */}
           <div className="vad-nav__actions">
             <a
-              href="#donate"
+              href="/#donate"
               className="vad-btn vad-btn--gold"
-              onClick={(e) => handleNavLink(e, "#donate")}
+              onClick={(e) => handleNavLink(e, "/#donate")}
             >
               Donate
             </a>
@@ -172,10 +172,10 @@ export default function Navbar() {
           )
         ))}
         <a
-          href="#donate"
+          href="/#donate"
           className="vad-btn vad-btn--gold"
           tabIndex={menuOpen ? 0 : -1}
-          onClick={(e) => handleNavLink(e, "#donate")}
+          onClick={(e) => handleNavLink(e, "/#donate")}
         >
           Donate Now →
         </a>
