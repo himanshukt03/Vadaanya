@@ -18,7 +18,7 @@ const YouTubeIcon = () => (
 );
 
 export default function SuccessStoriesPage() {
-  const [visibleCount, setVisibleCount] = useState<number>(8); // Show 2 rows (8 items) initially
+  const [visibleCount, setVisibleCount] = useState<number>(10); // Show 2 full rows (10 items) initially
   const [activeStory, setActiveStory] = useState<SuccessStory | null>(null);
 
   // Lock background scroll when modal is open
@@ -53,12 +53,7 @@ export default function SuccessStoriesPage() {
       <section className="vad-section vad-section--paper" style={{ padding: "50px 0 80px" }}>
         <div className="vad-container">
           
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
-            gap: "24px",
-            marginBottom: hasMore ? "44px" : "0"
-          }}>
+          <div className="vad-success-grid" style={{ marginBottom: hasMore ? "44px" : "0" }}>
             {displayedStories.map((story, index) => (
               <div
                 key={story.id}
@@ -81,15 +76,15 @@ export default function SuccessStoriesPage() {
                   e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.06)";
                 }}
               >
-                {/* Vertical Portrait Image Container (height increased to 270px) */}
+                {/* Vertical Portrait Image Container */}
                 <div style={{ position: "relative", width: "100%", height: "270px" }}>
                   <Image
                     src={story.imageUrl}
                     alt={story.imageAlt || story.name}
                     fill
                     style={{ objectFit: "cover" }}
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    priority={index < 4}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
+                    priority={index < 5}
                   />
                   {story.location && (
                     <div style={{
@@ -109,7 +104,7 @@ export default function SuccessStoriesPage() {
                   )}
                 </div>
 
-                {/* Content Body (Tags removed from actual card per user request) */}
+                {/* Content Body */}
                 <div style={{ padding: "18px 20px", display: "flex", flexDirection: "column", flex: 1 }}>
                   <h3 style={{ margin: "0 0 4px", fontSize: "16px", fontWeight: 800, color: "var(--vad-navy-950)", lineHeight: 1.3 }}>
                     {story.name}
@@ -146,7 +141,7 @@ export default function SuccessStoriesPage() {
             ))}
           </div>
 
-          {/* See More Success Stories Button (if > 8 stories) */}
+          {/* Show More Success Stories Button */}
           {hasMore && (
             <div style={{ textAlign: "center", marginTop: "36px" }}>
               <button
@@ -154,7 +149,7 @@ export default function SuccessStoriesPage() {
                 className="vad-btn vad-btn--gold"
                 style={{ padding: "12px 32px", fontSize: "15px" }}
               >
-                See More Success Stories ({stories.length - visibleCount} More)
+                Show More ({stories.length - visibleCount} More)
               </button>
             </div>
           )}
