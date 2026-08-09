@@ -19,14 +19,26 @@ const securityHeaders = [
   },
 ];
 
+const staticCacheHeaders = [
+  {
+    key: "Cache-Control",
+    value: "public, max-age=31536000, immutable",
+  },
+];
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
   sassOptions: {
     silenceDeprecations: ['legacy-js-api', 'import'],
   },
+  experimental: {
+    optimizePackageImports: ['swiper', 'lucide-react'],
+  },
   images: {
-    qualities: [75, 85],
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 31536000,
+    qualities: [75, 80, 85],
     remotePatterns: [
       {
         protocol: "https",
@@ -44,6 +56,12 @@ const nextConfig: NextConfig = {
         hostname: "img.youtube.com",
         pathname: "/**",
       },
+      {
+        // Sanity CDN images
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+        pathname: "/**",
+      },
     ],
   },
   async headers() {
@@ -51,6 +69,14 @@ const nextConfig: NextConfig = {
       {
         source: "/(.*)",
         headers: securityHeaders,
+      },
+      {
+        source: "/news-english/(.*)",
+        headers: staticCacheHeaders,
+      },
+      {
+        source: "/news-telugu/(.*)",
+        headers: staticCacheHeaders,
       },
     ];
   },

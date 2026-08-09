@@ -92,6 +92,10 @@ export default function RootLayout({
         <link rel="apple-touch-icon" sizes="180x180" href="/logos/apple-touch-icon.png" />
         <meta name="apple-mobile-web-app-title" content="Vadaanya Janaa Society" />
         <link rel="manifest" href="/site.webmanifest" />
+        <link rel="preconnect" href="https://cdn.sanity.io" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://cdn.sanity.io" />
+        <link rel="preconnect" href="https://img.youtube.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://img.youtube.com" />
         <JsonLd data={getOrganizationJsonLd()} />
       </head>
       <body className={`${poppins.variable} ${inter.variable}`} suppressHydrationWarning={true}>
