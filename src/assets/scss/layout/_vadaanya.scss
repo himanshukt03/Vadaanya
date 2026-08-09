@@ -548,15 +548,15 @@ body {
   }
 
   @media (max-width: 768px) {
-    height: calc(100vh - 125px);
-    height: calc(100dvh - 125px);
+    height: calc(100vh - 104px);
+    height: calc(100dvh - 104px);
     min-height: 0;
     max-height: none;
   }
 
   @media (max-width: 480px) {
-    height: calc(100vh - 125px);
-    height: calc(100dvh - 125px);
+    height: calc(100vh - 98px);
+    height: calc(100dvh - 98px);
     min-height: 0;
     max-height: none;
   }
@@ -666,11 +666,13 @@ body {
   padding-bottom: clamp(44px, 5vw, 76px);
 
   @media (max-width: 768px) {
-    padding-bottom: 76px;
+    padding-bottom: 40px;
+    padding-top: 68px;
   }
 
   @media (max-width: 480px) {
-    padding-bottom: 70px;
+    padding-bottom: 34px;
+    padding-top: 60px;
   }
 }
 
@@ -736,14 +738,15 @@ body {
   }
 
   @media (max-width: 768px) {
-    font-size: clamp(22px, 5.5vw, 32px);
+    font-size: clamp(20px, 5.2vw, 28px);
     max-width: 100%;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
 
   @media (max-width: 480px) {
-    font-size: clamp(20px, 6.5vw, 26px);
+    font-size: clamp(18px, 5.5vw, 23px);
     line-height: 1.12;
+    margin-bottom: 6px;
   }
 }
 
@@ -766,15 +769,16 @@ body {
   }
 
   @media (max-width: 768px) {
-    font-size: 13.5px;
+    font-size: 13px;
     max-width: 100%;
-    margin-bottom: 20px;
-    line-height: 1.6;
+    margin-bottom: 14px;
+    line-height: 1.5;
   }
 
   @media (max-width: 480px) {
-    font-size: 13px;
-    margin-bottom: 24px;
+    font-size: 12px;
+    margin-bottom: 12px;
+    line-height: 1.45;
   }
 }
 
@@ -786,10 +790,10 @@ body {
   align-items: center;
 
   @media (max-width: 480px) {
-    gap: 10px;
+    gap: 8px;
     .vad-btn {
-      padding: 11px 20px;
-      font-size: 13.5px;
+      padding: 8px 16px;
+      font-size: 12.5px;
     }
   }
 }
@@ -806,21 +810,21 @@ body {
   gap: 14px;
 
   @media (max-width: 768px) {
-    bottom: 18px;
-    left: clamp(20px, 4vw, 48px);
-    right: clamp(20px, 4vw, 48px);
+    bottom: 10px;
+    left: clamp(16px, 4vw, 48px);
+    right: clamp(16px, 4vw, 48px);
     width: auto;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
   }
 
   @media (max-width: 480px) {
-    bottom: 14px;
-    left: 18px;
-    right: 18px;
-    gap: 10px;
+    bottom: 6px;
+    left: 14px;
+    right: 14px;
+    gap: 8px;
   }
 }
 
@@ -852,9 +856,9 @@ body {
   }
 
   @media (max-width: 480px) {
-    width: 38px;
-    height: 38px;
-    svg { width: 15px; height: 15px; }
+    width: 32px;
+    height: 32px;
+    svg { width: 13px; height: 13px; }
   }
 }
 
