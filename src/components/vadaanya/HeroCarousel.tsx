@@ -7,7 +7,7 @@ import { Autoplay, EffectFade, A11y } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import { type CarouselSlide } from "@/lib/sanity/queries";
 
-const SLIDE_DURATION = 6000;
+const SLIDE_DURATION = 10000;
 
 const ArrowLeft = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
