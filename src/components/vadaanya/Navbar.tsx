@@ -14,11 +14,10 @@ interface MenuItem {
 const menuItems: MenuItem[] = [
   { label: "Home", href: "/" },
   { label: "About us", href: "/about" },
-  { label: "What we do", href: "/#whatwedo" },
-  { label: "Impact stories", href: "/#stories" },
+  { label: "Success Stories", href: "/success-stories" },
   { label: "Talent Test", href: "/talent-test" },
-  { label: "Gallery", href: "/gallery" },
-  { label: "Founder", href: "/founders" },
+  { label: "Media", href: "/gallery" },
+  { label: "Team Vadaanya", href: "/founders" },
   { label: "Contact us", href: "/contact" },
 ];
 
