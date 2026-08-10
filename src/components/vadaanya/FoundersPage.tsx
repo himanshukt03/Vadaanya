@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import DonateCTA from "@/components/vadaanya/DonateCTA";
 
 export default function FoundersPage() {
   return (
@@ -219,31 +220,18 @@ export default function FoundersPage() {
         </div>
       </section>
 
-      {/* 5. Recognition & Honors — dark with image overlay */}
-      <section className="vad-section vad-section--deep" style={{ position: "relative", overflow: "hidden", padding: "64px 0 72px" }}>
-        {/* Background Image & Gradient Scrim */}
-        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-          <Image 
-            src="/vadaanya_team.jpeg" 
-            alt="Awards Background" 
-            fill 
-            style={{ objectFit: "cover", opacity: 0.18 }}
-          />
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(6, 11, 34, 0.88) 0%, rgba(6, 11, 34, 0.96) 100%)" }}></div>
-        </div>
-        {/* Top Gold Accent Line */}
-        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "4px", background: "linear-gradient(90deg, #f2a712 0%, #ffd066 50%, #f2a712 100%)", zIndex: 2 }}></div>
-
-        <div className="vad-container" style={{ position: "relative", zIndex: 1 }}>
-          <div className="vad-head" style={{ textAlign: "center", marginBottom: "60px" }}>
-            <span className="vad-eyebrow">Recognition</span>
-            <h2 style={{ color: "var(--vad-on-navy)", fontSize: "clamp(24px, 2.6vw, 36px)" }}>
-              Awards &amp; <span style={{ color: "var(--vad-gold)" }}>Honors</span>
+      {/* 5. Recognition & Honors */}
+      <section className="vad-section vad-section--paper" style={{ padding: "48px 0 60px", background: "#ffffff" }}>
+        <div className="vad-container">
+          <div className="vad-head" style={{ textAlign: "center", marginBottom: "48px" }}>
+            <span className="vad-eyebrow vad-eyebrow--dark">Recognition</span>
+            <h2 style={{ color: "#0a1030", fontSize: "clamp(24px, 2.6vw, 36px)", fontWeight: 800 }}>
+              Awards &amp; <span style={{ color: "var(--vad-gold-dark, #d97706)" }}>Honors</span>
             </h2>
-            <div style={{ width: "48px", height: "3px", background: "var(--vad-gold)", margin: "14px auto 0", borderRadius: "2px", opacity: 0.5 }}></div>
+            <div style={{ width: "48px", height: "3px", background: "var(--vad-gold-dark, #d97706)", margin: "14px auto 0", borderRadius: "2px", opacity: 0.8 }}></div>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "30px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px" }}>
             {[
               {
                 title: 'Featured as a Change Leader on Telugu talk show "Unstoppable"',
@@ -265,22 +253,23 @@ export default function FoundersPage() {
               <div
                 key={i}
                 style={{
-                  background: "rgba(255,255,255,0.03)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  borderRadius: "24px",
+                  background: "#ffffff",
+                  border: "1px solid #e2e8f0",
+                  borderRadius: "20px",
                   overflow: "hidden",
-                  transition: "transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s ease, box-shadow 0.4s ease",
+                  boxShadow: "0 4px 16px rgba(10, 16, 48, 0.04)",
+                  transition: "transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease",
                   cursor: "default",
                 }}
                 onMouseEnter={(e) => { 
-                  e.currentTarget.style.transform = "translateY(-10px)"; 
-                  e.currentTarget.style.borderColor = "rgba(242, 167, 18, 0.5)"; 
-                  e.currentTarget.style.boxShadow = "0 20px 40px rgba(0,0,0,0.4)";
+                  e.currentTarget.style.transform = "translateY(-6px)"; 
+                  e.currentTarget.style.borderColor = "var(--vad-gold-dark, #d97706)"; 
+                  e.currentTarget.style.boxShadow = "0 14px 30px rgba(10, 16, 48, 0.08)";
                 }}
                 onMouseLeave={(e) => { 
                   e.currentTarget.style.transform = "translateY(0)"; 
-                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; 
-                  e.currentTarget.style.boxShadow = "none";
+                  e.currentTarget.style.borderColor = "#e2e8f0"; 
+                  e.currentTarget.style.boxShadow = "0 4px 16px rgba(10, 16, 48, 0.04)";
                 }}
               >
                 <Image
@@ -290,8 +279,8 @@ export default function FoundersPage() {
                   height={220}
                   style={{ width: "100%", height: "200px", objectFit: "cover" }}
                 />
-                <div style={{ padding: "28px" }}>
-                  <p style={{ color: "var(--vad-on-navy)", fontSize: "17px", lineHeight: 1.6, fontWeight: 600, margin: 0 }}>
+                <div style={{ padding: "22px 24px" }}>
+                  <p style={{ color: "#0f172a", fontSize: "16px", lineHeight: 1.5, fontWeight: 700, margin: 0 }}>
                     {award.title}
                   </p>
                 </div>
@@ -300,6 +289,9 @@ export default function FoundersPage() {
           </div>
         </div>
       </section>
+
+      {/* 6. Donate CTA Banner with Background Image */}
+      <DonateCTA />
     </>
   );
 }

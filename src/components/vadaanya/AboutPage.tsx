@@ -1,8 +1,7 @@
-"use client";
-
 import Image from "next/image";
 import WhatWeDoSection from "@/components/vadaanya/WhatWeDoSection";
 import VisionMissionApproach from "@/components/vadaanya/VisionMissionApproach";
+import DonateCTA from "@/components/vadaanya/DonateCTA";
 
 export default function AboutPage() {
   return (
@@ -75,38 +74,25 @@ export default function AboutPage() {
       {/* 4. What We Do */}
       <WhatWeDoSection />
 
-      {/* 5. Registration + CTA — dark with image overlay */}
-      <section className="vad-section vad-section--deep" style={{ position: "relative", overflow: "hidden", padding: "56px 0" }}>
-        {/* Background Image & Gradient Scrim */}
-        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-          <Image 
-            src="/hero-1.jpg" 
-            alt="Vadaanya Students Background" 
-            fill 
-            style={{ objectFit: "cover", opacity: 0.18 }}
-          />
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(6, 11, 34, 0.88) 0%, rgba(6, 11, 34, 0.96) 100%)" }}></div>
-        </div>
-        {/* Top Gold Accent Line */}
-        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "4px", background: "linear-gradient(90deg, #f2a712 0%, #ffd066 50%, #f2a712 100%)", zIndex: 2 }}></div>
-
-        <div className="vad-container vad-about__cta" style={{ position: "relative", zIndex: 1 }}>
+      {/* 5. Registration + CTA */}
+      <section className="vad-section vad-section--paper" style={{ padding: "48px 0", background: "#ffffff" }}>
+        <div className="vad-container vad-about__cta">
           <div className="vad-about__cta-text">
-            <span className="vad-eyebrow">Get Involved</span>
-            <h2 className="vad-about__cta-title">
-              Support a child&apos;s journey from <span style={{ color: "var(--vad-gold)" }}>Class 1 to Graduation</span>
+            <span className="vad-eyebrow vad-eyebrow--dark">Get Involved</span>
+            <h2 className="vad-about__cta-title" style={{ color: "#0a1030" }}>
+              Support a child&apos;s journey from <span style={{ color: "var(--vad-gold-dark, #d97706)" }}>Class 1 to Graduation</span>
             </h2>
-            <p className="vad-about__cta-desc">
+            <p className="vad-about__cta-desc" style={{ color: "#475569" }}>
               Vadaanya Janaa Society is registered under the Andhra Pradesh Societies
               Registration Act, 2001 (Reg. No. 1433/2010). Your contribution is eligible for
               80G tax exemption.
             </p>
             <div className="vad-about__cta-btns">
-              <a href="/" className="vad-btn vad-btn--gold">
+              <a href="#donate" className="vad-btn vad-btn--gold">
                 Donate Now
                 <span className="vad-arrow" aria-hidden="true">&rarr;</span>
               </a>
-              <a href="/contact" className="vad-btn vad-btn--outline">
+              <a href="/contact" className="vad-btn vad-btn--navy">
                 Contact Us
               </a>
             </div>
@@ -122,6 +108,9 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* 6. Donate CTA Banner with Background Image */}
+      <DonateCTA />
     </>
   );
 }
