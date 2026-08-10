@@ -1921,19 +1921,19 @@ body {
 // ============================================================
 .vad-footer {
   background: var(--vad-navy-950);
-  padding: 72px 0 36px;
+  padding: 44px 0 24px;
   border-top: 1px solid rgba(255,255,255,0.07);
 }
 
 .vad-footer__top {
   display: grid;
   grid-template-columns: 1.3fr 0.9fr 1.3fr;
-  gap: 48px;
-  padding-bottom: 44px;
+  gap: 40px;
+  padding-bottom: 28px;
   border-bottom: 1px solid rgba(255,255,255,0.07);
 
   @media (max-width: 900px) { grid-template-columns: 1fr 1fr; }
-  @media (max-width: 600px) { grid-template-columns: 1fr; gap: 34px; }
+  @media (max-width: 600px) { grid-template-columns: 1fr; gap: 28px; }
 }
 
 .vad-footer__brand-word {
@@ -1944,15 +1944,15 @@ body {
   letter-spacing: -0.01em;
   text-decoration: none;
   display: block;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 
 .vad-footer__desc {
-  font-size: 13.5px;
+  font-size: 13px;
   color: var(--vad-on-navy-muted);
-  line-height: 1.72;
-  max-width: 310px;
-  margin: 0 0 22px;
+  line-height: 1.65;
+  max-width: 320px;
+  margin: 0 0 16px;
 }
 
 .vad-footer__socials {
@@ -1961,9 +1961,9 @@ body {
 }
 
 .vad-social-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.08);
   display: flex;
@@ -1973,7 +1973,7 @@ body {
   color: var(--vad-on-navy-muted);
   transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.25s;
 
-  svg { width: 15px; height: 15px; }
+  svg { width: 14px; height: 14px; }
 
   &:hover {
     background: rgba(242, 167, 18, 0.1);
@@ -1989,7 +1989,7 @@ body {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--vad-on-navy);
-  margin-bottom: 18px;
+  margin-bottom: 12px;
   opacity: 0.9;
 }
 
@@ -1998,11 +1998,11 @@ body {
   padding: 0;
   margin: 0;
 
-  li { line-height: 1; margin-bottom: 13px; }
+  li { line-height: 1; margin-bottom: 9px; }
   li:last-child { margin-bottom: 0; }
 
   a {
-    font-size: 13.5px;
+    font-size: 13px;
     color: var(--vad-on-navy-muted);
     text-decoration: none;
     transition: color 0.2s;
@@ -2015,9 +2015,9 @@ body {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 14px;
-  padding-top: 28px;
+  padding-top: 18px;
   color: var(--vad-on-navy-muted);
-  font-size: 12.5px;
+  font-size: 12px;
   align-items: center;
 
   p { margin: 0; }
@@ -2451,7 +2451,7 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   gap: 16px 20px;
-  max-width: 960px;
+  max-width: 1200px;
   margin: 0 auto;
   position: relative;
   
@@ -2475,7 +2475,7 @@ body {
 }
 
 .vad-timeline-item {
-  width: calc(33.333% - 14px);
+  width: calc(25% - 15px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2486,6 +2486,10 @@ body {
   background: rgba(255, 255, 255, 0.025);
   border: none;
   transition: transform 0.25s ease, background 0.25s ease;
+
+  @media (max-width: 1024px) {
+    width: calc(33.333% - 14px);
+  }
 
   &:hover {
     background: rgba(255, 255, 255, 0.05);

@@ -36,11 +36,12 @@ const YouTubeIcon = () => (
 );
 
 const navLinks = [
+  { label: "Home", href: "/" },
   { label: "About us", href: "/about" },
   { label: "Success Stories", href: "/success-stories" },
   { label: "Talent Test", href: "/talent-test" },
   { label: "Media", href: "/gallery" },
-  { label: "Founder", href: "/founders" },
+  { label: "Team Vadaanya", href: "/founders" },
   { label: "Contact us", href: "/contact" },
 ];
 
@@ -63,7 +64,7 @@ export default function Footer() {
               />
             </Link>
             <p className="vad-footer__desc">
-              Vadaanya Janaa Society (Reg. No. 498/2010) — improving the living standards of the destitute and needy through education. From Class 1 to graduation, we walk beside every student we serve across AP & Telangana.
+              Empowering underprivileged students from Class 1 through graduation with education, scholarships, and mentorship across AP & Telangana.
             </p>
             <div className="vad-footer__socials" aria-label="Social media links">
               <a
@@ -110,24 +111,6 @@ export default function Footer() {
                 aria-label="Vadaanya on YouTube (opens in new tab)"
               >
                 <YouTubeIcon />
-              </a>
-            </div>
-
-            {/* Email directly below Socials */}
-            <div style={{ marginTop: "18px" }}>
-              <a
-                href="mailto:vadaanyasociety@gmail.com"
-                style={{
-                  fontSize: "13.5px",
-                  color: "var(--vad-gold-soft)",
-                  textDecoration: "none",
-                  fontWeight: 600,
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "6px"
-                }}
-              >
-                <span>✉</span> vadaanyasociety@gmail.com
               </a>
             </div>
           </div>
@@ -178,7 +161,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   style={{ color: "var(--vad-gold-soft)", textDecoration: "none" }}
                 >
-                  +91 8109598109 (what's app messages only)
+                  +91 8109598109
                 </a>
               </div>
             </div>
@@ -201,7 +184,7 @@ export default function Footer() {
             <span className="reg-chip">80G & 12A Certified</span>
             <span className="reg-chip">Darpan ID: TS/2024/0396868</span>
             <span className="reg-chip">CSR ID: CSR00071897</span>
-            <span className="reg-chip">AP Reg. 498/2010</span>
+            <span className="reg-chip">AP Reg. 1433/2010</span>
           </div>
         </div>
       </div>
