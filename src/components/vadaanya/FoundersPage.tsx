@@ -62,7 +62,7 @@ export default function FoundersPage() {
             <div style={{ flex: "1 1 360px", position: "relative" }}>
               <div style={{ position: "relative", borderRadius: "26px", overflow: "hidden", boxShadow: "0 24px 48px rgba(0, 0, 0, 0.12)", aspectRatio: "4/4.6", maxWidth: "390px", margin: "0 auto" }}>
                 <Image
-                  src="/Ashok.jpg"
+                  src="/ashok_founder.jpeg"
                   alt="Ashok Padapati"
                   fill
                   style={{ objectFit: "cover", objectPosition: "top", transition: "transform 0.5s ease" }}
@@ -219,9 +219,22 @@ export default function FoundersPage() {
         </div>
       </section>
 
-      {/* 5. Recognition & Honors */}
-      <section className="vad-section vad-section--deep">
-        <div className="vad-container">
+      {/* 5. Recognition & Honors — dark with image overlay */}
+      <section className="vad-section vad-section--deep" style={{ position: "relative", overflow: "hidden", padding: "64px 0 72px" }}>
+        {/* Background Image & Gradient Scrim */}
+        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+          <Image 
+            src="/vadaanya_team.jpeg" 
+            alt="Awards Background" 
+            fill 
+            style={{ objectFit: "cover", opacity: 0.18 }}
+          />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(6, 11, 34, 0.88) 0%, rgba(6, 11, 34, 0.96) 100%)" }}></div>
+        </div>
+        {/* Top Gold Accent Line */}
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "4px", background: "linear-gradient(90deg, #f2a712 0%, #ffd066 50%, #f2a712 100%)", zIndex: 2 }}></div>
+
+        <div className="vad-container" style={{ position: "relative", zIndex: 1 }}>
           <div className="vad-head" style={{ textAlign: "center", marginBottom: "60px" }}>
             <span className="vad-eyebrow">Recognition</span>
             <h2 style={{ color: "var(--vad-on-navy)", fontSize: "clamp(24px, 2.6vw, 36px)" }}>

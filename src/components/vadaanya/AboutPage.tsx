@@ -75,9 +75,22 @@ export default function AboutPage() {
       {/* 4. What We Do */}
       <WhatWeDoSection />
 
-      {/* 4. Registration + CTA — dark */}
-      <section className="vad-section vad-section--deep" style={{ padding: "48px 0" }}>
-        <div className="vad-container vad-about__cta">
+      {/* 5. Registration + CTA — dark with image overlay */}
+      <section className="vad-section vad-section--deep" style={{ position: "relative", overflow: "hidden", padding: "56px 0" }}>
+        {/* Background Image & Gradient Scrim */}
+        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+          <Image 
+            src="/hero-1.jpg" 
+            alt="Vadaanya Students Background" 
+            fill 
+            style={{ objectFit: "cover", opacity: 0.18 }}
+          />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(6, 11, 34, 0.88) 0%, rgba(6, 11, 34, 0.96) 100%)" }}></div>
+        </div>
+        {/* Top Gold Accent Line */}
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "4px", background: "linear-gradient(90deg, #f2a712 0%, #ffd066 50%, #f2a712 100%)", zIndex: 2 }}></div>
+
+        <div className="vad-container vad-about__cta" style={{ position: "relative", zIndex: 1 }}>
           <div className="vad-about__cta-text">
             <span className="vad-eyebrow">Get Involved</span>
             <h2 className="vad-about__cta-title">
