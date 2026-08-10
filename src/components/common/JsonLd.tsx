@@ -31,10 +31,10 @@ export function getOrganizationJsonLd() {
       logo: "https://vadaanya.org/logos/web-app-manifest-512x512.png",
       image: "https://vadaanya.org/logos/web-app-manifest-512x512.png",
       description:
-        "Vadaanya Janaa Society is a registered non-profit (Reg. No. 498/2010 · NGO Darpan ID: TS/2024/0396868 · CSR ID: CSR00071897) that bridges the gap between a government-school child's potential and a degree — through talent tests, scholarships, financial assistance and mentorship across Andhra Pradesh & Telangana since 2010.",
+        "Vadaanya Janaa Society is a registered non-profit (Reg. No. 1433/2010 · NGO Darpan ID: TS/2024/0396868 · CSR ID: CSR00071897) that bridges the gap between a government-school child's potential and a degree — through talent tests, scholarships, financial assistance and mentorship across Andhra Pradesh & Telangana since 2010.",
       foundingDate: "2010-11",
       identifier: [
-        { "@type": "PropertyValue", name: "AP Registration Number", value: "498/2010" },
+        { "@type": "PropertyValue", name: "AP Registration Number", value: "1433/2010" },
         { "@type": "PropertyValue", name: "NGO Darpan ID", value: "TS/2024/0396868" },
         { "@type": "PropertyValue", name: "CSR Registration ID", value: "CSR00071897" },
       ],

@@ -167,7 +167,7 @@ export default function ContactPage() {
                   <div>
                     <h3 style={{ margin: "0 0 3px", fontSize: "15.5px", color: "var(--vad-navy-950)", fontWeight: 700 }}>Call / WhatsApp</h3>
                     <p style={{ margin: 0, color: "var(--vad-ink-soft)", fontSize: "13.5px", lineHeight: 1.5 }}>
-                      <a href="tel:+918109598109" style={{ color: "var(--vad-gold-deep)", textDecoration: "none", fontWeight: 700 }}>+91 8109598109</a> <span style={{ fontSize: "12px", color: "var(--vad-ink-soft)" }}>(WhatsApp messages)</span>
+                      <a href="tel:+918109598109" style={{ color: "var(--vad-gold-deep)", textDecoration: "none", fontWeight: 700 }}>+91 8109598109</a> 
                     </p>
                   </div>
                 </div>

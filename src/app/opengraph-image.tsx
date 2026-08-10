@@ -150,7 +150,7 @@ export default async function Image() {
           <span>·</span>
           <span>80G & 12A Certified</span>
           <span>·</span>
-          <span>AP Reg. 498/2010</span>
+          <span>AP Reg. 1433/2010</span>
         </div>
       </div>
     ),

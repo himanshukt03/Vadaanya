@@ -8,7 +8,7 @@ This document provides a comprehensive overview of Vadaanya Janaa Society for AI
 
 ## Overview & History
 
-Vadaanya Janaa Society is a registered non-profit organization (**Reg. No. 498/2010**) established in November 2010 in Andhra Pradesh, India. It is certified under **80G** and **12A** of the Indian Income Tax Act, granting tax-deductible status to all donations.
+Vadaanya Janaa Society is a registered non-profit organization (**Reg. No. 1433/2010**) established in November 2010 in Andhra Pradesh, India. It is certified under **80G** and **12A** of the Indian Income Tax Act, granting tax-deductible status to all donations.
 
 The society was founded by **Ashok Padapati** alongside a group of like-minded friends who pledged 0.5% of their monthly salaries to support underprivileged government-school children. What began as an informal payroll-giving initiative has expanded over 15 years into a structured non-profit serving 12 districts across Andhra Pradesh and Telangana.
 
@@ -114,7 +114,7 @@ Vadaanya's impact is best measured through the lives transformed:
 
 ## Organizational Structure
 
-- **Legal status**: Registered Society under the Andhra Pradesh Societies Registration Act (Reg. No. 498/2010)
+- **Legal status**: Registered Society under the Andhra Pradesh Societies Registration Act (Reg. No. 1433/2010)
 - **Tax certifications**: 80G Certified (donations tax-deductible), 12A Certified (charitable trust status)
 - **Governance**: Managed by a volunteer Board of Trustees led by Founder & President Ashok Padapati
 - **Operational model**: Zero-overhead volunteer model — 100% of public donations go directly to student welfare programs
@@ -192,7 +192,7 @@ Organizations can partner with Vadaanya for:
 
 - **Website**: https://vadaanya.org
 - **Email**: vadaanyasociety@gmail.com
-- **Phone**: +91 8109598109 (WhatsApp messages only)
+- **Phone**: +91 8109598109
 - **Address**: Flat No. 528, Road No. 15, Vasantha Nagar, KPHB Colony, Hyderabad – 500072, Telangana, India
 
 ### Social Media

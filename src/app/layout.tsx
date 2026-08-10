@@ -3,6 +3,7 @@ import "../styles/index.scss";
 import { Poppins, Inter } from 'next/font/google';
 import type { Metadata } from "next";
 import JsonLd, { getOrganizationJsonLd } from "@/components/common/JsonLd";
+import { getSiteUrl } from "@/lib/siteUrl";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -18,8 +19,10 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
+const siteUrl = getSiteUrl();
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://vadaanya.org"),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Vadaanya Janaa Society — From Dreams to Degrees",
     template: "%s | Vadaanya Janaa Society",
@@ -39,7 +42,7 @@ export const metadata: Metadata = {
     "Srinivasa Ramanujan Talent Test",
     "Ashok Padapati",
   ],
-  authors: [{ name: "Vadaanya Janaa Society", url: "https://vadaanya.org" }],
+  authors: [{ name: "Vadaanya Janaa Society", url: siteUrl }],
   creator: "Vadaanya Janaa Society",
   publisher: "Vadaanya Janaa Society",
   robots: {
@@ -56,11 +59,19 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://vadaanya.org",
+    url: siteUrl,
     siteName: "Vadaanya Janaa Society",
     title: "Vadaanya Janaa Society — From Dreams to Degrees",
     description:
       "Empowering government-school children through talent tests, scholarships, financial assistance & mentorship across AP & Telangana since 2010.",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Vadaanya Janaa Society — From Dreams to Degrees",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -69,9 +80,10 @@ export const metadata: Metadata = {
     title: "Vadaanya Janaa Society — From Dreams to Degrees",
     description:
       "Empowering government-school children through talent tests, scholarships, financial assistance & mentorship across AP & Telangana since 2010.",
+    images: ["/opengraph-image"],
   },
   alternates: {
-    canonical: "https://vadaanya.org",
+    canonical: siteUrl,
   },
   category: "education",
 };
