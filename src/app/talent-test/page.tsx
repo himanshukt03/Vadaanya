@@ -5,7 +5,7 @@ import Footer from "@/components/vadaanya/Footer";
 import ScrollToTop from "@/components/common/ScrollToTop";
 
 export const metadata: Metadata = {
-  title: "The Srinivasa Ramanujan Talent Test — Vadaanya Janaa Society",
+  title: "Talent Test",
   description: "Once a year, thousands of government-school students across Anantapur and Sri Sathya Sai districts sit a single exam — and the ones who shine are recognised, rewarded and remembered. Register for the talent test and get your hall ticket instantly.",
   keywords: [
     "Srinivasa Ramanujan Talent Test",

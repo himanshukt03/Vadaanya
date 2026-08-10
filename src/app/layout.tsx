@@ -24,8 +24,8 @@ const siteUrl = getSiteUrl();
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Vadaanya Janaa Society — From Dreams to Degrees",
-    template: "%s | Vadaanya Janaa Society",
+    default: "Vadaanya Janaa Society",
+    template: "%s | Vadaanya",
   },
   description:
     "Vadaanya Janaa Society turns a government-school child's hope into a degree — through talent tests, scholarships, financial assistance and mentorship across Andhra Pradesh & Telangana since 2010.",
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: siteUrl,
     siteName: "Vadaanya Janaa Society",
-    title: "Vadaanya Janaa Society — From Dreams to Degrees",
+    title: "Vadaanya Janaa Society",
     description:
       "Empowering government-school children through talent tests, scholarships, financial assistance & mentorship across AP & Telangana since 2010.",
     images: [
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@VadaanyaJanaa",
     creator: "@VadaanyaJanaa",
-    title: "Vadaanya Janaa Society — From Dreams to Degrees",
+    title: "Vadaanya Janaa Society",
     description:
       "Empowering government-school children through talent tests, scholarships, financial assistance & mentorship across AP & Telangana since 2010.",
     images: ["/opengraph-image?v=2"],

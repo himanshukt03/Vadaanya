@@ -7,7 +7,7 @@ import SuccessStoriesClient from "@/components/vadaanya/SuccessStoriesClient";
 import { getSuccessStories } from "@/lib/sanity/queries";
 
 export const metadata: Metadata = {
-  title: "Success Stories — Students Who Made It | Vadaanya Janaa Society",
+  title: "Success Stories",
   description: "Real stories of students transformed from rural government school classrooms to engineering, medicine, railways, and civil services.",
   alternates: { canonical: "/success-stories" },
 };
