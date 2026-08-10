@@ -952,6 +952,11 @@ body {
   padding: 18px 24px;
   border-left: 1px solid rgba(255,255,255,0.07);
   transition: background 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 
   &:first-child { border-left: none; }
 
@@ -963,13 +968,11 @@ body {
 
   @media (max-width: 768px) {
     padding: 10px 16px;
-    &:nth-child(odd) { padding-left: 24px; }
     &:nth-child(3) { border-left: none; }
   }
 
   @media (max-width: 480px) {
     padding: 8px 12px;
-    &:nth-child(odd) { padding-left: 24px; }
   }
 }
 
