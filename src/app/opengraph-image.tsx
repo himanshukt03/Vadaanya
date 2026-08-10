@@ -4,7 +4,7 @@ import path from "path";
 
 export const runtime = "nodejs";
 
-export const alt = "Vadaanya Janaa Society — From Dreams to Degrees";
+export const alt = "Vadaanya Janaa Society — Be the one, for the change";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -31,7 +31,7 @@ export default async function Image() {
           background: "#060b22",
           fontFamily: "sans-serif",
           position: "relative",
-          padding: "50px 60px",
+          padding: "40px 50px",
           boxSizing: "border-box",
           overflow: "hidden",
         }}
@@ -86,45 +86,45 @@ export default async function Image() {
             flexDirection: "column",
             alignItems: "center",
             textAlign: "center",
-            gap: "14px",
-            maxWidth: "900px",
+            gap: "16px",
+            maxWidth: "960px",
             position: "relative",
-            marginTop: "-20px",
+            marginTop: "-15px",
           }}
         >
-          {/* Official Logo */}
+          {/* Official Logo (Bigger) */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={logoSrc}
             alt="Vadaanya Janaa Society Logo"
-            width={460}
-            height={115}
+            width={530}
+            height={132}
             style={{
               objectFit: "contain",
             }}
           />
 
-          {/* Tagline directly below logo */}
+          {/* Tagline directly below logo (Bolder & Bigger: "Be the one, for the change") */}
           <div
             style={{
-              fontSize: "30px",
-              fontWeight: 800,
+              fontSize: "36px",
+              fontWeight: 900,
               color: "#f2a712",
               letterSpacing: "0.5px",
               marginTop: "2px",
             }}
           >
-            From Dreams to Degrees
+            Be the one, for the change
           </div>
 
-          {/* Description */}
+          {/* Description (Bigger & Crisp) */}
           <div
             style={{
-              fontSize: "20px",
-              color: "rgba(255, 255, 255, 0.9)",
-              lineHeight: 1.6,
-              fontWeight: 400,
-              maxWidth: "860px",
+              fontSize: "23px",
+              color: "rgba(255, 255, 255, 0.95)",
+              lineHeight: 1.5,
+              fontWeight: 500,
+              maxWidth: "940px",
               display: "flex",
               textAlign: "center",
             }}
@@ -137,16 +137,16 @@ export default async function Image() {
         <div
           style={{
             position: "absolute",
-            bottom: "35px",
+            bottom: "30px",
             display: "flex",
             alignItems: "center",
             gap: "24px",
-            fontSize: "15px",
-            color: "rgba(255, 255, 255, 0.6)",
-            fontWeight: 500,
+            fontSize: "16px",
+            color: "rgba(255, 255, 255, 0.7)",
+            fontWeight: 600,
           }}
         >
-          <span style={{ color: "#f2a712", fontWeight: 700, fontSize: "16px" }}>vadaanya.org</span>
+          <span style={{ color: "#f2a712", fontWeight: 800, fontSize: "17px" }}>vadaanya.org</span>
           <span>·</span>
           <span>80G & 12A Certified</span>
           <span>·</span>
