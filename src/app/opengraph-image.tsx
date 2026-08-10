@@ -31,7 +31,7 @@ export default async function Image() {
           background: "#060b22",
           fontFamily: "sans-serif",
           position: "relative",
-          padding: "40px 50px",
+          padding: "35px 45px",
           boxSizing: "border-box",
           overflow: "hidden",
         }}
@@ -73,23 +73,23 @@ export default async function Image() {
             top: 0,
             left: 0,
             right: 0,
-            height: "6px",
+            height: "8px",
             background: "linear-gradient(90deg, #f2a712 0%, #ffd066 50%, #f2a712 100%)",
             display: "flex",
           }}
         />
 
-        {/* Centered Hero Group (Logo + Tagline + Description tightly grouped) */}
+        {/* Centered Hero Group (Logo + Tagline + Description) */}
         <div
           style={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             textAlign: "center",
-            gap: "16px",
-            maxWidth: "960px",
+            gap: "18px",
+            maxWidth: "1020px",
             position: "relative",
-            marginTop: "-15px",
+            marginTop: "-20px",
           }}
         >
           {/* Official Logo (Bigger) */}
@@ -97,34 +97,34 @@ export default async function Image() {
           <img
             src={logoSrc}
             alt="Vadaanya Janaa Society Logo"
-            width={530}
-            height={132}
+            width={600}
+            height={150}
             style={{
               objectFit: "contain",
             }}
           />
 
-          {/* Tagline directly below logo (Bolder & Bigger: "Be the one, for the change") */}
+          {/* Tagline directly below logo (Extra Bold & Bigger: "Be the one, for the change") */}
           <div
             style={{
-              fontSize: "36px",
+              fontSize: "42px",
               fontWeight: 900,
               color: "#f2a712",
               letterSpacing: "0.5px",
-              marginTop: "2px",
+              marginTop: "4px",
             }}
           >
             Be the one, for the change
           </div>
 
-          {/* Description (Bigger & Crisp) */}
+          {/* Description (Bigger & Bolder) */}
           <div
             style={{
-              fontSize: "23px",
-              color: "rgba(255, 255, 255, 0.95)",
-              lineHeight: 1.5,
-              fontWeight: 500,
-              maxWidth: "940px",
+              fontSize: "26px",
+              color: "rgba(255, 255, 255, 0.96)",
+              lineHeight: 1.45,
+              fontWeight: 600,
+              maxWidth: "1000px",
               display: "flex",
               textAlign: "center",
             }}
@@ -137,16 +137,16 @@ export default async function Image() {
         <div
           style={{
             position: "absolute",
-            bottom: "30px",
+            bottom: "28px",
             display: "flex",
             alignItems: "center",
-            gap: "24px",
-            fontSize: "16px",
-            color: "rgba(255, 255, 255, 0.7)",
+            gap: "28px",
+            fontSize: "18px",
+            color: "rgba(255, 255, 255, 0.75)",
             fontWeight: 600,
           }}
         >
-          <span style={{ color: "#f2a712", fontWeight: 800, fontSize: "17px" }}>vadaanya.org</span>
+          <span style={{ color: "#f2a712", fontWeight: 900, fontSize: "19px" }}>vadaanya.org</span>
           <span>·</span>
           <span>80G & 12A Certified</span>
           <span>·</span>
