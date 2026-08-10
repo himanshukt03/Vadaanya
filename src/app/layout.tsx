@@ -66,10 +66,10 @@ export const metadata: Metadata = {
       "Empowering government-school children through talent tests, scholarships, financial assistance & mentorship across AP & Telangana since 2010.",
     images: [
       {
-        url: "/opengraph-image",
+        url: "/opengraph-image?v=2",
         width: 1200,
         height: 630,
-        alt: "Vadaanya Janaa Society — From Dreams to Degrees",
+        alt: "Vadaanya Janaa Society — Be the one, for the change",
       },
     ],
   },
@@ -80,7 +80,7 @@ export const metadata: Metadata = {
     title: "Vadaanya Janaa Society — From Dreams to Degrees",
     description:
       "Empowering government-school children through talent tests, scholarships, financial assistance & mentorship across AP & Telangana since 2010.",
-    images: ["/opengraph-image"],
+    images: ["/opengraph-image?v=2"],
   },
   alternates: {
     canonical: siteUrl,
