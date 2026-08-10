@@ -231,11 +231,11 @@ body {
     border-color: var(--vad-line-ink);
     color: var(--vad-ink);
     &:hover {
-      border-color: rgba(13, 20, 54, 0.18);
+      border-color: rgba(242, 167, 18, 0.4);
       box-shadow: 0 24px 48px -24px rgba(10, 16, 48, 0.18);
     }
   }
-  .vad-scaling-number { color: rgba(30, 48, 128, 0.12); }
+  .vad-scaling-number { color: rgba(242, 167, 18, 0.28); }
   .vad-scaling-icon-wrapper {
     background: rgba(242, 167, 18, 0.10);
     color: var(--vad-gold-deep);
@@ -1227,7 +1227,7 @@ body {
     right: 14px;
     font-size: 36px;
   }
-  color: rgba(255,255,255,0.04);
+  color: rgba(242, 167, 18, 0.25);
   line-height: 1;
   user-select: none;
   z-index: 1;
