@@ -3,8 +3,13 @@
 import { useState, useEffect } from "react";
 import SuccessStoriesPage from "./SuccessStoriesPage";
 import SuccessStoriesSkeleton from "./SuccessStoriesSkeleton";
+import type { SuccessStoryItem } from "@/lib/sanity/queries";
 
-export default function SuccessStoriesClient() {
+interface SuccessStoriesClientProps {
+  stories?: SuccessStoryItem[];
+}
+
+export default function SuccessStoriesClient({ stories = [] }: SuccessStoriesClientProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -15,5 +20,5 @@ export default function SuccessStoriesClient() {
     return <SuccessStoriesSkeleton />;
   }
 
-  return <SuccessStoriesPage />;
+  return <SuccessStoriesPage stories={stories} />;
 }

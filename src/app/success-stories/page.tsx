@@ -4,6 +4,7 @@ import Wrapper from "@/layouts/Wrapper";
 import Navbar from "@/components/vadaanya/Navbar";
 import Footer from "@/components/vadaanya/Footer";
 import SuccessStoriesClient from "@/components/vadaanya/SuccessStoriesClient";
+import { getSuccessStories } from "@/lib/sanity/queries";
 
 export const metadata: Metadata = {
   title: "Success Stories — Students Who Made It | Vadaanya Janaa Society",
@@ -11,12 +12,14 @@ export const metadata: Metadata = {
   alternates: { canonical: "/success-stories" },
 };
 
-export default function Page() {
+export default async function Page() {
+  const stories = await getSuccessStories();
+
   return (
     <Wrapper>
       <Navbar />
       <main id="top">
-        <SuccessStoriesClient />
+        <SuccessStoriesClient stories={stories} />
       </main>
       <Footer />
     </Wrapper>

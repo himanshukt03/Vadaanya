@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import { useRef, useState, useEffect } from "react";
 import type { Swiper as SwiperType } from "swiper";
-import { stories, SuccessStory } from "@/data/vadaanya/SuccessStoriesData";
+import type { SuccessStoryItem } from "@/lib/sanity/queries";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -28,10 +28,14 @@ const YouTubeIcon = () => (
   </svg>
 );
 
-export default function SuccessStoriesGrid() {
+interface SuccessStoriesGridProps {
+  stories?: SuccessStoryItem[];
+}
+
+export default function SuccessStoriesGrid({ stories = [] }: SuccessStoriesGridProps) {
   const swiperRef = useRef<SwiperType | null>(null);
-  const [selectedStory, setSelectedStory] = useState<SuccessStory | null>(null);
-  
+  const [selectedStory, setSelectedStory] = useState<SuccessStoryItem | null>(null);
+
   // 6 total featured stories for the homepage carousel
   const featuredStories = stories.slice(0, 6);
 
@@ -277,11 +281,6 @@ export default function SuccessStoriesGrid() {
                   <div style={{ fontSize: "14px", fontWeight: 700, color: "var(--vad-gold-dark, #d97706)", marginBottom: "6px" }}>
                     {selectedStory.occupation}
                   </div>
-                  {selectedStory.location && (
-                    <div style={{ fontSize: "13px", color: "#64748b" }}>
-                      📍 {selectedStory.location}
-                    </div>
-                  )}
                 </div>
 
                 {/* YouTube Link Button */}

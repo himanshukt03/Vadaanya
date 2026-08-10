@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { stories, SuccessStory } from "@/data/vadaanya/SuccessStoriesData";
+import type { SuccessStoryItem } from "@/lib/sanity/queries";
 
 const CloseIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -17,9 +17,13 @@ const YouTubeIcon = () => (
   </svg>
 );
 
-export default function SuccessStoriesPage() {
+interface SuccessStoriesPageProps {
+  stories?: SuccessStoryItem[];
+}
+
+export default function SuccessStoriesPage({ stories = [] }: SuccessStoriesPageProps) {
   const [visibleCount, setVisibleCount] = useState<number>(10); // Show 2 full rows (10 items) initially
-  const [activeStory, setActiveStory] = useState<SuccessStory | null>(null);
+  const [activeStory, setActiveStory] = useState<SuccessStoryItem | null>(null);
 
   // Lock background scroll when modal is open
   useEffect(() => {
@@ -86,22 +90,6 @@ export default function SuccessStoriesPage() {
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
                     priority={index < 5}
                   />
-                  {story.location && (
-                    <div style={{
-                      position: "absolute",
-                      top: "10px",
-                      right: "10px",
-                      background: "rgba(10, 16, 48, 0.82)",
-                      color: "var(--vad-gold)",
-                      padding: "3px 10px",
-                      borderRadius: "20px",
-                      fontSize: "11px",
-                      fontWeight: 700,
-                      backdropFilter: "blur(4px)"
-                    }}>
-                      {story.location}
-                    </div>
-                  )}
                 </div>
 
                 {/* Content Body */}
@@ -225,7 +213,7 @@ export default function SuccessStoriesPage() {
                   {activeStory.name}
                 </h2>
                 <p style={{ margin: 0, fontSize: "14.5px", fontWeight: 700, color: "var(--vad-gold-deep)" }}>
-                  {activeStory.occupation} {activeStory.location ? `• ${activeStory.location}` : ""}
+                  {activeStory.occupation}
                 </p>
               </div>
             </div>
