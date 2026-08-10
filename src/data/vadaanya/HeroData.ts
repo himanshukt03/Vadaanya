@@ -58,7 +58,7 @@ export const heroSlides: HeroSlide[] = [
     id: 6,
     headline: "Education is a",
     headlineAccent: "Right, Not a Privilege",
-    subtext: "Supporting students from Class 1 through post-graduation — because no child should stop dreaming because their family cannot afford a textbook.",
+    subtext: "Supporting students from Class 10 through post-graduation — because no child should stop dreaming because their family cannot afford a textbook.",
     imageUrl: "/hero-6.jpg",
     imageAlt: "Graduate celebrating her degree",
     cta: { label: "Donate Now", href: "#donate" },

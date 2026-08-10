@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     "Vadaanya Talent Test",
     "Talent Test Hall Ticket",
     "Government School Talent Test Andhra Pradesh",
-    "Class 9 Class 10 Talent Exam",
+    "Class 9 Class 100 Talent Exam",
     "Sri Sathya Sai Anantapur Talent Test",
     "DSC SGT Talent Exam",
   ],

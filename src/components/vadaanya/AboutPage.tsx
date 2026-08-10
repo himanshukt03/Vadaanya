@@ -79,7 +79,7 @@ export default function AboutPage() {
           <div className="vad-about__cta-text">
             <span className="vad-eyebrow vad-eyebrow--dark">Get Involved</span>
             <h2 className="vad-about__cta-title" style={{ color: "#0a1030" }}>
-              Support a child&apos;s journey from <span style={{ color: "var(--vad-gold-dark, #d97706)" }}>Class 1 to Graduation</span>
+              Support a child&apos;s journey from <span style={{ color: "var(--vad-gold-dark, #d97706)" }}>Class 10 to Graduation</span>
             </h2>
             <p className="vad-about__cta-desc" style={{ color: "#475569" }}>
               Vadaanya Janaa Society is registered under the Andhra Pradesh Societies

@@ -64,7 +64,7 @@ export default function Footer() {
               />
             </Link>
             <p className="vad-footer__desc">
-              Empowering underprivileged students from Class 1 through graduation with education, scholarships, and mentorship across AP & Telangana.
+              Empowering underprivileged students from Class 10 through graduation with education, scholarships, and mentorship across AP & Telangana.
             </p>
             <div className="vad-footer__socials" aria-label="Social media links">
               <a

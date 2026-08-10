@@ -38,13 +38,13 @@ body {
     width: 22px;
     height: 2px;
     border-radius: 2px;
-    background: var(--vad-green);
+    background: var(--vad-gold-dark, #d97706);
     flex-shrink: 0;
   }
 
   &--dark {
     color: var(--vad-gold-deep);
-    &::before { background: var(--vad-green); }
+    &::before { background: var(--vad-gold-dark, #d97706); }
   }
 
   &--center {
@@ -235,7 +235,7 @@ body {
       box-shadow: 0 24px 48px -24px rgba(10, 16, 48, 0.18);
     }
   }
-  .vad-scaling-number { color: rgba(242, 167, 18, 0.28); }
+  .vad-scaling-number { color: rgba(217, 119, 6, 0.65); }
   .vad-scaling-icon-wrapper {
     background: rgba(242, 167, 18, 0.10);
     color: var(--vad-gold-deep);
@@ -1227,7 +1227,7 @@ body {
     right: 14px;
     font-size: 36px;
   }
-  color: rgba(242, 167, 18, 0.25);
+  color: rgba(217, 119, 6, 0.65);
   line-height: 1;
   user-select: none;
   z-index: 1;
@@ -2282,19 +2282,20 @@ body {
 }
 
 .vad-about__reg-card {
-  background: var(--vad-navy-850);
-  border: 1px solid rgba(255,255,255,0.09);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: var(--vad-radius);
   padding: 24px 22px;
+  box-shadow: 0 4px 20px rgba(10, 16, 48, 0.04);
 }
 
 .vad-about__reg-title {
   font-family: var(--vad-font-body);
-  font-size: 10.5px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 800;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--vad-on-navy);
+  color: var(--vad-gold-dark, #d97706);
   margin: 0 0 20px;
 }
 
@@ -2309,19 +2310,19 @@ body {
     justify-content: space-between;
     align-items: baseline;
     padding: 12px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid #f1f5f9;
     &:last-child { border-bottom: none; }
   }
   dt {
     font-family: var(--vad-font-body);
     font-size: 13.5px;
-    color: var(--vad-on-navy-muted);
-    font-weight: 400;
+    color: #64748b;
+    font-weight: 500;
   }
   dd {
     font-family: var(--vad-font-body);
     font-size: 13.5px;
-    color: var(--vad-on-navy);
+    color: #0f172a;
     font-weight: 700;
     margin: 0;
     text-align: right;
