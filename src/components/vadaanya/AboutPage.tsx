@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import WhatWeDoSection from "@/components/vadaanya/WhatWeDoSection";
+import VisionMissionApproach from "@/components/vadaanya/VisionMissionApproach";
 
 export default function AboutPage() {
   return (
@@ -68,7 +69,10 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 3. What We Do */}
+      {/* 3. Vision, Mission & Approach */}
+      <VisionMissionApproach />
+
+      {/* 4. What We Do */}
       <WhatWeDoSection />
 
       {/* 4. Registration + CTA — dark */}
