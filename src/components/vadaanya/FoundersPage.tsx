@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import DonateCTA from "@/components/vadaanya/DonateCTA";
 
 export default function FoundersPage() {
   return (
@@ -289,9 +288,6 @@ export default function FoundersPage() {
           </div>
         </div>
       </section>
-
-      {/* 6. Donate CTA Banner with Background Image */}
-      <DonateCTA />
     </>
   );
 }

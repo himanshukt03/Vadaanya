@@ -1,7 +1,6 @@
 import Image from "next/image";
 import WhatWeDoSection from "@/components/vadaanya/WhatWeDoSection";
 import VisionMissionApproach from "@/components/vadaanya/VisionMissionApproach";
-import DonateCTA from "@/components/vadaanya/DonateCTA";
 
 export default function AboutPage() {
   return (
@@ -108,9 +107,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-      {/* 6. Donate CTA Banner with Background Image */}
-      <DonateCTA />
     </>
   );
 }
