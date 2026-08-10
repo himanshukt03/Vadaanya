@@ -3021,14 +3021,13 @@ body {
 }
 
 .vad-media-grid-print {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 360px));
   justify-content: center;
-  gap: 24px;
+  gap: 28px;
   width: 100%;
 
   @media (max-width: 640px) {
-    display: grid;
     grid-template-columns: 1fr;
     gap: 20px;
   }

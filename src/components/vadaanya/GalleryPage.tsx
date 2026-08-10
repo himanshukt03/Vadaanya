@@ -30,8 +30,12 @@ const MediaSkeletonGrid = ({ count = 4, type = "gallery" }: { count?: number; ty
   return (
     <div style={{
       display: "grid",
-      gridTemplateColumns: "repeat(auto-fill, minmax(265px, 1fr))",
-      gap: "24px"
+      gridTemplateColumns: type === "print" 
+        ? "repeat(auto-fit, minmax(280px, 360px))" 
+        : "repeat(auto-fill, minmax(265px, 1fr))",
+      justifyContent: type === "print" ? "center" : undefined,
+      gap: type === "print" ? "28px" : "24px",
+      width: "100%"
     }}>
       {Array.from({ length: count }).map((_, idx) => (
         <div 
@@ -47,18 +51,39 @@ const MediaSkeletonGrid = ({ count = 4, type = "gallery" }: { count?: number; ty
           }}
         >
           {type !== "news" ? (
-            <div className="vad-skeleton-shimmer" style={{ width: "100%", height: type === "print" ? "200px" : "170px" }} />
+            <div className="vad-skeleton-shimmer" style={{ width: "100%", height: type === "print" ? "280px" : "170px" }} />
           ) : null}
-          <div style={{ padding: "20px 22px", flex: 1, display: "flex", flexDirection: "column", gap: "10px" }}>
-            {type === "news" && (
-              <div className="vad-skeleton-shimmer" style={{ width: "110px", height: "18px", borderRadius: "12px", marginBottom: "4px" }} />
-            )}
-            <div className="vad-skeleton-shimmer" style={{ width: "85%", height: "20px", borderRadius: "6px" }} />
-            <div className="vad-skeleton-shimmer" style={{ width: "100%", height: "14px", borderRadius: "4px" }} />
-            <div className="vad-skeleton-shimmer" style={{ width: "65%", height: "14px", borderRadius: "4px" }} />
-            {type === "news" && (
-              <div className="vad-skeleton-shimmer" style={{ width: "90px", height: "16px", borderRadius: "4px", marginTop: "12px" }} />
-            )}
+
+          <div style={{ padding: "22px 24px", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+            <div>
+              {type === "news" && (
+                <div className="vad-skeleton-shimmer" style={{ width: "110px", height: "18px", borderRadius: "12px", marginBottom: "8px" }} />
+              )}
+              <div className="vad-skeleton-shimmer" style={{ width: type === "print" ? "65%" : "85%", height: "20px", borderRadius: "6px" }} />
+              
+              {type === "print" ? (
+                <div className="vad-skeleton-shimmer" style={{ width: "50%", height: "14px", borderRadius: "4px", marginTop: "8px" }} />
+              ) : type !== "news" ? (
+                <div className="vad-skeleton-shimmer" style={{ width: "60%", height: "14px", borderRadius: "4px", marginTop: "8px" }} />
+              ) : (
+                <>
+                  <div className="vad-skeleton-shimmer" style={{ width: "100%", height: "14px", borderRadius: "4px", marginTop: "8px" }} />
+                  <div className="vad-skeleton-shimmer" style={{ width: "65%", height: "14px", borderRadius: "4px", marginTop: "6px" }} />
+                </>
+              )}
+            </div>
+
+            <div style={{
+              marginTop: "18px",
+              paddingTop: "14px",
+              borderTop: "1px solid rgba(0,0,0,0.06)",
+              display: "flex",
+              flexDirection: "column",
+              gap: "8px"
+            }}>
+              <div className="vad-skeleton-shimmer" style={{ width: "100px", height: "14px", borderRadius: "4px" }} />
+              <div className="vad-skeleton-shimmer" style={{ width: "90px", height: "14px", borderRadius: "4px" }} />
+            </div>
           </div>
         </div>
       ))}
@@ -208,7 +233,7 @@ export default function GalleryPage({ galleryEvents = [], printMediaCollections 
                   boxShadow: activeTab === "news" ? "0 4px 14px rgba(7, 14, 39, 0.25)" : "none",
                 }}
               >
-                News
+                News Articles
               </button>
 
               <button
@@ -246,7 +271,7 @@ export default function GalleryPage({ galleryEvents = [], printMediaCollections 
               >
                 <option value="gallery">Gallery</option>
                 <option value="print">Print Media</option>
-                <option value="news">News</option>
+                <option value="news">News Articles</option>
                 <option value="youtube">Youtube</option>
               </select>
               <div className="vad-media-select-icon">
@@ -332,57 +357,78 @@ export default function GalleryPage({ galleryEvents = [], printMediaCollections 
                       key={collection.id}
                       onClick={() => setActiveEvent(collection)}
                       style={{
-                        background: "#fff",
+                        background: "#ffffff",
                         borderRadius: "16px",
                         overflow: "hidden",
-                        boxShadow: "0 10px 30px rgba(0,0,0,0.06)",
+                        boxShadow: "0 8px 24px rgba(0,0,0,0.06)",
                         cursor: "pointer",
-                        border: "1px solid rgba(0,0,0,0.04)",
-                        transition: "transform 0.3s ease, box-shadow 0.3s ease"
+                        border: "1px solid rgba(0,0,0,0.06)",
+                        display: "flex",
+                        flexDirection: "column",
+                        transition: "all 0.3s cubic-bezier(0.22, 0.61, 0.36, 1)"
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = "translateY(-4px)";
-                        e.currentTarget.style.boxShadow = "0 15px 40px rgba(0,0,0,0.12)";
+                        e.currentTarget.style.transform = "translateY(-6px)";
+                        e.currentTarget.style.boxShadow = "0 16px 36px rgba(10, 16, 48, 0.12)";
+                        e.currentTarget.style.borderColor = "rgba(10, 16, 48, 0.15)";
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.transform = "translateY(0)";
-                        e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.06)";
+                        e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.06)";
+                        e.currentTarget.style.borderColor = "rgba(0,0,0,0.06)";
                       }}
                     >
-                      <div className="vad-media-card-img-wrap" style={{ position: "relative", width: "100%", height: "200px" }}>
+                      <div className="vad-media-card-img-wrap" style={{ position: "relative", width: "100%", height: "280px", overflow: "hidden", background: "#f5f7fa" }}>
                         <Image
                           src={collection.coverImage}
                           alt={collection.title}
                           fill
-                          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
-                          style={{ objectFit: "cover" }}
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 50vw"
+                          style={{ objectFit: "cover", objectPosition: "top center" }}
                           priority={idx < 4}
                           loading={idx < 4 ? "eager" : undefined}
                         />
                         <div style={{
                           position: "absolute",
-                          top: "12px",
-                          left: "12px",
-                          background: "var(--vad-navy-950)",
-                          color: "var(--vad-gold)",
-                          padding: "3px 10px",
-                          borderRadius: "20px",
-                          fontSize: "11px",
-                          fontWeight: 700,
-                          textTransform: "uppercase",
-                          letterSpacing: "0.04em"
-                        }}>
-                          {collection.language}
-                        </div>
+                          inset: 0,
+                          background: "linear-gradient(to bottom, rgba(0,0,0,0) 70%, rgba(0,0,0,0.12) 100%)",
+                          pointerEvents: "none"
+                        }} />
                       </div>
-                      <div className="vad-media-card-body" style={{ padding: "20px 22px" }}>
-                        <h3 className="vad-media-card-title" style={{ margin: 0, fontSize: "17px", color: "var(--vad-navy-950)", fontWeight: 800, lineHeight: 1.35 }}>
-                          {collection.title}
-                        </h3>
-                        <p className="vad-media-card-sub" style={{ margin: "10px 0 0", fontSize: "13.5px", color: "var(--vad-ink-soft)", display: "flex", alignItems: "center", gap: "6px" }}>
-                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                          {collection.images.length} Clippings (Click to View Gallery)
-                        </p>
+                      <div className="vad-media-card-body" style={{ padding: "22px 24px", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                        <div>
+                          <h3 className="vad-media-card-title" style={{ margin: 0, fontSize: "19px", color: "var(--vad-navy-950)", fontWeight: 800, lineHeight: 1.3 }}>
+                            {collection.title}
+                          </h3>
+                          {collection.language && (
+                            <div style={{
+                              margin: "6px 0 0",
+                              fontSize: "14px",
+                              fontWeight: 600,
+                              color: "var(--vad-navy-700, #1E3080)",
+                              letterSpacing: "0.01em"
+                            }}>
+                              {collection.language}
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="vad-media-card-sub" style={{
+                          marginTop: "18px",
+                          paddingTop: "14px",
+                          borderTop: "1px solid rgba(0,0,0,0.06)",
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "8px"
+                        }}>
+                          <span style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13.5px", color: "var(--vad-ink-soft)", fontWeight: 600 }}>
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                            {collection.images.length} Clippings
+                          </span>
+                          <span style={{ fontSize: "13px", fontWeight: 700, color: "var(--vad-gold-deep, #C0820C)", display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                            View Gallery &rarr;
+                          </span>
+                        </div>
                       </div>
                     </div>
                   ))}

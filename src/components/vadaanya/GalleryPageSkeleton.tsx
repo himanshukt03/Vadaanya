@@ -41,7 +41,7 @@ export default function GalleryPageSkeleton() {
                 gap: "4px",
               }}
             >
-              {["Gallery", "Print Media", "News", "Youtube"].map((label) => (
+              {["Gallery", "Print Media", "News Articles", "Youtube"].map((label) => (
                 <span
                   key={label}
                   style={{
