@@ -52,15 +52,15 @@ export default function SuccessStoriesGrid({ stories = [] }: SuccessStoriesGridP
   const closeModal = () => setSelectedStory(null);
 
   return (
-    <section id="stories" className="vad-section vad-section--paper" style={{ padding: "36px 0", background: "#ffffff" }}>
+    <section id="stories" className="vad-section vad-section--deep" style={{ padding: "48px 0 52px", background: "var(--vad-navy-950, #060b22)" }}>
       <div className="vad-container">
         {/* Header */}
-        <div className="vad-head" style={{ textAlign: "center", marginBottom: "20px" }}>
-          <span className="vad-eyebrow vad-eyebrow--dark">Impact Stories</span>
-          <h2 style={{ color: "#0a1030", fontSize: "clamp(22px, 2.8vw, 30px)", margin: "4px 0 8px", fontWeight: 800 }}>
-            Students Who <span style={{ color: "var(--vad-gold-dark, #d97706)" }}>Made It</span>
+        <div className="vad-head" style={{ textAlign: "center", marginBottom: "24px" }}>
+          <span className="vad-eyebrow" style={{ color: "var(--vad-gold, #f2a712)" }}>Impact Stories</span>
+          <h2 style={{ color: "#ffffff", fontSize: "clamp(24px, 3.2vw, 32px)", margin: "4px 0 8px", fontWeight: 800 }}>
+            Students Who <span style={{ color: "var(--vad-gold, #f2a712)" }}>Made It</span>
           </h2>
-          <p style={{ fontSize: "14.5px", color: "#475569", maxWidth: "640px", margin: "0 auto", lineHeight: 1.5 }}>
+          <p style={{ fontSize: "14.5px", color: "rgba(255, 255, 255, 0.75)", maxWidth: "640px", margin: "0 auto", lineHeight: 1.5 }}>
             These are not statistics — they are real people whose lives changed because they had support at the right moment.
           </p>
         </div>
@@ -97,26 +97,28 @@ export default function SuccessStoriesGrid({ stories = [] }: SuccessStoriesGridP
                 <article
                   onClick={() => setSelectedStory(story)}
                   style={{
-                    background: "#ffffff",
-                    border: "1px solid #e2e8f0",
+                    background: "rgba(255, 255, 255, 0.04)",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
                     borderRadius: "14px",
                     overflow: "hidden",
                     height: "100%",
                     display: "flex",
                     flexDirection: "column",
-                    boxShadow: "0 3px 12px rgba(0, 0, 0, 0.04)",
+                    boxShadow: "0 6px 20px rgba(0, 0, 0, 0.2)",
                     cursor: "pointer",
-                    transition: "transform 0.2s, box-shadow 0.2s, border-color 0.2s",
+                    transition: "transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "translateY(-3px)";
-                    e.currentTarget.style.boxShadow = "0 8px 20px rgba(0, 0, 0, 0.08)";
-                    e.currentTarget.style.borderColor = "var(--vad-gold-dark, #d97706)";
+                    e.currentTarget.style.transform = "translateY(-4px)";
+                    e.currentTarget.style.boxShadow = "0 12px 28px rgba(0, 0, 0, 0.35)";
+                    e.currentTarget.style.borderColor = "var(--vad-gold, #f2a712)";
+                    e.currentTarget.style.background = "rgba(255, 255, 255, 0.08)";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow = "0 3px 12px rgba(0, 0, 0, 0.04)";
-                    e.currentTarget.style.borderColor = "#e2e8f0";
+                    e.currentTarget.style.boxShadow = "0 6px 20px rgba(0, 0, 0, 0.2)";
+                    e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.1)";
+                    e.currentTarget.style.background = "rgba(255, 255, 255, 0.04)";
                   }}
                 >
                   {/* Slim Vertical Portrait Photo */}
@@ -126,7 +128,7 @@ export default function SuccessStoriesGrid({ stories = [] }: SuccessStoriesGridP
                       width: "100%",
                       aspectRatio: "3 / 3.1",
                       overflow: "hidden",
-                      background: "#f1f5f9",
+                      background: "#080e28",
                     }}
                   >
                     <Image
@@ -141,7 +143,7 @@ export default function SuccessStoriesGrid({ stories = [] }: SuccessStoriesGridP
                   {/* Card Content Body */}
                   <div
                     style={{
-                      padding: "8px 12px 10px",
+                      padding: "10px 14px 12px",
                       display: "flex",
                       flexDirection: "column",
                       flex: 1,
@@ -151,8 +153,8 @@ export default function SuccessStoriesGrid({ stories = [] }: SuccessStoriesGridP
                     <div>
                       <h3
                         style={{
-                          color: "#0f172a",
-                          fontSize: "14px",
+                          color: "#ffffff",
+                          fontSize: "14.5px",
                           fontWeight: 800,
                           margin: "0 0 2px",
                           lineHeight: 1.25,
@@ -163,7 +165,7 @@ export default function SuccessStoriesGrid({ stories = [] }: SuccessStoriesGridP
 
                       <div
                         style={{
-                          color: "var(--vad-gold-dark, #d97706)",
+                          color: "var(--vad-gold, #f2a712)",
                           fontSize: "11.5px",
                           fontWeight: 700,
                           marginBottom: "4px",
@@ -175,7 +177,7 @@ export default function SuccessStoriesGrid({ stories = [] }: SuccessStoriesGridP
                       <p
                         style={{
                           fontSize: "11.5px",
-                          color: "#475569",
+                          color: "rgba(255, 255, 255, 0.75)",
                           lineHeight: 1.4,
                           margin: 0,
                           display: "-webkit-box",
@@ -189,10 +191,10 @@ export default function SuccessStoriesGrid({ stories = [] }: SuccessStoriesGridP
                     </div>
 
                     {/* Know More link */}
-                    <div style={{ marginTop: "8px", paddingTop: "6px", borderTop: "1px solid #f1f5f9" }}>
+                    <div style={{ marginTop: "8px", paddingTop: "6px", borderTop: "1px solid rgba(255, 255, 255, 0.08)" }}>
                       <span
                         style={{
-                          color: "var(--vad-gold-dark, #d97706)",
+                          color: "var(--vad-gold, #f2a712)",
                           fontSize: "11.5px",
                           fontWeight: 700,
                           display: "inline-flex",
@@ -229,7 +231,7 @@ export default function SuccessStoriesGrid({ stories = [] }: SuccessStoriesGridP
         </div>
 
         {/* View All Success Stories Button */}
-        <div style={{ textAlign: "center", marginTop: "20px" }}>
+        <div style={{ textAlign: "center", marginTop: "24px" }}>
           <a href="/success-stories" className="vad-btn vad-btn--gold" style={{ padding: "10px 22px", fontSize: "13.5px" }}>
             View All Success Stories →
           </a>

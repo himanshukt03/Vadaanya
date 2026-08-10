@@ -22,8 +22,8 @@ const HomeFive = async () => {
           <StatsStrip />
         </div>
         <AboutSection />
-        <TimelineSection milestones={milestones} />
         <SuccessStoriesGrid stories={stories} />
+        <TimelineSection milestones={milestones} />
         <DonateCTA />
       </main>
       <Footer />

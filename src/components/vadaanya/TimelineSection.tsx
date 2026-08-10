@@ -15,10 +15,10 @@ export default function TimelineSection({ milestones }: TimelineSectionProps) {
     <section className="vad-timeline-section">
       <div className="vad-container">
         
-        <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "24px" }}>
+        <div className="vad-head vad-head--center" style={{ marginBottom: "24px" }}>
           <span className="vad-eyebrow vad-eyebrow--dark">OUR JOURNEY over the years</span>
-          <h2 style={{ fontSize: "clamp(24px, 3.5vw, 34px)", fontWeight: 800, marginTop: "6px", letterSpacing: "-0.5px", color: "white" }}>
-            Key <span style={{ color: "var(--vad-gold)" }}>Milestones</span>
+          <h2 style={{ fontSize: "clamp(24px, 3.5vw, 34px)", fontWeight: 800, marginTop: "6px", letterSpacing: "-0.5px", color: "#0a1030" }}>
+            Key <span style={{ color: "var(--vad-gold-dark, #d97706)" }}>Milestones</span>
           </h2>
         </div>
 

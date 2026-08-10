@@ -1459,16 +1459,16 @@ body {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  color: var(--vad-navy-950);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--vad-gold, #f2a712);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   pointer-events: auto;
   transition: background 0.3s, transform 0.3s, border-color 0.3s, color 0.3s;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
 
   svg {
     width: 18px;
@@ -1476,9 +1476,9 @@ body {
   }
 
   &:hover {
-    background: var(--vad-navy-950);
-    border-color: var(--vad-navy-950);
-    color: var(--vad-gold);
+    background: var(--vad-gold, #f2a712);
+    border-color: var(--vad-gold, #f2a712);
+    color: var(--vad-navy-950, #060b22);
     transform: scale(1.08);
   }
 }
@@ -2435,14 +2435,13 @@ body {
 }
 
 .vad-timeline-section {
-  background-color: var(--vad-navy-900);
-  color: white;
-  padding: 44px 0 52px;
-  background-image: radial-gradient(circle at 15% 50%, rgba(255,255,255,0.03), transparent 25%),
-                    radial-gradient(circle at 85% 30%, rgba(255,255,255,0.03), transparent 25%);
+  background-color: #ffffff;
+  color: #0f172a;
+  padding: 48px 0 56px;
+  border-top: 1px solid #e2e8f0;
 
   @media (max-width: 768px) {
-    padding: 32px 0 40px;
+    padding: 36px 0 44px;
   }
 }
 
@@ -2468,7 +2467,7 @@ body {
       bottom: 8px;
       left: 10px;
       width: 2px;
-      background: rgba(255,255,255,0.1);
+      background: #cbd5e1;
       transform: translateX(-50%);
     }
   }
@@ -2481,19 +2480,22 @@ body {
   align-items: center;
   text-align: center;
   position: relative;
-  padding: 14px 16px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.025);
-  border: none;
-  transition: transform 0.25s ease, background 0.25s ease;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 
   @media (max-width: 1024px) {
     width: calc(33.333% - 14px);
   }
 
   &:hover {
-    background: rgba(255, 255, 255, 0.05);
-    transform: translateY(-2px);
+    background: #ffffff;
+    border-color: var(--vad-gold-dark, #d97706);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+    transform: translateY(-3px);
   }
 
   @media (max-width: 768px) {
@@ -2503,10 +2505,12 @@ body {
     background: transparent;
     border: none;
     padding: 0;
+    box-shadow: none;
 
     &:hover {
       background: transparent;
       transform: none;
+      box-shadow: none;
     }
     
     &::before {
@@ -2516,7 +2520,7 @@ body {
       left: -18px;
       width: 10px;
       height: 10px;
-      background: var(--vad-gold);
+      background: var(--vad-gold-dark, #d97706);
       border-radius: 50%;
       transform: translate(-50%, -50%);
       z-index: 5;
@@ -2540,7 +2544,7 @@ body {
   font-family: var(--vad-font-display);
   font-size: clamp(24px, 2.5vw, 32px);
   font-weight: 800;
-  color: var(--vad-gold);
+  color: var(--vad-gold-dark, #d97706);
   z-index: 2;
   position: relative;
 
@@ -2554,10 +2558,11 @@ body {
 }
 
 .vad-timeline-desc {
-  font-size: 13px;
+  font-size: 13.5px;
   line-height: 1.45;
-  color: var(--vad-on-navy-muted);
+  color: #475569;
   margin: 0;
+  font-weight: 500;
 }
 
 .vad-donate-new {
