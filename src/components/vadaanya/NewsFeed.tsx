@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
-import { newsItems } from "@/data/vadaanya/NewsData";
+import type { NewsArticleItem } from "@/lib/sanity/queries";
+import PublisherLogo from "./PublisherLogo";
 
 const ExternalLinkIcon = () => (
   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -9,7 +12,11 @@ const ExternalLinkIcon = () => (
   </svg>
 );
 
-export default function NewsFeed() {
+interface NewsFeedProps {
+  newsItems?: NewsArticleItem[];
+}
+
+export default function NewsFeed({ newsItems = [] }: NewsFeedProps) {
   return (
     <section id="news" className="vad-section vad-section--grey">
       <div className="vad-container">
@@ -34,6 +41,7 @@ export default function NewsFeed() {
 
               {/* Content column */}
               <div>
+                <PublisherLogo publisher={item.publisher} link={item.link} />
                 {item.tag && <span className="vad-news-item__tag">{item.tag}</span>}
                 <h3 className="vad-news-item__title">{item.title}</h3>
                 <p className="vad-news-item__desc">{item.description}</p>
