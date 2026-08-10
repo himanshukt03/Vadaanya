@@ -9,8 +9,8 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function Image() {
-  // Read logo_tagline.png and background image from public/ and convert to base64 data URLs
-  const logoPath = path.join(process.cwd(), "public", "logos", "logo_tagline.png");
+  // Read logo and background image from public/ and convert to base64 data URLs
+  const logoPath = path.join(process.cwd(), "public", "logos", "PPT-logo.png");
   const logoBuffer = fs.readFileSync(logoPath);
   const logoSrc = `data:image/png;base64,${logoBuffer.toString("base64")}`;
 
@@ -79,32 +79,45 @@ export default async function Image() {
           }}
         />
 
-        {/* Centered Hero Group (Logo with Tagline + Description) */}
+        {/* Centered Hero Group (Logo + Tagline + Description) */}
         <div
           style={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             textAlign: "center",
-            gap: "22px",
+            gap: "18px",
             maxWidth: "1020px",
             position: "relative",
-            marginTop: "-15px",
+            marginTop: "-20px",
           }}
         >
-          {/* Official Logo with Tagline (logo_tagline.png) */}
+          {/* Official Logo (Bigger) */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={logoSrc}
-            alt="Vadaanya Janaa Society Logo with Tagline"
-            width={680}
-            height={180}
+            alt="Vadaanya Janaa Society Logo"
+            width={600}
+            height={150}
             style={{
               objectFit: "contain",
             }}
           />
 
-          {/* Description */}
+          {/* Tagline directly below logo (Extra Bold & Bigger: "Be the one, for the change") */}
+          <div
+            style={{
+              fontSize: "42px",
+              fontWeight: 900,
+              color: "#f2a712",
+              letterSpacing: "0.5px",
+              marginTop: "4px",
+            }}
+          >
+            Be the one, for the change
+          </div>
+
+          {/* Description (Bigger & Bolder) */}
           <div
             style={{
               fontSize: "26px",
