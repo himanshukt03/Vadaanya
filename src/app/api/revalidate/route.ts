@@ -2,6 +2,14 @@ import { revalidatePath } from "next/cache";
 import { type NextRequest, NextResponse } from "next/server";
 import { parseBody } from "next-sanity/webhook";
 
+const REVALIDATE_TYPES = [
+  "heroSlide",
+  "newsArticle",
+  "galleryEvent",
+  "printMediaCollection",
+  "successStory",
+];
+
 export async function POST(req: NextRequest) {
   try {
     const secret = process.env.SANITY_REVALIDATE_SECRET;
@@ -16,6 +24,10 @@ export async function POST(req: NextRequest) {
         return new Response("Invalid webhook signature", { status: 401 });
       }
       revalidatePath("/", "layout");
+      if (body?._type && (REVALIDATE_TYPES.includes(body._type) || body._type === "newsArticle" || body._type === "galleryEvent" || body._type === "printMediaCollection" || body._type === "successStory")) {
+        revalidatePath("/gallery", "page");
+        revalidatePath("/success-stories", "page");
+      }
       return NextResponse.json({
         revalidated: true,
         now: Date.now(),
