@@ -2,9 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { galleryEvents, GalleryEvent } from "@/data/vadaanya/GalleryData";
-import { printMediaCollections } from "@/data/vadaanya/PrintMediaData";
-import { newsItems } from "@/data/vadaanya/NewsData";
+import type { GalleryEventItem, PrintMediaCollectionItem, NewsArticleItem } from "@/lib/sanity/queries";
+import PublisherLogo from "./PublisherLogo";
 import VideoGalleryClient from "./VideoGalleryClient";
 import { videos } from "@/data/vadaanya/VideosData";
 
@@ -67,9 +66,15 @@ const MediaSkeletonGrid = ({ count = 4, type = "gallery" }: { count?: number; ty
   );
 };
 
-export default function GalleryPage() {
+interface GalleryPageProps {
+  galleryEvents?: GalleryEventItem[];
+  printMediaCollections?: PrintMediaCollectionItem[];
+  newsItems?: NewsArticleItem[];
+}
+
+export default function GalleryPage({ galleryEvents = [], printMediaCollections = [], newsItems = [] }: GalleryPageProps) {
   const [activeTab, setActiveTab] = useState<"gallery" | "print" | "news" | "youtube">("gallery");
-  const [activeEvent, setActiveEvent] = useState<GalleryEvent | null>(null);
+  const [activeEvent, setActiveEvent] = useState<GalleryEventItem | PrintMediaCollectionItem | null>(null);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -128,7 +133,7 @@ export default function GalleryPage() {
             Vadaanya <span className="vad-page-hero__accent">Media</span>
           </h1>
           <p className="vad-page-hero__lead" style={{ marginTop: "12px", fontSize: "16.5px", maxWidth: "620px", margin: "12px auto 0", color: "#ffffff" }}>
-            Explore our photo galleries, newspaper print media, news updates, and YouTube video highlights.
+            Explore our photo galleries, newspaper print coverage, news updates, and YouTube video highlights.
           </p>
         </div>
       </section>
@@ -260,7 +265,7 @@ export default function GalleryPage() {
               {/* TAB 1: GALLERY */}
               {activeTab === "gallery" && (
                 <div className="vad-media-grid">
-                  {galleryEvents.map((event) => (
+                  {galleryEvents.map((event, idx) => (
                     <div 
                       key={event.id}
                       onClick={() => setActiveEvent(event)}
@@ -289,6 +294,8 @@ export default function GalleryPage() {
                           fill
                           style={{ objectFit: "cover" }}
                           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw"
+                          priority={idx < 4}
+                          loading={idx < 4 ? "eager" : undefined}
                         />
                         <div style={{
                           position: "absolute",
@@ -320,10 +327,10 @@ export default function GalleryPage() {
               {/* TAB 2: PRINT MEDIA */}
               {activeTab === "print" && (
                 <div className="vad-media-grid-print">
-                  {printMediaCollections.map((collection) => (
+                  {printMediaCollections.map((collection, idx) => (
                     <div
                       key={collection.id}
-                      onClick={() => setActiveEvent(collection as unknown as GalleryEvent)}
+                      onClick={() => setActiveEvent(collection)}
                       style={{
                         background: "#fff",
                         borderRadius: "16px",
@@ -349,7 +356,8 @@ export default function GalleryPage() {
                           fill
                           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
                           style={{ objectFit: "cover" }}
-                          priority
+                          priority={idx < 4}
+                          loading={idx < 4 ? "eager" : undefined}
                         />
                         <div style={{
                           position: "absolute",
@@ -409,22 +417,7 @@ export default function GalleryPage() {
                       }}
                     >
                       <div>
-                        {item.publisher && (
-                          <div style={{ marginBottom: "10px" }}>
-                            <span style={{
-                              background: "rgba(30, 48, 128, 0.08)",
-                              color: "var(--vad-navy-800)",
-                              padding: "3px 10px",
-                              borderRadius: "20px",
-                              fontSize: "11px",
-                              fontWeight: 700,
-                              textTransform: "uppercase",
-                              letterSpacing: "0.03em"
-                            }}>
-                              {item.publisher}
-                            </span>
-                          </div>
-                        )}
+                        <PublisherLogo publisher={item.publisher} link={item.link} />
                         <h3 className="vad-media-card-title" style={{ margin: "0 0 10px", fontSize: "15.5px", fontWeight: 800, color: "var(--vad-navy-950)", lineHeight: 1.35 }}>
                           {item.title}
                         </h3>
@@ -503,7 +496,7 @@ export default function GalleryPage() {
             backdropFilter: "blur(10px)",
           }}>
             <div>
-              <p style={{ margin: 0, color: "var(--vad-gold)", fontSize: "14px", fontWeight: 700 }}>{activeEvent.date}</p>
+              <p style={{ margin: 0, color: "var(--vad-gold)", fontSize: "14px", fontWeight: 700 }}>{(activeEvent as any).date || ""}</p>
               <h2 style={{ margin: "4px 0 0", color: "white", fontSize: "24px", fontWeight: 700 }}>{activeEvent.title}</h2>
             </div>
             <button 
