@@ -102,7 +102,7 @@ export default function AboutPage() {
               <div><dt>Registered</dt><dd>November 2010</dd></div>
               <div><dt>Act</dt><dd>AP Societies Registration Act, 2001</dd></div>
               <div><dt>Reg. No.</dt><dd>1433/2010</dd></div>
-              <div><dt>Location</dt><dd>Andhra Pradesh, India</dd></div>
+              <div><dt>Location</dt><dd>Hyderabad, India</dd></div>
             </dl>
           </div>
         </div>
