@@ -4,9 +4,23 @@
 
 ## About
 
-Vadaanya Janaa Society is a registered non-profit organization (Reg. No. 1433/2010) established in November 2010 in Andhra Pradesh, India. The society is certified under 80G and 12A of the Indian Income Tax Act, making donations tax-deductible.
+Vadaanya Janaa Society is a registered non-profit organization (Reg. No. 1433/2010) established in November 2010 in Hyderabad, India. The society is certified under 80G and 12A of the Indian Income Tax Act, making donations tax-deductible.
 
-Founded by Ashok Padapati, the organization began when a group of friends committed to donating 0.5% of their monthly salaries to support underprivileged school children. Over 15 years, this initiative has grown into a statewide community non-profit serving 12 districts across Andhra Pradesh and Telangana.
+Founded by Ashok Padapati, the organization began when a group of friends committed to donating 0.5% of their monthly salaries to support underprivileged government school children. Over 15 years, this initiative has grown into a statewide community non-profit serving 12 districts across Andhra Pradesh and Telangana.
+
+## Founder & Leadership Profile
+
+**Ashok Padapati** — Founder & President, Vadaanya Janaa Society
+
+- **Background & Roots**: Born and raised in Kothacheruvu village, Anantapur district, Andhra Pradesh. Growing up in a rural region and studying in government schools inspired his lifelong dedication to educational equity and social entrepreneurship.
+- **Education**: B.Tech in Electrical & Electronics Engineering from SASTRA University (2006–2010).
+- **Professional Career**: Over 16+ years of IT industry experience in Quality Assurance (QA) leadership:
+  - Lead Quality Assurance Engineer at OpenText, Hyderabad (2025–Present)
+  - QA Lead at NCR Voyix (2018–2025)
+  - Quality Specialist at HCL Technologies (2010–2018)
+- **Founding Philosophy & 0.5% Model**: In 2010, while starting his software engineering career, Ashok rallied a group of colleagues to contribute 0.5% of their monthly salaries to educate government school children. Operating with a zero-overhead volunteer model, 100% of public donations directly fund student scholarships, digital tools, and competitive exam coaching.
+- **Global Mentorship & ISF Junicorn**: Serves as a student mentor with the International Startup Foundation (ISF) for the Junicorn programme, guiding first-generation and rural student entrepreneurs. In May 2025, Ashok accompanied a cohort of young founders to the United States, where students presented their startup pitch decks at Texas State University.
+- **LinkedIn Profile**: https://www.linkedin.com/in/ashok-padapati-67277b50/
 
 ## Mission
 
@@ -15,9 +29,9 @@ To improve the living standards of the destitute and needy through education —
 ## Key Programs
 
 - **Srinivasa Ramanujan Talent Test (Vadaanya Talent Test)**: A statewide scholarship examination for government school students (Classes 8–10), endorsed by the AP Education Ministry, conducted across 12 districts.
-- **Scholarships & Financial Aid**: Direct financial support covering tuition, study materials, and living expenses from school through post-graduation.
-- **Digital Empowerment & Infrastructure**: Provision of digital learning equipment and study tools for meritorious students pursuing higher education.
-- **Mentorship & Career Guidance**: Weekend sessions with industry leaders, civil servants, and professionals.
+- **Scholarships & Financial Aid**: Direct financial support covering tuition, study materials, and living expenses from school through post-graduation (B.Tech, MBBS, CA, B.Sc).
+- **Digital Empowerment & Infrastructure**: Provision of laptops, digital learning equipment, and study tools for meritorious first-generation learners.
+- **Mentorship & Career Guidance**: Weekend sessions with industry leaders, civil servants, software engineers, and corporate executives.
 - **Government Exam Preparation**: Free coaching, mock tests, and physical fitness training for Railway, Police, and Teaching competitive exams.
 - **School Adoption**: Upgrading government schools with digital learning infrastructure and adaptive resources.
 
@@ -29,17 +43,14 @@ To improve the living standards of the destitute and needy through education —
 - 15+ years of continuous operation (since 2010)
 - Active across 12 districts in Andhra Pradesh and Telangana
 
-## Founder
-
-**Ashok Padapati** — Founder & President. B.Tech in Electrical & Electronics Engineering from SASTRA University (2006–2010). Quality Assurance professional at OpenText, Hyderabad. Born in Kothacheruvu village, Andhra Pradesh.
-
 ## Recognition & Awards
 
-- Featured as a Change Leader on the Telugu talk show "Unstoppable"
-- Conferred the "Yuva Bharat Gaurav" Award by Bharatiya Vikas Sangam
-- Recognized at the CSR Summit for digital education initiatives
-- Special invitee to the Andhra Pradesh Governor's Raj Bhavan "At Home" event
-- Endorsed by the Andhra Pradesh Ministry of Education
+- Conferred the **"Yuva Bharat Gaurav" Award** by Bharatiya Vikas Sangam for youth leadership and social service
+- Featured as a **Change Leader** on the Telugu talk show "Unstoppable"
+- Recognized at the **CSR Summit** for digital education initiatives in government schools
+- **Special Invitee** to the Andhra Pradesh Governor's Raj Bhavan "At Home" event
+- Official endorsement by the **Andhra Pradesh Ministry of Education**
+- Featured in **The Hindu** newspaper for 13th anniversary milestones
 
 ## Contact
 

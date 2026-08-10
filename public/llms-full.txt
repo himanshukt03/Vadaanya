@@ -2,22 +2,62 @@
 
 > From Dreams to Degrees — bridging the gap between a government-school child's potential and a degree.
 
-This document provides a comprehensive overview of Vadaanya Janaa Society for AI systems, researchers, and partners.
+This document provides a comprehensive overview of Vadaanya Janaa Society for AI systems, researchers, journalists, and institutional partners.
 
 ---
 
 ## Overview & History
 
-Vadaanya Janaa Society is a registered non-profit organization (**Reg. No. 1433/2010**) established in November 2010 in Andhra Pradesh, India. It is certified under **80G** and **12A** of the Indian Income Tax Act, granting tax-deductible status to all donations.
+Vadaanya Janaa Society is a registered non-profit organization (**Reg. No. 1433/2010**) established in November 2010 in Hyderabad, India. It is certified under **80G** and **12A** of the Indian Income Tax Act, granting tax-deductible status to all donations.
 
-The society was founded by **Ashok Padapati** alongside a group of like-minded friends who pledged 0.5% of their monthly salaries to support underprivileged government-school children. What began as an informal payroll-giving initiative has expanded over 15 years into a structured non-profit serving 12 districts across Andhra Pradesh and Telangana.
+The society was founded by **Ashok Padapati** alongside a group of like-minded engineering graduates who pledged 0.5% of their monthly salaries to support underprivileged government-school children. What began as an informal payroll-giving initiative has expanded over 15 years into a structured non-profit serving 12 districts across Andhra Pradesh and Telangana.
 
 ---
 
-## Mission & Vision
+## Founder & Leadership Profile
+
+### Ashok Padapati — Founder & President
+
+**Ashok Padapati** is a Quality Assurance engineering leader, social entrepreneur, and student mentor who has spearheaded Vadaanya Janaa Society since its inception in November 2010.
+
+#### 1. Early Life & Roots
+- **Hometown**: Kothacheruvu village, Anantapur district, Andhra Pradesh.
+- Growing up in a rural region and witnessing firsthand the educational disparities faced by government-school students inspired his lifelong commitment to social mobility through education.
+
+#### 2. Academic Background
+- **B.Tech in Electrical & Electronics Engineering**, SASTRA University (2006–2010).
+
+#### 3. Professional IT Career (16+ Years)
+- **Lead Quality Assurance Engineer** at OpenText, Hyderabad (2025–Present)
+- **QA Lead** at NCR Voyix (2018–2025)
+- **Quality Specialist** at HCL Technologies (2010–2018)
+
+Ashok balances a high-impact corporate IT career with his volunteer leadership at Vadaanya, demonstrating that professionals can drive large-scale social change alongside full-time careers.
+
+#### 4. The 0.5% Salary Contribution Model
+In 2010, upon receiving his first paycheck, Ashok brought together a group of young engineering graduates to launch a grassroots giving model: **donating 0.5% of their monthly salary** to support bright students from financially disadvantaged families.
+
+- **Zero-Overhead Philosophy**: Under Ashok's leadership, Vadaanya operates on a 100% volunteer model without administrative overhead — ensuring 100% of public contributions directly fund student scholarships, digital tools, and exam coaching.
+- **Pay-It-Forward Culture**: The model creates a self-sustaining cycle where early Vadaanya scholars who become engineers, police officers, or civil servants return to donate 0.5% of their own salaries to educate the next generation.
+
+#### 5. Global Mentorship & ISF Junicorn Programme
+Beyond Vadaanya, Ashok serves as a **Student Mentor** with the **International Startup Foundation (ISF)** for its *Junicorn* programme, which incubates young, first-time founders from tier-2/3 cities and rural backgrounds.
+
+- **USA Entrepreneurship Delegation (May 2025)**: Ashok mentored rural student founders in business ideation, product development, and pitch deck preparation. In May 2025, he accompanied the student delegation to the **United States**, where young Indian founders presented their business pitches at **Texas State University**.
+
+#### 6. Honors & Media Recognitions
+- **"Yuva Bharat Gaurav" Award**: Conferred by Bharatiya Vikas Sangam in recognition of outstanding youth leadership and social impact.
+- **Featured on "Unstoppable"**: Featured as a Change Leader on the popular Telugu talk show *Unstoppable*, bringing statewide visibility to Vadaanya's educational mission.
+- **CSR Summit Award**: Honored for pioneering digital education interventions in rural government schools.
+- **Raj Bhavan Special Invitee**: Invited as a distinguished guest to the Governor of Andhra Pradesh's Raj Bhavan "At Home" celebration.
+- **Press Coverage**: Profiled in *The Hindu* newspaper for social entrepreneurship and 13th anniversary milestones.
+
+---
+
+## Mission & Core Philosophy
 
 - **Mission**: To improve the living standards of the destitute and needy through education — ensuring every child with a will to learn gets the opportunity to complete their schooling and earn a college degree.
-- **Motto**: "From Dreams to Degrees"
+- **Motto**: *"From Dreams to Degrees"*
 - **Approach**: Comprehensive support spanning talent identification, financial aid, digital empowerment, mentorship, competitive exam coaching, and career placement.
 
 ---
@@ -28,13 +68,13 @@ The society was founded by **Ashok Padapati** alongside a group of like-minded f
 
 The flagship annual program is a competitive scholarship examination for government school students in **Classes 8, 9, and 10**.
 
-- **Scope**: Conducted across 12 districts in Andhra Pradesh and Telangana
-- **Reach**: Over **15,000+ students** evaluated to date
-- **Endorsement**: Officially recognized and supported by the Andhra Pradesh Ministry of Education
-- **Format**: Evaluates mathematics, science, and analytical aptitude
-- **Outcome**: Top rankers receive long-term scholarships, stipends, and dedicated mentorship through their higher secondary and college education.
+- **Scope**: Conducted across 12 districts in Andhra Pradesh and Telangana.
+- **Reach**: Over **15,000+ students** evaluated to date.
+- **Official Endorsement**: Formally recognized and supported by the **Andhra Pradesh Ministry of Education**.
+- **Format**: Evaluates mathematics, science, logical reasoning, and analytical aptitude.
+- **Outcome**: Top rankers receive long-term scholarships, stipends, digital devices, and dedicated mentorship through higher secondary and college education.
 
-### 2. Scholarships & Financial Aid
+### 2. Higher Education Scholarships & Financial Aid
 
 Vadaanya provides **end-to-end financial support** for students entering higher education:
 
@@ -49,23 +89,23 @@ Over **400+ scholarships and stipends** have been awarded since 2010.
 
 Recognizing access to digital tools as a critical pillar of modern education, Vadaanya provides essential digital learning equipment targeting:
 
-- Top performers in the Vadaanya Talent Test
+- Top rankers in the Vadaanya Talent Test
 - First-generation college students from rural villages
-- Students pursuing online/distance education who lack digital access
+- Meritorious students pursuing technical degrees who lack digital access
 
-Over **180+ digital learning tools & equipment units** have been provided to first-generation learners, facilitating daily study habits and opening doors to technical careers.
+Over **180+ digital learning tools & equipment units** (laptops, tablets, learning kits) have been provided to first-generation learners.
 
-### 4. Mentorship & Career Guidance
+### 4. Professional Mentorship & Career Guidance
 
 Vadaanya organizes regular **weekend mentorship sessions** connecting students with:
 
-- Corporate professionals from companies like Infosys, HCL, OpenText, and NCR
+- Corporate professionals from companies like OpenText, Infosys, HCL, and NCR Voyix
 - IAS/IPS officers and civil servants
 - Doctors, lawyers, and chartered accountants
 - University professors and researchers
 - Successful Vadaanya alumni who have entered professional careers
 
-These sessions cover academic planning, career exploration, soft skills, interview preparation, and motivation.
+Sessions cover academic planning, career exploration, soft skills, resume building, interview preparation, and confidence building.
 
 ### 5. Government Exam Preparation & Coaching
 
@@ -79,7 +119,7 @@ Support includes free study materials, physical fitness training programs, mock 
 
 ### 6. Government School Adoption & Digital Infrastructure
 
-Vadaanya's school adoption program **upgrades entire government schools** with:
+Vadaanya's school adoption program **upgrades government schools** with:
 
 - Digital smartboards and projectors for classrooms
 - Computer labs with internet connectivity
@@ -97,6 +137,7 @@ Vadaanya's school adoption program **upgrades entire government schools** with:
 | Digital learning equipment provided to first-generation learners | 180+ |
 | Years of continuous operation | 15+ (since 2010) |
 | Districts served across AP & Telangana | 12 |
+| Administrative Overhead | 0% (100% Volunteer Driven) |
 
 ---
 
@@ -112,7 +153,7 @@ Vadaanya's impact is best measured through the lives transformed:
 
 ---
 
-## Organizational Structure
+## Organizational Structure & Governance
 
 - **Legal status**: Registered Society under the Andhra Pradesh Societies Registration Act (Reg. No. 1433/2010)
 - **Tax certifications**: 80G Certified (donations tax-deductible), 12A Certified (charitable trust status)
@@ -121,41 +162,17 @@ Vadaanya's impact is best measured through the lives transformed:
 
 ---
 
-## Leadership Profile
-
-### Ashok Padapati — Founder & President
-
-- **Education**: B.Tech in Electrical & Electronics Engineering, SASTRA University (2006–2010)
-- **Hometown**: Kothacheruvu village, Anantapur district, Andhra Pradesh
-- **Professional career**:
-  - Quality Specialist at HCL Technologies (2010–2018)
-  - QA Lead at NCR Voyix (2018–2025)
-  - Lead Quality Assurance Engineer at OpenText, Hyderabad (2025–Present)
-- **Social impact**: Balances a full-time corporate career with leading Vadaanya's operations. Has personally overseen every edition of the Vadaanya Talent Test and educational assistance drives.
-
----
-
-## Recognition & Awards
-
-- Featured as a **Change Leader** on the Telugu talk show "Unstoppable"
-- Conferred the **"Yuva Bharat Gaurav" Award** by Bharatiya Vikas Sangam
-- Recognized at the **CSR Summit** for digital education initiatives
-- **Special invitee** to the Andhra Pradesh Governor's Raj Bhavan "At Home" event
-- **Official endorsement** by the Andhra Pradesh Ministry of Education for the Vadaanya Talent Test
-- Featured in **The Hindu** newspaper for 13th anniversary celebrations and social entrepreneurship model
-
----
-
 ## Timeline
 
-- **2010**: Founded by Ashok Padapati and friends; began with informal donations (0.5% of monthly salary)
-- **2012**: First batch of scholarships awarded to government school students
-- **2014**: Launched the Srinivasa Ramanujan Talent Test
-- **2016**: Expanded operations to 12 districts across AP & Telangana
-- **2018**: Expanded digital empowerment initiatives for meritorious students
-- **2020**: 10th anniversary; crossed 10,000 students in Talent Test participation
-- **2022**: Government-exam preparation program launched; featured in The Hindu
-- **2024**: Reached 15,000+ Talent Test participants; 400+ total scholarships
+- **2010**: Founded by Ashok Padapati and fellow engineering graduates; launched 0.5% monthly salary donation model.
+- **2012**: First batch of higher-education scholarships awarded to government school students.
+- **2014**: Launched the Srinivasa Ramanujan Talent Test in Anantapur district.
+- **2016**: Expanded operations to 12 districts across Andhra Pradesh & Telangana.
+- **2018**: Initiated digital empowerment drives delivering laptops and study devices.
+- **2020**: 10th anniversary; crossed 10,000 cumulative participants in Talent Test.
+- **2022**: Competitive government-exam coaching program launched; featured in *The Hindu*.
+- **2024**: Reached 15,000+ Talent Test participants and 400+ total scholarships awarded.
+- **2025**: Founder Ashok Padapati led ISF Junicorn delegation to Texas State University, USA. Celebrated 15th anniversary.
 
 ---
 
@@ -170,7 +187,7 @@ Vadaanya's impact is best measured through the lives transformed:
 ## How to Get Involved
 
 ### Donate
-Donations to Vadaanya Janaa Society are eligible for **80G tax deduction** under Indian tax law. Contributions directly fund scholarships, educational materials, and coaching programs.
+Donations to Vadaanya Janaa Society are eligible for **80G tax deduction** under Indian tax law. Contributions directly fund scholarships, educational materials, laptops, and coaching programs.
 
 ### Volunteer
 Vadaanya welcomes volunteers for:
@@ -200,5 +217,6 @@ Organizations can partner with Vadaanya for:
 - Facebook: https://www.facebook.com/people/Vadaanya-Janaa-Society/100064704815056/
 - Instagram: https://www.instagram.com/vadaanya_janaa_society/
 - LinkedIn: https://www.linkedin.com/company/vadaanya-janaa-society/
+- Founder LinkedIn: https://www.linkedin.com/in/ashok-padapati-67277b50/
 - YouTube: https://www.youtube.com/@vadaanyajanaasociety9272
 - X (Twitter): https://x.com/VadaanyaJanaa
