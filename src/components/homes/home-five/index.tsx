@@ -6,10 +6,12 @@ import TimelineSection from "@/components/vadaanya/TimelineSection";
 import SuccessStoriesGrid from "@/components/vadaanya/SuccessStoriesGrid";
 import DonateCTA from "@/components/vadaanya/DonateCTA";
 import Footer from "@/components/vadaanya/Footer";
-import { getHeroSlides } from "@/lib/sanity/queries";
+import { getHeroSlides, getSuccessStories, getMilestones } from "@/lib/sanity/queries";
 
 const HomeFive = async () => {
   const slides = await getHeroSlides();
+  const stories = await getSuccessStories();
+  const milestones = await getMilestones();
 
   return (
     <>
@@ -20,8 +22,8 @@ const HomeFive = async () => {
           <StatsStrip />
         </div>
         <AboutSection />
-        <TimelineSection />
-        <SuccessStoriesGrid />
+        <TimelineSection milestones={milestones} />
+        <SuccessStoriesGrid stories={stories} />
         <DonateCTA />
       </main>
       <Footer />
