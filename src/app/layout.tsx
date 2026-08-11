@@ -109,46 +109,9 @@ export default function RootLayout({
         <link rel="preconnect" href="https://img.youtube.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://img.youtube.com" />
         <JsonLd data={getOrganizationJsonLd()} />
-        {/* Critical inline styles for the static preloader — must load before any stylesheet */}
-        <style dangerouslySetInnerHTML={{ __html: `
-          #vad-static-preloader {
-            position: fixed;
-            inset: 0;
-            z-index: 99999;
-            background-color: #0a1030;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 20px;
-            transition: opacity 0.25s ease;
-          }
-          #vad-static-preloader.is-fading {
-            opacity: 0;
-            pointer-events: none;
-          }
-          #vad-static-preloader__spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(242,167,18,0.15);
-            border-left-color: #f2a712;
-            border-radius: 50%;
-            animation: vadSpinStatic 0.75s linear infinite;
-          }
-          @keyframes vadSpinStatic {
-            to { transform: rotate(360deg); }
-          }
-          @keyframes vadPreloadPulse {
-            from { opacity: 0.4; }
-            to { opacity: 1; }
-          }
-        ` }} />
+
       </head>
       <body className={`${poppins.variable} ${inter.variable}`} suppressHydrationWarning={true}>
-        {/* Static server-rendered preloader — visible from the very first paint, before any JS loads */}
-        <div id="vad-static-preloader" aria-label="Loading" aria-live="polite">
-          <div id="vad-static-preloader__spinner" />
-        </div>
         <Providers>
           {children}
         </Providers>

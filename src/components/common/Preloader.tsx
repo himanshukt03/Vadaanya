@@ -1,58 +1,61 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState, useLayoutEffect } from "react";
 import Image from "next/image";
 
 /**
- * Preloader — controls the static #vad-static-preloader div that is
- * server-rendered in layout.tsx. It's already visible from the very
- * first paint; this component just fades it out and removes it once
- * the page is ready, or skips it entirely on return visits.
+ * Preloader — handles the initial loading screen with a spinner and logo.
+ * Uses React state and CSS visibility to avoid DOM manipulation issues
+ * that cause "insertBefore" and "removeChild" errors when navigating.
  */
-const Preloader = () => {
-  useEffect(() => {
-    const overlay = document.getElementById("vad-static-preloader");
-    if (!overlay) return;
 
+// Custom hook to safely handle client-side only effects
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
+const Preloader = () => {
+  const [isVisible, setIsVisible] = useState(true);
+  const [isFading, setIsFading] = useState(false);
+  const [hasVisited, setHasVisited] = useState(false);
+
+  useIsomorphicLayoutEffect(() => {
     // Check if user has already visited this session
-    let hasVisited = false;
+    let visited = false;
     try {
-      hasVisited = !!sessionStorage.getItem("vadaanya_visited");
+      visited = !!sessionStorage.getItem("vadaanya_visited");
     } catch {
       // sessionStorage blocked (private mode etc.) — treat as first visit
     }
 
-    if (hasVisited) {
-      // Return visit: remove the overlay immediately with no delay
-      overlay.remove();
+    setHasVisited(visited);
+
+    // If returning visitor, skip the preloader entirely
+    if (visited) {
+      setIsVisible(false);
       return;
     }
 
-    // First visit: mark session and add the logo before fading out
+    // First visit: mark session
     try {
       sessionStorage.setItem("vadaanya_visited", "true");
     } catch { /* ignore */ }
+  }, []);
 
-    // Inject logo into the static overlay (can't do this server-side)
-    const logoWrap = document.createElement("div");
-    logoWrap.id = "vad-static-preloader__logo";
-    logoWrap.style.cssText =
-      "display:flex;align-items:center;justify-content:center;animation:vadPreloadPulse 1.4s ease-in-out infinite alternate;";
-    const img = document.createElement("img");
-    img.src = "/logos/PPT-logo.png";
-    img.alt = "Vadaanya Janaa Society";
-    img.style.cssText = "height:42px;width:auto;object-fit:contain;";
-    logoWrap.appendChild(img);
-    overlay.appendChild(logoWrap);
+  useEffect(() => {
+    // If not visible, nothing to do
+    if (!isVisible) return;
 
     const dismiss = () => {
-      overlay.classList.add("is-fading");
-      setTimeout(() => overlay.remove(), 260);
+      setIsFading(true);
+      // Remove from DOM after fade animation completes
+      const timeout = setTimeout(() => {
+        setIsVisible(false);
+      }, 260);
+      return () => clearTimeout(timeout);
     };
 
     // Fade out once page is fully loaded, with a short guaranteed minimum
     if (document.readyState === "complete") {
-      const t = setTimeout(dismiss, 350);
-      return () => clearTimeout(t);
+      const timeout = setTimeout(dismiss, 350);
+      return () => clearTimeout(timeout);
     } else {
       let fired = false;
       const handle = () => {
@@ -60,17 +63,86 @@ const Preloader = () => {
         fired = true;
         dismiss();
       };
+
       window.addEventListener("load", handle, { once: true });
+      // Fallback timeout in case load event doesn't fire
       const fallback = setTimeout(handle, 600);
+
       return () => {
         window.removeEventListener("load", handle);
         clearTimeout(fallback);
       };
     }
-  }, []);
+  }, [isVisible]);
 
-  // This component renders nothing — it only controls the static DOM element
-  return null;
+  // Don't render anything if not visible
+  if (!isVisible) return null;
+
+  return (
+    <div
+      id="vad-preloader"
+      aria-label="Loading"
+      aria-live="polite"
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 99999,
+        backgroundColor: "#0a1030",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+        gap: "20px",
+        transition: "opacity 0.25s ease",
+        opacity: isFading ? 0 : 1,
+        pointerEvents: isFading ? "none" : "auto",
+      }}
+    >
+      {/* Spinner */}
+      <div
+        style={{
+          width: "50px",
+          height: "50px",
+          border: "4px solid rgba(242,167,18,0.15)",
+          borderLeftColor: "#f2a712",
+          borderRadius: "50%",
+          animation: "vadSpin 0.75s linear infinite",
+        }}
+      />
+
+      {/* Logo */}
+      {!hasVisited && (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            animation: "vadPulse 1.4s ease-in-out infinite alternate",
+          }}
+        >
+          <Image
+            src="/logos/PPT-logo.png"
+            alt="Vadaanya Janaa Society"
+            width={120}
+            height={42}
+            style={{ objectFit: "contain" }}
+            priority
+          />
+        </div>
+      )}
+
+      {/* Inline keyframes for animations */}
+      <style jsx global>{`
+        @keyframes vadSpin {
+          to { transform: rotate(360deg); }
+        }
+        @keyframes vadPulse {
+          from { opacity: 0.4; }
+          to { opacity: 1; }
+        }
+      `}</style>
+    </div>
+  );
 };
 
 export default Preloader;

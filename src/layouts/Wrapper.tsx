@@ -1,3 +1,4 @@
+"use client";
 import ScrollToTop from "@/components/common/ScrollToTop";
 import { ReactNode } from "react";
 import { ToastContainer } from "react-toastify";

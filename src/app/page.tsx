@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import HomeFive from "@/components/homes/home-five";
 import Wrapper from "@/layouts/Wrapper";
+import Preloader from "@/components/common/Preloader";
 
 export const metadata: Metadata = {
   title: "Vadaanya Janaa Society",
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
 const page = () => {
   return (
     <Wrapper>
+      <Preloader />
       <HomeFive />
     </Wrapper>
   );
