@@ -7,6 +7,8 @@ import { galleryEvents as fallbackGalleryEvents } from "@/data/vadaanya/GalleryD
 import { printMediaCollections as fallbackPrintMedia } from "@/data/vadaanya/PrintMediaData";
 import { stories as fallbackStories } from "@/data/vadaanya/SuccessStoriesData";
 import { milestonesData as fallbackMilestones } from "@/data/vadaanya/MilestonesData";
+import { founderProfile as fallbackFounderProfile } from "@/data/vadaanya/FounderData";
+import { awardsData as fallbackAwards } from "@/data/vadaanya/AwardsData";
 
 /* ───────────────────────────────────────────────
    HERO SLIDES
@@ -538,6 +540,167 @@ export async function getMilestones(): Promise<MilestoneItem[]> {
     id: String(m.id || idx + 1),
     year: m.year,
     desc: m.desc,
+  }));
+}
+
+/* ───────────────────────────────────────────────
+   FOUNDER PROFILE
+   ─────────────────────────────────────────────── */
+
+export const FOUNDER_PROFILE_QUERY = defineQuery(`
+  *[_type == "founderProfile"] | order(orderRank asc, _createdAt asc) [0] {
+    _id,
+    name,
+    role,
+    linkedInUrl,
+    image {
+      asset-> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      hotspot
+    },
+    bioParagraphs,
+    orderRank
+  }
+`);
+
+export interface SanityFounderProfile {
+  _id: string;
+  name: string;
+  role: string;
+  linkedInUrl?: string;
+  image?: {
+    asset?: {
+      _id: string;
+      url: string;
+      metadata?: {
+        lqip?: string;
+      };
+    };
+  };
+  bioParagraphs?: string[];
+  orderRank?: number;
+}
+
+export interface FounderProfileItem {
+  id: string;
+  name: string;
+  role: string;
+  linkedInUrl?: string;
+  imageUrl: string;
+  blurDataUrl?: string;
+  bioParagraphs: string[];
+}
+
+export async function getFounderProfile(): Promise<FounderProfileItem | null> {
+  try {
+    const sanityData: SanityFounderProfile | null = await sanityClient.fetch(
+      FOUNDER_PROFILE_QUERY,
+      {},
+      { next: { revalidate: 60 } }
+    );
+
+    if (sanityData) {
+      return {
+        id: sanityData._id,
+        name: sanityData.name || "",
+        role: sanityData.role || "",
+        linkedInUrl: sanityData.linkedInUrl || undefined,
+        imageUrl: sanityData.image
+          ? urlFor(sanityData.image).width(800).auto("format").quality(80).url()
+          : fallbackFounderProfile.image,
+        blurDataUrl: sanityData.image?.asset?.metadata?.lqip,
+        bioParagraphs: sanityData.bioParagraphs || fallbackFounderProfile.bioParagraphs,
+      };
+    }
+  } catch (err) {
+    console.error("Failed to fetch Sanity founder profile on server:", err);
+  }
+
+  return {
+    id: "fallback-founder",
+    name: fallbackFounderProfile.name,
+    role: fallbackFounderProfile.role,
+    linkedInUrl: fallbackFounderProfile.linkedInUrl,
+    imageUrl: fallbackFounderProfile.image,
+    bioParagraphs: fallbackFounderProfile.bioParagraphs,
+  };
+}
+
+/* ───────────────────────────────────────────────
+   AWARDS & HONORS
+   ─────────────────────────────────────────────── */
+
+export const AWARDS_QUERY = defineQuery(`
+  *[_type == "award"] | order(orderRank asc, _createdAt asc) {
+    _id,
+    title,
+    image {
+      asset-> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      hotspot
+    },
+    orderRank
+  }
+`);
+
+export interface SanityAward {
+  _id: string;
+  title: string;
+  image?: {
+    asset?: {
+      _id: string;
+      url: string;
+      metadata?: {
+        lqip?: string;
+      };
+    };
+  };
+  orderRank?: number;
+}
+
+export interface AwardItem {
+  id: string;
+  title: string;
+  imageUrl: string;
+  blurDataUrl?: string;
+}
+
+export async function getAwards(): Promise<AwardItem[]> {
+  try {
+    const sanityData: SanityAward[] = await sanityClient.fetch(
+      AWARDS_QUERY,
+      {},
+      { next: { revalidate: 60 } }
+    );
+
+    if (sanityData && sanityData.length > 0) {
+      return sanityData.map((award) => ({
+        id: award._id,
+        title: award.title || "",
+        imageUrl: award.image
+          ? urlFor(award.image).width(800).auto("format").quality(80).url()
+          : "/hero-1.jpg",
+        blurDataUrl: award.image?.asset?.metadata?.lqip,
+      }));
+    }
+  } catch (err) {
+    console.error("Failed to fetch Sanity awards on server:", err);
+  }
+
+  return fallbackAwards.map((award) => ({
+    id: String(award.id),
+    title: award.title,
+    imageUrl: award.image,
   }));
 }
 

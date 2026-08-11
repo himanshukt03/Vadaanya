@@ -7,6 +7,8 @@ import {
   galleryEventSchema,
   printMediaCollectionSchema,
   successStorySchema,
+  founderProfileSchema,
+  awardSchema,
 } from "./src/lib/sanity/schemas";
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "b4t4r5i2";
@@ -25,6 +27,8 @@ export default defineConfig({
       galleryEventSchema,
       printMediaCollectionSchema,
       successStorySchema,
+      founderProfileSchema,
+      awardSchema,
     ],
   },
 });

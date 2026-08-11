@@ -213,6 +213,59 @@ async function seedMilestones() {
   console.log("🏆 Milestones seeded.");
 }
 
+/* ─── Seed Founder Profile ─── */
+
+async function seedFounderProfile() {
+  const { founderProfile } = await import("@/data/vadaanya/FounderData");
+
+  console.log(`\n👤 Seeding founder profile...`);
+
+  const imageAssetId = await uploadImage(founderProfile.image);
+
+  const doc = {
+    _type: "founderProfile",
+    _id: "founderProfile-ashok-padapati",
+    name: founderProfile.name,
+    role: founderProfile.role,
+    linkedInUrl: founderProfile.linkedInUrl,
+    image: imageRef(imageAssetId),
+    bioParagraphs: founderProfile.bioParagraphs,
+    orderRank: 0,
+  };
+
+  await client.createOrReplace(doc);
+  process.stdout.write(`✅ Founder profile: ${founderProfile.name}\n`);
+
+  console.log("👤 Founder profile seeded.");
+}
+
+/* ─── Seed Awards ─── */
+
+async function seedAwards() {
+  const { awardsData } = await import("@/data/vadaanya/AwardsData");
+
+  console.log(`\n🏅 Seeding ${awardsData.length} awards...`);
+
+  for (let i = 0; i < awardsData.length; i++) {
+    const award = awardsData[i];
+
+    const imageAssetId = await uploadImage(award.image);
+
+    const doc = {
+      _type: "award",
+      _id: `award-${award.id}`,
+      title: award.title,
+      image: imageRef(imageAssetId),
+      orderRank: i,
+    };
+
+    await client.createOrReplace(doc);
+    process.stdout.write(`✅ ${award.title.slice(0, 50)}...\n`);
+  }
+
+  console.log("🏅 Awards seeded.");
+}
+
 /* ─── Main ─── */
 
 async function main() {
@@ -223,6 +276,8 @@ async function main() {
   await seedPrintMediaCollections();
   await seedSuccessStories();
   await seedMilestones();
+  await seedFounderProfile();
+  await seedAwards();
 
   console.log("\n🎉 All data seeded successfully!");
 }

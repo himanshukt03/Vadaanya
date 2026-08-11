@@ -2,7 +2,27 @@
 
 import Image from "next/image";
 
-export default function FoundersPage() {
+interface AwardItem {
+  id: string;
+  title: string;
+  imageUrl: string;
+}
+
+interface FounderProfile {
+  id: string;
+  name: string;
+  role: string;
+  linkedInUrl?: string;
+  imageUrl: string;
+  bioParagraphs: string[];
+}
+
+interface FoundersPageProps {
+  founderProfile: FounderProfile;
+  awards: AwardItem[];
+}
+
+export default function FoundersPage({ founderProfile, awards }: FoundersPageProps) {
   return (
     <>
       {/* Page Hero Band */}
@@ -62,9 +82,10 @@ export default function FoundersPage() {
             <div style={{ flex: "1 1 360px", position: "relative" }}>
               <div style={{ position: "relative", borderRadius: "26px", overflow: "hidden", boxShadow: "0 24px 48px rgba(0, 0, 0, 0.12)", aspectRatio: "4/4.6", maxWidth: "390px", margin: "0 auto" }}>
                 <Image
-                  src="/ashok_founder.jpeg"
-                  alt="Ashok Padapati"
+                  src={founderProfile.imageUrl}
+                  alt={founderProfile.name}
                   fill
+                  sizes="(max-width: 768px) 100vw, 390px"
                   style={{ objectFit: "cover", objectPosition: "top", transition: "transform 0.5s ease" }}
                   onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.05)"}
                   onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
@@ -92,17 +113,18 @@ export default function FoundersPage() {
               }}>
                 <div>
                   <p style={{ margin: 0, fontFamily: "var(--vad-font-display)", fontWeight: 800, fontSize: "16px", color: "var(--vad-navy-950)" }}>
-                    Ashok Padapati
+                    {founderProfile.name}
                   </p>
                   <p style={{ margin: "2px 0 0", fontSize: "12px", fontWeight: 600, color: "var(--vad-gold-deep)" }}>
-                    Lead QA Engineer, OpenText
+                    {founderProfile.role}
                   </p>
                 </div>
+                {founderProfile.linkedInUrl && (
                 <a
-                  href="https://www.linkedin.com/in/ashok-padapati-67277b50/"
+                  href={founderProfile.linkedInUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Ashok Padapati on LinkedIn"
+                  aria-label={`${founderProfile.name} on LinkedIn`}
                   style={{
                     display: "flex", alignItems: "center", justifyContent: "center",
                     width: "38px", height: "38px", borderRadius: "50%",
@@ -118,6 +140,7 @@ export default function FoundersPage() {
                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zm2-7a2 2 0 1 1 0 4 2 2 0 0 1 0-4z" />
                   </svg>
                 </a>
+                )}
               </div>
             </div>
 
@@ -127,15 +150,19 @@ export default function FoundersPage() {
                 Meet the <span style={{ color: "var(--vad-gold)" }}>Founder</span>
               </h2>
               <div style={{ width: "48px", height: "3px", background: "var(--vad-gold-deep)", margin: "14px 0", borderRadius: "2px" }}></div>
-              <p style={{ fontSize: "16.5px", color: "var(--vad-ink)", lineHeight: 1.8, marginBottom: "16px" }}>
-                Ashok Padapati is an Engineering graduate from SASTRA University with over 16 years of experience in the IT industry. He currently works in a Quality Assurance leadership role, bringing technical expertise and team guidance to Vadaanya.
-              </p>
-              <p style={{ fontSize: "16.5px", color: "var(--vad-ink)", lineHeight: 1.8, marginBottom: "16px" }}>
-                Growing up in Kothacheruvu, Andhra Pradesh, Ashok developed a strong passion for education and social entrepreneurship. In 2010, alongside a dedicated founding group of friends who pledged 0.5% of their monthly salaries, he established Vadaanya to support deserving students from financially disadvantaged backgrounds.
-              </p>
-              <p style={{ fontSize: "16.5px", color: "var(--vad-ink)", lineHeight: 1.8 }}>
-                For over 15 years, Ashok has guided Vadaanya as part of a collective team effort. Working closely with volunteers, mentors, and regional coordinators, the entire Vadaanya team unites to provide scholarships, talent development, and financial assistance to government school students.
-              </p>
+              {founderProfile.bioParagraphs.map((paragraph, index) => (
+                <p
+                  key={index}
+                  style={{
+                    fontSize: "16.5px",
+                    color: "var(--vad-ink)",
+                    lineHeight: 1.8,
+                    marginBottom: index < founderProfile.bioParagraphs.length - 1 ? "16px" : "0",
+                  }}
+                >
+                  {paragraph}
+                </p>
+              ))}
             </div>
           </div>
         </div>
@@ -231,26 +258,9 @@ export default function FoundersPage() {
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px" }}>
-            {[
-              {
-                title: 'Featured as a Change Leader on Telugu talk show "Unstoppable"',
-                image: "/hero-6.jpg",
-              },
-              {
-                title: '"Yuva Bharat Gaurav" Award by Bharatiya Vikas Sangam',
-                image: "/about-1.jpg",
-              },
-              {
-                title: "CSR Summit Recognition for pioneering digital education initiatives",
-                image: "/JAN_3626 (1).jpg",
-              },
-              {
-                title: "Special invitee to AP Governor's Raj Bhavan \"At Home\" event",
-                image: "/hero-1.jpg",
-              },
-            ].map((award, i) => (
+            {awards.map((award) => (
               <div
-                key={i}
+                key={award.id}
                 style={{
                   background: "#ffffff",
                   border: "1px solid #e2e8f0",
@@ -272,7 +282,7 @@ export default function FoundersPage() {
                 }}
               >
                 <Image
-                  src={award.image}
+                  src={award.imageUrl}
                   alt={award.title}
                   width={400}
                   height={220}
