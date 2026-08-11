@@ -1,72 +1,76 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Image from "next/image";
 
+/**
+ * Preloader — controls the static #vad-static-preloader div that is
+ * server-rendered in layout.tsx. It's already visible from the very
+ * first paint; this component just fades it out and removes it once
+ * the page is ready, or skips it entirely on return visits.
+ */
 const Preloader = () => {
-  const [loading, setLoading] = useState(false);
-  const [fadeOut, setFadeOut] = useState(false);
-
   useEffect(() => {
+    const overlay = document.getElementById("vad-static-preloader");
+    if (!overlay) return;
+
+    // Check if user has already visited this session
+    let hasVisited = false;
     try {
-      // Check if user has already visited in this session
-      const hasVisited = sessionStorage.getItem("vadaanya_visited");
-      if (hasVisited) {
-        // Skip preloader completely for subsequent page views/navigations
-        return;
-      }
-
-      // Mark first visit
-      sessionStorage.setItem("vadaanya_visited", "true");
-      setLoading(true);
-
-      const hidePreloader = () => {
-        setFadeOut(true);
-        setTimeout(() => setLoading(false), 250);
-      };
-
-      // Quick fallback: fade out in 350ms if already loaded
-      if (document.readyState === "complete") {
-        const timer = setTimeout(hidePreloader, 350);
-        return () => clearTimeout(timer);
-      } else {
-        const handleLoad = () => hidePreloader();
-        window.addEventListener("load", handleLoad);
-        const fallbackTimer = setTimeout(hidePreloader, 600);
-
-        return () => {
-          window.removeEventListener("load", handleLoad);
-          clearTimeout(fallbackTimer);
-        };
-      }
+      hasVisited = !!sessionStorage.getItem("vadaanya_visited");
     } catch {
-      setLoading(false);
+      // sessionStorage blocked (private mode etc.) — treat as first visit
+    }
+
+    if (hasVisited) {
+      // Return visit: remove the overlay immediately with no delay
+      overlay.remove();
+      return;
+    }
+
+    // First visit: mark session and add the logo before fading out
+    try {
+      sessionStorage.setItem("vadaanya_visited", "true");
+    } catch { /* ignore */ }
+
+    // Inject logo into the static overlay (can't do this server-side)
+    const logoWrap = document.createElement("div");
+    logoWrap.id = "vad-static-preloader__logo";
+    logoWrap.style.cssText =
+      "display:flex;align-items:center;justify-content:center;animation:vadPreloadPulse 1.4s ease-in-out infinite alternate;";
+    const img = document.createElement("img");
+    img.src = "/logos/PPT-logo.png";
+    img.alt = "Vadaanya Janaa Society";
+    img.style.cssText = "height:42px;width:auto;object-fit:contain;";
+    logoWrap.appendChild(img);
+    overlay.appendChild(logoWrap);
+
+    const dismiss = () => {
+      overlay.classList.add("is-fading");
+      setTimeout(() => overlay.remove(), 260);
+    };
+
+    // Fade out once page is fully loaded, with a short guaranteed minimum
+    if (document.readyState === "complete") {
+      const t = setTimeout(dismiss, 350);
+      return () => clearTimeout(t);
+    } else {
+      let fired = false;
+      const handle = () => {
+        if (fired) return;
+        fired = true;
+        dismiss();
+      };
+      window.addEventListener("load", handle, { once: true });
+      const fallback = setTimeout(handle, 600);
+      return () => {
+        window.removeEventListener("load", handle);
+        clearTimeout(fallback);
+      };
     }
   }, []);
 
-  if (!loading) return null;
-
-  return (
-    <div
-      className={`vad-preloader ${fadeOut ? "is-fading" : ""}`}
-      aria-label="Loading Vadaanya Janaa Society"
-    >
-      <div className="vad-preloader__content">
-        <div className="vad-preloader__spinner" role="status">
-          <span className="sr-only">Loading website...</span>
-        </div>
-        <div className="vad-preloader__logo">
-          <Image
-            src="/logos/PPT-logo.png"
-            alt="Vadaanya Janaa Society"
-            width={180}
-            height={50}
-            priority
-            style={{ objectFit: "contain", width: "auto", height: "42px" }}
-          />
-        </div>
-      </div>
-    </div>
-  );
+  // This component renders nothing — it only controls the static DOM element
+  return null;
 };
 
 export default Preloader;
