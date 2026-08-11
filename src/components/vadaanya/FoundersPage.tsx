@@ -258,7 +258,7 @@ export default function FoundersPage({ founderProfile, awards }: FoundersPagePro
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px" }}>
-            {awards.map((award) => (
+            {awards.map((award, index) => (
               <div
                 key={award.id}
                 style={{
@@ -287,6 +287,8 @@ export default function FoundersPage({ founderProfile, awards }: FoundersPagePro
                   width={400}
                   height={220}
                   style={{ width: "100%", height: "200px", objectFit: "cover" }}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  priority={index === 0}
                 />
                 <div style={{ padding: "22px 24px" }}>
                   <p style={{ color: "#0f172a", fontSize: "16px", lineHeight: 1.5, fontWeight: 700, margin: 0 }}>
