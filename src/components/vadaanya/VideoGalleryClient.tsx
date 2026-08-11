@@ -4,11 +4,12 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 
 export interface VideoData {
-  id: string | number;
+  id: string;
   videoId: string;
   title: string;
   description: string;
   published?: string;
+  thumbnail?: string;
 }
 
 const PlayIcon = () => (
@@ -36,7 +37,7 @@ const VideoSkeletonGrid = () => (
           boxShadow: "0 8px 24px rgba(0,0,0,0.04)",
           border: "1px solid rgba(0,0,0,0.06)",
           display: "flex",
-          flexDirection: "column"
+          flexDirection: "column",
         }}
       >
         <div className="vad-skeleton-shimmer" style={{ width: "100%", height: "150px" }} />
@@ -50,141 +51,184 @@ const VideoSkeletonGrid = () => (
   </div>
 );
 
-export default function VideoGalleryClient({ videos }: { videos?: VideoData[] }) {
-  const [videoList, setVideoList] = useState<VideoData[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [activeId, setActiveId] = useState<string | null>(null);
+const EmptyState = () => (
+  <div
+    style={{
+      textAlign: "center",
+      padding: "60px 20px",
+      color: "var(--vad-ink-soft)",
+      marginBottom: "36px",
+    }}
+  >
+    <YouTubeIcon />
+    <p style={{ marginTop: "16px", fontSize: "15px" }}>
+      Could not load videos right now.{" "}
+      <a
+        href="https://www.youtube.com/@vadaanyajanaasociety9272"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ color: "var(--vad-navy-700)", fontWeight: 600 }}
+      >
+        Visit our YouTube channel
+      </a>{" "}
+      to watch the latest.
+    </p>
+  </div>
+);
 
-  // Dynamically fetch live YouTube RSS videos from Vadaanya channel
+export default function VideoGalleryClient() {
+  const [videoList, setVideoList] = useState<VideoData[]>([]);
+  const [loading, setLoading]     = useState(true);
+  const [activeId, setActiveId]   = useState<string | null>(null);
+
   useEffect(() => {
-    let isMounted = true;
+    let mounted = true;
+
     fetch("/api/youtube")
       .then((res) => res.json())
       .then((data) => {
-        if (!isMounted) return;
-        if (data.videos && Array.isArray(data.videos) && data.videos.length > 0) {
-          setVideoList(data.videos);
-        } else if (videos && videos.length > 0) {
-          setVideoList(videos);
+        if (!mounted) return;
+        if (Array.isArray(data.videos)) {
+          setVideoList(data.videos.slice(0, 8));
         }
       })
       .catch((err) => {
-        console.warn("Failed to fetch live YouTube RSS, using default channel videos:", err);
-        if (isMounted && videos && videos.length > 0) {
-          setVideoList(videos);
-        }
+        console.warn("Failed to load YouTube videos:", err);
       })
       .finally(() => {
-        if (isMounted) {
-          setLoading(false);
-        }
+        if (mounted) setLoading(false);
       });
 
-    return () => {
-      isMounted = false;
-    };
-  }, [videos]);
-
-  const displayVideos = videoList.slice(0, 8);
-
-  const thumbUrl = (videoId: string) =>
-    `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+    return () => { mounted = false; };
+  }, []);
 
   const closeModal = () => setActiveId(null);
 
+  // Use the RSS-provided thumbnail; fall back to img.youtube.com hqdefault
+  const thumbUrl = (video: VideoData) =>
+    video.thumbnail || `https://i.ytimg.com/vi/${video.videoId}/hqdefault.jpg`;
+
   return (
     <>
-      {/* Static 4-card per row Grid for 8 Recent Videos */}
       {loading ? (
         <VideoSkeletonGrid />
+      ) : videoList.length === 0 ? (
+        <EmptyState />
       ) : (
         <div className="vad-media-grid" style={{ marginBottom: "36px" }}>
-        {displayVideos.map((video) => (
-          <div
-            key={video.id}
-            style={{
-              background: "#ffffff",
-              borderRadius: "16px",
-              overflow: "hidden",
-              boxShadow: "0 8px 24px rgba(0,0,0,0.06)",
-              border: "1px solid rgba(0,0,0,0.06)",
-              display: "flex",
-              flexDirection: "column",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-              cursor: "pointer"
-            }}
-            onClick={() => setActiveId(video.videoId)}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-4px)";
-              e.currentTarget.style.boxShadow = "0 12px 30px rgba(0,0,0,0.1)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.06)";
-            }}
-          >
-            {/* Thumbnail */}
-            <div style={{ position: "relative", width: "100%", height: "150px" }}>
-              <Image
-                src={thumbUrl(video.videoId)}
-                alt={video.title}
-                fill
-                style={{ objectFit: "cover" }}
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-              />
-              <div style={{
-                position: "absolute",
-                inset: 0,
+          {videoList.map((video) => (
+            <div
+              key={video.videoId}
+              style={{
+                background: "#ffffff",
+                borderRadius: "16px",
+                overflow: "hidden",
+                boxShadow: "0 8px 24px rgba(0,0,0,0.06)",
+                border: "1px solid rgba(0,0,0,0.06)",
                 display: "flex",
-                alignItems: "center",
-                justifyContent: "center"
-              }}>
-                <div style={{
-                  width: "44px",
-                  height: "44px",
-                  borderRadius: "50%",
-                  background: "rgba(0, 0, 0, 0.45)",
-                  backdropFilter: "blur(6px)",
-                  WebkitBackdropFilter: "blur(6px)",
-                  border: "1px solid rgba(255, 255, 255, 0.3)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  boxShadow: "0 4px 14px rgba(0,0,0,0.25)",
-                  paddingLeft: "3px"
-                }}>
-                  <PlayIcon />
+                flexDirection: "column",
+                transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                cursor: "pointer",
+              }}
+              onClick={() => setActiveId(video.videoId)}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-4px)";
+                e.currentTarget.style.boxShadow = "0 12px 30px rgba(0,0,0,0.1)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.06)";
+              }}
+            >
+              {/* Thumbnail */}
+              <div style={{ position: "relative", width: "100%", height: "150px" }}>
+                <Image
+                  src={thumbUrl(video)}
+                  alt={video.title}
+                  fill
+                  style={{ objectFit: "cover" }}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  unoptimized
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "44px",
+                      height: "44px",
+                      borderRadius: "50%",
+                      background: "rgba(0,0,0,0.45)",
+                      backdropFilter: "blur(6px)",
+                      WebkitBackdropFilter: "blur(6px)",
+                      border: "1px solid rgba(255,255,255,0.3)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      boxShadow: "0 4px 14px rgba(0,0,0,0.25)",
+                      paddingLeft: "3px",
+                    }}
+                  >
+                    <PlayIcon />
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Content */}
-            <div style={{ padding: "16px 18px", display: "flex", flexDirection: "column", flex: 1 }}>
-              <h3 style={{ margin: "0 0 8px", fontSize: "14.5px", fontWeight: 800, color: "var(--vad-navy-950)", lineHeight: 1.35 }}>
-                {video.title}
-              </h3>
-              <p style={{ margin: 0, fontSize: "13px", color: "var(--vad-ink-soft)", lineHeight: 1.5, flex: 1 }}>
-                {video.description ? `${video.description.substring(0, 75)}...` : ""}
-              </p>
+              {/* Content */}
+              <div style={{ padding: "16px 18px", display: "flex", flexDirection: "column", flex: 1 }}>
+                <h3
+                  style={{
+                    margin: "0 0 8px",
+                    fontSize: "14.5px",
+                    fontWeight: 800,
+                    color: "var(--vad-navy-950)",
+                    lineHeight: 1.35,
+                  }}
+                >
+                  {video.title}
+                </h3>
+                {video.description && (
+                  <p
+                    style={{
+                      margin: 0,
+                      fontSize: "13px",
+                      color: "var(--vad-ink-soft)",
+                      lineHeight: 1.5,
+                      flex: 1,
+                    }}
+                  >
+                    {video.description.length > 80
+                      ? `${video.description.substring(0, 80)}…`
+                      : video.description}
+                  </p>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
       )}
 
       {/* YouTube Channel Subscribe Strip */}
-      <div style={{
-        background: "#ffffff",
-        borderRadius: "20px",
-        padding: "24px 30px",
-        border: "1px solid rgba(0,0,0,0.08)",
-        boxShadow: "0 10px 30px rgba(0,0,0,0.04)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        flexWrap: "wrap",
-        gap: "20px"
-      }}>
+      <div
+        style={{
+          background: "#ffffff",
+          borderRadius: "20px",
+          padding: "24px 30px",
+          border: "1px solid rgba(0,0,0,0.08)",
+          boxShadow: "0 10px 30px rgba(0,0,0,0.04)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          gap: "20px",
+        }}
+      >
         <div style={{ display: "flex", alignItems: "center", gap: "16px", flex: 1, minWidth: "280px" }}>
           <div style={{ flexShrink: 0 }}>
             <YouTubeIcon />
@@ -198,7 +242,6 @@ export default function VideoGalleryClient({ videos }: { videos?: VideoData[] })
             </span>
           </div>
         </div>
-
         <a
           href="https://www.youtube.com/@vadaanyajanaasociety9272"
           target="_blank"
@@ -216,13 +259,13 @@ export default function VideoGalleryClient({ videos }: { videos?: VideoData[] })
           style={{
             position: "fixed",
             inset: 0,
-            background: "rgba(10, 16, 48, 0.92)",
+            background: "rgba(10,16,48,0.92)",
             zIndex: 2000,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             padding: "20px",
-            backdropFilter: "blur(8px)"
+            backdropFilter: "blur(8px)",
           }}
           onClick={closeModal}
         >
@@ -235,7 +278,7 @@ export default function VideoGalleryClient({ videos }: { videos?: VideoData[] })
               background: "#000",
               borderRadius: "16px",
               overflow: "hidden",
-              boxShadow: "0 25px 50px rgba(0,0,0,0.5)"
+              boxShadow: "0 25px 50px rgba(0,0,0,0.5)",
             }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -257,7 +300,7 @@ export default function VideoGalleryClient({ videos }: { videos?: VideoData[] })
                 cursor: "pointer",
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center"
+                justifyContent: "center",
               }}
             >
               ✕

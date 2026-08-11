@@ -51,9 +51,15 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
       {
-        // YouTube thumbnails
+        // YouTube thumbnails (img.youtube.com CDN)
         protocol: "https",
         hostname: "img.youtube.com",
+        pathname: "/**",
+      },
+      {
+        // YouTube thumbnails (i.ytimg.com CDN — used by RSS feed)
+        protocol: "https",
+        hostname: "i.ytimg.com",
         pathname: "/**",
       },
       {
