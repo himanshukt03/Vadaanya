@@ -5,7 +5,6 @@ import Image from "next/image";
 import type { GalleryEventItem, PrintMediaCollectionItem, NewsArticleItem } from "@/lib/sanity/queries";
 import PublisherLogo from "./PublisherLogo";
 import VideoGalleryClient from "./VideoGalleryClient";
-import { videos } from "@/data/vadaanya/VideosData";
 
 const CloseIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -503,7 +502,7 @@ export default function GalleryPage({ galleryEvents = [], printMediaCollections 
               {/* TAB 4: YOUTUBE */}
               {activeTab === "youtube" && (
                 <div style={{ width: "100%" }}>
-                  <VideoGalleryClient videos={videos} />
+                  <VideoGalleryClient />
                 </div>
               )}
             </>
