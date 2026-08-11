@@ -704,3 +704,92 @@ export async function getAwards(): Promise<AwardItem[]> {
   }));
 }
 
+/* ───────────────────────────────────────────────
+   HOME ABOUT US SECTION
+   ─────────────────────────────────────────────── */
+
+export const HOME_ABOUT_QUERY = defineQuery(`
+  *[_type == "homeAbout"][0] {
+    _id,
+    title,
+    description,
+    image {
+      asset-> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      hotspot
+    },
+    statsLabel,
+    statsText
+  }
+`);
+
+export interface SanityHomeAbout {
+  _id: string;
+  title: string;
+  description: string;
+  image?: {
+    asset?: {
+      _id: string;
+      url: string;
+      metadata?: {
+        lqip?: string;
+      };
+    };
+  };
+  statsLabel: string;
+  statsText: string;
+}
+
+export interface HomeAboutItem {
+  id: string;
+  title: string;
+  description: string;
+  imageUrl: string;
+  blurDataUrl?: string;
+  statsLabel: string;
+  statsText: string;
+}
+
+export async function getHomeAbout(): Promise<HomeAboutItem> {
+  const fallbackData = {
+    id: "fallback-home-about",
+    title: "Turning a Government-School Child's Hope into a Degree",
+    description: "We are a passionate community of volunteers dedicated to bridging the educational divide. By providing scholarships, mentorship, and essential resources like digital tools, we empower underprivileged students across Andhra Pradesh and Telangana to build a brighter, self-reliant future.",
+    imageUrl: "/IMG-20230417-WA0004.jpg",
+    statsLabel: "15k+",
+    statsText: "STUDENTS SUPPORTED",
+  };
+
+  try {
+    const sanityData: SanityHomeAbout | null = await sanityClient.fetch(
+      HOME_ABOUT_QUERY,
+      {},
+      { next: { revalidate: 60 } }
+    );
+
+    if (sanityData) {
+      return {
+        id: sanityData._id,
+        title: sanityData.title || fallbackData.title,
+        description: sanityData.description || fallbackData.description,
+        imageUrl: sanityData.image
+          ? urlFor(sanityData.image).width(800).auto("format").quality(80).url()
+          : fallbackData.imageUrl,
+        blurDataUrl: sanityData.image?.asset?.metadata?.lqip,
+        statsLabel: sanityData.statsLabel || fallbackData.statsLabel,
+        statsText: sanityData.statsText || fallbackData.statsText,
+      };
+    }
+  } catch (err) {
+    console.error("Failed to fetch Sanity home about data on server:", err);
+  }
+
+  return fallbackData;
+}
+
+

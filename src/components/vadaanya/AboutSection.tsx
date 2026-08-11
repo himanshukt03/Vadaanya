@@ -1,6 +1,5 @@
 import Image from "next/image";
-
-
+import { HomeAboutItem } from "@/lib/sanity/queries";
 
 const RocketIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -12,7 +11,27 @@ const RocketIcon = () => (
   </svg>
 );
 
-export default function AboutSection() {
+interface AboutSectionProps {
+  data: HomeAboutItem;
+}
+
+export default function AboutSection({ data }: AboutSectionProps) {
+  // Parse title to handle <span> tags for styling
+  const renderTitle = () => {
+    const parts = data.title.split(/<span>(.*?)<\/span>/);
+    return parts.map((part, index) => {
+      if (index % 2 === 1) {
+        // This is inside a <span> tag
+        return (
+          <span key={index} className="vad-text-navy">
+            {part}
+          </span>
+        );
+      }
+      return part;
+    });
+  };
+
   return (
     <section id="about" className="vad-section vad-section--paper">
       <div className="vad-container">
@@ -20,12 +39,9 @@ export default function AboutSection() {
           {/* Text Content */}
           <div className="vad-about__text">
             <div className="vad-head vad-head--light">
-              <h2>
-                Turning a Government-School Child&apos;s Hope into a{" "}
-                <span className="vad-text-navy">Degree</span>
-              </h2>
+              <h2>{renderTitle()}</h2>
               <p className="vad-lead">
-                We are a passionate community of volunteers dedicated to bridging the educational divide. By providing scholarships, mentorship, and essential resources like digital tools, we empower underprivileged students across Andhra Pradesh and Telangana to build a brighter, self-reliant future.
+                {data.description}
               </p>
             </div>
 
@@ -42,11 +58,13 @@ export default function AboutSection() {
           {/* Visual Content */}
           <div className="vad-about__visual">
             <Image
-              src="/IMG-20230417-WA0004.jpg"
+              src={data.imageUrl}
               alt="Vadaanya Talent Test & Gathering"
               width={600}
               height={450}
               className="vad-about__img"
+              placeholder={data.blurDataUrl ? "blur" : undefined}
+              blurDataURL={data.blurDataUrl}
             />
 
             {/* Bottom Left Floating Card */}
@@ -55,8 +73,8 @@ export default function AboutSection() {
                 <RocketIcon />
               </div>
               <div>
-                <strong>15k+</strong>
-                <span>STUDENTS SUPPORTED</span>
+                <strong>{data.statsLabel}</strong>
+                <span>{data.statsText}</span>
               </div>
             </div>
           </div>
