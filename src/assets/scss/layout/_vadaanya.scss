@@ -1344,6 +1344,46 @@ body {
   }
 }
 
+.vad-awards__swiper {
+  position: relative;
+
+  .swiper-wrapper {
+    display: flex;
+  }
+
+  // Pre-hydration layout: prevent single large card flash before Swiper JS initializes
+  &:not(.swiper-initialized) {
+    .swiper-wrapper {
+      display: flex;
+      gap: 16px;
+      overflow: hidden;
+
+      .swiper-slide {
+        width: calc((100% - 48px) / 4) !important;
+        flex: 0 0 calc((100% - 48px) / 4);
+
+        @media (max-width: 1023px) {
+          width: calc((100% - 28px) / 3) !important;
+          flex: 0 0 calc((100% - 28px) / 3);
+        }
+        @media (max-width: 767px) {
+          width: calc((100% - 12px) / 2) !important;
+          flex: 0 0 calc((100% - 12px) / 2);
+        }
+        @media (max-width: 519px) {
+          width: 100% !important;
+          flex: 0 0 100%;
+        }
+      }
+    }
+  }
+
+  .swiper-slide {
+    height: auto;
+    display: flex;
+  }
+}
+
 // Tall portrait profile card
 .vad-story-profile {
   border-radius: var(--vad-radius-sm);

@@ -289,6 +289,7 @@ export default function FoundersPage({ founderProfile, awards }: FoundersPagePro
           {/* Carousel Wrapper */}
           <div style={{ position: "relative", width: "100%" }}>
             <Swiper
+              className="vad-awards__swiper"
               modules={[Navigation, Autoplay]}
               spaceBetween={16}
               slidesPerView={4}
