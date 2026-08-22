@@ -51,9 +51,20 @@ async function uploadImage(filePath: string): Promise<string | null> {
 function imageRef(assetId: string | null) {
   if (!assetId) return undefined;
   return {
+    _key: Math.random().toString(36).substring(2, 10),
     _type: "image",
     asset: { _type: "reference", _ref: assetId },
   };
+}
+
+/**
+ * Generate a well-spaced lexicographic rank string for position `index` (0-based).
+ * Format: "0|NNNNNN:" — compatible with @sanity/orderable-document-list.
+ */
+function generateRank(index: number): string {
+  const GAP = 100000;
+  const value = GAP * (index + 1);
+  return `0|${value.toString().padStart(6, "0")}:`;
 }
 
 /* ─── Seed News Articles ─── */
@@ -75,7 +86,7 @@ async function seedNewsArticles() {
       linkLabel: item.linkLabel || "Read Article",
       tag: item.tag,
       date: item.date,
-      orderRank: i,
+      orderRank: generateRank(i),
     };
 
     await client.createOrReplace(doc);
@@ -110,7 +121,7 @@ async function seedGalleryEvents() {
       date: event.date,
       coverImage: imageRef(coverAssetId),
       images: imageAssetIds.map((id) => imageRef(id)),
-      orderRank: i,
+      orderRank: generateRank(i),
     };
 
     await client.createOrReplace(doc);
@@ -146,7 +157,7 @@ async function seedPrintMediaCollections() {
       date: collection.date,
       coverImage: imageRef(coverAssetId),
       images: imageAssetIds.map((id) => imageRef(id)),
-      orderRank: i,
+      orderRank: generateRank(i),
     };
 
     await client.createOrReplace(doc);
@@ -179,7 +190,7 @@ async function seedSuccessStories() {
       covered: story.covered,
       videoUrl: story.videoUrl,
       image: imageRef(imageAssetId),
-      orderRank: i,
+      orderRank: generateRank(i),
     };
 
     await client.createOrReplace(doc);
@@ -203,7 +214,7 @@ async function seedMilestones() {
       _id: `milestone-${item.id || i + 1}`,
       year: item.year,
       desc: item.desc,
-      orderRank: i,
+      orderRank: generateRank(i),
     };
 
     await client.createOrReplace(doc);
@@ -230,7 +241,7 @@ async function seedFounderProfile() {
     linkedInUrl: founderProfile.linkedInUrl,
     image: imageRef(imageAssetId),
     bioParagraphs: founderProfile.bioParagraphs,
-    orderRank: 0,
+    orderRank: generateRank(0),
   };
 
   await client.createOrReplace(doc);
@@ -256,7 +267,7 @@ async function seedAwards() {
       _id: `award-${award.id}`,
       title: award.title,
       image: imageRef(imageAssetId),
-      orderRank: i,
+      orderRank: generateRank(i),
     };
 
     await client.createOrReplace(doc);

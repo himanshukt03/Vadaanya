@@ -1,6 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import { useRef, useEffect } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
+
+import "swiper/css";
+import "swiper/css/navigation";
 
 interface AwardItem {
   id: string;
@@ -22,7 +29,29 @@ interface FoundersPageProps {
   awards: AwardItem[];
 }
 
+const ArrowLeft = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <polyline points="15 18 9 12 15 6" />
+  </svg>
+);
+
+const ArrowRight = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <polyline points="9 18 15 12 9 6" />
+  </svg>
+);
+
 export default function FoundersPage({ founderProfile, awards }: FoundersPageProps) {
+  const awardsSwiperRef = useRef<SwiperType | null>(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (awardsSwiperRef.current && !awardsSwiperRef.current.destroyed) {
+        awardsSwiperRef.current.update();
+      }
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <>
       {/* Page Hero Band */}
@@ -246,10 +275,10 @@ export default function FoundersPage({ founderProfile, awards }: FoundersPagePro
         </div>
       </section>
 
-      {/* 5. Recognition & Honors */}
+      {/* 5. Recognition & Honors — Carousel */}
       <section className="vad-section vad-section--paper" style={{ padding: "48px 0 60px", background: "#ffffff" }}>
         <div className="vad-container">
-          <div className="vad-head" style={{ textAlign: "center", marginBottom: "48px" }}>
+          <div className="vad-head" style={{ textAlign: "center", marginBottom: "32px" }}>
             <span className="vad-eyebrow vad-eyebrow--dark">Recognition</span>
             <h2 style={{ color: "#0a1030", fontSize: "clamp(24px, 2.6vw, 36px)", fontWeight: 800 }}>
               Awards &amp; <span style={{ color: "var(--vad-gold-dark, #d97706)" }}>Honors</span>
@@ -257,46 +286,112 @@ export default function FoundersPage({ founderProfile, awards }: FoundersPagePro
             <div style={{ width: "48px", height: "3px", background: "var(--vad-gold-dark, #d97706)", margin: "14px auto 0", borderRadius: "2px", opacity: 0.8 }}></div>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px" }}>
-            {awards.map((award, index) => (
-              <div
-                key={award.id}
+          {/* Carousel Wrapper */}
+          <div style={{ position: "relative", width: "100%" }}>
+            <Swiper
+              modules={[Navigation, Autoplay]}
+              spaceBetween={16}
+              slidesPerView={4}
+              loop={awards.length > 4}
+              observer={true}
+              observeParents={true}
+              resizeObserver={true}
+              updateOnWindowResize={true}
+              autoplay={{ delay: 4500, disableOnInteraction: false, pauseOnMouseEnter: true }}
+              onSwiper={(swiper) => {
+                awardsSwiperRef.current = swiper;
+                if (swiper && !swiper.destroyed) {
+                  swiper.update();
+                }
+              }}
+              breakpoints={{
+                0: { slidesPerView: 1, spaceBetween: 10 },
+                520: { slidesPerView: 2, spaceBetween: 12 },
+                768: { slidesPerView: 3, spaceBetween: 14 },
+                1024: { slidesPerView: 4, spaceBetween: 16 },
+              }}
+              style={{ width: "100%", padding: "4px 0 8px" }}
+            >
+              {awards.map((award, index) => (
+                <SwiperSlide key={award.id} style={{ height: "auto" }}>
+                  <div
+                    style={{
+                      background: "#ffffff",
+                      border: "1px solid #e2e8f0",
+                      borderRadius: "20px",
+                      overflow: "hidden",
+                      boxShadow: "0 4px 16px rgba(10, 16, 48, 0.04)",
+                      transition: "transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease",
+                      cursor: "default",
+                      height: "100%",
+                      display: "flex",
+                      flexDirection: "column" as const,
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = "translateY(-6px)";
+                      e.currentTarget.style.borderColor = "var(--vad-gold-dark, #d97706)";
+                      e.currentTarget.style.boxShadow = "0 14px 30px rgba(10, 16, 48, 0.08)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = "translateY(0)";
+                      e.currentTarget.style.borderColor = "#e2e8f0";
+                      e.currentTarget.style.boxShadow = "0 4px 16px rgba(10, 16, 48, 0.04)";
+                    }}
+                  >
+                    <div style={{ position: "relative", width: "100%", aspectRatio: "16 / 10", overflow: "hidden", background: "#f1f5f9" }}>
+                      <Image
+                        src={award.imageUrl}
+                        alt={award.title}
+                        fill
+                        sizes="(max-width: 480px) 90vw, (max-width: 700px) 50vw, 33vw"
+                        style={{ objectFit: "cover" }}
+                        loading={index === 0 ? "eager" : "lazy"}
+                        priority={index === 0}
+                      />
+                    </div>
+                    <div style={{ padding: "18px 20px", flex: 1, display: "flex", alignItems: "center" }}>
+                      <p style={{ color: "#0f172a", fontSize: "15px", lineHeight: 1.5, fontWeight: 700, margin: 0 }}>
+                        {award.title}
+                      </p>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+
+            {/* Custom Navigation Arrows — light theme */}
+            <div className="vad-awards__nav" style={{ display: "flex", justifyContent: "center", gap: "12px", marginTop: "24px" }}>
+              <button
+                onClick={() => awardsSwiperRef.current?.slidePrev()}
+                aria-label="Previous awards"
                 style={{
-                  background: "#ffffff",
-                  border: "1px solid #e2e8f0",
-                  borderRadius: "20px",
-                  overflow: "hidden",
-                  boxShadow: "0 4px 16px rgba(10, 16, 48, 0.04)",
-                  transition: "transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease",
-                  cursor: "default",
+                  width: "40px", height: "40px", borderRadius: "50%",
+                  border: "1.5px solid #cbd5e1", background: "#ffffff",
+                  color: "#0f172a", display: "flex", alignItems: "center",
+                  justifyContent: "center", cursor: "pointer",
+                  transition: "all 0.2s ease",
                 }}
-                onMouseEnter={(e) => { 
-                  e.currentTarget.style.transform = "translateY(-6px)"; 
-                  e.currentTarget.style.borderColor = "var(--vad-gold-dark, #d97706)"; 
-                  e.currentTarget.style.boxShadow = "0 14px 30px rgba(10, 16, 48, 0.08)";
-                }}
-                onMouseLeave={(e) => { 
-                  e.currentTarget.style.transform = "translateY(0)"; 
-                  e.currentTarget.style.borderColor = "#e2e8f0"; 
-                  e.currentTarget.style.boxShadow = "0 4px 16px rgba(10, 16, 48, 0.04)";
-                }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--vad-gold-dark, #d97706)"; e.currentTarget.style.color = "var(--vad-gold-dark, #d97706)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#cbd5e1"; e.currentTarget.style.color = "#0f172a"; }}
               >
-                <Image
-                  src={award.imageUrl}
-                  alt={award.title}
-                  width={400}
-                  height={220}
-                  style={{ width: "100%", height: "200px", objectFit: "cover" }}
-                  loading={index === 0 ? "eager" : "lazy"}
-                  priority={index === 0}
-                />
-                <div style={{ padding: "22px 24px" }}>
-                  <p style={{ color: "#0f172a", fontSize: "16px", lineHeight: 1.5, fontWeight: 700, margin: 0 }}>
-                    {award.title}
-                  </p>
-                </div>
-              </div>
-            ))}
+                <ArrowLeft />
+              </button>
+              <button
+                onClick={() => awardsSwiperRef.current?.slideNext()}
+                aria-label="Next awards"
+                style={{
+                  width: "40px", height: "40px", borderRadius: "50%",
+                  border: "1.5px solid #cbd5e1", background: "#ffffff",
+                  color: "#0f172a", display: "flex", alignItems: "center",
+                  justifyContent: "center", cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--vad-gold-dark, #d97706)"; e.currentTarget.style.color = "var(--vad-gold-dark, #d97706)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#cbd5e1"; e.currentTarget.style.color = "#0f172a"; }}
+              >
+                <ArrowRight />
+              </button>
+            </div>
           </div>
         </div>
       </section>

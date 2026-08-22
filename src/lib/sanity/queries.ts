@@ -154,7 +154,7 @@ export interface SanityNewsArticle {
   linkLabel?: string;
   tag?: string;
   date?: string;
-  orderRank?: number;
+  orderRank?: string;
 }
 
 export interface NewsArticleItem {
@@ -247,7 +247,7 @@ export interface SanityGalleryEvent {
       url: string;
     };
   }>;
-  orderRank?: number;
+  orderRank?: string;
 }
 
 export interface GalleryEventItem {
@@ -341,7 +341,7 @@ export interface SanityPrintMediaCollection {
       url: string;
     };
   }>;
-  orderRank?: number;
+  orderRank?: string;
 }
 
 export interface PrintMediaCollectionItem {
@@ -433,7 +433,7 @@ export interface SanitySuccessStory {
       url: string;
     };
   };
-  orderRank?: number;
+  orderRank?: string;
 }
 
 export interface SuccessStoryItem {
@@ -468,7 +468,7 @@ export async function getSuccessStories(): Promise<SuccessStoryItem[]> {
         covered: story.covered || [],
         videoUrl: story.videoUrl || undefined,
         imageUrl: story.image
-          ? urlFor(story.image).width(800).auto("format").quality(80).url()
+          ? urlFor(story.image).width(1600).auto("format").quality(85).url()
           : "/about-1.jpg",
         imageAlt: story.name || "Student photo",
       }));
@@ -508,7 +508,7 @@ export interface SanityMilestone {
   _id: string;
   year: string;
   desc: string;
-  orderRank?: number;
+  orderRank?: string;
 }
 
 export interface MilestoneItem {
@@ -583,7 +583,7 @@ export interface SanityFounderProfile {
     };
   };
   bioParagraphs?: string[];
-  orderRank?: number;
+  orderRank?: string;
 }
 
 export interface FounderProfileItem {
@@ -665,7 +665,7 @@ export interface SanityAward {
       };
     };
   };
-  orderRank?: number;
+  orderRank?: string;
 }
 
 export interface AwardItem {

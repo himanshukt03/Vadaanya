@@ -29,6 +29,14 @@ export const heroSlideSchema = defineType({
       title: "Desktop Banner Image",
       type: "image",
       options: { hotspot: true },
+      fields: [
+        defineField({
+          name: "alt",
+          title: "Alt Text",
+          type: "string",
+          validation: (Rule) => Rule.required().error("Alt text is required for accessibility and SEO"),
+        }),
+      ],
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -36,6 +44,14 @@ export const heroSlideSchema = defineType({
       title: "Mobile Banner Image (Optional)",
       type: "image",
       options: { hotspot: true },
+      fields: [
+        defineField({
+          name: "alt",
+          title: "Alt Text",
+          type: "string",
+          validation: (Rule) => Rule.required().error("Alt text is required for accessibility and SEO"),
+        }),
+      ],
     }),
     defineField({
       name: "secondaryButtonLabel",
@@ -52,7 +68,7 @@ export const heroSlideSchema = defineType({
     defineField({
       name: "orderRank",
       title: "Order Rank",
-      type: "number",
+      type: "string",
       description: "Controls display order of carousel slides",
     }),
   ],

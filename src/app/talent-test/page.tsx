@@ -4,24 +4,37 @@ import TalentTestPage from "@/components/vadaanya/TalentTestPage";
 import Footer from "@/components/vadaanya/Footer";
 import ScrollToTop from "@/components/common/ScrollToTop";
 
+import JsonLd, { getBreadcrumbJsonLd } from "@/components/common/JsonLd";
+
 export const metadata: Metadata = {
-  title: "Talent Test",
-  description: "Once a year, thousands of government-school students across Anantapur and Sri Sathya Sai districts sit a single exam — and the ones who shine are recognised, rewarded and remembered. Register for the talent test and get your hall ticket instantly.",
+  title: "Srinivasa Ramanujan Talent Test & Hall Ticket",
+  description:
+    "Register for the annual Srinivasa Ramanujan Talent Test for government school students across Anantapur and Sri Sathya Sai districts. Download hall tickets instantly.",
   keywords: [
     "Srinivasa Ramanujan Talent Test",
     "Vadaanya Talent Test",
     "Talent Test Hall Ticket",
     "Government School Talent Test Andhra Pradesh",
-    "Class 9 Class 100 Talent Exam",
     "Sri Sathya Sai Anantapur Talent Test",
-    "DSC SGT Talent Exam",
   ],
-  alternates: { canonical: "/talent-test" },
+  alternates: { canonical: "https://vadaanya.org/talent-test" },
+  openGraph: {
+    title: "Srinivasa Ramanujan Talent Test | Vadaanya Janaa Society",
+    description:
+      "Annual talent test for government school students in Andhra Pradesh. Instant hall ticket download.",
+    url: "https://vadaanya.org/talent-test",
+  },
 };
 
 export default function Page() {
+  const breadcrumbLd = getBreadcrumbJsonLd([
+    { name: "Home", url: "https://vadaanya.org" },
+    { name: "Talent Test", url: "https://vadaanya.org/talent-test" },
+  ]);
+
   return (
     <>
+      <JsonLd data={breadcrumbLd} />
       <Navbar />
       <main id="top">
         <TalentTestPage />

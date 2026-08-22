@@ -1,5 +1,4 @@
 import type { MetadataRoute } from "next";
-import { getSiteUrl } from "@/lib/siteUrl";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -7,9 +6,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/_next/", "/action/"],
+        disallow: ["/studio", "/studio/", "/admin", "/admin/", "/api/", "/action/"],
       },
     ],
-    sitemap: `${getSiteUrl()}/sitemap.xml`,
+    sitemap: "https://vadaanya.org/sitemap.xml",
   };
 }

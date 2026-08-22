@@ -135,7 +135,8 @@ export default function SuccessStoriesGrid({ stories = [] }: SuccessStoriesGridP
                       src={story.imageUrl}
                       alt={story.imageAlt}
                       fill
-                      sizes="(max-width: 440px) 100vw, (max-width: 640px) 50vw, 25vw"
+                      sizes="(max-width: 440px) 100vw, (max-width: 640px) 50vw, (max-width: 960px) 33vw, 400px"
+                      quality={90}
                       style={{ objectFit: "cover" }}
                     />
                   </div>

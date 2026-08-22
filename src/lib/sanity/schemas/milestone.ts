@@ -21,7 +21,7 @@ export const milestoneSchema = defineType({
     defineField({
       name: "orderRank",
       title: "Order Rank",
-      type: "number",
+      type: "string",
       description: "Controls display order",
     }),
   ],

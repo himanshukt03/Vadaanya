@@ -5,11 +5,20 @@ import Footer from "@/components/vadaanya/Footer";
 import ScrollToTop from "@/components/common/ScrollToTop";
 import { getFounderProfile, getAwards } from "@/lib/sanity/queries";
 
+import JsonLd, { getBreadcrumbJsonLd } from "@/components/common/JsonLd";
+
 export const metadata: Metadata = {
-  title: "Founders & Team",
-  description: "Meet Team Vadaanya, a collective movement of dedicated volunteers, mentors, and leadership empowering government school students across Andhra Pradesh & Telangana.",
-  keywords: ["Team Vadaanya", "Vadaanya volunteers", "Ashok Padapati", "education NGO team India", "Vadaanya Janaa Society leadership"],
-  alternates: { canonical: "/founders" },
+  title: "Founders & Leadership Team",
+  description:
+    "Meet Team Vadaanya led by Ashok Padapati and dedicated volunteers working to educate deserving students across Andhra Pradesh & Telangana.",
+  keywords: ["Team Vadaanya", "Vadaanya volunteers", "Ashok Padapati", "education NGO team India"],
+  alternates: { canonical: "https://vadaanya.org/founders" },
+  openGraph: {
+    title: "Founders & Leadership Team | Vadaanya Janaa Society",
+    description:
+      "Meet Team Vadaanya, dedicated mentors and volunteers empowering government school students since 2010.",
+    url: "https://vadaanya.org/founders",
+  },
 };
 
 export default async function Page() {
@@ -30,8 +39,14 @@ export default async function Page() {
     ],
   };
 
+  const breadcrumbLd = getBreadcrumbJsonLd([
+    { name: "Home", url: "https://vadaanya.org" },
+    { name: "Founders & Team", url: "https://vadaanya.org/founders" },
+  ]);
+
   return (
     <>
+      <JsonLd data={breadcrumbLd} />
       <Navbar />
       <main id="top">
         <FoundersPage founderProfile={safeFounderProfile} awards={awards} />

@@ -81,14 +81,15 @@ export default function SuccessStoriesPage({ stories = [] }: SuccessStoriesPageP
                 }}
               >
                 {/* Vertical Portrait Image Container */}
-                <div style={{ position: "relative", width: "100%", height: "270px" }}>
+                <div style={{ position: "relative", width: "100%", aspectRatio: "3 / 3.1", overflow: "hidden", background: "#f1f5f9" }}>
                   <Image
                     src={story.imageUrl}
                     alt={story.imageAlt || story.name}
                     fill
                     style={{ objectFit: "cover" }}
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
-                    priority={index < 5}
+                    sizes="(max-width: 440px) 100vw, (max-width: 640px) 50vw, (max-width: 900px) 33vw, (max-width: 1200px) 25vw, 400px"
+                    quality={90}
+                    priority={index < 6}
                   />
                 </div>
 
@@ -205,6 +206,8 @@ export default function SuccessStoriesPage({ stories = [] }: SuccessStoriesPageP
                   src={activeStory.imageUrl}
                   alt={activeStory.name}
                   fill
+                  sizes="200px"
+                  quality={90}
                   style={{ objectFit: "cover" }}
                 />
               </div>

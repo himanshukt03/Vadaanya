@@ -74,7 +74,7 @@ async function seedHomeAbout() {
     image: imageRef(imageAssetId),
     statsLabel: "15k+",
     statsText: "STUDENTS SUPPORTED",
-    orderRank: "a0",
+    orderRank: "0|100000:",
   };
 
   await client.createOrReplace(content);

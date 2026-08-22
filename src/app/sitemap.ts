@@ -1,9 +1,8 @@
 import type { MetadataRoute } from "next";
-import { getSiteUrl } from "@/lib/siteUrl";
 
-const BASE_URL = getSiteUrl();
+const BASE_URL = "https://vadaanya.org";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     {
       url: BASE_URL,
@@ -27,13 +26,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${BASE_URL}/founders`,
       lastModified: new Date(),
       changeFrequency: "monthly",
-      priority: 0.7,
+      priority: 0.8,
     },
     {
       url: `${BASE_URL}/gallery`,
       lastModified: new Date(),
       changeFrequency: "monthly",
-      priority: 0.6,
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/success-stories`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     {
       url: `${BASE_URL}/contact`,
@@ -55,3 +60,4 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 }
+

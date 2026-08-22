@@ -51,7 +51,7 @@ export const newsArticleSchema = defineType({
     defineField({
       name: "orderRank",
       title: "Order Rank",
-      type: "number",
+      type: "string",
       description: "Controls display order (drag/drop in Studio)",
     }),
   ],

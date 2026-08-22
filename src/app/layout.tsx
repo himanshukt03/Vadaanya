@@ -22,27 +22,22 @@ const inter = Inter({
 const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL("https://vadaanya.org"),
   title: {
-    default: "Vadaanya Janaa Society",
-    template: "%s | Vadaanya",
+    default: "Vadaanya Janaa Society | Empowering Government-School Children in Andhra Pradesh & Telangana",
+    template: "%s | Vadaanya Janaa Society",
   },
   description:
-    "Vadaanya Janaa Society turns a government-school child's hope into a degree — through talent tests, scholarships, financial assistance and mentorship across Andhra Pradesh & Telangana since 2010.",
+    "Vadaanya Janaa Society empowers government-school students across Andhra Pradesh & Telangana through talent tests, scholarships, and mentorship since 2010.",
   keywords: [
     "Vadaanya Janaa Society",
-    "education NGO",
-    "scholarship Andhra Pradesh",
-    "Telangana education",
+    "education NGO Andhra Pradesh",
+    "government school scholarship",
     "Vadaanya Talent Test",
-    "government school students",
-    "non-profit India",
-    "education charity",
-    "laptop donation NGO",
-    "Srinivasa Ramanujan Talent Test",
-    "Ashok Padapati",
+    "education charity India",
+    "Telangana student scholarships",
   ],
-  authors: [{ name: "Vadaanya Janaa Society", url: siteUrl }],
+  authors: [{ name: "Vadaanya Janaa Society", url: "https://vadaanya.org" }],
   creator: "Vadaanya Janaa Society",
   publisher: "Vadaanya Janaa Society",
   robots: {
@@ -59,11 +54,11 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: siteUrl,
+    url: "https://vadaanya.org",
     siteName: "Vadaanya Janaa Society",
-    title: "Vadaanya Janaa Society",
+    title: "Vadaanya Janaa Society | Empowering Government-School Children in Andhra Pradesh & Telangana",
     description:
-      "Empowering government-school children through talent tests, scholarships, financial assistance & mentorship across AP & Telangana since 2010.",
+      "Vadaanya Janaa Society empowers government-school students across Andhra Pradesh & Telangana through talent tests, scholarships, and mentorship since 2010.",
     images: [
       {
         url: "/opengraph-image?v=2",
@@ -77,13 +72,13 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@VadaanyaJanaa",
     creator: "@VadaanyaJanaa",
-    title: "Vadaanya Janaa Society",
+    title: "Vadaanya Janaa Society | Empowering Government-School Children in Andhra Pradesh & Telangana",
     description:
-      "Empowering government-school children through talent tests, scholarships, financial assistance & mentorship across AP & Telangana since 2010.",
+      "Vadaanya Janaa Society empowers government-school students across Andhra Pradesh & Telangana through talent tests, scholarships, and mentorship since 2010.",
     images: ["/opengraph-image?v=2"],
   },
   alternates: {
-    canonical: siteUrl,
+    canonical: "/",
   },
   category: "education",
 };

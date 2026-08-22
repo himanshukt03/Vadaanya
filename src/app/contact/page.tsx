@@ -4,16 +4,31 @@ import ContactPage from "@/components/vadaanya/ContactPage";
 import Footer from "@/components/vadaanya/Footer";
 import ScrollToTop from "@/components/common/ScrollToTop";
 
+import JsonLd, { getBreadcrumbJsonLd } from "@/components/common/JsonLd";
+
 export const metadata: Metadata = {
-  title: "Contact Us",
-  description: "Get in touch with Vadaanya Janaa Society. Whether you want to donate, partner for CSR, volunteer as a mentor, or learn more about our scholarship programs — we'd love to hear from you.",
-  keywords: ["contact Vadaanya", "donate education NGO", "volunteer Hyderabad", "CSR partnership India", "education charity contact"],
-  alternates: { canonical: "/contact" },
+  title: "Contact & Support Our Mission",
+  description:
+    "Get in touch with Vadaanya Janaa Society in KPHB Colony, Hyderabad, Telangana. Contact us for donations, CSR partnerships, or volunteer opportunities.",
+  keywords: ["contact Vadaanya", "donate education NGO", "volunteer Hyderabad", "CSR partnership India"],
+  alternates: { canonical: "https://vadaanya.org/contact" },
+  openGraph: {
+    title: "Contact & Support Our Mission | Vadaanya Janaa Society",
+    description:
+      "Get in touch for donations, CSR partnerships, or volunteer opportunities to empower government-school students.",
+    url: "https://vadaanya.org/contact",
+  },
 };
 
 const page = () => {
+  const breadcrumbLd = getBreadcrumbJsonLd([
+    { name: "Home", url: "https://vadaanya.org" },
+    { name: "Contact Us", url: "https://vadaanya.org/contact" },
+  ]);
+
   return (
     <>
+      <JsonLd data={breadcrumbLd} />
       <Navbar />
       <main id="top">
         <ContactPage />

@@ -17,12 +17,20 @@ export const awardSchema = defineType({
       title: "Award Photo",
       type: "image",
       options: { hotspot: true },
+      fields: [
+        defineField({
+          name: "alt",
+          title: "Alt Text",
+          type: "string",
+          validation: (Rule) => Rule.required().error("Alt text is required for accessibility and SEO"),
+        }),
+      ],
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "orderRank",
       title: "Order Rank",
-      type: "number",
+      type: "string",
       description: "Controls display order",
     }),
   ],

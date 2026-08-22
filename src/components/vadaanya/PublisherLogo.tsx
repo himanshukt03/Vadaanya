@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 
 interface PublisherLogoProps {
   publisher?: string;
@@ -38,12 +39,12 @@ export default function PublisherLogo({ publisher, link, className }: PublisherL
             borderRadius: "20px",
           }}
         >
-          {/* eslint-disable-next-img-element */}
-          <img
+          <Image
             src={faviconUrl}
-            alt={publisher || domain}
+            alt={publisher || domain || "Publisher logo"}
             width={16}
             height={16}
+            unoptimized
             style={{ objectFit: "contain", borderRadius: "3px" }}
             onError={() => setHasError(true)}
           />

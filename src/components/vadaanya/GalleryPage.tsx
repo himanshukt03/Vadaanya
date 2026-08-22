@@ -669,12 +669,17 @@ export default function GalleryPage({ galleryEvents = [], printMediaCollections 
           {/* Main Image Container */}
           <div style={{ position: "relative", width: "90%", height: "90%", display: "flex", alignItems: "center", justifyContent: "center" }} onClick={() => setLightboxIndex(null)}>
             <div style={{ position: "relative", maxWidth: "100%", maxHeight: "100%", width: "auto", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }} onClick={(e) => e.stopPropagation()}>
-               <img 
+               <Image 
                  src={activeEvent.images[lightboxIndex]} 
-                 alt={`${activeEvent.title} view`} 
+                 alt={`${activeEvent.title} - photo ${lightboxIndex + 1}`} 
+                 width={1200}
+                 height={800}
+                 unoptimized
                  style={{
                    maxWidth: "100%",
                    maxHeight: "100%",
+                   width: "auto",
+                   height: "auto",
                    objectFit: "contain",
                    borderRadius: "8px",
                    boxShadow: "0 25px 50px -12px rgba(0,0,0,0.5)"

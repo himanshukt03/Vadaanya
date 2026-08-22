@@ -24,6 +24,14 @@ export const galleryEventSchema = defineType({
       title: "Cover Image",
       type: "image",
       options: { hotspot: true },
+      fields: [
+        defineField({
+          name: "alt",
+          title: "Alt Text",
+          type: "string",
+          validation: (Rule) => Rule.required().error("Alt text is required for accessibility and SEO"),
+        }),
+      ],
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -34,6 +42,14 @@ export const galleryEventSchema = defineType({
         {
           type: "image",
           options: { hotspot: true },
+          fields: [
+            defineField({
+              name: "alt",
+              title: "Alt Text",
+              type: "string",
+              validation: (Rule) => Rule.required().error("Alt text is required for accessibility and SEO"),
+            }),
+          ],
         },
       ],
       validation: (Rule) => Rule.required(),
@@ -41,7 +57,7 @@ export const galleryEventSchema = defineType({
     defineField({
       name: "orderRank",
       title: "Order Rank",
-      type: "number",
+      type: "string",
       description: "Controls display order",
     }),
   ],
