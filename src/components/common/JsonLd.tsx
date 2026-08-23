@@ -40,9 +40,17 @@ export function getOrganizationJsonLd() {
       ],
       founder: {
         "@type": "Person",
+        "@id": "https://vadaanya.org/#founder",
         name: "Ashok Padapati",
         jobTitle: "Founder & President",
         url: "https://vadaanya.org/founders",
+        sameAs: "https://www.linkedin.com/in/ashok-padapati-67277b50/",
+        alumniOf: {
+          "@type": "EducationalOrganization",
+          name: "SASTRA University",
+        },
+        description:
+          "Founder & President of Vadaanya Janaa Society, IT Quality Assurance engineering leader, and social entrepreneur from Kothacheruvu, Andhra Pradesh.",
       },
       areaServed: [
         {
