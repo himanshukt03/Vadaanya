@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     template: "%s | Vadaanya Janaa Society",
   },
   description:
-    "Vadaanya Janaa Society empowers government-school students across Andhra Pradesh & Telangana through talent tests, scholarships, and mentorship since 2010.",
+    "Vadaanya Janaa Society (also known as Vadaanya for short), founded in 2010 by Founder & President Ashok Padapati, empowers government-school students across Andhra Pradesh & Telangana through talent tests, scholarships, and mentorship.",
   keywords: [
     "Vadaanya Janaa Society",
     "education NGO Andhra Pradesh",
@@ -59,13 +59,13 @@ export const metadata: Metadata = {
     siteName: "Vadaanya Janaa Society",
     title: "Vadaanya Janaa Society | Empowering Government-School Children in Andhra Pradesh & Telangana",
     description:
-      "Vadaanya Janaa Society empowers government-school students across Andhra Pradesh & Telangana through talent tests, scholarships, and mentorship since 2010.",
+      "Vadaanya Janaa Society (also known as Vadaanya for short), founded in 2010 by Founder & President Ashok Padapati, empowers government-school students across Andhra Pradesh & Telangana.",
     images: [
       {
         url: "/opengraph-image?v=2",
         width: 1200,
         height: 630,
-        alt: "Vadaanya Janaa Society — Be the one, for the change",
+        alt: "Vadaanya Janaa Society — Founded by Ashok Padapati",
       },
     ],
   },
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     creator: "@VadaanyaJanaa",
     title: "Vadaanya Janaa Society | Empowering Government-School Children in Andhra Pradesh & Telangana",
     description:
-      "Vadaanya Janaa Society empowers government-school students across Andhra Pradesh & Telangana through talent tests, scholarships, and mentorship since 2010.",
+      "Vadaanya Janaa Society (also known as Vadaanya for short), founded in 2010 by Founder & President Ashok Padapati, empowers government-school students across Andhra Pradesh & Telangana.",
     images: ["/opengraph-image?v=2"],
   },
   alternates: {

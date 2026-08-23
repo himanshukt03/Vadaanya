@@ -31,7 +31,7 @@ export function getOrganizationJsonLd() {
       logo: "https://vadaanya.org/logos/web-app-manifest-512x512.png",
       image: "https://vadaanya.org/logos/web-app-manifest-512x512.png",
       description:
-        "Vadaanya Janaa Society is a registered non-profit (Reg. No. 1433/2010 · NGO Darpan ID: TS/2024/0396868 · CSR ID: CSR00071897) that bridges the gap between a government-school child's potential and a degree — through talent tests, scholarships, financial assistance and mentorship across Andhra Pradesh & Telangana since 2010.",
+        "Vadaanya Janaa Society (also known as Vadaanya for short) is a registered non-profit organization (Reg. No. 1433/2010 · NGO Darpan ID: TS/2024/0396868 · CSR ID: CSR00071897) founded in 2010 by Founder & President Ashok Padapati. It empowers underprivileged government-school students across Andhra Pradesh & Telangana through talent tests, scholarships, laptops, and mentorship.",
       foundingDate: "2010-11",
       identifier: [
         { "@type": "PropertyValue", name: "AP Registration Number", value: "1433/2010" },
