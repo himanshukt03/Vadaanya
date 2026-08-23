@@ -89,7 +89,6 @@ export function getOrganizationJsonLd() {
       ],
       nonprofitStatus: "Nonprofit501c3",
       taxID: "80G & 12A Certified",
-      slogan: "From Dreams to Degrees",
       keywords:
         "education NGO, scholarship, Andhra Pradesh, Telangana, talent test, government school, non-profit, India",
     },
