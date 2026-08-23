@@ -45,6 +45,7 @@ export default function PublisherLogo({ publisher, link, className }: PublisherL
             width={16}
             height={16}
             unoptimized
+            loading="lazy"
             style={{ objectFit: "contain", borderRadius: "3px" }}
             onError={() => setHasError(true)}
           />
