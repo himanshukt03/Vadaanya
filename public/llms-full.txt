@@ -25,7 +25,7 @@ Founded by **Ashok Padapati** alongside a group of software engineer friends, Va
 ### How It Works
 - **100% Volunteer Model**: Zero office overhead or administrative expenses. Every volunteer, including Founder Ashok Padapati, works without financial compensation. 100% of public donations go directly to student scholarships, books, laptops, and exam preparation.
 - **Pay-It-Forward System**: Students who receive scholarships and go on to become software engineers, civil servants, police officers, or teachers return to donate 0.5% of their own salaries to educate new students.
-- **Geographic Area**: Active across 12 districts in Andhra Pradesh and Telangana.
+- **Operations**: Active primarily in parts of Andhra Pradesh and Telangana.
 
 ### Key Impact Numbers
 - **15,000+** government school students evaluated in the annual Vadaanya Talent Test.
