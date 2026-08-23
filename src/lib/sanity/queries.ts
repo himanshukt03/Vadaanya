@@ -304,12 +304,12 @@ export async function getGalleryEvents(): Promise<GalleryEventItem[]> {
         title: event.title || "",
         date: event.date || "",
         coverImage: event.coverImage
-          ? urlFor(event.coverImage).width(800).auto("format").quality(80).url()
+          ? urlFor(event.coverImage).width(1200).auto("format").quality(90).url()
           : "/hero-1.jpg",
         images: (event.images || [])
           .map((img) =>
             img?.asset?.url
-              ? urlFor(img).width(1200).auto("format").quality(80).url()
+              ? urlFor(img).width(1400).auto("format").quality(90).url()
               : ""
           )
           .filter(Boolean),

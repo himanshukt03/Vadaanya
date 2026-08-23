@@ -317,7 +317,8 @@ export default function GalleryPage({ galleryEvents = [], printMediaCollections 
                           alt={event.title}
                           fill
                           style={{ objectFit: "cover" }}
-                          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 50vw"
+                          quality={95}
                           priority={idx < 4}
                           loading={idx < 4 ? "eager" : undefined}
                         />
@@ -588,7 +589,8 @@ export default function GalleryPage({ galleryEvents = [], printMediaCollections 
                     src={img}
                     alt={`${activeEvent.title} - Image ${idx + 1}`}
                     fill
-                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 50vw"
+                    quality={95}
                     style={{ objectFit: "cover" }}
                     className="vad-gallery-thumb"
                   />
