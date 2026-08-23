@@ -33,7 +33,17 @@ const nextConfig: NextConfig = {
     silenceDeprecations: ['legacy-js-api', 'import'],
   },
   experimental: {
-    optimizePackageImports: ['swiper', 'lucide-react'],
+    optimizePackageImports: [
+      'swiper',
+      'lucide-react',
+      'react-fast-marquee',
+      'react-toastify',
+      'react-player',
+      'yet-another-react-lightbox',
+      'react-redux',
+      '@reduxjs/toolkit',
+      'bootstrap',
+    ],
   },
   images: {
     formats: ['image/avif', 'image/webp'],

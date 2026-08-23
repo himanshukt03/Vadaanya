@@ -3,8 +3,12 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import type { GalleryEventItem, PrintMediaCollectionItem, NewsArticleItem } from "@/lib/sanity/queries";
+import dynamic from "next/dynamic";
 import PublisherLogo from "./PublisherLogo";
-import VideoGalleryClient from "./VideoGalleryClient";
+
+const VideoGalleryClient = dynamic(() => import("./VideoGalleryClient"), {
+  ssr: false,
+});
 
 const CloseIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
