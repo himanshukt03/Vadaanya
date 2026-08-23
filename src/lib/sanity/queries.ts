@@ -30,6 +30,7 @@ export const HERO_SLIDES_QUERY = defineQuery(`
           lqip
         }
       },
+      crop,
       hotspot
     },
     mobileImage {
@@ -40,6 +41,7 @@ export const HERO_SLIDES_QUERY = defineQuery(`
           lqip
         }
       },
+      crop,
       hotspot
     }
   }
@@ -60,6 +62,18 @@ export interface SanityHeroSlide {
         lqip?: string;
       };
     };
+    crop?: {
+      top: number;
+      bottom: number;
+      left: number;
+      right: number;
+    };
+    hotspot?: {
+      x: number;
+      y: number;
+      height: number;
+      width: number;
+    };
   };
   mobileImage?: {
     asset?: {
@@ -68,6 +82,18 @@ export interface SanityHeroSlide {
       metadata?: {
         lqip?: string;
       };
+    };
+    crop?: {
+      top: number;
+      bottom: number;
+      left: number;
+      right: number;
+    };
+    hotspot?: {
+      x: number;
+      y: number;
+      height: number;
+      width: number;
     };
   };
 }
@@ -218,6 +244,7 @@ export const GALLERY_EVENTS_QUERY = defineQuery(`
         _id,
         url
       },
+      crop,
       hotspot
     },
     images[] {
@@ -225,6 +252,7 @@ export const GALLERY_EVENTS_QUERY = defineQuery(`
         _id,
         url
       },
+      crop,
       hotspot
     },
     orderRank
@@ -240,12 +268,16 @@ export interface SanityGalleryEvent {
       _id: string;
       url: string;
     };
+    crop?: { top: number; bottom: number; left: number; right: number };
+    hotspot?: { x: number; y: number; height: number; width: number };
   };
   images?: Array<{
     asset?: {
       _id: string;
       url: string;
     };
+    crop?: { top: number; bottom: number; left: number; right: number };
+    hotspot?: { x: number; y: number; height: number; width: number };
   }>;
   orderRank?: string;
 }
@@ -311,6 +343,7 @@ export const PRINT_MEDIA_QUERY = defineQuery(`
         _id,
         url
       },
+      crop,
       hotspot
     },
     images[] {
@@ -318,6 +351,7 @@ export const PRINT_MEDIA_QUERY = defineQuery(`
         _id,
         url
       },
+      crop,
       hotspot
     },
     orderRank
@@ -334,12 +368,16 @@ export interface SanityPrintMediaCollection {
       _id: string;
       url: string;
     };
+    crop?: { top: number; bottom: number; left: number; right: number };
+    hotspot?: { x: number; y: number; height: number; width: number };
   };
   images?: Array<{
     asset?: {
       _id: string;
       url: string;
     };
+    crop?: { top: number; bottom: number; left: number; right: number };
+    hotspot?: { x: number; y: number; height: number; width: number };
   }>;
   orderRank?: string;
 }
@@ -412,6 +450,7 @@ export const SUCCESS_STORIES_QUERY = defineQuery(`
         _id,
         url
       },
+      crop,
       hotspot
     },
     orderRank
@@ -432,6 +471,8 @@ export interface SanitySuccessStory {
       _id: string;
       url: string;
     };
+    crop?: { top: number; bottom: number; left: number; right: number };
+    hotspot?: { x: number; y: number; height: number; width: number };
   };
   orderRank?: string;
 }
@@ -561,6 +602,7 @@ export const FOUNDER_PROFILE_QUERY = defineQuery(`
           lqip
         }
       },
+      crop,
       hotspot
     },
     bioParagraphs,
@@ -581,6 +623,8 @@ export interface SanityFounderProfile {
         lqip?: string;
       };
     };
+    crop?: { top: number; bottom: number; left: number; right: number };
+    hotspot?: { x: number; y: number; height: number; width: number };
   };
   bioParagraphs?: string[];
   orderRank?: string;
@@ -647,6 +691,7 @@ export const AWARDS_QUERY = defineQuery(`
           lqip
         }
       },
+      crop,
       hotspot
     },
     orderRank
@@ -664,6 +709,8 @@ export interface SanityAward {
         lqip?: string;
       };
     };
+    crop?: { top: number; bottom: number; left: number; right: number };
+    hotspot?: { x: number; y: number; height: number; width: number };
   };
   orderRank?: string;
 }
@@ -721,6 +768,7 @@ export const HOME_ABOUT_QUERY = defineQuery(`
           lqip
         }
       },
+      crop,
       hotspot
     },
     statsLabel,
@@ -740,6 +788,8 @@ export interface SanityHomeAbout {
         lqip?: string;
       };
     };
+    crop?: { top: number; bottom: number; left: number; right: number };
+    hotspot?: { x: number; y: number; height: number; width: number };
   };
   statsLabel: string;
   statsText: string;
