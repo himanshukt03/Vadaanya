@@ -2,6 +2,7 @@ import Providers from "@/layouts/Providers";
 import "../styles/index.scss";
 import { Poppins, Inter } from 'next/font/google';
 import type { Metadata } from "next";
+import Script from "next/script";
 import JsonLd, { getOrganizationJsonLd } from "@/components/common/JsonLd";
 import { getSiteUrl } from "@/lib/siteUrl";
 
@@ -107,6 +108,18 @@ export default function RootLayout({
         <link rel="preconnect" href="https://img.youtube.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://img.youtube.com" />
         <JsonLd data={getOrganizationJsonLd()} />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-PVQJL8PS1F"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-PVQJL8PS1F');
+          `}
+        </Script>
 
       </head>
       <body className={`${poppins.variable} ${inter.variable}`} suppressHydrationWarning={true}>

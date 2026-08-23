@@ -9,5 +9,5 @@ export function getSiteUrl(): string {
   if (process.env.VERCEL_URL) {
     return `https://${process.env.VERCEL_URL}`;
   }
-  return "https://vadaanya.vercel.app";
+  return "https://vadaanya.org";
 }
