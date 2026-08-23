@@ -80,6 +80,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  verification: {
+    google: "S2ApIho-dk4CAHi9QClgDmSvfocXCY0EMhkmppxBJuw",
+  },
   category: "education",
 };
 
