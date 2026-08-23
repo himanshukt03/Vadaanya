@@ -102,7 +102,8 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/logos/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/logos/apple-touch-icon.png" />
         <meta name="apple-mobile-web-app-title" content="Vadaanya Janaa Society" />
-        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://cdn.sanity.io" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://cdn.sanity.io" />
         <link rel="preconnect" href="https://img.youtube.com" crossOrigin="anonymous" />

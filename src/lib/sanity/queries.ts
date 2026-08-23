@@ -116,7 +116,7 @@ export async function getHeroSlides(): Promise<CarouselSlide[]> {
     const sanityData: SanityHeroSlide[] = await sanityClient.fetch(
       HERO_SLIDES_QUERY,
       {},
-      { next: { revalidate: 60 } }
+      { next: { revalidate: 3600 } }
     );
 
     if (sanityData && sanityData.length > 0) {
@@ -199,7 +199,7 @@ export async function getNewsArticles(): Promise<NewsArticleItem[]> {
     const sanityData: SanityNewsArticle[] = await sanityClient.fetch(
       NEWS_ARTICLES_QUERY,
       {},
-      { next: { revalidate: 60 } }
+      { next: { revalidate: 3600 } }
     );
 
     if (sanityData && sanityData.length > 0) {
@@ -295,7 +295,7 @@ export async function getGalleryEvents(): Promise<GalleryEventItem[]> {
     const sanityData: SanityGalleryEvent[] = await sanityClient.fetch(
       GALLERY_EVENTS_QUERY,
       {},
-      { next: { revalidate: 60 } }
+      { next: { revalidate: 3600 } }
     );
 
     if (sanityData && sanityData.length > 0) {
@@ -396,7 +396,7 @@ export async function getPrintMediaCollections(): Promise<PrintMediaCollectionIt
     const sanityData: SanityPrintMediaCollection[] = await sanityClient.fetch(
       PRINT_MEDIA_QUERY,
       {},
-      { next: { revalidate: 60 } }
+      { next: { revalidate: 3600 } }
     );
 
     if (sanityData && sanityData.length > 0) {
@@ -495,7 +495,7 @@ export async function getSuccessStories(): Promise<SuccessStoryItem[]> {
     const sanityData: SanitySuccessStory[] = await sanityClient.fetch(
       SUCCESS_STORIES_QUERY,
       {},
-      { next: { revalidate: 60 } }
+      { next: { revalidate: 3600 } }
     );
 
     if (sanityData && sanityData.length > 0) {
@@ -563,7 +563,7 @@ export async function getMilestones(): Promise<MilestoneItem[]> {
     const sanityData: SanityMilestone[] = await sanityClient.fetch(
       MILESTONES_QUERY,
       {},
-      { next: { revalidate: 60 } }
+      { next: { revalidate: 3600 } }
     );
 
     if (sanityData && sanityData.length > 0) {
@@ -645,7 +645,7 @@ export async function getFounderProfile(): Promise<FounderProfileItem | null> {
     const sanityData: SanityFounderProfile | null = await sanityClient.fetch(
       FOUNDER_PROFILE_QUERY,
       {},
-      { next: { revalidate: 60 } }
+      { next: { revalidate: 3600 } }
     );
 
     if (sanityData) {
@@ -727,7 +727,7 @@ export async function getAwards(): Promise<AwardItem[]> {
     const sanityData: SanityAward[] = await sanityClient.fetch(
       AWARDS_QUERY,
       {},
-      { next: { revalidate: 60 } }
+      { next: { revalidate: 3600 } }
     );
 
     if (sanityData && sanityData.length > 0) {
@@ -819,7 +819,7 @@ export async function getHomeAbout(): Promise<HomeAboutItem> {
     const sanityData: SanityHomeAbout | null = await sanityClient.fetch(
       HOME_ABOUT_QUERY,
       {},
-      { next: { revalidate: 60 } }
+      { next: { revalidate: 3600 } }
     );
 
     if (sanityData) {
