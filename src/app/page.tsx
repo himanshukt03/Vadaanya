@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     absolute: "Vadaanya | Be the one, for the change",
   },
   description:
-    "Vadaanya Janaa Society empowers government-school students across India through talent tests, scholarships, laptop drives, and mentorship since 2010.",
+    "Vadaanya Janaa Society empowers government-school students across India through talent tests, scholarships, and mentorship since 2010.",
   keywords: [
     "Vadaanya Janaa Society",
     "education NGO India",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Vadaanya | Be the one, for the change",
     description:
-      "Vadaanya Janaa Society (also known as Vadaanya for short), founded in 2010 by Founder & President Ashok Padapati, empowers government-school students across India.",
+      "Vadaanya Janaa Society, founded in 2010 by Founder & President Ashok Padapati, empowers government-school students across India.",
     url: "https://vadaanya.org",
     siteName: "Vadaanya Janaa Society",
     locale: "en_IN",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     creator: "@VadaanyaJanaa",
     title: "Vadaanya | Be the one, for the change",
     description:
-      "Vadaanya Janaa Society (also known as Vadaanya for short), founded in 2010 by Founder & President Ashok Padapati, empowers government-school students across India.",
+      "Vadaanya Janaa Society, founded in 2010 by Founder & President Ashok Padapati, empowers government-school students across India.",
     images: ["https://vadaanya.org/og-image.png"],
   },
 };

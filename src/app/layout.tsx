@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     template: "%s | Vadaanya",
   },
   description:
-    "Vadaanya Janaa Society (also known as Vadaanya for short), founded in 2010 by Founder & President Ashok Padapati, empowers government-school students across India through talent tests, scholarships, and mentorship.",
+    "Vadaanya Janaa Society, founded in 2010 by Founder & President Ashok Padapati, empowers government-school students across India through scholarships and mentorship.",
   keywords: [
     "Vadaanya Janaa Society",
     "education NGO India",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     siteName: "Vadaanya Janaa Society",
     title: "Vadaanya | Be the one, for the change",
     description:
-      "Vadaanya Janaa Society (also known as Vadaanya for short), founded in 2010 by Founder & President Ashok Padapati, empowers government-school students across India.",
+      "Vadaanya Janaa Society, founded in 2010 by Founder & President Ashok Padapati, empowers government-school students across India.",
     images: [
       {
         url: "https://vadaanya.org/og-image.png",
@@ -83,7 +83,7 @@ export const metadata: Metadata = {
     creator: "@VadaanyaJanaa",
     title: "Vadaanya | Be the one, for the change",
     description:
-      "Vadaanya Janaa Society (also known as Vadaanya for short), founded in 2010 by Founder & President Ashok Padapati, empowers government-school students across India.",
+      "Vadaanya Janaa Society, founded in 2010 by Founder & President Ashok Padapati, empowers government-school students across India.",
     images: ["https://vadaanya.org/og-image.png"],
   },
   icons: {
