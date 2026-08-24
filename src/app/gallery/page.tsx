@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Media Gallery & Press Coverage | Vadaanya Janaa Society",
     description:
-      "Photos, newspaper press clippings, and video coverage of Vadaanya events across AP & Telangana.",
+      "Photos, newspaper press clippings, and video coverage of Vadaanya events across India.",
     url: "https://vadaanya.org/gallery",
   },
 };

@@ -2083,17 +2083,25 @@ body {
 
 .vad-footer__regs {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   flex-wrap: wrap;
+  align-items: center;
 
   .reg-chip {
-    font-size: 10.5px;
+    font-size: 12.5px;
     font-weight: 600;
-    letter-spacing: 0.05em;
-    padding: 4px 11px;
+    letter-spacing: 0.03em;
+    padding: 6px 14px;
     border-radius: 100px;
-    border: 1px solid rgba(255,255,255,0.1);
-    color: var(--vad-on-navy-muted);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    color: #ffffff;
+    transition: background 0.2s ease, border-color 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: var(--vad-gold);
+    }
   }
 }
 

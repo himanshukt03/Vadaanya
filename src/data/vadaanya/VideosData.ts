@@ -40,7 +40,7 @@ export const videos: Video[] = [
     id: 6,
     videoId: "nN-dg-pvH8U",
     title: "Vadaanya 13th Anniversary Celebrations & Student Honor",
-    description: "Celebrating 15 years of educational impact, awarding top talent test rankers across Andhra Pradesh and Telangana.",
+    description: "Celebrating 15 years of educational impact, awarding top talent test rankers across India.",
   },
   {
     id: 7,

@@ -25,18 +25,18 @@ const siteUrl = getSiteUrl();
 export const metadata: Metadata = {
   metadataBase: new URL("https://vadaanya.org"),
   title: {
-    default: "Vadaanya Janaa Society | Empowering Government-School Children in Andhra Pradesh & Telangana",
+    default: "Vadaanya Janaa Society | Empowering Government-School Children Across India",
     template: "%s | Vadaanya Janaa Society",
   },
   description:
-    "Vadaanya Janaa Society (also known as Vadaanya for short), founded in 2010 by Founder & President Ashok Padapati, empowers government-school students across Andhra Pradesh & Telangana through talent tests, scholarships, and mentorship.",
+    "Vadaanya Janaa Society (also known as Vadaanya for short), founded in 2010 by Founder & President Ashok Padapati, empowers government-school students across India through talent tests, scholarships, and mentorship.",
   keywords: [
     "Vadaanya Janaa Society",
-    "education NGO Andhra Pradesh",
+    "education NGO India",
     "government school scholarship",
     "Vadaanya Talent Test",
     "education charity India",
-    "Telangana student scholarships",
+    "student scholarships India",
   ],
   authors: [{ name: "Vadaanya Janaa Society", url: "https://vadaanya.org" }],
   creator: "Vadaanya Janaa Society",
@@ -57,9 +57,9 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: "https://vadaanya.org",
     siteName: "Vadaanya Janaa Society",
-    title: "Vadaanya Janaa Society | Empowering Government-School Children in Andhra Pradesh & Telangana",
+    title: "Vadaanya Janaa Society | Empowering Government-School Children Across India",
     description:
-      "Vadaanya Janaa Society (also known as Vadaanya for short), founded in 2010 by Founder & President Ashok Padapati, empowers government-school students across Andhra Pradesh & Telangana.",
+      "Vadaanya Janaa Society (also known as Vadaanya for short), founded in 2010 by Founder & President Ashok Padapati, empowers government-school students across India.",
     images: [
       {
         url: "/opengraph-image?v=2",
@@ -73,9 +73,9 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@VadaanyaJanaa",
     creator: "@VadaanyaJanaa",
-    title: "Vadaanya Janaa Society | Empowering Government-School Children in Andhra Pradesh & Telangana",
+    title: "Vadaanya Janaa Society | Empowering Government-School Children Across India",
     description:
-      "Vadaanya Janaa Society (also known as Vadaanya for short), founded in 2010 by Founder & President Ashok Padapati, empowers government-school students across Andhra Pradesh & Telangana.",
+      "Vadaanya Janaa Society (also known as Vadaanya for short), founded in 2010 by Founder & President Ashok Padapati, empowers government-school students across India.",
     images: ["/opengraph-image?v=2"],
   },
   alternates: {

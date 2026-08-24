@@ -27,7 +27,7 @@ export default function NewsFeed({ newsItems = [] }: NewsFeedProps) {
             <span style={{ color: "var(--vad-navy-700)" }}>News & Notices</span>
           </h2>
           <p className="vad-lead">
-            Exam results, hall tickets, scholarship announcements, and press coverage from across Andhra Pradesh and Telangana.
+            Exam results, hall tickets, scholarship announcements, and press coverage from across India.
           </p>
         </div>
 

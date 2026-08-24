@@ -18,7 +18,7 @@ const TermsOfServiceArea = () => {
               <p>By accessing or using the Vadaanya Janaa Society website (<strong>vadaanya.org</strong>), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, please do not use this website. These Terms apply to all visitors, donors, volunteers, partners, and any other users of the site.</p>
 
               <h2 style={{ fontSize: "22px", fontWeight: 700, color: "#1A1A1A", marginTop: "40px", marginBottom: "12px" }}>2. About Vadaanya Janaa Society</h2>
-              <p>Vadaanya Janaa Society is a registered non-profit organization (Reg. No. 1433/2010) in Andhra Pradesh & Telangana, India. Our website provides information about our educational programs, talent tests, scholarship applications, donation options, and ways to engage with our mission.</p>
+              <p>Vadaanya Janaa Society is a registered non-profit organization (Reg. No. 1433/2010) in India. Our website provides information about our educational programs, talent tests, scholarship applications, donation options, and ways to engage with our mission.</p>
 
               <h2 style={{ fontSize: "22px", fontWeight: 700, color: "#1A1A1A", marginTop: "40px", marginBottom: "12px" }}>3. Intellectual Property</h2>
               <p>All content on this website — including text, graphics, logos, images, syllabi, exam content, and code — is the property of Vadaanya Janaa Society or its content suppliers and is protected by applicable intellectual property laws. You may not reproduce, distribute, or create derivative works without our express written permission.</p>

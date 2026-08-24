@@ -38,7 +38,7 @@ export const milestonesData: Milestone[] = [
   {
     id: 7,
     year: "2021",
-    desc: "Conducted the first Talent Test across Andhra Pradesh & Telangana",
+    desc: "Conducted the first large-scale Talent Test for government school students",
   },
   {
     id: 8,

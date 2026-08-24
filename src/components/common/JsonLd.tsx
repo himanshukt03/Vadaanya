@@ -31,10 +31,10 @@ export function getOrganizationJsonLd() {
       logo: "https://vadaanya.org/logos/web-app-manifest-512x512.png",
       image: "https://vadaanya.org/logos/web-app-manifest-512x512.png",
       description:
-        "Vadaanya Janaa Society (also known as Vadaanya for short) is a registered non-profit organization (Reg. No. 1433/2010 · NGO Darpan ID: TS/2024/0396868 · CSR ID: CSR00071897) founded in 2010 by Founder & President Ashok Padapati. It empowers underprivileged government-school students across Andhra Pradesh & Telangana through talent tests, scholarships, laptops, and mentorship.",
+        "Vadaanya Janaa Society (also known as Vadaanya for short) is a registered non-profit organization (Reg. No. 1433/2010 · NGO Darpan ID: TS/2024/0396868 · CSR ID: CSR00071897) founded in 2010 by Founder & President Ashok Padapati. It empowers underprivileged government-school students across India through talent tests, scholarships, laptops, and mentorship.",
       foundingDate: "2010-11",
       identifier: [
-        { "@type": "PropertyValue", name: "AP Registration Number", value: "1433/2010" },
+        { "@type": "PropertyValue", name: "Registration Number", value: "1433/2010" },
         { "@type": "PropertyValue", name: "NGO Darpan ID", value: "TS/2024/0396868" },
         { "@type": "PropertyValue", name: "CSR Registration ID", value: "CSR00071897" },
       ],
@@ -50,20 +50,12 @@ export function getOrganizationJsonLd() {
           name: "SASTRA University",
         },
         description:
-          "Founder & President of Vadaanya Janaa Society, IT Quality Assurance engineering leader, and social entrepreneur from Kothacheruvu, Andhra Pradesh.",
+          "Founder & President of Vadaanya Janaa Society, IT Quality Assurance engineering leader, and social entrepreneur.",
       },
-      areaServed: [
-        {
-          "@type": "State",
-          name: "Andhra Pradesh",
-          containedInPlace: { "@type": "Country", name: "India" },
-        },
-        {
-          "@type": "State",
-          name: "Telangana",
-          containedInPlace: { "@type": "Country", name: "India" },
-        },
-      ],
+      areaServed: {
+        "@type": "Country",
+        name: "India",
+      },
       address: {
         "@type": "PostalAddress",
         streetAddress:
@@ -90,7 +82,7 @@ export function getOrganizationJsonLd() {
       nonprofitStatus: "Nonprofit501c3",
       taxID: "80G & 12A Certified",
       keywords:
-        "education NGO, scholarship, Andhra Pradesh, Telangana, talent test, government school, non-profit, India",
+        "education NGO, scholarship, talent test, government school, non-profit, India",
     },
     {
       "@context": "https://schema.org",

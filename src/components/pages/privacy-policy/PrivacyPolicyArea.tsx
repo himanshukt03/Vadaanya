@@ -15,7 +15,7 @@ const PrivacyPolicyArea = () => {
             <div style={{ fontSize: "16px", lineHeight: 1.8, color: "#444" }}>
 
               <h2 style={{ fontSize: "22px", fontWeight: 700, color: "#1A1A1A", marginTop: "40px", marginBottom: "12px" }}>1. Who We Are</h2>
-              <p>Vadaanya Janaa Society ("we", "us", or "our") is a non-profit organization registered in November 2010 (Reg. No. 1433/2010) in Andhra Pradesh & Telangana, India. We operate the website at <strong>vadaanya.org</strong>. For questions about this policy, please contact us at <a href="mailto:info@vadaanya.org" style={{ color: "var(--tg-theme-primary)" }}>info@vadaanya.org</a>.</p>
+              <p>Vadaanya Janaa Society (&ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;) is a non-profit organization registered in November 2010 (Reg. No. 1433/2010) in India. We operate the website at <strong>vadaanya.org</strong>. For questions about this policy, please contact us at <a href="mailto:info@vadaanya.org" style={{ color: "var(--tg-theme-primary)" }}>info@vadaanya.org</a>.</p>
 
               <h2 style={{ fontSize: "22px", fontWeight: 700, color: "#1A1A1A", marginTop: "40px", marginBottom: "12px" }}>2. Information We Collect</h2>
               <p>We may collect the following categories of information:</p>

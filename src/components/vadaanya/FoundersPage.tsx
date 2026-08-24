@@ -62,7 +62,7 @@ export default function FoundersPage({ founderProfile, awards }: FoundersPagePro
             Team <span className="vad-page-hero__accent">Vadaanya</span>
           </h1>
           <p className="vad-page-hero__lead">
-            A collective movement of dedicated volunteers, mentors, and leadership empowering government school students across Andhra Pradesh and Telangana.
+            A collective movement of dedicated volunteers, mentors, and leadership empowering government school students across India.
           </p>
         </div>
       </section>

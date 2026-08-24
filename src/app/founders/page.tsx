@@ -10,7 +10,7 @@ import JsonLd, { getBreadcrumbJsonLd } from "@/components/common/JsonLd";
 export const metadata: Metadata = {
   title: "Founders & Leadership Team",
   description:
-    "Meet Team Vadaanya led by Ashok Padapati and dedicated volunteers working to educate deserving students across Andhra Pradesh & Telangana.",
+    "Meet Team Vadaanya led by Ashok Padapati and dedicated volunteers working to educate deserving students across India.",
   keywords: ["Team Vadaanya", "Vadaanya volunteers", "Ashok Padapati", "education NGO team India"],
   alternates: { canonical: "https://vadaanya.org/founders" },
   openGraph: {

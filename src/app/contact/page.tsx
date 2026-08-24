@@ -9,7 +9,7 @@ import JsonLd, { getBreadcrumbJsonLd } from "@/components/common/JsonLd";
 export const metadata: Metadata = {
   title: "Contact & Support Our Mission",
   description:
-    "Get in touch with Vadaanya Janaa Society in KPHB Colony, Hyderabad, Telangana. Contact us for donations, CSR partnerships, or volunteer opportunities.",
+    "Get in touch with Vadaanya Janaa Society in Hyderabad, India. Contact us for donations, CSR partnerships, or volunteer opportunities.",
   keywords: ["contact Vadaanya", "donate education NGO", "volunteer Hyderabad", "CSR partnership India"],
   alternates: { canonical: "https://vadaanya.org/contact" },
   openGraph: {

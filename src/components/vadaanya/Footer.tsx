@@ -64,7 +64,7 @@ export default function Footer() {
               />
             </Link>
             <p className="vad-footer__desc">
-              Empowering underprivileged students from Class 10 through graduation with education, scholarships, and mentorship across AP & Telangana.
+              Empowering underprivileged students from Class 10 through graduation with education, scholarships, and mentorship across India.
             </p>
             <div className="vad-footer__socials" aria-label="Social media links">
               <a
@@ -184,7 +184,7 @@ export default function Footer() {
             <span className="reg-chip">80G & 12A Certified</span>
             <span className="reg-chip">Darpan ID: TS/2024/0396868</span>
             <span className="reg-chip">CSR ID: CSR00071897</span>
-            <span className="reg-chip">AP Reg. 1433/2010</span>
+            <span className="reg-chip">Reg. No. 1433/2010</span>
           </div>
         </div>
       </div>

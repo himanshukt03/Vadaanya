@@ -30,7 +30,7 @@ export const newsItems: NewsItem[] = [
     id: 3,
     publisher: "The Hindu",
     title: "NGO Founded by Student Duo Crosses Significant Milestone",
-    description: "Vadaanya Janaa Society reaches key milestones in empowering first-generation learners and government school students across AP & Telangana.",
+    description: "Vadaanya Janaa Society reaches key milestones in empowering first-generation learners and government school students across India.",
     link: "https://www.thehindu.com/news/national/andhra-pradesh/ngo-founded-by-student-duo-crosses-significant-milestone/article66877986.ece",
     linkLabel: "Read Article",
   },

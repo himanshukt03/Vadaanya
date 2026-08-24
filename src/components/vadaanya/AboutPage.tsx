@@ -22,8 +22,7 @@ export default function AboutPage() {
             From Dreams to <span className="vad-page-hero__accent">Degrees</span>
           </h1>
           <p className="vad-page-hero__lead" style={{ color: "#ffffff" }}>
-            A non-profit organization established in November 2010, registered under the
-            Andhra Pradesh Societies Registration Act, 2001 (Reg. No. 1433/2010).
+            A registered non-profit organization established in November 2010 (Reg. No. 1433/2010).
           </p>
         </div>
       </section>
@@ -82,9 +81,7 @@ export default function AboutPage() {
               Support a child&apos;s journey from <span style={{ color: "var(--vad-gold-dark, #d97706)" }}>Class 10 to Graduation</span>
             </h2>
             <p className="vad-about__cta-desc" style={{ color: "#475569" }}>
-              Vadaanya Janaa Society is registered under the Andhra Pradesh Societies
-              Registration Act, 2001 (Reg. No. 1433/2010). Your contribution is eligible for
-              80G tax exemption.
+              Vadaanya Janaa Society is a registered non-profit organization (Reg. No. 1433/2010). Your contribution is eligible for 80G tax exemption.
             </p>
             <div className="vad-about__cta-btns">
               <a href="#donate" className="vad-btn vad-btn--gold">

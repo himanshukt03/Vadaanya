@@ -14,14 +14,14 @@ export const metadata: Metadata = {
     "Srinivasa Ramanujan Talent Test",
     "Vadaanya Talent Test",
     "Talent Test Hall Ticket",
-    "Government School Talent Test Andhra Pradesh",
+    "Government School Talent Test India",
     "Sri Sathya Sai Anantapur Talent Test",
   ],
   alternates: { canonical: "https://vadaanya.org/talent-test" },
   openGraph: {
     title: "Srinivasa Ramanujan Talent Test | Vadaanya Janaa Society",
     description:
-      "Annual talent test for government school students in Andhra Pradesh. Instant hall ticket download.",
+      "Annual talent test for government school students across India. Instant hall ticket download.",
     url: "https://vadaanya.org/talent-test",
   },
 };

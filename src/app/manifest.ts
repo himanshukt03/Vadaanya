@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Vadaanya Janaa Society",
     short_name: "Vadaanya",
     description:
-      "Vadaanya Janaa Society empowers government-school students across Andhra Pradesh & Telangana through talent tests, scholarships, and mentorship since 2010.",
+      "Vadaanya Janaa Society empowers government-school students across India through talent tests, scholarships, and mentorship since 2010.",
     start_url: "/",
     display: "standalone",
     background_color: "#0a1628",

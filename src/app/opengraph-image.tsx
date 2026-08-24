@@ -117,40 +117,40 @@ export default async function Image() {
             Be the one, for the change
           </div>
 
-          {/* Description (Bigger & Bolder) */}
+          {/* Description (Bigger, Bolder & Readable across India) */}
           <div
             style={{
-              fontSize: "26px",
-              color: "rgba(255, 255, 255, 0.96)",
-              lineHeight: 1.45,
-              fontWeight: 600,
-              maxWidth: "1000px",
+              fontSize: "30px",
+              color: "#ffffff",
+              lineHeight: 1.4,
+              fontWeight: 700,
+              maxWidth: "1020px",
               display: "flex",
               textAlign: "center",
             }}
           >
-            Empowering government-school students through talent tests, financial assistance, scholarships & mentorship across Andhra Pradesh & Telangana since 2010.
+            Empowering government-school students through talent tests, financial assistance, scholarships & mentorship across India since 2010.
           </div>
         </div>
 
-        {/* Bottom Details — Anchored at the bottom */}
+        {/* Bottom Details — Anchored at the bottom (Crisp White Text & Bigger) */}
         <div
           style={{
             position: "absolute",
             bottom: "28px",
             display: "flex",
             alignItems: "center",
-            gap: "28px",
-            fontSize: "18px",
-            color: "rgba(255, 255, 255, 0.75)",
-            fontWeight: 600,
+            gap: "32px",
+            fontSize: "20px",
+            color: "#ffffff",
+            fontWeight: 700,
           }}
         >
-          <span style={{ color: "#f2a712", fontWeight: 900, fontSize: "19px" }}>vadaanya.org</span>
+          <span style={{ color: "#f2a712", fontWeight: 900, fontSize: "22px" }}>vadaanya.org</span>
           <span>·</span>
           <span>80G & 12A Certified</span>
           <span>·</span>
-          <span>AP Reg. 1433/2010</span>
+          <span>Reg. No. 1433/2010</span>
         </div>
       </div>
     ),
