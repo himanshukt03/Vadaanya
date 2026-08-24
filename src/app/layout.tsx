@@ -25,8 +25,8 @@ const siteUrl = getSiteUrl();
 export const metadata: Metadata = {
   metadataBase: new URL("https://vadaanya.org"),
   title: {
-    default: "Vadaanya Janaa Society | Empowering Government-School Children Across India",
-    template: "%s | Vadaanya Janaa Society",
+    default: "Vadaanya | Be the one, for the change",
+    template: "%s | Vadaanya",
   },
   description:
     "Vadaanya Janaa Society (also known as Vadaanya for short), founded in 2010 by Founder & President Ashok Padapati, empowers government-school students across India through talent tests, scholarships, and mentorship.",
@@ -57,15 +57,17 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: "https://vadaanya.org",
     siteName: "Vadaanya Janaa Society",
-    title: "Vadaanya Janaa Society | Empowering Government-School Children Across India",
+    title: "Vadaanya | Be the one, for the change",
     description:
       "Vadaanya Janaa Society (also known as Vadaanya for short), founded in 2010 by Founder & President Ashok Padapati, empowers government-school students across India.",
     images: [
       {
-        url: "/opengraph-image?v=2",
+        url: "https://vadaanya.org/og-image.png",
+        secureUrl: "https://vadaanya.org/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Vadaanya Janaa Society — Founded by Ashok Padapati",
+        type: "image/png",
+        alt: "Vadaanya — Be the one, for the change",
       },
     ],
   },
@@ -73,10 +75,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@VadaanyaJanaa",
     creator: "@VadaanyaJanaa",
-    title: "Vadaanya Janaa Society | Empowering Government-School Children Across India",
+    title: "Vadaanya | Be the one, for the change",
     description:
       "Vadaanya Janaa Society (also known as Vadaanya for short), founded in 2010 by Founder & President Ashok Padapati, empowers government-school students across India.",
-    images: ["/opengraph-image?v=2"],
+    images: ["https://vadaanya.org/og-image.png"],
   },
   icons: {
     icon: [
@@ -90,12 +92,13 @@ export const metadata: Metadata = {
   },
   other: {
     "og:type": "website",
-    "og:logo": "https://vadaanya.org/logos/web-app-manifest-512x512.png",
-    "og:image:secure_url": "https://vadaanya.org/opengraph-image",
+    "og:image": "https://vadaanya.org/og-image.png",
+    "og:image:secure_url": "https://vadaanya.org/og-image.png",
     "og:image:type": "image/png",
     "og:image:width": "1200",
     "og:image:height": "630",
-    "og:image:alt": "Vadaanya Janaa Society — Be the one, for the change",
+    "og:image:alt": "Vadaanya — Be the one, for the change",
+    "og:logo": "https://vadaanya.org/logos/web-app-manifest-512x512.png",
   },
   alternates: {
     canonical: "/",

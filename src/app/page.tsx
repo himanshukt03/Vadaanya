@@ -4,7 +4,9 @@ import Wrapper from "@/layouts/Wrapper";
 import Preloader from "@/components/common/Preloader";
 
 export const metadata: Metadata = {
-  title: "Education NGO for Government School Students Across India",
+  title: {
+    absolute: "Vadaanya | Be the one, for the change",
+  },
   description:
     "Vadaanya Janaa Society empowers government-school students across India through talent tests, scholarships, laptop drives, and mentorship since 2010.",
   keywords: [

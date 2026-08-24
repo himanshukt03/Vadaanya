@@ -7,7 +7,7 @@ import ScrollToTop from "@/components/common/ScrollToTop";
 import JsonLd, { getBreadcrumbJsonLd } from "@/components/common/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Srinivasa Ramanujan Talent Test & Hall Ticket",
+  title: "Talent Test",
   description:
     "Register for the annual Srinivasa Ramanujan Talent Test for government school students across Anantapur and Sri Sathya Sai districts. Download hall tickets instantly.",
   keywords: [
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://vadaanya.org/talent-test" },
   openGraph: {
-    title: "Srinivasa Ramanujan Talent Test | Vadaanya Janaa Society",
+    title: "Talent Test | Vadaanya",
     description:
       "Annual talent test for government school students across India. Instant hall ticket download.",
     url: "https://vadaanya.org/talent-test",

@@ -9,13 +9,13 @@ import { getGalleryEvents, getPrintMediaCollections, getNewsArticles } from "@/l
 import JsonLd, { getBreadcrumbJsonLd } from "@/components/common/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Media Gallery & Press Coverage",
+  title: "Media",
   description:
     "Explore photos, newspaper clippings, and videos documenting Vadaanya Janaa Society's talent tests, laptop donations, and scholarship award ceremonies.",
   keywords: ["Vadaanya media", "Vadaanya gallery", "education NGO photos", "print media press coverage"],
   alternates: { canonical: "https://vadaanya.org/gallery" },
   openGraph: {
-    title: "Media Gallery & Press Coverage | Vadaanya Janaa Society",
+    title: "Media | Vadaanya",
     description:
       "Photos, newspaper press clippings, and video coverage of Vadaanya events across India.",
     url: "https://vadaanya.org/gallery",

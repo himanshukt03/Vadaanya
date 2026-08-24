@@ -8,13 +8,13 @@ import { getFounderProfile, getAwards } from "@/lib/sanity/queries";
 import JsonLd, { getBreadcrumbJsonLd } from "@/components/common/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Founders & Leadership Team",
+  title: "Team Vadaanya",
   description:
     "Meet Team Vadaanya led by Ashok Padapati and dedicated volunteers working to educate deserving students across India.",
   keywords: ["Team Vadaanya", "Vadaanya volunteers", "Ashok Padapati", "education NGO team India"],
   alternates: { canonical: "https://vadaanya.org/founders" },
   openGraph: {
-    title: "Founders & Leadership Team | Vadaanya Janaa Society",
+    title: "Team Vadaanya | Vadaanya",
     description:
       "Meet Team Vadaanya, dedicated mentors and volunteers empowering government school students since 2010.",
     url: "https://vadaanya.org/founders",

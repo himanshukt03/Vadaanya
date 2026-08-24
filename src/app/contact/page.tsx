@@ -7,13 +7,13 @@ import ScrollToTop from "@/components/common/ScrollToTop";
 import JsonLd, { getBreadcrumbJsonLd } from "@/components/common/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Contact & Support Our Mission",
+  title: "Contact Us",
   description:
     "Get in touch with Vadaanya Janaa Society in Hyderabad, India. Contact us for donations, CSR partnerships, or volunteer opportunities.",
   keywords: ["contact Vadaanya", "donate education NGO", "volunteer Hyderabad", "CSR partnership India"],
   alternates: { canonical: "https://vadaanya.org/contact" },
   openGraph: {
-    title: "Contact & Support Our Mission | Vadaanya Janaa Society",
+    title: "Contact Us | Vadaanya",
     description:
       "Get in touch for donations, CSR partnerships, or volunteer opportunities to empower government-school students.",
     url: "https://vadaanya.org/contact",
