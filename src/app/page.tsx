@@ -19,10 +19,32 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://vadaanya.org" },
   openGraph: {
-    title: "Vadaanya Janaa Society | Education NGO in India",
+    title: "Vadaanya | Be the one, for the change",
     description:
-      "Transforming government-school children's potential into degrees through talent tests, scholarships, and mentorship since 2010.",
+      "Vadaanya Janaa Society (also known as Vadaanya for short), founded in 2010 by Founder & President Ashok Padapati, empowers government-school students across India.",
     url: "https://vadaanya.org",
+    siteName: "Vadaanya Janaa Society",
+    locale: "en_IN",
+    type: "website",
+    images: [
+      {
+        url: "https://vadaanya.org/og-image.png",
+        secureUrl: "https://vadaanya.org/og-image.png",
+        width: 1200,
+        height: 630,
+        type: "image/png",
+        alt: "Vadaanya — Be the one, for the change",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@VadaanyaJanaa",
+    creator: "@VadaanyaJanaa",
+    title: "Vadaanya | Be the one, for the change",
+    description:
+      "Vadaanya Janaa Society (also known as Vadaanya for short), founded in 2010 by Founder & President Ashok Padapati, empowers government-school students across India.",
+    images: ["https://vadaanya.org/og-image.png"],
   },
 };
 

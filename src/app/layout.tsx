@@ -1,7 +1,7 @@
 import Providers from "@/layouts/Providers";
 import "../styles/index.scss";
 import { Poppins, Inter } from 'next/font/google';
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import JsonLd, { getOrganizationJsonLd } from "@/components/common/JsonLd";
 import { getSiteUrl } from "@/lib/siteUrl";
@@ -21,6 +21,12 @@ const inter = Inter({
 });
 
 const siteUrl = getSiteUrl();
+
+export const viewport: Viewport = {
+  themeColor: "#060b22",
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://vadaanya.org"),
