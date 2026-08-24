@@ -594,10 +594,10 @@ export default function GalleryPage({ galleryEvents = [], printMediaCollections 
                     src={img}
                     alt={`${activeEvent.title} - Image ${idx + 1}`}
                     fill
-                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 320px"
-                    quality={80}
-                    priority={idx < 6}
-                    loading={idx < 6 ? "eager" : "lazy"}
+                    sizes="(max-width: 480px) 50vw, (max-width: 768px) 33vw, (max-width: 1200px) 33vw, 500px"
+                    quality={92}
+                    priority={idx < 8}
+                    loading={idx < 8 ? "eager" : "lazy"}
                     style={{ objectFit: "cover" }}
                     className="vad-gallery-thumb"
                   />
@@ -681,8 +681,9 @@ export default function GalleryPage({ galleryEvents = [], printMediaCollections 
                <Image 
                  src={activeEvent.images[lightboxIndex]} 
                  alt={`${activeEvent.title} - photo ${lightboxIndex + 1}`} 
-                 width={1200}
-                 height={800}
+                 width={2400}
+                 height={1600}
+                 quality={95}
                  unoptimized
                  style={{
                    maxWidth: "100%",

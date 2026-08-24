@@ -304,12 +304,12 @@ export async function getGalleryEvents(): Promise<GalleryEventItem[]> {
         title: event.title || "",
         date: event.date || "",
         coverImage: event.coverImage
-          ? urlFor(event.coverImage).width(600).auto("format").quality(80).url()
+          ? urlFor(event.coverImage).width(1200).auto("format").quality(90).url()
           : "/hero-1.jpg",
         images: (event.images || [])
           .map((img) =>
             img?.asset?.url
-              ? urlFor(img).width(800).auto("format").quality(80).url()
+              ? urlFor(img).width(2000).auto("format").quality(92).url()
               : ""
           )
           .filter(Boolean),
@@ -406,12 +406,12 @@ export async function getPrintMediaCollections(): Promise<PrintMediaCollectionIt
         language: collection.language || "",
         date: collection.date || "",
         coverImage: collection.coverImage
-          ? urlFor(collection.coverImage).width(600).auto("format").quality(80).url()
+          ? urlFor(collection.coverImage).width(1200).auto("format").quality(90).url()
           : "/hero-1.jpg",
         images: (collection.images || [])
           .map((img) =>
             img?.asset?.url
-              ? urlFor(img).width(800).auto("format").quality(80).url()
+              ? urlFor(img).width(2400).auto("format").quality(95).url()
               : ""
           )
           .filter(Boolean),

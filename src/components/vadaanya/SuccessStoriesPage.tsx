@@ -22,8 +22,37 @@ interface SuccessStoriesPageProps {
 }
 
 export default function SuccessStoriesPage({ stories = [] }: SuccessStoriesPageProps) {
-  const [visibleCount, setVisibleCount] = useState<number>(10); // Show 2 full rows (10 items) initially
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const [initialCount, setInitialCount] = useState<number>(10);
   const [activeStory, setActiveStory] = useState<SuccessStoryItem | null>(null);
+
+  // Dynamically calculate 2 full rows based on grid column breakpoints:
+  // - > 1200px (5 cols) -> 10 items (2 rows)
+  // - 901px - 1200px (4 cols) -> 8 items (2 rows)
+  // - 641px - 900px (3 cols, iPad) -> 6 items (2 rows)
+  // - 441px - 640px (2 cols) -> 4 items (2 rows)
+  // - <= 440px (1 col, Phone) -> 6 items (top 6 cards)
+  useEffect(() => {
+    const updateCount = () => {
+      if (typeof window === "undefined") return;
+      const w = window.innerWidth;
+      if (w > 1200) {
+        setInitialCount(10);
+      } else if (w > 900) {
+        setInitialCount(8);
+      } else if (w > 640) {
+        setInitialCount(6);
+      } else if (w > 440) {
+        setInitialCount(4);
+      } else {
+        setInitialCount(6);
+      }
+    };
+
+    updateCount();
+    window.addEventListener("resize", updateCount);
+    return () => window.removeEventListener("resize", updateCount);
+  }, []);
 
   // Lock background scroll when modal is open
   useEffect(() => {
@@ -35,8 +64,9 @@ export default function SuccessStoriesPage({ stories = [] }: SuccessStoriesPageP
     return () => { document.body.style.overflow = ""; };
   }, [activeStory]);
 
+  const visibleCount = isExpanded ? stories.length : initialCount;
   const displayedStories = stories.slice(0, visibleCount);
-  const hasMore = visibleCount < stories.length;
+  const hasMore = !isExpanded && initialCount < stories.length;
 
   return (
     <>
@@ -130,15 +160,15 @@ export default function SuccessStoriesPage({ stories = [] }: SuccessStoriesPageP
             ))}
           </div>
 
-          {/* Show More Success Stories Button */}
+          {/* View More Success Stories Button */}
           {hasMore && (
             <div style={{ textAlign: "center", marginTop: "36px" }}>
               <button
-                onClick={() => setVisibleCount(stories.length)}
+                onClick={() => setIsExpanded(true)}
                 className="vad-btn vad-btn--gold"
-                style={{ padding: "12px 32px", fontSize: "15px" }}
+                style={{ padding: "12px 32px", fontSize: "15px", cursor: "pointer" }}
               >
-                Show More ({stories.length - visibleCount} More)
+                View More ({stories.length - initialCount} More)
               </button>
             </div>
           )}

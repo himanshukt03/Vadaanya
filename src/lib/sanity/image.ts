@@ -12,7 +12,7 @@ export function urlFor(source: any) {
  */
 export function desktopImageUrl(source: any): string {
   if (!source) return "/hero-1.jpg";
-  return builder.image(source).width(1920).auto("format").quality(80).url();
+  return builder.image(source).width(2560).auto("format").quality(90).url();
 }
 
 /**
@@ -20,5 +20,5 @@ export function desktopImageUrl(source: any): string {
  */
 export function mobileImageUrl(source: any): string | undefined {
   if (!source) return undefined;
-  return builder.image(source).width(800).auto("format").quality(80).url();
+  return builder.image(source).width(1200).auto("format").quality(90).url();
 }
