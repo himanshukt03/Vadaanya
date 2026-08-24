@@ -125,7 +125,7 @@ const Preloader = () => {
             alt="Vadaanya Janaa Society"
             width={120}
             height={42}
-            style={{ objectFit: "contain" }}
+            style={{ objectFit: "contain", width: "auto", height: "auto" }}
             priority
           />
         </div>
