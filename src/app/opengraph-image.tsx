@@ -86,47 +86,50 @@ export default async function Image() {
             flexDirection: "column",
             alignItems: "center",
             textAlign: "center",
-            gap: "18px",
-            maxWidth: "1020px",
+            gap: "14px",
+            maxWidth: "1060px",
             position: "relative",
-            marginTop: "-20px",
+            marginTop: "-25px",
           }}
         >
-          {/* Official Logo (Bigger) */}
+          {/* Official Logo (Bigger & Prominent for large OG banner) */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={logoSrc}
             alt="Vadaanya Janaa Society Logo"
-            width={600}
-            height={150}
+            width={680}
+            height={170}
             style={{
               objectFit: "contain",
             }}
           />
 
-          {/* Tagline directly below logo (Extra Bold & Bigger: "Be the one, for the change") */}
+          {/* Tagline directly below logo (Tucked closer to logo & Extra Bold) */}
           <div
             style={{
-              fontSize: "42px",
+              fontSize: "46px",
               fontWeight: 900,
-              color: "#f2a712",
-              letterSpacing: "0.5px",
-              marginTop: "4px",
+              color: "#ffbe1a",
+              letterSpacing: "0.4px",
+              marginTop: "-16px",
+              marginBottom: "4px",
+              textShadow: "0 2px 12px rgba(0,0,0,0.8), 0 0 2px rgba(255,190,26,0.4)",
             }}
           >
             Be the one, for the change
           </div>
 
-          {/* Description (Bigger, Bolder & Readable across India) */}
+          {/* Description (Bigger, Bolder & Crisp White) */}
           <div
             style={{
-              fontSize: "30px",
+              fontSize: "34px",
               color: "#ffffff",
-              lineHeight: 1.4,
-              fontWeight: 700,
-              maxWidth: "1020px",
+              lineHeight: 1.35,
+              fontWeight: 800,
+              maxWidth: "1060px",
               display: "flex",
               textAlign: "center",
+              textShadow: "0 2px 8px rgba(0,0,0,0.6)",
             }}
           >
             Empowering government-school students through talent tests, financial assistance, scholarships & mentorship across India since 2010.
@@ -137,16 +140,17 @@ export default async function Image() {
         <div
           style={{
             position: "absolute",
-            bottom: "28px",
+            bottom: "26px",
             display: "flex",
             alignItems: "center",
-            gap: "32px",
-            fontSize: "20px",
+            gap: "30px",
+            fontSize: "23px",
             color: "#ffffff",
-            fontWeight: 700,
+            fontWeight: 800,
+            textShadow: "0 2px 8px rgba(0,0,0,0.6)",
           }}
         >
-          <span style={{ color: "#f2a712", fontWeight: 900, fontSize: "22px" }}>vadaanya.org</span>
+          <span style={{ color: "#f2a712", fontWeight: 900, fontSize: "25px" }}>vadaanya.org</span>
           <span>·</span>
           <span>80G & 12A Certified</span>
           <span>·</span>

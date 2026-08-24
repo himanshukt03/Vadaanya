@@ -78,6 +78,25 @@ export const metadata: Metadata = {
       "Vadaanya Janaa Society (also known as Vadaanya for short), founded in 2010 by Founder & President Ashok Padapati, empowers government-school students across India.",
     images: ["/opengraph-image?v=2"],
   },
+  icons: {
+    icon: [
+      { url: "/logos/favicon.ico", sizes: "any" },
+      { url: "/logos/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/logos/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: [
+      { url: "/logos/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
+  other: {
+    "og:type": "website",
+    "og:logo": "https://vadaanya.org/logos/web-app-manifest-512x512.png",
+    "og:image:secure_url": "https://vadaanya.org/opengraph-image",
+    "og:image:type": "image/png",
+    "og:image:width": "1200",
+    "og:image:height": "630",
+    "og:image:alt": "Vadaanya Janaa Society — Be the one, for the change",
+  },
   alternates: {
     canonical: "/",
   },
