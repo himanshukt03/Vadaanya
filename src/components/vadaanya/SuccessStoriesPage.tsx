@@ -26,12 +26,11 @@ export default function SuccessStoriesPage({ stories = [] }: SuccessStoriesPageP
   const [initialCount, setInitialCount] = useState<number>(10);
   const [activeStory, setActiveStory] = useState<SuccessStoryItem | null>(null);
 
-  // Dynamically calculate 2 full rows based on grid column breakpoints:
+  // Dynamically calculate initial rows based on grid column breakpoints:
   // - > 1200px (5 cols) -> 10 items (2 rows)
   // - 901px - 1200px (4 cols) -> 8 items (2 rows)
   // - 641px - 900px (3 cols, iPad) -> 6 items (2 rows)
-  // - 441px - 640px (2 cols) -> 4 items (2 rows)
-  // - <= 440px (1 col, Phone) -> 6 items (top 6 cards)
+  // - <= 640px (2 cols, Phone & Small Tablet) -> 6 items (3 rows of 2 cards)
   useEffect(() => {
     const updateCount = () => {
       if (typeof window === "undefined") return;
@@ -42,10 +41,8 @@ export default function SuccessStoriesPage({ stories = [] }: SuccessStoriesPageP
         setInitialCount(8);
       } else if (w > 640) {
         setInitialCount(6);
-      } else if (w > 440) {
-        setInitialCount(4);
       } else {
-        setInitialCount(6);
+        setInitialCount(6); // 3 rows * 2 cards on mobile = 6 items
       }
     };
 
@@ -91,16 +88,7 @@ export default function SuccessStoriesPage({ stories = [] }: SuccessStoriesPageP
             {displayedStories.map((story, index) => (
               <div
                 key={story.id}
-                style={{
-                  background: "#ffffff",
-                  borderRadius: "18px",
-                  overflow: "hidden",
-                  boxShadow: "0 8px 24px rgba(0,0,0,0.06)",
-                  border: "1px solid rgba(0,0,0,0.06)",
-                  display: "flex",
-                  flexDirection: "column",
-                  transition: "transform 0.3s ease, box-shadow 0.3s ease"
-                }}
+                className="vad-success-card"
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = "translateY(-4px)";
                   e.currentTarget.style.boxShadow = "0 12px 30px rgba(0,0,0,0.12)";
@@ -117,41 +105,29 @@ export default function SuccessStoriesPage({ stories = [] }: SuccessStoriesPageP
                     alt={story.imageAlt || story.name}
                     fill
                     style={{ objectFit: "cover" }}
-                    sizes="(max-width: 440px) 100vw, (max-width: 640px) 50vw, (max-width: 900px) 33vw, (max-width: 1200px) 25vw, 400px"
+                    sizes="(max-width: 640px) 50vw, (max-width: 900px) 33vw, (max-width: 1200px) 25vw, 400px"
                     quality={90}
                     priority={index < 6}
                   />
                 </div>
 
                 {/* Content Body */}
-                <div style={{ padding: "18px 20px", display: "flex", flexDirection: "column", flex: 1 }}>
-                  <h3 style={{ margin: "0 0 4px", fontSize: "16px", fontWeight: 800, color: "var(--vad-navy-950)", lineHeight: 1.3 }}>
+                <div className="vad-success-card__body">
+                  <h3 className="vad-success-card__title">
                     {story.name}
                   </h3>
-                  <span style={{ fontSize: "12.5px", fontWeight: 700, color: "var(--vad-gold-deep)", marginBottom: "10px" }}>
+                  <span className="vad-success-card__role">
                     {story.occupation}
                   </span>
 
-                  <p style={{ margin: "0 0 16px", fontSize: "13px", color: "var(--vad-ink-soft)", lineHeight: 1.5, flex: 1 }}>
+                  <p className="vad-success-card__caption">
                     {story.shortCaption}
                   </p>
 
                   {/* Know More Button */}
                   <button
                     onClick={() => setActiveStory(story)}
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "6px",
-                      fontSize: "13px",
-                      fontWeight: 700,
-                      color: "var(--vad-gold-deep)",
-                      background: "none",
-                      border: "none",
-                      padding: 0,
-                      cursor: "pointer",
-                      marginTop: "auto"
-                    }}
+                    className="vad-success-card__btn"
                   >
                     Know More →
                   </button>

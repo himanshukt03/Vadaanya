@@ -495,7 +495,7 @@ body {
     pointer-events: auto;
   }
 
-  a {
+  a:not(.vad-btn) {
     font-family: var(--vad-font-display);
     font-weight: 500;
     font-size: clamp(17px, 4.2vw, 22px);
@@ -516,6 +516,21 @@ body {
     font-size: 14.5px;
     font-weight: 600;
     padding: 11px 26px;
+    border-bottom: none !important;
+
+    &.vad-btn--gold,
+    &--gold {
+      color: var(--vad-navy-950) !important;
+      background: var(--vad-gold);
+
+      &:hover,
+      &:focus,
+      &:active {
+        color: var(--vad-navy-950) !important;
+        background: var(--vad-gold-soft);
+        transform: translateY(-2px);
+      }
+    }
   }
 }
 
@@ -3092,7 +3107,7 @@ body {
   }
 }
 
-// Success Stories Grid with Centered Incomplete Rows
+// Success Stories Grid with Centered Incomplete Rows (2 cards per row on mobile)
 .vad-success-grid {
   display: flex;
   flex-wrap: wrap;
@@ -3121,18 +3136,116 @@ body {
     }
   }
 
+  // 2 cards per row on mobile and tablet screens
   @media (max-width: 640px) {
+    gap: 12px;
     > * {
-      flex: 0 0 calc((100% - 20px) / 2);
-      max-width: calc((100% - 20px) / 2);
+      flex: 0 0 calc((100% - 12px) / 2);
+      max-width: calc((100% - 12px) / 2);
     }
   }
 
-  @media (max-width: 440px) {
+  @media (max-width: 360px) {
+    gap: 8px;
     > * {
-      flex: 0 0 100%;
-      max-width: 100%;
+      flex: 0 0 calc((100% - 8px) / 2);
+      max-width: calc((100% - 8px) / 2);
     }
+  }
+}
+
+// Success Card Responsive Elements
+.vad-success-card {
+  background: #ffffff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  @media (max-width: 640px) {
+    border-radius: 14px;
+  }
+}
+
+.vad-success-card__body {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  @media (max-width: 640px) {
+    padding: 12px 12px;
+  }
+
+  @media (max-width: 380px) {
+    padding: 10px 10px;
+  }
+}
+
+.vad-success-card__title {
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--vad-navy-950);
+  line-height: 1.3;
+
+  @media (max-width: 640px) {
+    font-size: 13.5px;
+    margin-bottom: 2px;
+  }
+}
+
+.vad-success-card__role {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--vad-gold-deep);
+  margin-bottom: 10px;
+  display: block;
+
+  @media (max-width: 640px) {
+    font-size: 11px;
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+}
+
+.vad-success-card__caption {
+  margin: 0 0 16px;
+  font-size: 13px;
+  color: var(--vad-ink-soft);
+  line-height: 1.5;
+  flex: 1;
+
+  @media (max-width: 640px) {
+    font-size: 11.5px;
+    margin-bottom: 10px;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+.vad-success-card__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--vad-gold-deep);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  margin-top: auto;
+
+  @media (max-width: 640px) {
+    font-size: 11.5px;
+    gap: 4px;
   }
 }
 
