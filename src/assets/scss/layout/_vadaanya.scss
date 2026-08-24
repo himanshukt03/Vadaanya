@@ -3092,23 +3092,47 @@ body {
   }
 }
 
-// Success Stories 5-column Grid
+// Success Stories Grid with Centered Incomplete Rows
 .vad-success-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
+  width: 100%;
+
+  > * {
+    flex: 0 0 calc((100% - (4 * 20px)) / 5);
+    max-width: calc((100% - (4 * 20px)) / 5);
+    width: 100%;
+    box-sizing: border-box;
+  }
 
   @media (max-width: 1200px) {
-    grid-template-columns: repeat(4, 1fr);
+    > * {
+      flex: 0 0 calc((100% - (3 * 20px)) / 4);
+      max-width: calc((100% - (3 * 20px)) / 4);
+    }
   }
+
   @media (max-width: 900px) {
-    grid-template-columns: repeat(3, 1fr);
+    > * {
+      flex: 0 0 calc((100% - (2 * 20px)) / 3);
+      max-width: calc((100% - (2 * 20px)) / 3);
+    }
   }
+
   @media (max-width: 640px) {
-    grid-template-columns: repeat(2, 1fr);
+    > * {
+      flex: 0 0 calc((100% - 20px) / 2);
+      max-width: calc((100% - 20px) / 2);
+    }
   }
+
   @media (max-width: 440px) {
-    grid-template-columns: repeat(1, 1fr);
+    > * {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
   }
 }
 
