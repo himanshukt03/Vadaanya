@@ -94,10 +94,39 @@ const nextConfig: NextConfig = {
         source: "/news-telugu/(.*)",
         headers: staticCacheHeaders,
       },
+      {
+        source: "/hero-1.jpg",
+        headers: [
+          {
+            key: "X-Robots-Tag",
+            value: "noindex, noimageindex",
+          },
+        ],
+      },
     ];
   },
   async redirects() {
     return [
+      {
+        source: "/hero-1.jpg",
+        destination: "/#donate",
+        permanent: true,
+      },
+      {
+        source: "/education-ngo-for-government-school-students",
+        destination: "/#donate",
+        permanent: true,
+      },
+      {
+        source: "/education-ngo-for-government-school-students-in-ap-and-ts",
+        destination: "/#donate",
+        permanent: true,
+      },
+      {
+        source: "/education-ngo-for-government-school-students-in-ap-ts",
+        destination: "/#donate",
+        permanent: true,
+      },
       {
         source: "/about-vadaanya",
         destination: "/about",

@@ -14,7 +14,7 @@ export const heroSlides: HeroSlide[] = [
     headline: "From Government Schools to",
     headlineAccent: "Graduation",
     subtext: "Vadaanya Janaa Society bridges the gap between a child's potential and a degree — through talent tests, scholarships and mentorship across India.",
-    imageUrl: "/hero-1.jpg",
+    imageUrl: "/vadaanya_team.jpeg",
     imageAlt: "Students studying together in a classroom",
     cta: { label: "Our Mission", href: "#about" },
   },

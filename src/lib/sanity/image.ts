@@ -11,7 +11,7 @@ export function urlFor(source: any) {
  * Returns optimized WebP/AVIF image URL for desktop viewports
  */
 export function desktopImageUrl(source: any): string {
-  if (!source) return "/hero-1.jpg";
+  if (!source) return "/vadaanya_team.jpeg";
   return builder.image(source).width(2560).auto("format").quality(90).url();
 }
 

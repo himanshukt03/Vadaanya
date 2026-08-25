@@ -23,6 +23,6 @@ export const awardsData: AwardItem[] = [
   {
     id: 4,
     title: 'Special invitee to AP Governor\'s Raj Bhavan "At Home" event',
-    image: "/hero-1.jpg",
+    image: "/vadaanya_team.jpeg",
   },
 ];

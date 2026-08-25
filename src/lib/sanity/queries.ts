@@ -127,7 +127,7 @@ export async function getHeroSlides(): Promise<CarouselSlide[]> {
         description: s.description || "",
         desktopImageUrl: s.desktopImage
           ? desktopImageUrl(s.desktopImage)
-          : "/hero-1.jpg",
+          : "/vadaanya_team.jpeg",
         mobileImageUrl: s.mobileImage
           ? mobileImageUrl(s.mobileImage)
           : undefined,
@@ -305,7 +305,7 @@ export async function getGalleryEvents(): Promise<GalleryEventItem[]> {
         date: event.date || "",
         coverImage: event.coverImage
           ? urlFor(event.coverImage).width(1200).auto("format").quality(90).url()
-          : "/hero-1.jpg",
+          : "/vadaanya_team.jpeg",
         images: (event.images || [])
           .map((img) =>
             img?.asset?.url
@@ -407,7 +407,7 @@ export async function getPrintMediaCollections(): Promise<PrintMediaCollectionIt
         date: collection.date || "",
         coverImage: collection.coverImage
           ? urlFor(collection.coverImage).width(1200).auto("format").quality(90).url()
-          : "/hero-1.jpg",
+          : "/vadaanya_team.jpeg",
         images: (collection.images || [])
           .map((img) =>
             img?.asset?.url
@@ -736,7 +736,7 @@ export async function getAwards(): Promise<AwardItem[]> {
         title: award.title || "",
         imageUrl: award.image
           ? urlFor(award.image).width(800).auto("format").quality(80).url()
-          : "/hero-1.jpg",
+          : "/vadaanya_team.jpeg",
         blurDataUrl: award.image?.asset?.metadata?.lqip,
       }));
     }
