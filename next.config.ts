@@ -96,6 +96,95 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: "/about-vadaanya",
+        destination: "/about",
+        permanent: true,
+      },
+      {
+        source: "/about-vadaanya.html",
+        destination: "/about",
+        permanent: true,
+      },
+      {
+        source: "/society",
+        destination: "/about",
+        permanent: true,
+      },
+      {
+        source: "/society.html",
+        destination: "/about",
+        permanent: true,
+      },
+      {
+        source: "/founder",
+        destination: "/team-vadaanya",
+        permanent: true,
+      },
+      {
+        source: "/founders",
+        destination: "/team-vadaanya",
+        permanent: true,
+      },
+      {
+        source: "/founder-leadership-team",
+        destination: "/team-vadaanya",
+        permanent: true,
+      },
+      {
+        source: "/founders-leadership-team",
+        destination: "/team-vadaanya",
+        permanent: true,
+      },
+      {
+        source: "/founder-and-leadership-team",
+        destination: "/team-vadaanya",
+        permanent: true,
+      },
+      {
+        source: "/founders-and-leadership-team",
+        destination: "/team-vadaanya",
+        permanent: true,
+      },
+      {
+        source: "/founder-leadership",
+        destination: "/team-vadaanya",
+        permanent: true,
+      },
+      {
+        source: "/founders-leadership",
+        destination: "/team-vadaanya",
+        permanent: true,
+      },
+      {
+        source: "/digital-teaching-at-high-school",
+        destination: "/gallery",
+        permanent: true,
+      },
+      {
+        source: "/digital-teaching-at-primary-school",
+        destination: "/gallery",
+        permanent: true,
+      },
+      {
+        source: "/media-gallery",
+        destination: "/gallery",
+        permanent: true,
+      },
+      {
+        source: "/contact-us",
+        destination: "/contact",
+        permanent: true,
+      },
+      {
+        source: "/donate-now",
+        destination: "/#donate",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -10,14 +10,14 @@ import JsonLd, { getBreadcrumbJsonLd } from "@/components/common/JsonLd";
 export const metadata: Metadata = {
   title: "Team Vadaanya",
   description:
-    "Meet Team Vadaanya led by Ashok Padapati and dedicated volunteers working to educate deserving students across India.",
-  keywords: ["Team Vadaanya", "Vadaanya volunteers", "Ashok Padapati", "education NGO team India"],
-  alternates: { canonical: "https://vadaanya.org/founders" },
+    "Meet Team Vadaanya led by Founder Ashok Padapati and dedicated volunteers working to educate deserving students across India.",
+  keywords: ["Team Vadaanya", "Founder & Leadership Team", "Vadaanya volunteers", "Ashok Padapati", "education NGO team India"],
+  alternates: { canonical: "https://vadaanya.org/team-vadaanya" },
   openGraph: {
     title: "Team Vadaanya | Vadaanya",
     description:
       "Meet Team Vadaanya, dedicated mentors and volunteers empowering government school students since 2010.",
-    url: "https://vadaanya.org/founders",
+    url: "https://vadaanya.org/team-vadaanya",
   },
 };
 
@@ -41,7 +41,7 @@ export default async function Page() {
 
   const breadcrumbLd = getBreadcrumbJsonLd([
     { name: "Home", url: "https://vadaanya.org" },
-    { name: "Founders & Team", url: "https://vadaanya.org/founders" },
+    { name: "Team Vadaanya", url: "https://vadaanya.org/team-vadaanya" },
   ]);
 
   return (

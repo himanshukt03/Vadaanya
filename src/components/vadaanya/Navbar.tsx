@@ -17,7 +17,7 @@ const menuItems: MenuItem[] = [
   { label: "Success Stories", href: "/success-stories" },
   { label: "Talent Test", href: "/talent-test" },
   { label: "Media", href: "/gallery" },
-  { label: "Team Vadaanya", href: "/founders" },
+  { label: "Team Vadaanya", href: "/team-vadaanya" },
   { label: "Contact us", href: "/contact" },
 ];
 

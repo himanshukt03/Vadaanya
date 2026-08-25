@@ -43,7 +43,7 @@ export function getOrganizationJsonLd() {
         "@id": "https://vadaanya.org/#founder",
         name: "Ashok Padapati",
         jobTitle: "Founder & President",
-        url: "https://vadaanya.org/founders",
+        url: "https://vadaanya.org/team-vadaanya",
         sameAs: "https://www.linkedin.com/in/ashok-padapati-67277b50/",
         alumniOf: {
           "@type": "EducationalOrganization",
@@ -94,6 +94,62 @@ export function getOrganizationJsonLd() {
         "Official website of Vadaanya Janaa Society — From Dreams to Degrees.",
       publisher: { "@id": "https://vadaanya.org/#organization" },
       inLanguage: "en-IN",
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "@id": "https://vadaanya.org/#sitelinks",
+      name: "Main Navigation Sitelinks",
+      itemListElement: [
+        {
+          "@type": "SiteNavigationElement",
+          position: 1,
+          name: "About Vadaanya",
+          description:
+            "Learn about Vadaanya Janaa Society mission, history, and 80G/12A tax-exempt registration.",
+          url: "https://vadaanya.org/about",
+        },
+        {
+          "@type": "SiteNavigationElement",
+          position: 2,
+          name: "Founder & Team Vadaanya",
+          description:
+            "Meet Team Vadaanya led by Founder Ashok Padapati and dedicated volunteers across India.",
+          url: "https://vadaanya.org/team-vadaanya",
+        },
+        {
+          "@type": "SiteNavigationElement",
+          position: 3,
+          name: "Media Gallery & Press Coverage",
+          description:
+            "Explore photos, newspaper clippings, and videos documenting Vadaanya's educational work.",
+          url: "https://vadaanya.org/gallery",
+        },
+        {
+          "@type": "SiteNavigationElement",
+          position: 4,
+          name: "Student Success Stories",
+          description:
+            "Read inspiring journeys of government school scholars supported by Vadaanya scholarships.",
+          url: "https://vadaanya.org/success-stories",
+        },
+        {
+          "@type": "SiteNavigationElement",
+          position: 5,
+          name: "Contact Us",
+          description:
+            "Get in touch with Vadaanya Janaa Society team for inquiries, support, and volunteering.",
+          url: "https://vadaanya.org/contact",
+        },
+        {
+          "@type": "SiteNavigationElement",
+          position: 6,
+          name: "Donate",
+          description:
+            "Support underprivileged government school students from Class 10 through graduation.",
+          url: "https://vadaanya.org/#donate",
+        },
+      ],
     },
   ];
 }
