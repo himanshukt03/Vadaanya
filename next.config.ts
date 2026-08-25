@@ -208,7 +208,17 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/donate",
+        destination: "/#donate",
+        permanent: true,
+      },
+      {
         source: "/donate-now",
+        destination: "/#donate",
+        permanent: true,
+      },
+      {
+        source: "/donations",
         destination: "/#donate",
         permanent: true,
       },
