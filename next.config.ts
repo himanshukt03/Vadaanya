@@ -218,6 +218,31 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/dsc-hall-ticket",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/dsc-hall-ticket.html",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/dsc-talent-test-2024",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/dsc-talent-test-2024.html",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/dsc-talent-test",
+        destination: "/",
+        permanent: true,
+      },
+      {
         source: "/donations",
         destination: "/#donate",
         permanent: true,
