@@ -18,6 +18,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+img {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+
 // ============================================================
 //  SHARED UTILITIES
 // ============================================================
@@ -536,6 +542,9 @@ body {
 
 // Container wrapping Hero Carousel and Stats Strip for mobile full-viewport layout
 .vad-hero-viewport {
+  background: var(--vad-navy-950);
+  position: relative;
+
   @media (max-width: 768px) {
     height: 100vh;
     height: 100dvh;
@@ -557,6 +566,19 @@ body {
   max-height: 1000px;
   overflow: hidden;
   background: var(--vad-navy-950);
+
+  // Seamless bottom fade ensuring no image edge or color gap between hero and stats strip
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 64px;
+    background: linear-gradient(to bottom, transparent 0%, rgba(6, 11, 34, 0.7) 60%, var(--vad-navy-950, #060b22) 100%);
+    z-index: 2;
+    pointer-events: none;
+  }
 
   .swiper {
     width: 100%;
@@ -652,12 +674,14 @@ body {
   object-fit: cover;
   object-position: center 35%;
   transition: transform 8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  transform: scale(1);
+  transform: scale(1) translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
   will-change: transform;
 }
 
 .swiper-slide-active .vad-hero__bg {
-  transform: scale(1.04);
+  transform: scale(1.04) translateZ(0);
 }
 
 // Multi-layer scrim: navy gradient (never pure black)
@@ -665,13 +689,16 @@ body {
   position: absolute;
   inset: 0;
   z-index: 1;
+  pointer-events: none;
   background:
     linear-gradient(
       180deg,
-      rgba(10, 14, 28, 0.20) 0%,
-      rgba(10, 14, 28, 0.05) 25%,
-      rgba(10, 14, 28, 0.20) 55%,
-      rgba(10, 14, 28, 0.75) 100%
+      rgba(10, 14, 28, 0.25) 0%,
+      rgba(10, 14, 28, 0.08) 25%,
+      rgba(10, 14, 28, 0.25) 55%,
+      rgba(10, 14, 28, 0.85) 80%,
+      rgba(6, 11, 34, 0.98) 95%,
+      var(--vad-navy-950, #060b22) 100%
     ),
     linear-gradient(
       90deg,
@@ -938,8 +965,10 @@ body {
 // ============================================================
 .vad-stats {
   background: var(--vad-navy-800);
-  border-top: 1px solid rgba(255,255,255,0.06);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  z-index: 5;
 
   @media (max-width: 768px) {
     flex: 0 0 auto;
@@ -947,7 +976,7 @@ body {
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    border-top: 1px solid #282828;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     padding: 10px max(12px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
   }
 }
@@ -1092,6 +1121,10 @@ body {
   width: 100%;
   margin-left: auto;
   margin-right: 0;
+  isolation: isolate;
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 
   @media (max-width: 900px) {
     margin: 0 auto;
@@ -1110,6 +1143,9 @@ body {
   display: block;
   object-fit: cover;
   aspect-ratio: 4 / 3;
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 
   @media (max-width: 480px) {
     border-radius: 20px;
@@ -1321,9 +1357,14 @@ body {
 .vad-stories__swiper {
   padding-bottom: 20px;
   position: relative;
+  isolation: isolate;
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 
   .swiper-wrapper {
     display: flex;
+    transform: translateZ(0);
   }
 
   // Pre-hydration layout: prevent single large card flash before Swiper JS initializes
@@ -1356,6 +1397,9 @@ body {
   .swiper-slide {
     height: auto;
     display: flex;
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
 }
 

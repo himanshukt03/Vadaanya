@@ -38,6 +38,10 @@ export default function SuccessStoriesGrid({ stories = [] }: SuccessStoriesGridP
 
   // 6 total featured stories for the homepage carousel
   const featuredStories = stories.slice(0, 6);
+  // Provide enough slides for Swiper loop when slidesPerView is fractional (4.6)
+  const displayStories = featuredStories.length > 0 && featuredStories.length < 10
+    ? [...featuredStories, ...featuredStories.map((s, idx) => ({ ...s, id: `${s.id}-dup-${idx}` }))]
+    : featuredStories;
 
   // Fix initial hydration / SSR container measurement issue on desktop
   useEffect(() => {
@@ -66,22 +70,15 @@ export default function SuccessStoriesGrid({ stories = [] }: SuccessStoriesGridP
         </div>
 
         {/* Carousel Wrapper */}
-        <div className="vad-stories__carousel-wrapper" style={{ position: "relative", width: "100%" }}>
+        <div className="vad-stories__carousel-wrapper" style={{ position: "relative", width: "100%", isolation: "isolate" }}>
           <Swiper
             modules={[Navigation, Autoplay]}
             spaceBetween={16}
             slidesPerView={4.6}
-            loop={true}
-            observer={true}
-            observeParents={true}
-            resizeObserver={true}
-            updateOnWindowResize={true}
+            loop={displayStories.length >= 8}
             autoplay={{ delay: 5000, disableOnInteraction: false, pauseOnMouseEnter: true }}
             onSwiper={(swiper) => {
               swiperRef.current = swiper;
-              if (swiper && !swiper.destroyed) {
-                swiper.update();
-              }
             }}
             breakpoints={{
               0: { slidesPerView: 1.2, spaceBetween: 10 },
@@ -92,7 +89,7 @@ export default function SuccessStoriesGrid({ stories = [] }: SuccessStoriesGridP
             className="vad-stories__swiper"
             style={{ width: "100%" }}
           >
-            {featuredStories.map((story) => (
+            {displayStories.map((story) => (
               <SwiperSlide key={story.id} style={{ height: "auto" }}>
                 <article
                   onClick={() => setSelectedStory(story)}
@@ -106,16 +103,19 @@ export default function SuccessStoriesGrid({ stories = [] }: SuccessStoriesGridP
                     flexDirection: "column",
                     boxShadow: "0 6px 20px rgba(0, 0, 0, 0.2)",
                     cursor: "pointer",
+                    transform: "translateZ(0)",
+                    WebkitBackfaceVisibility: "hidden",
+                    backfaceVisibility: "hidden",
                     transition: "transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "translateY(-4px)";
+                    e.currentTarget.style.transform = "translateY(-4px) translateZ(0)";
                     e.currentTarget.style.boxShadow = "0 12px 28px rgba(0, 0, 0, 0.35)";
                     e.currentTarget.style.borderColor = "var(--vad-gold, #f2a712)";
                     e.currentTarget.style.background = "rgba(255, 255, 255, 0.08)";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.transform = "translateY(0) translateZ(0)";
                     e.currentTarget.style.boxShadow = "0 6px 20px rgba(0, 0, 0, 0.2)";
                     e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.1)";
                     e.currentTarget.style.background = "rgba(255, 255, 255, 0.04)";
@@ -129,6 +129,9 @@ export default function SuccessStoriesGrid({ stories = [] }: SuccessStoriesGridP
                       aspectRatio: "3 / 3.1",
                       overflow: "hidden",
                       background: "#080e28",
+                      transform: "translateZ(0)",
+                      WebkitBackfaceVisibility: "hidden",
+                      backfaceVisibility: "hidden",
                     }}
                   >
                     <Image
@@ -137,7 +140,7 @@ export default function SuccessStoriesGrid({ stories = [] }: SuccessStoriesGridP
                       fill
                       sizes="(max-width: 440px) 100vw, (max-width: 640px) 50vw, (max-width: 960px) 33vw, 400px"
                       quality={90}
-                      style={{ objectFit: "cover" }}
+                      style={{ objectFit: "cover", transform: "translateZ(0)", WebkitBackfaceVisibility: "hidden", backfaceVisibility: "hidden" }}
                     />
                   </div>
 
