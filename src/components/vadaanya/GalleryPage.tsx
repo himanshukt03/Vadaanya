@@ -322,7 +322,9 @@ export default function GalleryPage({ galleryEvents = [], printMediaCollections 
                           fill
                           style={{ objectFit: "cover" }}
                           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
-                          quality={82}
+                          quality={85}
+                          placeholder={event.blurDataUrl ? "blur" : "empty"}
+                          blurDataURL={event.blurDataUrl}
                           priority={idx < 4}
                           loading={idx < 4 ? "eager" : "lazy"}
                         />
@@ -388,7 +390,9 @@ export default function GalleryPage({ galleryEvents = [], printMediaCollections 
                           alt={collection.title}
                           fill
                           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
-                          quality={82}
+                          quality={85}
+                          placeholder={collection.blurDataUrl ? "blur" : "empty"}
+                          blurDataURL={collection.blurDataUrl}
                           style={{ objectFit: "cover", objectPosition: "top center" }}
                           priority={idx < 4}
                           loading={idx < 4 ? "eager" : "lazy"}
@@ -591,13 +595,12 @@ export default function GalleryPage({ galleryEvents = [], printMediaCollections 
                   }}
                 >
                   <Image
-                    src={img}
+                    src={(activeEvent.thumbnails && activeEvent.thumbnails[idx]) || img}
                     alt={`${activeEvent.title} - Image ${idx + 1}`}
                     fill
-                    sizes="(max-width: 480px) 50vw, (max-width: 768px) 33vw, (max-width: 1200px) 33vw, 500px"
-                    quality={92}
-                    priority={idx < 8}
-                    loading={idx < 8 ? "eager" : "lazy"}
+                    sizes="(max-width: 480px) 50vw, (max-width: 768px) 33vw, 250px"
+                    quality={85}
+                    loading={idx < 6 ? "eager" : "lazy"}
                     style={{ objectFit: "cover" }}
                     className="vad-gallery-thumb"
                   />

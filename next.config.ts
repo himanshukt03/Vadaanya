@@ -35,20 +35,14 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: [
       'swiper',
-      'lucide-react',
       'react-fast-marquee',
-      'react-toastify',
-      'react-player',
       'yet-another-react-lightbox',
-      'react-redux',
-      '@reduxjs/toolkit',
-      'bootstrap',
     ],
   },
   images: {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 31536000,
-    qualities: [75, 80, 85, 90, 92, 95],
+    qualities: [75, 80, 82, 85, 90, 92, 95],
     remotePatterns: [
       {
         protocol: "https",

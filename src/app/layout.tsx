@@ -125,36 +125,35 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning={isDev} data-scroll-behavior="smooth">
       <head>
-        <link rel="icon" type="image/png" href="/logos/favicon-96x96.png" sizes="96x96" />
-        <link rel="icon" type="image/svg+xml" href="/logos/favicon.svg" />
-        <link rel="shortcut icon" href="/logos/favicon.ico" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/logos/apple-touch-icon.png" />
-        <meta name="apple-mobile-web-app-title" content="Vadaanya Janaa Society" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://cdn.sanity.io" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://cdn.sanity.io" />
         <link rel="preconnect" href="https://img.youtube.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://img.youtube.com" />
-        <JsonLd data={getOrganizationJsonLd()} />
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-PVQJL8PS1F"
-          strategy="lazyOnload"
-        />
-        <Script id="google-analytics" strategy="lazyOnload">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-PVQJL8PS1F');
-          `}
-        </Script>
-
       </head>
       <body className={`${poppins.variable} ${inter.variable}`} suppressHydrationWarning={true}>
+        <a href="#top" className="vad-skip-link">
+          Skip to main content
+        </a>
+        <JsonLd data={getOrganizationJsonLd()} />
         <Providers>
           {children}
         </Providers>
+        {!isDev && (
+          <>
+            <Script
+              src="https://www.googletagmanager.com/gtag/js?id=G-PVQJL8PS1F"
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-PVQJL8PS1F');
+              `}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   );

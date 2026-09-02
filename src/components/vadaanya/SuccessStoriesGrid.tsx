@@ -138,8 +138,10 @@ export default function SuccessStoriesGrid({ stories = [] }: SuccessStoriesGridP
                       src={story.imageUrl}
                       alt={story.imageAlt}
                       fill
-                      sizes="(max-width: 440px) 100vw, (max-width: 640px) 50vw, (max-width: 960px) 33vw, 400px"
-                      quality={90}
+                      sizes="(max-width: 440px) 100vw, (max-width: 640px) 50vw, (max-width: 960px) 33vw, 320px"
+                      quality={85}
+                      placeholder={story.blurDataUrl ? "blur" : "empty"}
+                      blurDataURL={story.blurDataUrl}
                       style={{ objectFit: "cover", transform: "translateZ(0)", WebkitBackfaceVisibility: "hidden", backfaceVisibility: "hidden" }}
                     />
                   </div>
@@ -272,9 +274,13 @@ export default function SuccessStoriesGrid({ stories = [] }: SuccessStoriesGridP
                   }}
                 >
                   <Image
-                    src={selectedStory.imageUrl}
+                    src={selectedStory.modalImageUrl || selectedStory.imageUrl}
                     alt={selectedStory.imageAlt}
                     fill
+                    sizes="(max-width: 640px) 100vw, 400px"
+                    quality={85}
+                    placeholder={selectedStory.blurDataUrl ? "blur" : "empty"}
+                    blurDataURL={selectedStory.blurDataUrl}
                     style={{ objectFit: "cover" }}
                   />
                 </div>

@@ -36,6 +36,21 @@
     }
 }
 
+@keyframes vadSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes vadPulse {
+    from {
+        opacity: 0.4;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 /* --- Navigation / Sticky Header --- */
 #sticky-header.sticky-menu {
     backdrop-filter: blur(20px);
@@ -238,5 +253,24 @@
 
     .hero-btn-main {
         padding: 12px 24px !important;
+    }
+}
+
+/* Accessible skip link */
+.vad-skip-link {
+    position: absolute;
+    top: -100px;
+    left: 16px;
+    background: var(--vad-gold, #f2a712);
+    color: #0a1030;
+    padding: 8px 16px;
+    font-weight: 700;
+    border-radius: 0 0 6px 6px;
+    z-index: 100000;
+    transition: top 0.2s ease;
+    text-decoration: none;
+
+    &:focus {
+        top: 0;
     }
 }

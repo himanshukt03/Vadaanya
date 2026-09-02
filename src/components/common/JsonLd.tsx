@@ -104,6 +104,14 @@ export function getOrganizationJsonLd() {
         {
           "@type": "SiteNavigationElement",
           position: 1,
+          name: "Vadaanya Talent Test",
+          description:
+            "Annual talent test, question papers booklet, awards, and IIT-JEE mentorship for government school students.",
+          url: "https://vadaanya.org/talent-test",
+        },
+        {
+          "@type": "SiteNavigationElement",
+          position: 2,
           name: "About Vadaanya",
           description:
             "Learn about Vadaanya Janaa Society mission, history, and 80G/12A tax-exempt registration.",
@@ -111,7 +119,7 @@ export function getOrganizationJsonLd() {
         },
         {
           "@type": "SiteNavigationElement",
-          position: 2,
+          position: 3,
           name: "Founder & Team Vadaanya",
           description:
             "Meet Team Vadaanya led by Founder Ashok Padapati and dedicated volunteers across India.",
@@ -119,7 +127,7 @@ export function getOrganizationJsonLd() {
         },
         {
           "@type": "SiteNavigationElement",
-          position: 3,
+          position: 4,
           name: "Media Gallery & Press Coverage",
           description:
             "Explore photos, newspaper clippings, and videos documenting Vadaanya's educational work.",
@@ -127,7 +135,7 @@ export function getOrganizationJsonLd() {
         },
         {
           "@type": "SiteNavigationElement",
-          position: 4,
+          position: 5,
           name: "Student Success Stories",
           description:
             "Read inspiring journeys of government school scholars supported by Vadaanya scholarships.",
@@ -135,7 +143,7 @@ export function getOrganizationJsonLd() {
         },
         {
           "@type": "SiteNavigationElement",
-          position: 5,
+          position: 6,
           name: "Contact Us",
           description:
             "Get in touch with Vadaanya Janaa Society team for inquiries, support, and volunteering.",
@@ -143,7 +151,7 @@ export function getOrganizationJsonLd() {
         },
         {
           "@type": "SiteNavigationElement",
-          position: 6,
+          position: 7,
           name: "Donate",
           description:
             "Support underprivileged government school students from Class 10 through graduation.",
@@ -167,5 +175,28 @@ export function getBreadcrumbJsonLd(
       name: item.name,
       item: item.url,
     })),
+  };
+}
+
+/** Talent Test educational program schema */
+export function getTalentTestJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "EducationalOccupationalProgram",
+    "@id": "https://vadaanya.org/talent-test#program",
+    name: "Vadaanya Talent Test",
+    description:
+      "Annual mathematics and aptitude talent test for government school students across Andhra Pradesh & Telangana, organized by Vadaanya Janaa Society with merit scholarships and IIT-JEE mentorship.",
+    provider: {
+      "@id": "https://vadaanya.org/#organization",
+    },
+    educationalProgramMode: "hybrid",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "INR",
+      category: "Free Merit Scholarship Program",
+    },
+    url: "https://vadaanya.org/talent-test",
   };
 }

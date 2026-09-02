@@ -105,9 +105,12 @@ export default function SuccessStoriesPage({ stories = [] }: SuccessStoriesPageP
                     alt={story.imageAlt || story.name}
                     fill
                     style={{ objectFit: "cover" }}
-                    sizes="(max-width: 640px) 50vw, (max-width: 900px) 33vw, (max-width: 1200px) 25vw, 400px"
-                    quality={90}
-                    priority={index < 6}
+                    sizes="(max-width: 640px) 50vw, (max-width: 900px) 33vw, (max-width: 1200px) 25vw, 320px"
+                    quality={85}
+                    placeholder={story.blurDataUrl ? "blur" : "empty"}
+                    blurDataURL={story.blurDataUrl}
+                    priority={index < 4}
+                    loading={index < 4 ? "eager" : "lazy"}
                   />
                 </div>
 
@@ -212,8 +215,10 @@ export default function SuccessStoriesPage({ stories = [] }: SuccessStoriesPageP
                   src={activeStory.imageUrl}
                   alt={activeStory.name}
                   fill
-                  sizes="200px"
-                  quality={90}
+                  sizes="120px"
+                  quality={85}
+                  placeholder={activeStory.blurDataUrl ? "blur" : "empty"}
+                  blurDataURL={activeStory.blurDataUrl}
                   style={{ objectFit: "cover" }}
                 />
               </div>

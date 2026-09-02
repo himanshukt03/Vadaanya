@@ -131,16 +131,7 @@ const Preloader = () => {
         </div>
       )}
 
-      {/* Inline keyframes for animations */}
-      <style jsx global>{`
-        @keyframes vadSpin {
-          to { transform: rotate(360deg); }
-        }
-        @keyframes vadPulse {
-          from { opacity: 0.4; }
-          to { opacity: 1; }
-        }
-      `}</style>
+
     </div>
   );
 };

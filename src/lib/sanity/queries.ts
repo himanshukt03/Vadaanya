@@ -265,7 +265,10 @@ export const GALLERY_EVENTS_QUERY = defineQuery(`
     coverImage {
       asset-> {
         _id,
-        url
+        url,
+        metadata {
+          lqip
+        }
       },
       crop,
       hotspot
@@ -290,6 +293,9 @@ export interface SanityGalleryEvent {
     asset?: {
       _id: string;
       url: string;
+      metadata?: {
+        lqip?: string;
+      };
     };
     crop?: { top: number; bottom: number; left: number; right: number };
     hotspot?: { x: number; y: number; height: number; width: number };
@@ -310,6 +316,8 @@ export interface GalleryEventItem {
   title: string;
   date: string;
   coverImage: string;
+  blurDataUrl?: string;
+  thumbnails?: string[];
   images: string[];
 }
 
@@ -326,13 +334,21 @@ export async function getGalleryEvents(): Promise<GalleryEventItem[]> {
         id: event._id,
         title: event.title || "",
         date: event.date || "",
+        blurDataUrl: event.coverImage?.asset?.metadata?.lqip,
         coverImage: event.coverImage
-          ? urlFor(event.coverImage).width(1200).auto("format").quality(90).url()
+          ? urlFor(event.coverImage).width(720).height(440).fit("crop").auto("format").quality(85).url()
           : "/vadaanya_team.jpeg",
+        thumbnails: (event.images || [])
+          .map((img) =>
+            img?.asset?.url
+              ? urlFor(img).width(480).height(480).fit("crop").auto("format").quality(85).url()
+              : ""
+          )
+          .filter(Boolean),
         images: (event.images || [])
           .map((img) =>
             img?.asset?.url
-              ? urlFor(img).width(2000).auto("format").quality(92).url()
+              ? urlFor(img).width(1920).auto("format").quality(88).url()
               : ""
           )
           .filter(Boolean),
@@ -347,6 +363,7 @@ export async function getGalleryEvents(): Promise<GalleryEventItem[]> {
     title: event.title,
     date: event.date,
     coverImage: event.coverImage,
+    thumbnails: event.images,
     images: event.images,
   }));
 }
@@ -366,7 +383,10 @@ export const TALENT_TEST_GALLERY_QUERY = defineQuery(`
     coverImage {
       asset-> {
         _id,
-        url
+        url,
+        metadata {
+          lqip
+        }
       },
       crop,
       hotspot
@@ -391,6 +411,8 @@ export interface TalentTestGalleryItem {
   subCategory?: string;
   category?: string;
   coverImage: string;
+  blurDataUrl?: string;
+  thumbnails?: string[];
   images: string[];
 }
 
@@ -410,13 +432,21 @@ export async function getTalentTestGalleryEvents(): Promise<TalentTestGalleryIte
         year: event.year || undefined,
         subCategory: event.subCategory || undefined,
         category: event.category || "talent-test",
+        blurDataUrl: event.coverImage?.asset?.metadata?.lqip,
         coverImage: event.coverImage
-          ? urlFor(event.coverImage).width(1200).auto("format").quality(92).url()
+          ? urlFor(event.coverImage).width(720).height(440).fit("crop").auto("format").quality(85).url()
           : "/vadaanya_team.jpeg",
+        thumbnails: (event.images || [])
+          .map((img: any) =>
+            img?.asset?.url
+              ? urlFor(img).width(480).height(480).fit("crop").auto("format").quality(85).url()
+              : ""
+          )
+          .filter(Boolean),
         images: (event.images || [])
           .map((img: any) =>
             img?.asset?.url
-              ? urlFor(img).width(2000).auto("format").quality(95).url()
+              ? urlFor(img).width(1920).auto("format").quality(88).url()
               : ""
           )
           .filter(Boolean),
@@ -434,6 +464,7 @@ export async function getTalentTestGalleryEvents(): Promise<TalentTestGalleryIte
     subCategory: album.subCategory,
     category: "talent-test",
     coverImage: album.coverImage,
+    thumbnails: album.images,
     images: album.images,
   }));
 }
@@ -451,7 +482,10 @@ export const PRINT_MEDIA_QUERY = defineQuery(`
     coverImage {
       asset-> {
         _id,
-        url
+        url,
+        metadata {
+          lqip
+        }
       },
       crop,
       hotspot
@@ -477,6 +511,9 @@ export interface SanityPrintMediaCollection {
     asset?: {
       _id: string;
       url: string;
+      metadata?: {
+        lqip?: string;
+      };
     };
     crop?: { top: number; bottom: number; left: number; right: number };
     hotspot?: { x: number; y: number; height: number; width: number };
@@ -498,6 +535,8 @@ export interface PrintMediaCollectionItem {
   language: string;
   date: string;
   coverImage: string;
+  blurDataUrl?: string;
+  thumbnails?: string[];
   images: string[];
 }
 
@@ -515,13 +554,21 @@ export async function getPrintMediaCollections(): Promise<PrintMediaCollectionIt
         title: collection.title || "",
         language: collection.language || "",
         date: collection.date || "",
+        blurDataUrl: collection.coverImage?.asset?.metadata?.lqip,
         coverImage: collection.coverImage
-          ? urlFor(collection.coverImage).width(1200).auto("format").quality(90).url()
+          ? urlFor(collection.coverImage).width(720).height(560).fit("crop").auto("format").quality(85).url()
           : "/vadaanya_team.jpeg",
+        thumbnails: (collection.images || [])
+          .map((img) =>
+            img?.asset?.url
+              ? urlFor(img).width(500).auto("format").quality(85).url()
+              : ""
+          )
+          .filter(Boolean),
         images: (collection.images || [])
           .map((img) =>
             img?.asset?.url
-              ? urlFor(img).width(2400).auto("format").quality(95).url()
+              ? urlFor(img).width(1920).auto("format").quality(88).url()
               : ""
           )
           .filter(Boolean),
@@ -537,6 +584,7 @@ export async function getPrintMediaCollections(): Promise<PrintMediaCollectionIt
     language: collection.language,
     date: collection.date,
     coverImage: collection.coverImage,
+    thumbnails: collection.images,
     images: collection.images,
   }));
 }
@@ -558,7 +606,10 @@ export const SUCCESS_STORIES_QUERY = defineQuery(`
     image {
       asset-> {
         _id,
-        url
+        url,
+        metadata {
+          lqip
+        }
       },
       crop,
       hotspot
@@ -580,6 +631,9 @@ export interface SanitySuccessStory {
     asset?: {
       _id: string;
       url: string;
+      metadata?: {
+        lqip?: string;
+      };
     };
     crop?: { top: number; bottom: number; left: number; right: number };
     hotspot?: { x: number; y: number; height: number; width: number };
@@ -597,6 +651,8 @@ export interface SuccessStoryItem {
   covered: string[];
   videoUrl?: string;
   imageUrl: string;
+  modalImageUrl?: string;
+  blurDataUrl?: string;
   imageAlt: string;
 }
 
@@ -618,8 +674,12 @@ export async function getSuccessStories(): Promise<SuccessStoryItem[]> {
         quote: story.quote || undefined,
         covered: story.covered || [],
         videoUrl: story.videoUrl || undefined,
+        blurDataUrl: story.image?.asset?.metadata?.lqip,
         imageUrl: story.image
-          ? urlFor(story.image).width(1600).auto("format").quality(85).url()
+          ? urlFor(story.image).width(640).height(660).fit("crop").auto("format").quality(85).url()
+          : "/about-1.jpg",
+        modalImageUrl: story.image
+          ? urlFor(story.image).width(1000).auto("format").quality(85).url()
           : "/about-1.jpg",
         imageAlt: story.name || "Student photo",
       }));
