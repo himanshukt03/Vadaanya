@@ -437,7 +437,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                   className="vad-btn vad-btn--navy"
                 >
                   <DownloadIcon />
-                  <span>Download Free PDF (4.4 MB)</span>
+                  <span>Download PDF</span>
                 </a>
               </div>
             </div>
@@ -566,12 +566,12 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 6: RECOGNITION BUILT FOR EQUITY (SIMPLE CLEAN CARDS)
+          SECTION 6: RECOGNITION BUILT FOR EQUITY (ELEVATED CARDS ON SOFT GREY)
           ─────────────────────────────────────────────── */}
-      <section id="equity" className="vad-section vad-section--paper" style={{ padding: "60px 0" }}>
+      <section id="equity" className="vad-section vad-section--grey" style={{ padding: "60px 0" }}>
         <div className="vad-container">
           <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
-            <div className="vad-head" style={{ textAlign: "left", marginBottom: "24px" }}>
+            <div className="vad-head" style={{ textAlign: "left", marginBottom: "28px" }}>
               <span className="vad-eyebrow vad-eyebrow--dark">FAIR EVALUATION</span>
               <h2
                 style={{
@@ -599,33 +599,36 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
               </p>
             </div>
 
-            {/* Simple Clean 3-Tier Cards */}
+            {/* Elevated Unified 3-Tier Cards */}
             <div
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
                 gap: "24px",
-                marginBottom: "44px",
+                marginBottom: "48px",
               }}
             >
               {/* Card 1 */}
               <div
                 style={{
                   background: "#ffffff",
-                  border: "1px solid rgba(0, 0, 0, 0.08)",
-                  borderRadius: "18px",
-                  padding: "24px 22px",
-                  boxShadow: "0 6px 20px rgba(10, 16, 48, 0.04)",
+                  border: "1px solid rgba(10, 16, 48, 0.09)",
+                  borderRadius: "20px",
+                  padding: "26px 24px",
+                  boxShadow: "0 12px 28px rgba(10, 16, 48, 0.07)",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",
+                  position: "relative",
+                  overflow: "hidden",
                 }}
               >
+                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "4px", background: "linear-gradient(90deg, var(--vad-gold, #f2a712), var(--vad-gold-dark, #d97706))" }} />
                 <div>
                   <div
                     style={{
                       display: "inline-block",
-                      fontSize: "11px",
+                      fontSize: "11.5px",
                       fontWeight: 800,
                       color: "var(--vad-gold-dark, #d97706)",
                       textTransform: "uppercase",
@@ -653,7 +656,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
 
                 <div
                   style={{
-                    marginTop: "20px",
+                    marginTop: "22px",
                     paddingTop: "16px",
                     borderTop: "1px solid #f1f5f9",
                   }}
@@ -661,7 +664,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                   <span style={{ fontSize: "11px", fontWeight: 700, color: "#94a3b8", letterSpacing: "0.06em", textTransform: "uppercase", display: "block" }}>
                     Reward
                   </span>
-                  <div style={{ fontSize: "18px", fontWeight: 800, color: "var(--vad-gold-dark, #d97706)", margin: "4px 0 2px" }}>
+                  <div style={{ fontSize: "20px", fontWeight: 800, color: "var(--vad-gold-dark, #d97706)", margin: "4px 0 2px" }}>
                     ₹15,000 – ₹25,000
                   </div>
                   <span style={{ fontSize: "12.5px", color: "#64748b", fontWeight: 500 }}>
@@ -674,22 +677,25 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
               <div
                 style={{
                   background: "#ffffff",
-                  border: "1px solid rgba(0, 0, 0, 0.08)",
-                  borderRadius: "18px",
-                  padding: "24px 22px",
-                  boxShadow: "0 6px 20px rgba(10, 16, 48, 0.04)",
+                  border: "1px solid rgba(10, 16, 48, 0.09)",
+                  borderRadius: "20px",
+                  padding: "26px 24px",
+                  boxShadow: "0 12px 28px rgba(10, 16, 48, 0.07)",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",
+                  position: "relative",
+                  overflow: "hidden",
                 }}
               >
+                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "4px", background: "linear-gradient(90deg, var(--vad-gold, #f2a712), var(--vad-gold-dark, #d97706))" }} />
                 <div>
                   <div
                     style={{
                       display: "inline-block",
-                      fontSize: "11px",
+                      fontSize: "11.5px",
                       fontWeight: 800,
-                      color: "var(--vad-navy-700, #1E3080)",
+                      color: "var(--vad-gold-dark, #d97706)",
                       textTransform: "uppercase",
                       letterSpacing: "0.08em",
                       marginBottom: "10px",
@@ -715,7 +721,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
 
                 <div
                   style={{
-                    marginTop: "20px",
+                    marginTop: "22px",
                     paddingTop: "16px",
                     borderTop: "1px solid #f1f5f9",
                   }}
@@ -723,7 +729,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                   <span style={{ fontSize: "11px", fontWeight: 700, color: "#94a3b8", letterSpacing: "0.06em", textTransform: "uppercase", display: "block" }}>
                     Reward
                   </span>
-                  <div style={{ fontSize: "18px", fontWeight: 800, color: "var(--vad-navy-950, #0a1030)", margin: "4px 0 2px" }}>
+                  <div style={{ fontSize: "20px", fontWeight: 800, color: "var(--vad-gold-dark, #d97706)", margin: "4px 0 2px" }}>
                     ₹5,000
                   </div>
                   <span style={{ fontSize: "12.5px", color: "#64748b", fontWeight: 500 }}>
@@ -736,22 +742,25 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
               <div
                 style={{
                   background: "#ffffff",
-                  border: "1px solid rgba(0, 0, 0, 0.08)",
-                  borderRadius: "18px",
-                  padding: "24px 22px",
-                  boxShadow: "0 6px 20px rgba(10, 16, 48, 0.04)",
+                  border: "1px solid rgba(10, 16, 48, 0.09)",
+                  borderRadius: "20px",
+                  padding: "26px 24px",
+                  boxShadow: "0 12px 28px rgba(10, 16, 48, 0.07)",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",
+                  position: "relative",
+                  overflow: "hidden",
                 }}
               >
+                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "4px", background: "linear-gradient(90deg, var(--vad-gold, #f2a712), var(--vad-gold-dark, #d97706))" }} />
                 <div>
                   <div
                     style={{
                       display: "inline-block",
-                      fontSize: "11px",
+                      fontSize: "11.5px",
                       fontWeight: 800,
-                      color: "#10b981",
+                      color: "var(--vad-gold-dark, #d97706)",
                       textTransform: "uppercase",
                       letterSpacing: "0.08em",
                       marginBottom: "10px",
@@ -777,7 +786,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
 
                 <div
                   style={{
-                    marginTop: "20px",
+                    marginTop: "22px",
                     paddingTop: "16px",
                     borderTop: "1px solid #f1f5f9",
                   }}
@@ -785,7 +794,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                   <span style={{ fontSize: "11px", fontWeight: 700, color: "#94a3b8", letterSpacing: "0.06em", textTransform: "uppercase", display: "block" }}>
                     Reward
                   </span>
-                  <div style={{ fontSize: "18px", fontWeight: 800, color: "#10b981", margin: "4px 0 2px" }}>
+                  <div style={{ fontSize: "20px", fontWeight: 800, color: "var(--vad-gold-dark, #d97706)", margin: "4px 0 2px" }}>
                     ₹500 – ₹1,000
                   </div>
                   <span style={{ fontSize: "12.5px", color: "#64748b", fontWeight: 500 }}>
