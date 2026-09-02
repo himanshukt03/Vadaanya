@@ -88,11 +88,11 @@ export default function TalentTestGallery({ albums = [] }: TalentTestGalleryProp
   };
 
   return (
-    <section id="gallery" className="vad-section vad-section--navy vad-tt-gallery">
+    <section id="gallery" className="vad-section vad-section--paper vad-tt-gallery">
       <div className="vad-container">
         {/* Section Header */}
-        <div className="vad-head vad-head--center" style={{ marginBottom: "36px" }}>
-          <span className="vad-eyebrow vad-eyebrow--center">HISTORICAL ARCHIVES · 2021–2024</span>
+        <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "36px" }}>
+          <span className="vad-eyebrow vad-eyebrow--center vad-eyebrow--dark">HISTORICAL ARCHIVES · 2021–2024</span>
           <h2>Exam Days & Prize Distribution Gallery</h2>
           <p className="vad-lead">
             Explore photo archives from every edition of the Srinivasa Ramanujan Talent Test — from energetic OMR exam halls to grand state felicitation ceremonies.

@@ -93,19 +93,19 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
             <span className="vad-tt-ticker__item">
               📢 <strong>NEW:</strong> 5-Year Question Papers & Solutions Booklet (2021–2025) released!{" "}
               <button onClick={() => setIsPdfOpen(true)} className="vad-tt-ticker__link">
-                [View Booklet PDF]
+                [Preview Booklet PDF]
               </button>
             </span>
             <span className="vad-tt-ticker__divider">✦</span>
             <span className="vad-tt-ticker__item">
-              🎯 Pre-registrations for the <strong>2026 Srinivasa Ramanujan Talent Test</strong> are now open.{" "}
+              🎯 Pre-registrations for the <strong>2026 Srinivasa Ramanujan Talent Test</strong> are open.{" "}
               <button onClick={() => setIsRegModalOpen(true)} className="vad-tt-ticker__link">
                 [Pre-Register Free]
               </button>
             </span>
             <span className="vad-tt-ticker__divider">✦</span>
             <span className="vad-tt-ticker__item">
-              🏆 <strong>15,000+</strong> rural government school students tested across 5 completed cycles (2021–2025).
+              🏆 <strong>15,000+</strong> government school students tested across 5 completed cycles (2021–2025).
             </span>
             <span className="vad-tt-ticker__divider">✦</span>
             <span className="vad-tt-ticker__item">
@@ -116,48 +116,53 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       </div>
 
       {/* ───────────────────────────────────────────────
-          SECTION 2: FLAGSHIP HERO SECTION
+          SECTION 2: HERO SECTION (NAVY DEEP WITH IMAGE OVERLAY)
           ─────────────────────────────────────────────── */}
-      <section className="vad-tt-hero" aria-label="Talent Test introduction">
-        <div className="vad-tt-hero__bg-overlay" aria-hidden="true" />
-        <div className="vad-container vad-tt-hero__container">
-          <div className="vad-tt-hero__content">
-            {/* Flagship Badge */}
-            <div className="vad-tt-hero__badge">
-              <span>★</span> 5 YEARS OF IMPACT · 2021–2025
-            </div>
-
-            {/* Main Headline */}
-            <h1 className="vad-tt-hero__title">
+      <section
+        className="vad-page-hero vad-section--deep"
+        style={{
+          padding: "clamp(60px, 6vw, 96px) 0 clamp(36px, 4vw, 56px)",
+          backgroundImage:
+            "linear-gradient(rgba(6, 11, 34, 0.82), rgba(6, 11, 34, 0.94)), url('/events/Digital Teaching at High School/01-1.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center 30%",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div className="vad-container vad-page-hero__inner">
+          <div style={{ maxWidth: "800px", margin: "0 auto", textAlign: "center" }}>
+            <span className="vad-eyebrow" style={{ color: "var(--vad-gold, #f2a712)" }}>
+              ★ THE FLAGSHIP PROGRAMME · 2021–2025
+            </span>
+            <h1 className="vad-page-hero__title" style={{ fontSize: "clamp(28px, 4.2vw, 52px)", margin: "14px 0 16px" }}>
               The Srinivasa Ramanujan <br />
-              <span className="vad-text-gold">Talent Test</span>
+              <span className="vad-page-hero__accent" style={{ color: "var(--vad-gold, #f2a712)" }}>
+                Talent Test
+              </span>
             </h1>
-
-            {/* Lead Narrative */}
-            <p className="vad-tt-hero__lead">
-              Talent is distributed equally across society, but opportunity is not. Once every year, thousands of government school students sit an offline, standardized OMR examination — where promising minds in rural classrooms are recognized, rewarded, and propelled all the way from rural villages to IITs and NITs.
+            <p className="vad-page-hero__lead" style={{ color: "#e2e8f0", fontSize: "clamp(15px, 1.2vw, 17px)", maxWidth: "660px", margin: "0 auto 28px" }}>
+              Identifying promising minds in rural government schools, providing 100-page analytical study material, and rewarding 500+ deserving students with cash prizes, scholarships, and IIT mentorship.
             </p>
 
-            {/* CTA Action Row */}
-            <div className="vad-tt-hero__ctas">
+            {/* Action Buttons */}
+            <div style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap", marginBottom: "40px" }}>
               <button
                 onClick={() => setIsPdfOpen(true)}
-                className="vad-btn vad-btn--gold vad-tt-hero__btn"
+                className="vad-btn vad-btn--gold"
               >
                 <BookOpenIcon />
                 <span>Download 5-Year Booklet (PDF)</span>
               </button>
-
               <button
                 onClick={() => setIsRegModalOpen(true)}
-                className="vad-btn vad-btn--outline vad-tt-hero__btn"
+                className="vad-btn vad-btn--outline"
               >
                 <span>Pre-Register for 2026 Test →</span>
               </button>
             </div>
           </div>
 
-          {/* 4 Stat Badges */}
+          {/* 4 Clean Impact Badges */}
           <div className="vad-tt-stats__grid">
             {talentTestStats.map((st, i) => (
               <div key={i} className="vad-tt-stats__card">
@@ -171,56 +176,64 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 3: 5-YEAR QUESTION PAPER BOOKLET
+          SECTION 3: 5-YEAR QUESTION BOOKLET (LIGHT PAPER BACKGROUND)
           ─────────────────────────────────────────────── */}
-      <section id="booklet" className="vad-section vad-section--card vad-tt-booklet">
+      <section id="booklet" className="vad-section vad-section--paper">
         <div className="vad-container">
           <div className="vad-tt-booklet__wrapper">
-            <div className="vad-tt-booklet__text">
-              <span className="vad-eyebrow">CURRICULUM & QUESTION BANK</span>
-              <h2>Official 5-Year Question Papers & Solutions (2021–2025)</h2>
-              <p className="vad-lead">
-                Compiled into a single 100-page comprehensive study booklet for students, teachers, and school headmasters. Includes bilingual (Telugu & English) questions and solutions across Non-Verbal Reasoning, Mental Ability, Quantitative Aptitude, General Science, and Mathematics.
+            {/* Left Column: Booklet Details */}
+            <div className="vad-head vad-head--light" style={{ textAlign: "left" }}>
+              <span className="vad-eyebrow vad-eyebrow--dark">OFFICIAL QUESTION BANK</span>
+              <h2>5-Year Question Papers & Solutions (2021–2025)</h2>
+              <div style={{ width: "48px", height: "3px", background: "var(--vad-gold-dark, #d97706)", margin: "10px 0 16px", borderRadius: "2px" }} />
+              <p className="vad-lead" style={{ color: "var(--vad-ink-soft)", marginBottom: "18px" }}>
+                We compiled five full years of Srinivasa Ramanujan Talent Test examination papers into a single 100-page bilingual study guide. Built to help students develop analytical and non-verbal reasoning skills from Class 6 onward.
               </p>
 
               <div className="vad-tt-booklet__features">
-                <div className="vad-tt-booklet__feat">
+                <div className="vad-tt-booklet__feat" style={{ color: "var(--vad-ink)" }}>
                   <span className="vad-tt-booklet__feat-icon">✓</span>
-                  <span>5 Complete Sets of Solved Exam Papers (2021, 2022, 2023, 2024, 2025)</span>
+                  <span>5 Complete Solved Exam Editions (2021, 2022, 2023, 2024, 2025)</span>
                 </div>
-                <div className="vad-tt-booklet__feat">
+                <div className="vad-tt-booklet__feat" style={{ color: "var(--vad-ink)" }}>
                   <span className="vad-tt-booklet__feat-icon">✓</span>
                   <span>Bilingual Question Formats (Telugu & English side-by-side)</span>
                 </div>
-                <div className="vad-tt-booklet__feat">
+                <div className="vad-tt-booklet__feat" style={{ color: "var(--vad-ink)" }}>
                   <span className="vad-tt-booklet__feat-icon">✓</span>
-                  <span>Full OMR Bubble Sheet Instructions & Practice Keys</span>
+                  <span>Covers Logical Reasoning, Mental Ability, Math & Science</span>
                 </div>
               </div>
 
-              <div className="vad-tt-booklet__actions">
+              <div className="vad-tt-booklet__actions" style={{ marginTop: "24px" }}>
                 <a
-                  href="/talent-test/Vadaanya-Q.Papers(2021-25)_Booklet.pdf"
+                  href="/talent-test/vadaanya-talent-test-booklet.pdf"
                   download="Vadaanya-TalentTest-5Year-Booklet(2021-2025).pdf"
-                  className="vad-btn vad-btn--gold"
+                  className="vad-btn vad-btn--navy"
                 >
                   <DownloadIcon />
-                  <span>Download Free PDF (Booklet)</span>
+                  <span>Download Free PDF (4.4 MB)</span>
                 </a>
 
                 <button
                   onClick={() => setIsPdfOpen(true)}
-                  className="vad-btn vad-btn--outline"
+                  className="vad-btn vad-btn--gold"
                 >
                   <BookOpenIcon />
-                  <span>Read In-Browser Viewer</span>
+                  <span>Preview Booklet In-Browser</span>
                 </button>
               </div>
             </div>
 
-            {/* Visual Preview Card */}
+            {/* Right Column: Visual Booklet Card */}
             <div className="vad-tt-booklet__visual">
-              <div className="vad-tt-booklet__cover-card" onClick={() => setIsPdfOpen(true)}>
+              <div
+                className="vad-tt-booklet__cover-card"
+                onClick={() => setIsPdfOpen(true)}
+                role="button"
+                tabIndex={0}
+                aria-label="Preview Booklet Online"
+              >
                 <div className="vad-tt-booklet__cover-inner">
                   <div className="vad-tt-booklet__logo-box">
                     <span className="vad-tt-booklet__society-title">VADAANYA JANAA SOCIETY</span>
@@ -233,7 +246,9 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                     <span>Free Download</span>
                   </div>
                 </div>
-                <span className="vad-tt-booklet__click-hint">Click to Preview Booklet Online ↗</span>
+                <span className="vad-tt-booklet__click-hint" style={{ color: "#cbd5e1" }}>
+                  Click to View Interactive Reader ↗
+                </span>
               </div>
             </div>
           </div>
@@ -241,81 +256,95 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 4: THE 6-STEP ANNUAL ARCHITECTURE
+          SECTION 4: HOW THE TEST WORKS (WARM GREY BACKGROUND)
           ─────────────────────────────────────────────── */}
-      <section id="how-it-works" className="vad-section vad-section--deep vad-tt-steps">
+      <section id="how-it-works" className="vad-section vad-section--grey">
         <div className="vad-container">
-          <div className="vad-head vad-head--center" style={{ marginBottom: "48px" }}>
-            <span className="vad-eyebrow vad-eyebrow--center">CORE ARCHITECTURE</span>
-            <h2>How the Talent Test Works, Every Year</h2>
+          <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "40px" }}>
+            <span className="vad-eyebrow vad-eyebrow--center vad-eyebrow--dark">THE ANNUAL CYCLE</span>
+            <h2>How the Talent Test Works</h2>
             <p className="vad-lead">
-              One structured, repeatable cycle executed annually — the same six connected steps that ensure a level playing field, fast evaluation, and long-term academic sustainment.
+              A structured six-step journey connecting student registration to long-term collegiate support — offline, OMR-based, and built for a level playing field.
             </p>
           </div>
 
           <div className="vad-tt-steps__grid">
             {howItWorksSteps.map((step, idx) => (
-              <div key={idx} className="vad-tt-steps__card">
+              <div key={idx} className="vad-tt-steps__card vad-tt-steps__card--light">
                 <div className="vad-tt-steps__header">
-                  <span className="vad-tt-steps__num">{step.step}</span>
-                  <span className="vad-tt-steps__badge">{step.badge}</span>
+                  <span className="vad-tt-steps__num" style={{ color: "var(--vad-gold-dark, #d97706)" }}>
+                    {step.step}
+                  </span>
+                  <span className="vad-tt-steps__badge vad-tt-steps__badge--light">
+                    {step.badge}
+                  </span>
                 </div>
-                <h3 className="vad-tt-steps__title">{step.title}</h3>
-                <p className="vad-tt-steps__tagline">{step.tagline}</p>
-                <p className="vad-tt-steps__desc">{step.description}</p>
-                <ul className="vad-tt-steps__list">
-                  {step.details.map((d, dIdx) => (
-                    <li key={dIdx}>
-                      <span className="vad-tt-steps__bullet">▸</span> {d}
-                    </li>
-                  ))}
-                </ul>
+                <h3 className="vad-tt-steps__title" style={{ color: "var(--vad-ink, #0a1030)" }}>
+                  {step.title}
+                </h3>
+                <p className="vad-tt-steps__tagline" style={{ color: "var(--vad-gold-deep, #b45309)" }}>
+                  {step.tagline}
+                </p>
+                <p className="vad-tt-steps__desc" style={{ color: "var(--vad-ink-soft, #475569)" }}>
+                  {step.description}
+                </p>
               </div>
             ))}
           </div>
 
-          {/* Loop Note */}
-          <div className="vad-tt-steps__cycle-note">
-            <span className="vad-tt-steps__cycle-icon">↺</span>
-            <p>
-              <strong>The Multiplier Cycle:</strong> Stage 6 (Sustain & Multiply) flows directly back into Stage 1 — successful alumni return as volunteer invigilators, mentors, and donors, expanding the base year after year.
+          {/* Multiplier Loop Banner */}
+          <div className="vad-tt-steps__cycle-note vad-tt-steps__cycle-note--light">
+            <span className="vad-tt-steps__cycle-icon" style={{ color: "var(--vad-gold-dark, #d97706)" }}>
+              ↺
+            </span>
+            <p style={{ color: "var(--vad-ink, #0a1030)" }}>
+              <strong>The Self-Sustaining Cycle:</strong> Stage 6 flows directly back into Stage 1 — successful talent test alumni return as mentors, invigilators, and donors, growing the program every year.
             </p>
           </div>
         </div>
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 5: RECOGNITION BUILT FOR EQUITY (3 TIERS)
+          SECTION 5: RECOGNITION BUILT FOR EQUITY (LIGHT PAPER)
           ─────────────────────────────────────────────── */}
-      <section id="equity" className="vad-section vad-section--navy vad-tt-equity">
+      <section id="equity" className="vad-section vad-section--paper">
         <div className="vad-container">
-          <div className="vad-head vad-head--center" style={{ marginBottom: "48px" }}>
-            <span className="vad-eyebrow vad-eyebrow--center">FAIR RECOGNITION</span>
+          <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "40px" }}>
+            <span className="vad-eyebrow vad-eyebrow--center vad-eyebrow--dark">FAIR EVALUATION</span>
             <h2>Recognition, Built for Equity</h2>
             <p className="vad-lead">
-              Introduced in 2024, our three-tier model recognizes that a strong score in a drought-prone, remote mandal deserves the same respect as one from a resource-rich area. Roughly <strong>280 non-overlapping prizes</strong> are awarded each cycle.
+              Introduced in 2024, this three-tier model recognises that a strong score in a drought-prone mandal deserves the same respect as one from a resource-rich area. Roughly <strong>280 non-overlapping prizes</strong> are awarded each cycle.
             </p>
           </div>
 
+          {/* 3 Tier Cards */}
           <div className="vad-tt-equity__grid">
             {equityTiers.map((tier, idx) => (
               <div
                 key={idx}
-                className={`vad-tt-equity__card vad-tt-equity__card--${tier.badgeColor}`}
+                className={`vad-tt-equity__card vad-tt-equity__card--light vad-tt-equity__card--${tier.badgeColor}`}
               >
                 <div className="vad-tt-equity__badge">{tier.tier}</div>
-                <h3 className="vad-tt-equity__title">{tier.title}</h3>
-                <p className="vad-tt-equity__qualifier">{tier.qualifier}</p>
+                <h3 className="vad-tt-equity__title" style={{ color: "var(--vad-ink, #0a1030)" }}>
+                  {tier.title}
+                </h3>
+                <p className="vad-tt-equity__qualifier" style={{ color: "var(--vad-ink-soft, #475569)" }}>
+                  {tier.qualifier}
+                </p>
 
-                <div className="vad-tt-equity__reward-box">
-                  <span className="vad-tt-equity__reward-lbl">Reward</span>
-                  <span className="vad-tt-equity__reward-val">{tier.reward}</span>
-                  <span className="vad-tt-equity__reward-winners">{tier.winnerCount}</span>
+                <div className="vad-tt-equity__reward-box vad-tt-equity__reward-box--light">
+                  <span className="vad-tt-equity__reward-lbl">Award Amount</span>
+                  <span className="vad-tt-equity__reward-val" style={{ color: tier.accentColor }}>
+                    {tier.reward}
+                  </span>
+                  <span className="vad-tt-equity__reward-winners" style={{ color: "var(--vad-ink-soft, #475569)" }}>
+                    {tier.winnerCount}
+                  </span>
                 </div>
 
                 <ul className="vad-tt-equity__perks">
                   {tier.perks.map((p, pIdx) => (
-                    <li key={pIdx}>
+                    <li key={pIdx} style={{ color: "var(--vad-ink, #1e293b)" }}>
                       <span className="vad-tt-equity__check">✓</span> {p}
                     </li>
                   ))}
@@ -324,25 +353,47 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
             ))}
           </div>
 
-          <div className="vad-tt-equity__summary-box">
-            <TrophyIcon />
-            <p>
-              <strong>280+ Non-Overlapping Awards per Cycle:</strong> By strictly excluding District Top 20 winners from Mandal prizes, and Mandal winners from School prizes, we maximize grassroots encouragement and touch hundreds of families across rural Andhra Pradesh and Telangana.
-            </p>
+          {/* Real Prize Distribution Image Banner */}
+          <div className="vad-about__split" style={{ marginTop: "40px", alignItems: "center", gap: "24px" }}>
+            <div className="vad-about__visual" style={{ width: "100%" }}>
+              <Image
+                src="/events/Brostal Event Vizag/01.jpg"
+                alt="Talent Test Prize Distribution Ceremony"
+                width={700}
+                height={380}
+                className="vad-about__img"
+                style={{ borderRadius: "18px", boxShadow: "0 16px 36px rgba(10, 16, 48, 0.12)", objectFit: "cover", width: "100%", height: "300px" }}
+              />
+              <div className="vad-about__float vad-about__float--tr" style={{ background: "var(--vad-gold-dark, #d97706)", color: "#ffffff", fontWeight: 700 }}>
+                ~280 Awards / Cycle
+              </div>
+            </div>
+
+            <div className="vad-head vad-head--light" style={{ textAlign: "left" }}>
+              <span className="vad-eyebrow vad-eyebrow--dark">GRASSROOTS INCLUSION</span>
+              <h3 style={{ fontSize: "22px", fontWeight: 800, color: "var(--vad-ink)", margin: "0 0 10px" }}>
+                Empowering Every Government School
+              </h3>
+              <p className="vad-lead" style={{ fontSize: "14px", color: "var(--vad-ink-soft)", margin: 0 }}>
+                By guaranteeing that District Top 20 winners don&apos;t crowd out Mandal toppers, and Mandal toppers don&apos;t take School prizes, every single participating school receives its own recognized champion with medals and certificates presented at morning school assemblies.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 6: HALL OF FAME (IIT-JEE SUCCESS STORIES)
+          SECTION 6: HALL OF FAME (DEEP NAVY SECTION FOR PRESTIGE)
           ─────────────────────────────────────────────── */}
       <section id="hall-of-fame" className="vad-section vad-section--deep vad-tt-fame">
         <div className="vad-container">
-          <div className="vad-head vad-head--center" style={{ marginBottom: "48px" }}>
-            <span className="vad-eyebrow vad-eyebrow--center">NATIONAL IMPACT</span>
-            <h2>From Government Classrooms to IITs</h2>
-            <p className="vad-lead">
-              Meet our shining alumni who started at rural government school benches, took the Vadaanya Talent Test, received continuous sponsorship, and conquered India&apos;s toughest entrance exams.
+          <div className="vad-head vad-head--center" style={{ marginBottom: "40px" }}>
+            <span className="vad-eyebrow vad-eyebrow--center" style={{ color: "var(--vad-gold, #f2a712)" }}>
+              NATIONAL ACADEMIC SUCCESS
+            </span>
+            <h2 style={{ color: "#ffffff" }}>From Government Classrooms to IITs</h2>
+            <p className="vad-lead" style={{ color: "#cbd5e1" }}>
+              Jugesh Kumar (AIR 377), Thulasi Karthik (AIR 2619) and Yaswanth Kumar (AIR 3563) — Vadaanya Talent Test alumni who proved that rural government-school talent can conquer India&apos;s toughest entrance exams with the right mentorship.
             </p>
           </div>
 
@@ -374,9 +425,9 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
             ))}
           </div>
 
-          {/* Testimonials Quote Grid */}
+          {/* Testimonial Quote Box */}
           <div className="vad-tt-fame__testimonials-box">
-            <h3 className="vad-tt-fame__testimonials-title">Voices from Students & Parents</h3>
+            <h3 className="vad-tt-fame__testimonials-title">What Students and Parents Say</h3>
             <div className="vad-tt-fame__testimonials-grid">
               {talentTestTestimonials.map((t, idx) => (
                 <div key={idx} className="vad-tt-fame__test-card">
@@ -393,37 +444,39 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 7: FOLDER-BASED 2021-2024 PHOTO GALLERY
+          SECTION 7: FOLDER-BASED PHOTO ARCHIVES (LIGHT PAPER)
           ─────────────────────────────────────────────── */}
       <TalentTestGallery albums={galleryAlbums} />
 
       {/* ───────────────────────────────────────────────
-          SECTION 8: 5-YEAR EVOLUTION ROADMAP (2021–2026)
+          SECTION 8: 5-YEAR EVOLUTION ROADMAP (WARM GREY)
           ─────────────────────────────────────────────── */}
-      <section id="roadmap" className="vad-section vad-section--deep vad-tt-roadmap">
+      <section id="roadmap" className="vad-section vad-section--grey vad-tt-roadmap">
         <div className="vad-container">
-          <div className="vad-head vad-head--center" style={{ marginBottom: "48px" }}>
-            <span className="vad-eyebrow vad-eyebrow--center">JOURNEY SO FAR</span>
-            <h2>5-Year Evolution Roadmap (2021 → 2026)</h2>
+          <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "40px" }}>
+            <span className="vad-eyebrow vad-eyebrow--center vad-eyebrow--dark">TRACK RECORD</span>
+            <h2>5-Year Evolution (2021 → 2026)</h2>
             <p className="vad-lead">
-              Tracing our journey from a local high school test in 2021 to a statewide digital and offline evaluation movement.
+              Over five years, the talent test has grown from a handful of rural high schools to an institution serving thousands of students annually across Andhra Pradesh and Telangana.
             </p>
           </div>
 
           <div className="vad-tt-roadmap__timeline">
             {talentTestMilestones.map((m, idx) => (
               <div key={idx} className="vad-tt-roadmap__item">
-                <div className="vad-tt-roadmap__year-node">
+                <div className="vad-tt-roadmap__year-node vad-tt-roadmap__year-node--light">
                   <span>{m.year}</span>
                 </div>
-                <div className="vad-tt-roadmap__content">
+                <div className="vad-tt-roadmap__content vad-tt-roadmap__content--light">
                   <div className="vad-tt-roadmap__header">
-                    <h3>{m.title}</h3>
+                    <h3 style={{ color: "var(--vad-ink)" }}>{m.title}</h3>
                     {m.metrics && (
-                      <span className="vad-tt-roadmap__metric">{m.metrics}</span>
+                      <span className="vad-tt-roadmap__metric vad-tt-roadmap__metric--light">
+                        {m.metrics}
+                      </span>
                     )}
                   </div>
-                  <p>{m.description}</p>
+                  <p style={{ color: "var(--vad-ink-soft)" }}>{m.description}</p>
                 </div>
               </div>
             ))}
@@ -432,83 +485,55 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 9: 2026 PRE-REGISTRATION CTA BANNER
+          SECTION 9: 2026 PRE-REGISTRATION & DONATION SECTION (NAVY DEEP)
           ─────────────────────────────────────────────── */}
-      <section id="register" className="vad-section vad-section--card vad-tt-cta-banner">
-        <div className="vad-container">
-          <div className="vad-tt-cta-banner__box">
-            <div className="vad-tt-cta-banner__text">
-              <span className="vad-eyebrow">UPCOMING 2026 CYCLE</span>
-              <h2>Ready to Nominate or Participate in Talent Test 2026?</h2>
-              <p className="vad-lead">
-                Are you a government school headmaster, teacher, or student from Class 6 to 10? Pre-register today to receive exam notifications, free 100-page reasoning study materials, and direct hall ticket download alerts.
-              </p>
-            </div>
-            <div className="vad-tt-cta-banner__actions">
-              <button
-                onClick={() => setIsRegModalOpen(true)}
-                className="vad-btn vad-btn--gold vad-tt-cta-banner__btn"
-              >
-                <span>Pre-Register for 2026 (Free) →</span>
-              </button>
-              <a
-                href="#booklet"
-                className="vad-btn vad-btn--outline vad-tt-cta-banner__btn"
-              >
-                <span>View Question Papers Booklet</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ───────────────────────────────────────────────
-          SECTION 10: SUPPORT A STUDENT / DONATE WITH QR
-          ─────────────────────────────────────────────── */}
-      <section id="support" className="vad-section vad-section--navy vad-tt-support">
+      <section id="register" className="vad-section vad-section--deep vad-tt-support">
         <div className="vad-container">
           <div className="vad-tt-support__wrapper">
-            <div className="vad-tt-support__text">
-              <span className="vad-eyebrow">SPONSOR AN AWARD</span>
-              <h2>Support Rural Government School Scholars</h2>
-              <p className="vad-lead">
-                Your contribution directly funds student cash scholarships, study kits, high-speed OMR evaluations, and laptop grants for meritorious government school children.
+            {/* Left Column: 2026 Pre-Registration */}
+            <div className="vad-head" style={{ textAlign: "left" }}>
+              <span className="vad-eyebrow" style={{ color: "var(--vad-gold, #f2a712)" }}>
+                2026 REGISTRATIONS
+              </span>
+              <h2 style={{ color: "#ffffff" }}>Pre-Register for Talent Test 2026</h2>
+              <p className="vad-lead" style={{ color: "#cbd5e1", marginBottom: "20px" }}>
+                100% free for government school students from Class 6 to 10. Pre-register now to receive exam center locations, study materials, and SMS hall ticket alerts.
               </p>
 
-              <div className="vad-tt-support__tiers">
-                <div className="vad-tt-support__tier-item">
-                  <strong>₹1,000</strong>
-                  <span>Sponsors testing, study booklet, and kit for 1 student</span>
-                </div>
-                <div className="vad-tt-support__tier-item">
-                  <strong>₹5,000</strong>
-                  <span>Funds 1 Mandal Champion cash scholarship & trophy</span>
-                </div>
-                <div className="vad-tt-support__tier-item">
-                  <strong>₹15,000 – ₹25,000</strong>
-                  <span>Funds 1 District Top Ranker long-term scholarship</span>
-                </div>
+              <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginBottom: "24px" }}>
+                <button
+                  onClick={() => setIsRegModalOpen(true)}
+                  className="vad-btn vad-btn--gold"
+                >
+                  <span>Pre-Register Free (Online) →</span>
+                </button>
+                <a
+                  href="/talent-test/vadaanya-talent-test-booklet.pdf"
+                  download="Vadaanya-TalentTest-5Year-Booklet.pdf"
+                  className="vad-btn vad-btn--outline"
+                >
+                  <DownloadIcon />
+                  <span>Download Solved Booklet</span>
+                </a>
               </div>
 
-              <div className="vad-tt-support__legal-note">
+              <div className="vad-tt-support__legal-note" style={{ color: "#94a3b8" }}>
                 <span>🛡️ 80G & 12A Certified NGO</span>
                 <span>• NGO Darpan ID: TS/2024/0396868</span>
                 <span>• CSR ID: CSR00071897</span>
               </div>
             </div>
 
+            {/* Right Column: Support / Donate QR Card */}
             <div className="vad-tt-support__qr-box">
               <div className="vad-tt-support__qr-card">
                 <div className="vad-tt-support__qr-header">
                   <QrIcon />
-                  <span>Scan to Donate via UPI</span>
+                  <span>Sponsor a Student / Award</span>
                 </div>
-                <div className="vad-tt-support__qr-img-wrap">
-                  {/* Fallback QR or standard UPI payment indicator */}
-                  <div className="vad-tt-support__upi-display">
-                    <span className="vad-tt-support__upi-id">UPI ID: vadaanyasociety@sbi</span>
-                    <span className="vad-tt-support__upi-hint">Google Pay · PhonePe · Paytm · BHIM</span>
-                  </div>
+                <div className="vad-tt-support__upi-display" style={{ marginBottom: "16px" }}>
+                  <span className="vad-tt-support__upi-id">UPI ID: vadaanyasociety@sbi</span>
+                  <span className="vad-tt-support__upi-hint">₹1,000 sponsors 1 student · ₹5,000 funds 1 Mandal Award</span>
                 </div>
                 <Link href="/#donate" className="vad-btn vad-btn--gold" style={{ width: "100%", justifyContent: "center" }}>
                   Donate Online &rarr;
@@ -520,12 +545,12 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 11: FREQUENTLY ASKED QUESTIONS (FAQS)
+          SECTION 10: FAQS (LIGHT PAPER)
           ─────────────────────────────────────────────── */}
-      <section id="faqs" className="vad-section vad-section--deep vad-tt-faqs">
+      <section id="faqs" className="vad-section vad-section--paper vad-tt-faqs">
         <div className="vad-container">
-          <div className="vad-head vad-head--center" style={{ marginBottom: "40px" }}>
-            <span className="vad-eyebrow vad-eyebrow--center">QUESTIONS & ANSWERS</span>
+          <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "36px" }}>
+            <span className="vad-eyebrow vad-eyebrow--center vad-eyebrow--dark">FAQ</span>
             <h2>Frequently Asked Questions</h2>
           </div>
 
@@ -533,21 +558,21 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
             {talentTestFaqs.map((faq, idx) => (
               <div
                 key={idx}
-                className={`vad-tt-faqs__item ${openFaqIndex === idx ? "is-open" : ""}`}
+                className={`vad-tt-faqs__item vad-tt-faqs__item--light ${openFaqIndex === idx ? "is-open" : ""}`}
               >
                 <button
-                  className="vad-tt-faqs__question-btn"
+                  className="vad-tt-faqs__question-btn vad-tt-faqs__question-btn--light"
                   onClick={() => toggleFaq(idx)}
                   aria-expanded={openFaqIndex === idx}
                 >
-                  <span>{faq.question}</span>
+                  <span style={{ color: "var(--vad-ink, #0a1030)" }}>{faq.question}</span>
                   <span className="vad-tt-faqs__chevron">
                     <ChevronDownIcon />
                   </span>
                 </button>
                 {openFaqIndex === idx && (
                   <div className="vad-tt-faqs__answer">
-                    <p>{faq.answer}</p>
+                    <p style={{ color: "var(--vad-ink-soft, #475569)" }}>{faq.answer}</p>
                   </div>
                 )}
               </div>
