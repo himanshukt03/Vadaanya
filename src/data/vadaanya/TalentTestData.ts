@@ -261,21 +261,21 @@ export const iitAlumni: IitAlumnus[] = [
 export const talentTestTestimonials = [
   {
     quote:
-      "I got sponsorship through the Vadaanya Talent Test. Now in Intermediate, my fees are covered, and I am preparing with full focus for IIT-JEE.",
-    author: "Yashwanth Kumar Reddy",
-    role: "Talent Test Beneficiary & IIT Aspirant",
+      "As daily wage earners in a rural village, we never imagined our son could study in an IIT. Vadaanya discovered his talent in the school exam, paid his intermediate coaching fees, and gave our family hope when we had none.",
+    author: "Father of IIT-JEE Scholar",
+    role: "Rural Farming Background, Anantapur District",
   },
   {
     quote:
-      "Thanks to Vadaanya's tuition support and talent test award, my son could focus on his studies without our family worrying about fee deadlines.",
+      "When my daughter received the mandal topper cash award and trophy, our entire village celebrated. That early encouragement gave her the confidence to dream big and prepare for top state competitive exams.",
+    author: "Mother of Talent Test Mandal Champion",
+    role: "Parent of Government High School Scholar",
+  },
+  {
+    quote:
+      "Vadaanya did not just give a prize for one day; they supported my son throughout his +2 studies with study materials, a laptop, and mentorship. Today our family's future is completely transformed.",
     author: "Anjinappa",
-    role: "Proud Parent of Talent Test Scholar",
-  },
-  {
-    quote:
-      "The 3-tier equity model ensures our tribal and remote mandal students have an equal shot at winning and gaining recognition.",
-    author: "Headmaster, ZPHS School",
-    role: "Participating Government School Leader",
+    role: "Proud Parent of Talent Test Beneficiary",
   },
 ];
 

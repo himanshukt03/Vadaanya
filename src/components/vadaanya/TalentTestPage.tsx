@@ -28,16 +28,8 @@ const DownloadIcon = () => (
   </svg>
 );
 
-const ExternalLinkIcon = () => (
-  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-    <polyline points="15 3 21 3 21 9" />
-    <line x1="10" y1="14" x2="21" y2="3" />
-  </svg>
-);
-
 const BookOpenIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
     <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
   </svg>
@@ -157,7 +149,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
 
             {/* Right Column: Featured Image + Live Announcements Side Panel */}
             <div className="vad-about__visual" style={{ flex: "0.9", width: "100%", display: "flex", flexDirection: "column", gap: "20px" }}>
-              {/* Featured Image with floating badge */}
+              {/* Featured Image without floating tags */}
               <div style={{ position: "relative" }}>
                 <Image
                   src="/events/Digital Teaching at High School/01-1.jpg"
@@ -174,12 +166,6 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                     height: "240px",
                   }}
                 />
-                <div
-                  className="vad-about__float vad-about__float--tr"
-                  style={{ background: "var(--vad-navy-700)", color: "white", fontWeight: 700, fontSize: "12.5px" }}
-                >
-                  5th Year Edition · 15k+ Tested
-                </div>
               </div>
 
               {/* Live Updates & Announcements Panel on the right */}
@@ -320,7 +306,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
               </div>
             </div>
 
-            {/* Right Column: Featured Image talent_test.jpg */}
+            {/* Right Column: Featured Image talent_test.jpg without floating badge */}
             <div className="vad-about__visual" style={{ width: "100%" }}>
               <a
                 href={pdfUrl}
@@ -345,21 +331,6 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                     maxHeight: "360px",
                   }}
                 />
-                <div
-                  className="vad-about__float vad-about__float--tr"
-                  style={{
-                    background: "var(--vad-gold-dark, #d97706)",
-                    color: "#ffffff",
-                    fontWeight: 700,
-                    fontSize: "12px",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "6px",
-                  }}
-                >
-                  <ExternalLinkIcon />
-                  <span>100+ Pages · Click to Open ↗</span>
-                </div>
               </a>
             </div>
           </div>
@@ -464,7 +435,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
             ))}
           </div>
 
-          {/* Real Prize Distribution Image Banner */}
+          {/* Real Prize Distribution Image Banner without floating tag */}
           <div className="vad-about__split" style={{ marginTop: "40px", alignItems: "center", gap: "24px" }}>
             <div className="vad-about__visual" style={{ width: "100%" }}>
               <Image
@@ -481,12 +452,6 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                   height: "300px",
                 }}
               />
-              <div
-                className="vad-about__float vad-about__float--tr"
-                style={{ background: "var(--vad-gold-dark, #d97706)", color: "#ffffff", fontWeight: 700 }}
-              >
-                ~280 Awards / Cycle
-              </div>
             </div>
 
             <div className="vad-head vad-head--light" style={{ textAlign: "left" }}>
@@ -503,7 +468,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 7: HALL OF FAME (DEEP NAVY SECTION FOR PRESTIGE)
+          SECTION 7: HALL OF FAME & WHAT PARENTS SAY (DEEP NAVY SECTION)
           ─────────────────────────────────────────────── */}
       <section id="hall-of-fame" className="vad-section vad-section--deep vad-tt-fame">
         <div className="vad-container">
@@ -545,9 +510,16 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
             ))}
           </div>
 
-          {/* Testimonial Quote Box */}
+          {/* Dedicated "What Parents Say" Section */}
           <div className="vad-tt-fame__testimonials-box">
-            <h3 className="vad-tt-fame__testimonials-title">What Students and Parents Say</h3>
+            <div style={{ textAlign: "center", marginBottom: "24px" }}>
+              <span style={{ fontSize: "11.5px", fontWeight: 800, color: "var(--vad-gold, #f2a712)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+                PARENT REFLECTIONS
+              </span>
+              <h3 className="vad-tt-fame__testimonials-title" style={{ margin: "6px 0 0" }}>
+                What Parents Say
+              </h3>
+            </div>
             <div className="vad-tt-fame__testimonials-grid">
               {talentTestTestimonials.map((t, idx) => (
                 <div key={idx} className="vad-tt-fame__test-card">

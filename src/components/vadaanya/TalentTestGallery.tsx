@@ -8,304 +8,448 @@ interface TalentTestGalleryProps {
   albums: TalentTestGalleryItem[];
 }
 
-const FolderIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z" />
-  </svg>
-);
-
-const ImageIcon = () => (
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
-    <circle cx="9" cy="9" r="2" />
-    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
-  </svg>
-);
-
 const CloseIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <line x1="18" y1="6" x2="6" y2="18" />
     <line x1="6" y1="6" x2="18" y2="18" />
   </svg>
 );
 
 const ChevronLeft = () => (
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <polyline points="15 18 9 12 15 6" />
   </svg>
 );
 
 const ChevronRight = () => (
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <polyline points="9 18 15 12 9 6" />
   </svg>
 );
 
 export default function TalentTestGallery({ albums = [] }: TalentTestGalleryProps) {
-  const [selectedYear, setSelectedYear] = useState<string>("all");
-  const [selectedSubCat, setSelectedSubCat] = useState<string>("all");
-  const [activeAlbum, setActiveAlbum] = useState<TalentTestGalleryItem | null>(null);
-  const [activePhotoIndex, setActivePhotoIndex] = useState<number>(0);
+  const [activeEvent, setActiveEvent] = useState<TalentTestGalleryItem | null>(null);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
-  // Available Years
-  const years = ["all", "2024", "2023", "2022", "2021"];
-
-  // Filter logic
-  const filteredAlbums = albums.filter((album) => {
-    const matchesYear = selectedYear === "all" || album.year === selectedYear || album.title.includes(selectedYear);
-    const matchesSubCat =
-      selectedSubCat === "all" ||
-      (album.subCategory && album.subCategory.toLowerCase().includes(selectedSubCat.toLowerCase())) ||
-      album.title.toLowerCase().includes(selectedSubCat.toLowerCase());
-    return matchesYear && matchesSubCat;
-  });
-
-  // Modal keyboard navigation
+  // Lock background scroll when modal or lightbox is open
   useEffect(() => {
-    if (!activeAlbum) return;
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setActiveAlbum(null);
-      if (e.key === "ArrowLeft") {
-        setActivePhotoIndex((prev) => (prev > 0 ? prev - 1 : activeAlbum.images.length - 1));
-      }
-      if (e.key === "ArrowRight") {
-        setActivePhotoIndex((prev) => (prev < activeAlbum.images.length - 1 ? prev + 1 : 0));
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    document.body.style.overflow = "hidden";
+    if (activeEvent || lightboxIndex !== null) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "";
     };
-  }, [activeAlbum]);
+  }, [activeEvent, lightboxIndex]);
 
-  const openAlbum = (album: TalentTestGalleryItem) => {
-    setActiveAlbum(album);
-    setActivePhotoIndex(0);
+  const handleNextImage = () => {
+    if (!activeEvent || lightboxIndex === null) return;
+    setLightboxIndex((lightboxIndex + 1) % activeEvent.images.length);
   };
 
+  const handlePrevImage = () => {
+    if (!activeEvent || lightboxIndex === null) return;
+    setLightboxIndex((lightboxIndex - 1 + activeEvent.images.length) % activeEvent.images.length);
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (lightboxIndex !== null) {
+        if (e.key === "Escape") setLightboxIndex(null);
+        if (e.key === "ArrowRight") handleNextImage();
+        if (e.key === "ArrowLeft") handlePrevImage();
+      } else if (activeEvent) {
+        if (e.key === "Escape") setActiveEvent(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  });
+
   return (
-    <section id="gallery" className="vad-section vad-section--paper vad-tt-gallery">
+    <section id="gallery" className="vad-section vad-section--paper">
       <div className="vad-container">
         {/* Section Header */}
         <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "36px" }}>
-          <span className="vad-eyebrow vad-eyebrow--center vad-eyebrow--dark">HISTORICAL ARCHIVES · 2021–2024</span>
+          <span className="vad-eyebrow vad-eyebrow--center vad-eyebrow--dark">PHOTO ARCHIVES</span>
           <h2>Exam Days & Prize Distribution Gallery</h2>
           <p className="vad-lead">
             Explore photo archives from every edition of the Srinivasa Ramanujan Talent Test — from energetic OMR exam halls to grand state felicitation ceremonies.
           </p>
         </div>
 
-        {/* Year Filter Tabs */}
-        <div className="vad-tt-gallery__filters">
-          <div className="vad-tt-gallery__tabs" role="tablist" aria-label="Filter by year">
-            {years.map((yr) => (
-              <button
-                key={yr}
-                role="tab"
-                aria-selected={selectedYear === yr}
-                className={`vad-filter-btn ${selectedYear === yr ? "is-active" : ""}`}
-                onClick={() => setSelectedYear(yr)}
-              >
-                <FolderIcon />
-                <span>{yr === "all" ? "All Archives" : `${yr} Edition`}</span>
-              </button>
-            ))}
-          </div>
+        {/* Gallery Cards Grid: 4 in desktop, 3 in tablet, 2 in phone */}
+        <div className="vad-talent-gallery-grid">
+          {albums.map((event, idx) => (
+            <div
+              key={event.id}
+              onClick={() => setActiveEvent(event)}
+              className="vad-talent-gallery-card"
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setActiveEvent(event);
+                }
+              }}
+              style={{
+                background: "#ffffff",
+                borderRadius: "16px",
+                overflow: "hidden",
+                boxShadow: "0 8px 24px rgba(0,0,0,0.06)",
+                cursor: "pointer",
+                border: "1px solid rgba(0,0,0,0.06)",
+                transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                display: "flex",
+                flexDirection: "column",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-4px)";
+                e.currentTarget.style.boxShadow = "0 14px 32px rgba(10,16,48,0.12)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.06)";
+              }}
+            >
+              {/* Card Cover Image */}
+              <div style={{ position: "relative", width: "100%", height: "170px" }}>
+                <Image
+                  src={event.coverImage}
+                  alt={event.title}
+                  fill
+                  style={{ objectFit: "cover" }}
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  quality={85}
+                  priority={idx < 4}
+                  loading={idx < 4 ? "eager" : "lazy"}
+                  unoptimized
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    padding: "10px 12px",
+                    background: "linear-gradient(transparent, rgba(10, 16, 48, 0.9))",
+                    color: "white",
+                  }}
+                >
+                  <span style={{ fontSize: "12px", color: "var(--vad-gold, #f2a712)", fontWeight: 700 }}>
+                    {event.date || event.year || "Talent Test Edition"}
+                  </span>
+                </div>
+              </div>
 
-          {/* Sub-Category Filter Chips */}
-          <div className="vad-tt-gallery__sub-chips">
-            <button
-              className={`vad-tt-gallery__chip ${selectedSubCat === "all" ? "is-active" : ""}`}
-              onClick={() => setSelectedSubCat("all")}
-            >
-              All Types
-            </button>
-            <button
-              className={`vad-tt-gallery__chip ${selectedSubCat === "exam" ? "is-active" : ""}`}
-              onClick={() => setSelectedSubCat("exam")}
-            >
-              Exam Day & Centers
-            </button>
-            <button
-              className={`vad-tt-gallery__chip ${selectedSubCat === "prize" ? "is-active" : ""}`}
-              onClick={() => setSelectedSubCat("prize")}
-            >
-              Prize Distributions
-            </button>
-          </div>
+              {/* Card Body */}
+              <div style={{ padding: "18px 20px", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                <h3
+                  style={{
+                    margin: 0,
+                    fontSize: "15.5px",
+                    color: "var(--vad-navy-950, #070e27)",
+                    fontWeight: 800,
+                    lineHeight: 1.35,
+                  }}
+                >
+                  {event.title}
+                </h3>
+                <p
+                  style={{
+                    margin: "10px 0 0",
+                    fontSize: "13px",
+                    color: "var(--vad-ink-soft, #64748b)",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px",
+                  }}
+                >
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                    <circle cx="8.5" cy="8.5" r="1.5" />
+                    <polyline points="21 15 16 10 5 21" />
+                  </svg>
+                  {event.images.length} Photos (Click to View)
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
+      </div>
 
-        {/* Folder / Album Grid */}
-        {filteredAlbums.length === 0 ? (
-          <div className="vad-tt-gallery__empty">
-            <p>No albums found for this filter. Please select "All Archives".</p>
+      {/* Event Images Drawer / Modal Grid (Matching Gallery Media Page) */}
+      {activeEvent && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: "rgba(10, 16, 48, 0.95)",
+            zIndex: 1000,
+            display: "flex",
+            flexDirection: "column",
+            overflowY: "auto",
+            backdropFilter: "blur(10px)",
+            WebkitBackdropFilter: "blur(10px)",
+          }}
+          role="dialog"
+          aria-modal="true"
+          aria-label={activeEvent.title}
+        >
+          {/* Sticky Header */}
+          <div
+            style={{
+              position: "sticky",
+              top: 0,
+              background: "rgba(10, 16, 48, 0.85)",
+              padding: "20px 24px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              zIndex: 10,
+              borderBottom: "1px solid rgba(255,255,255,0.1)",
+              backdropFilter: "blur(10px)",
+            }}
+          >
+            <div>
+              <p style={{ margin: 0, color: "var(--vad-gold, #f2a712)", fontSize: "13.5px", fontWeight: 700 }}>
+                {activeEvent.date || activeEvent.year || "Talent Test Edition"}
+              </p>
+              <h2 style={{ margin: "4px 0 0", color: "white", fontSize: "22px", fontWeight: 700 }}>
+                {activeEvent.title}
+              </h2>
+            </div>
+            <button
+              onClick={() => setActiveEvent(null)}
+              style={{
+                background: "rgba(255,255,255,0.1)",
+                border: "none",
+                width: "44px",
+                height: "44px",
+                borderRadius: "50%",
+                color: "white",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                transition: "background 0.2s ease",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.2)")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.1)")}
+              aria-label="Close event gallery"
+            >
+              <CloseIcon />
+            </button>
           </div>
-        ) : (
-          <div className="vad-tt-gallery__grid">
-            {filteredAlbums.map((album) => {
-              const photoCount = (album.images && album.images.length > 0) ? album.images.length : 1;
-              return (
-                <article
-                  key={album.id}
-                  className="vad-tt-gallery__card"
-                  onClick={() => openAlbum(album)}
+
+          {/* Image Grid Inside Event */}
+          <div className="vad-container" style={{ padding: "30px 16px", width: "100%" }}>
+            <div className="vad-event-modal-grid">
+              {activeEvent.images.map((img, idx) => (
+                <div
+                  key={idx}
+                  onClick={() => setLightboxIndex(idx)}
+                  className="vad-gallery-thumb-wrap"
+                  style={{
+                    position: "relative",
+                    width: "100%",
+                    aspectRatio: "1/1",
+                    borderRadius: "16px",
+                    overflow: "hidden",
+                    cursor: "zoom-in",
+                    boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
+                  }}
                   role="button"
                   tabIndex={0}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
                       e.preventDefault();
-                      openAlbum(album);
+                      setLightboxIndex(idx);
                     }
                   }}
-                  aria-label={`Open album: ${album.title}`}
+                  aria-label={`View photo ${idx + 1}`}
                 >
-                  {/* Folder Cover */}
-                  <div className="vad-tt-gallery__cover-box">
-                    <Image
-                      src={album.coverImage}
-                      alt={album.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="vad-tt-gallery__cover-img"
-                      unoptimized
-                    />
-                    <div className="vad-tt-gallery__cover-overlay" />
-
-                    {/* Count Badge */}
-                    <div className="vad-tt-gallery__badge">
-                      <ImageIcon />
-                      <span>{photoCount} Photos</span>
-                    </div>
-
-                    {/* Year Tag */}
-                    {album.year && (
-                      <div className="vad-tt-gallery__year-tag">
-                        {album.year}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Album Info */}
-                  <div className="vad-tt-gallery__info">
-                    <span className="vad-tt-gallery__date">{album.date || "Talent Test Edition"}</span>
-                    <h3 className="vad-tt-gallery__title">{album.title}</h3>
-                    <div className="vad-tt-gallery__cta-row">
-                      <span className="vad-tt-gallery__view-link">
-                        Browse Album Photos <span>→</span>
-                      </span>
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
+                  <Image
+                    src={img}
+                    alt={`${activeEvent.title} - Image ${idx + 1}`}
+                    fill
+                    sizes="(max-width: 480px) 50vw, (max-width: 768px) 33vw, (max-width: 1200px) 33vw, 500px"
+                    quality={92}
+                    priority={idx < 8}
+                    loading={idx < 8 ? "eager" : "lazy"}
+                    style={{ objectFit: "cover" }}
+                    className="vad-gallery-thumb"
+                    unoptimized
+                  />
+                </div>
+              ))}
+            </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
-      {/* Lightbox Modal */}
-      {activeAlbum && (
+      {/* Full-screen Lightbox */}
+      {lightboxIndex !== null && activeEvent && (
         <div
-          className="vad-lightbox-modal"
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: "rgba(0, 0, 0, 0.98)",
+            zIndex: 2000,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
           role="dialog"
           aria-modal="true"
-          aria-label={activeAlbum.title}
-          onClick={() => setActiveAlbum(null)}
+          aria-label="Full screen photo view"
         >
-          <div
-            className="vad-lightbox-modal__container"
-            onClick={(e) => e.stopPropagation()}
+          {/* Close button */}
+          <button
+            onClick={() => setLightboxIndex(null)}
+            style={{
+              position: "absolute",
+              top: "24px",
+              right: "24px",
+              background: "rgba(255,255,255,0.1)",
+              border: "none",
+              width: "50px",
+              height: "50px",
+              borderRadius: "50%",
+              color: "white",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              zIndex: 2010,
+              transition: "background 0.2s ease",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.2)")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.1)")}
+            aria-label="Close photo view"
           >
-            {/* Top Toolbar */}
-            <div className="vad-lightbox-modal__toolbar">
-              <div className="vad-lightbox-modal__info">
-                <span className="vad-lightbox-modal__counter">
-                  Photo {activePhotoIndex + 1} of {activeAlbum.images.length || 1}
-                </span>
-                <h4 className="vad-lightbox-modal__album-title">{activeAlbum.title}</h4>
-              </div>
-              <button
-                onClick={() => setActiveAlbum(null)}
-                className="vad-lightbox-modal__close-btn"
-                aria-label="Close Lightbox"
-              >
-                <CloseIcon />
-              </button>
+            <CloseIcon />
+          </button>
+
+          {/* Prev Button */}
+          {activeEvent.images.length > 1 && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handlePrevImage();
+              }}
+              style={{
+                position: "absolute",
+                left: "24px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                background: "rgba(255,255,255,0.1)",
+                border: "none",
+                width: "56px",
+                height: "56px",
+                borderRadius: "50%",
+                color: "white",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                zIndex: 2010,
+                transition: "background 0.2s ease",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.2)")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.1)")}
+              aria-label="Previous photo"
+            >
+              <ChevronLeft />
+            </button>
+          )}
+
+          {/* Main Image Container */}
+          <div
+            style={{
+              position: "relative",
+              width: "90%",
+              height: "90%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            onClick={() => setLightboxIndex(null)}
+          >
+            <div
+              style={{
+                position: "relative",
+                maxWidth: "100%",
+                maxHeight: "100%",
+                width: "auto",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Image
+                src={activeEvent.images[lightboxIndex]}
+                alt={`${activeEvent.title} - photo ${lightboxIndex + 1}`}
+                width={2400}
+                height={1600}
+                quality={95}
+                unoptimized
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                  width: "auto",
+                  height: "auto",
+                  objectFit: "contain",
+                  borderRadius: "8px",
+                  boxShadow: "0 25px 50px -12px rgba(0,0,0,0.5)",
+                }}
+              />
             </div>
-
-            {/* Stage / Main Image */}
-            <div className="vad-lightbox-modal__stage">
-              {activeAlbum.images && activeAlbum.images.length > 1 && (
-                <button
-                  onClick={() =>
-                    setActivePhotoIndex((prev) =>
-                      prev > 0 ? prev - 1 : activeAlbum.images.length - 1
-                    )
-                  }
-                  className="vad-lightbox-modal__nav vad-lightbox-modal__nav--prev"
-                  aria-label="Previous photo"
-                >
-                  <ChevronLeft />
-                </button>
-              )}
-
-              <div className="vad-lightbox-modal__image-wrap">
-                <Image
-                  src={
-                    activeAlbum.images && activeAlbum.images.length > 0
-                      ? activeAlbum.images[activePhotoIndex]
-                      : activeAlbum.coverImage
-                  }
-                  alt={`${activeAlbum.title} - Photo ${activePhotoIndex + 1}`}
-                  fill
-                  sizes="100vw"
-                  className="vad-lightbox-modal__img"
-                  priority
-                  unoptimized
-                />
-              </div>
-
-              {activeAlbum.images && activeAlbum.images.length > 1 && (
-                <button
-                  onClick={() =>
-                    setActivePhotoIndex((prev) =>
-                      prev < activeAlbum.images.length - 1 ? prev + 1 : 0
-                    )
-                  }
-                  className="vad-lightbox-modal__nav vad-lightbox-modal__nav--next"
-                  aria-label="Next photo"
-                >
-                  <ChevronRight />
-                </button>
-              )}
-            </div>
-
-            {/* Thumbnail Strip */}
-            {activeAlbum.images && activeAlbum.images.length > 1 && (
-              <div className="vad-lightbox-modal__thumbs">
-                {activeAlbum.images.map((imgSrc, idx) => (
-                  <button
-                    key={idx}
-                    className={`vad-lightbox-modal__thumb-btn ${idx === activePhotoIndex ? "is-active" : ""}`}
-                    onClick={() => setActivePhotoIndex(idx)}
-                    aria-label={`Go to photo ${idx + 1}`}
-                  >
-                    <Image
-                      src={imgSrc}
-                      alt={`Thumb ${idx + 1}`}
-                      fill
-                      sizes="80px"
-                      className="vad-lightbox-modal__thumb-img"
-                      unoptimized
-                    />
-                  </button>
-                ))}
-              </div>
-            )}
           </div>
+
+          {/* Next Button */}
+          {activeEvent.images.length > 1 && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleNextImage();
+              }}
+              style={{
+                position: "absolute",
+                right: "24px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                background: "rgba(255,255,255,0.1)",
+                border: "none",
+                width: "56px",
+                height: "56px",
+                borderRadius: "50%",
+                color: "white",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                zIndex: 2010,
+                transition: "background 0.2s ease",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.2)")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.1)")}
+              aria-label="Next photo"
+            >
+              <ChevronRight />
+            </button>
+          )}
         </div>
       )}
     </section>
