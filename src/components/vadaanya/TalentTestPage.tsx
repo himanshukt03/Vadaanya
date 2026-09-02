@@ -36,16 +36,6 @@ const BookOpenIcon = () => (
   </svg>
 );
 
-const TrophyIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
-    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
-    <path d="M4 22h16" />
-    <path d="M10 14.66V17c0 .55-.45 1-1 1H8c-.55 0-1 .45-1 1v1c0 .55.45 1 1 1h8c.55 0 1-.45 1-1v-1c0-.55-.45-1-1-1h-1c-.55 0-1-.45-1-1v-2.34" />
-    <path d="M6 4h12v7a6 6 0 0 1-12 0V4Z" />
-  </svg>
-);
-
 const ChevronDownIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <polyline points="6 9 12 15 18 9" />
@@ -81,94 +71,174 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
   return (
     <div className="vad-talent-page">
       {/* ───────────────────────────────────────────────
-          SECTION 1: LIVE UPDATES SCROLLING TICKER
-          ─────────────────────────────────────────────── */}
-      <div className="vad-tt-ticker" aria-label="Live announcements">
-        <div className="vad-tt-ticker__badge">
-          <span className="vad-tt-ticker__pulse" aria-hidden="true" />
-          <span>LATEST UPDATES</span>
-        </div>
-        <div className="vad-tt-ticker__marquee">
-          <div className="vad-tt-ticker__track">
-            <span className="vad-tt-ticker__item">
-              📢 <strong>NEW:</strong> 5-Year Question Papers & Solutions Booklet (2021–2025) released!{" "}
-              <button onClick={() => setIsPdfOpen(true)} className="vad-tt-ticker__link">
-                [Preview Booklet PDF]
-              </button>
-            </span>
-            <span className="vad-tt-ticker__divider">✦</span>
-            <span className="vad-tt-ticker__item">
-              🎯 Pre-registrations for the <strong>2026 Srinivasa Ramanujan Talent Test</strong> are open.{" "}
-              <button onClick={() => setIsRegModalOpen(true)} className="vad-tt-ticker__link">
-                [Pre-Register Free]
-              </button>
-            </span>
-            <span className="vad-tt-ticker__divider">✦</span>
-            <span className="vad-tt-ticker__item">
-              🏆 <strong>15,000+</strong> government school students tested across 5 completed cycles (2021–2025).
-            </span>
-            <span className="vad-tt-ticker__divider">✦</span>
-            <span className="vad-tt-ticker__item">
-              🌟 <strong>3 Talent Test Alumni</strong> successfully cracked IIT-JEE Advanced into IITs.
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* ───────────────────────────────────────────────
-          SECTION 2: HERO SECTION (NAVY DEEP WITH IMAGE OVERLAY)
+          SECTION 1: TOP BANNER (MATCHING ABOUT & SUCCESS STORIES PAGES)
           ─────────────────────────────────────────────── */}
       <section
         className="vad-page-hero vad-section--deep"
         style={{
-          padding: "clamp(60px, 6vw, 96px) 0 clamp(36px, 4vw, 56px)",
+          padding: "clamp(50px, 4vw, 70px) 0 clamp(20px, 1.8vw, 28px)",
           backgroundImage:
-            "linear-gradient(rgba(6, 11, 34, 0.82), rgba(6, 11, 34, 0.94)), url('/events/Digital Teaching at High School/01-1.jpg')",
+            "linear-gradient(rgba(10, 16, 48, 0.72), rgba(10, 16, 48, 0.85)), url('/events/Digital Teaching at High School/01-1.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center 30%",
           backgroundRepeat: "no-repeat",
         }}
       >
         <div className="vad-container vad-page-hero__inner">
-          <div style={{ maxWidth: "800px", margin: "0 auto", textAlign: "center" }}>
-            <span className="vad-eyebrow" style={{ color: "var(--vad-gold, #f2a712)" }}>
-              ★ THE FLAGSHIP PROGRAMME · 2021–2025
-            </span>
-            <h1 className="vad-page-hero__title" style={{ fontSize: "clamp(28px, 4.2vw, 52px)", margin: "14px 0 16px" }}>
-              The Srinivasa Ramanujan <br />
-              <span className="vad-page-hero__accent" style={{ color: "var(--vad-gold, #f2a712)" }}>
-                Talent Test
-              </span>
-            </h1>
-            <p className="vad-page-hero__lead" style={{ color: "#e2e8f0", fontSize: "clamp(15px, 1.2vw, 17px)", maxWidth: "660px", margin: "0 auto 28px" }}>
-              Identifying promising minds in rural government schools, providing 100-page analytical study material, and rewarding 500+ deserving students with cash prizes, scholarships, and IIT mentorship.
-            </p>
+          <span className="vad-eyebrow">The Flagship Initiative · 2021–2025</span>
+          <h1 className="vad-page-hero__title">
+            Srinivasa Ramanujan <span className="vad-page-hero__accent">Talent Test</span>
+          </h1>
+          <p className="vad-page-hero__lead" style={{ color: "#ffffff" }}>
+            An annual standardized examination recognizing, rewarding, and nurturing rural government school talent from Class 6 to 10.
+          </p>
+        </div>
+      </section>
 
-            {/* Action Buttons */}
-            <div style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap", marginBottom: "40px" }}>
-              <button
-                onClick={() => setIsPdfOpen(true)}
-                className="vad-btn vad-btn--gold"
-              >
-                <BookOpenIcon />
-                <span>Download 5-Year Booklet (PDF)</span>
-              </button>
-              <button
-                onClick={() => setIsRegModalOpen(true)}
-                className="vad-btn vad-btn--outline"
-              >
-                <span>Pre-Register for 2026 Test →</span>
-              </button>
+      {/* ───────────────────────────────────────────────
+          SECTION 2: ABOUT THE TALENT TEST + LIVE ANNOUNCEMENTS SIDE PANEL
+          ─────────────────────────────────────────────── */}
+      <section className="vad-section vad-section--paper" style={{ padding: "48px 0" }}>
+        <div className="vad-container">
+          <div className="vad-about__split" style={{ alignItems: "flex-start", gap: "36px" }}>
+            {/* Left Column: Details & Overview */}
+            <div className="vad-head vad-head--light" style={{ textAlign: "left", flex: "1.1" }}>
+              <span className="vad-eyebrow vad-eyebrow--dark">Our Annual Flagship Exam</span>
+              <h2>ABOUT THE TALENT TEST</h2>
+              <div
+                style={{
+                  width: "48px",
+                  height: "3px",
+                  background: "var(--vad-gold-deep)",
+                  margin: "10px 0 16px",
+                  borderRadius: "2px",
+                }}
+              />
+
+              <p className="vad-lead" style={{ color: "var(--vad-ink-soft)", marginBottom: "14px", fontSize: "14.5px" }}>
+                For five consecutive years (2021–2025), Vadaanya Janaa Society has conducted the <strong>Srinivasa Ramanujan Talent Test</strong> — an offline, standardized OMR examination provided 100% free of charge to thousands of government school students across Andhra Pradesh and Telangana.
+              </p>
+
+              <p className="vad-lead" style={{ color: "var(--vad-ink-soft)", marginBottom: "14px", fontSize: "14.5px" }}>
+                Over <strong>15,000 students</strong> have taken part, with <strong>500+ deserving scholars</strong> awarded district and mandal cash prizes, trophies, and continuous scholarships all the way from rural village classrooms to premier institutions like IITs and NITs.
+              </p>
+
+              <p className="vad-lead" style={{ color: "var(--vad-ink-soft)", marginBottom: "24px", fontSize: "14.5px" }}>
+                We also distribute free 100-page bilingual study booklets covering logical reasoning, mental ability, math, and science to build analytical confidence before the exam.
+              </p>
+
+              <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+                <button
+                  onClick={() => setIsPdfOpen(true)}
+                  className="vad-btn vad-btn--gold"
+                >
+                  <BookOpenIcon />
+                  <span>Download 5-Year Booklet (PDF)</span>
+                </button>
+
+                <button
+                  onClick={() => setIsRegModalOpen(true)}
+                  className="vad-btn vad-btn--navy"
+                >
+                  <span>Pre-Register for 2026 Test →</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Right Column: Featured Image + Live Announcements Side Panel */}
+            <div className="vad-about__visual" style={{ flex: "0.9", width: "100%", display: "flex", flexDirection: "column", gap: "20px" }}>
+              {/* Featured Image with floating badge */}
+              <div style={{ position: "relative" }}>
+                <Image
+                  src="/events/Digital Teaching at High School/01-1.jpg"
+                  alt="Students taking the Srinivasa Ramanujan Talent Test"
+                  width={600}
+                  height={340}
+                  priority
+                  className="vad-about__img"
+                  style={{
+                    borderRadius: "18px",
+                    boxShadow: "0 16px 36px rgba(10, 16, 48, 0.12)",
+                    objectFit: "cover",
+                    width: "100%",
+                    height: "240px",
+                  }}
+                />
+                <div
+                  className="vad-about__float vad-about__float--tr"
+                  style={{ background: "var(--vad-navy-700)", color: "white", fontWeight: 700, fontSize: "12.5px" }}
+                >
+                  5th Year Edition · 15k+ Tested
+                </div>
+              </div>
+
+              {/* Live Updates & Announcements Panel on the right */}
+              <div className="vad-tt-feed-panel">
+                <div className="vad-tt-feed-panel__header">
+                  <div className="vad-tt-feed-panel__badge">
+                    <span className="vad-tt-feed-panel__pulse" aria-hidden="true" />
+                    <span>LIVE ANNOUNCEMENTS</span>
+                  </div>
+                  <span className="vad-tt-feed-panel__sub-lbl">2026 Cycle & Archives</span>
+                </div>
+
+                <div className="vad-tt-feed-panel__list">
+                  {/* Item 1 */}
+                  <div className="vad-tt-feed-panel__item">
+                    <div className="vad-tt-feed-panel__icon">📢</div>
+                    <div className="vad-tt-feed-panel__body">
+                      <strong>5-Year Solved Booklet (2021–2025) Released</strong>
+                      <p>Download the official 100-page bilingual question papers & solutions booklet.</p>
+                      <button onClick={() => setIsPdfOpen(true)} className="vad-tt-feed-panel__link">
+                        Preview PDF Booklet ↗
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Item 2 */}
+                  <div className="vad-tt-feed-panel__item">
+                    <div className="vad-tt-feed-panel__icon">🎯</div>
+                    <div className="vad-tt-feed-panel__body">
+                      <strong>2026 Pre-Registrations Now Open</strong>
+                      <p>Free entry for government school students from Class 6 to 10.</p>
+                      <button onClick={() => setIsRegModalOpen(true)} className="vad-tt-feed-panel__link">
+                        Pre-Register Free →
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Item 3 */}
+                  <div className="vad-tt-feed-panel__item">
+                    <div className="vad-tt-feed-panel__icon">🌟</div>
+                    <div className="vad-tt-feed-panel__body">
+                      <strong>3 Talent Test Scholars in IITs</strong>
+                      <p>Jugesh (AIR 377), Thulasi (AIR 2619), & Yaswanth (AIR 3563) secured national ranks.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* 4 Clean Impact Badges */}
+      {/* ───────────────────────────────────────────────
+          SECTION 3: 4 STAT BADGES (CLEAN LIGHT GREY SECTION)
+          ─────────────────────────────────────────────── */}
+      <section className="vad-section vad-section--grey" style={{ padding: "36px 0" }}>
+        <div className="vad-container">
           <div className="vad-tt-stats__grid">
             {talentTestStats.map((st, i) => (
-              <div key={i} className="vad-tt-stats__card">
-                <span className="vad-tt-stats__num">{st.value}</span>
-                <span className="vad-tt-stats__lbl">{st.label}</span>
-                <span className="vad-tt-stats__sub">{st.sublabel}</span>
+              <div key={i} className="vad-tt-stats__card vad-tt-stats__card--light">
+                <span className="vad-tt-stats__num" style={{ color: "var(--vad-gold-dark, #d97706)" }}>
+                  {st.value}
+                </span>
+                <span className="vad-tt-stats__lbl" style={{ color: "var(--vad-ink, #0a1030)" }}>
+                  {st.label}
+                </span>
+                <span className="vad-tt-stats__sub" style={{ color: "var(--vad-ink-soft, #64748b)" }}>
+                  {st.sublabel}
+                </span>
               </div>
             ))}
           </div>
@@ -176,7 +246,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 3: 5-YEAR QUESTION BOOKLET (LIGHT PAPER BACKGROUND)
+          SECTION 4: 5-YEAR QUESTION BOOKLET (LIGHT PAPER)
           ─────────────────────────────────────────────── */}
       <section id="booklet" className="vad-section vad-section--paper">
         <div className="vad-container">
@@ -185,7 +255,15 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
             <div className="vad-head vad-head--light" style={{ textAlign: "left" }}>
               <span className="vad-eyebrow vad-eyebrow--dark">OFFICIAL QUESTION BANK</span>
               <h2>5-Year Question Papers & Solutions (2021–2025)</h2>
-              <div style={{ width: "48px", height: "3px", background: "var(--vad-gold-dark, #d97706)", margin: "10px 0 16px", borderRadius: "2px" }} />
+              <div
+                style={{
+                  width: "48px",
+                  height: "3px",
+                  background: "var(--vad-gold-deep)",
+                  margin: "10px 0 16px",
+                  borderRadius: "2px",
+                }}
+              />
               <p className="vad-lead" style={{ color: "var(--vad-ink-soft)", marginBottom: "18px" }}>
                 We compiled five full years of Srinivasa Ramanujan Talent Test examination papers into a single 100-page bilingual study guide. Built to help students develop analytical and non-verbal reasoning skills from Class 6 onward.
               </p>
@@ -256,7 +334,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 4: HOW THE TEST WORKS (WARM GREY BACKGROUND)
+          SECTION 5: HOW THE TEST WORKS (WARM GREY BACKGROUND)
           ─────────────────────────────────────────────── */}
       <section id="how-it-works" className="vad-section vad-section--grey">
         <div className="vad-container">
@@ -305,7 +383,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 5: RECOGNITION BUILT FOR EQUITY (LIGHT PAPER)
+          SECTION 6: RECOGNITION BUILT FOR EQUITY (LIGHT PAPER)
           ─────────────────────────────────────────────── */}
       <section id="equity" className="vad-section vad-section--paper">
         <div className="vad-container">
@@ -362,9 +440,18 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                 width={700}
                 height={380}
                 className="vad-about__img"
-                style={{ borderRadius: "18px", boxShadow: "0 16px 36px rgba(10, 16, 48, 0.12)", objectFit: "cover", width: "100%", height: "300px" }}
+                style={{
+                  borderRadius: "18px",
+                  boxShadow: "0 16px 36px rgba(10, 16, 48, 0.12)",
+                  objectFit: "cover",
+                  width: "100%",
+                  height: "300px",
+                }}
               />
-              <div className="vad-about__float vad-about__float--tr" style={{ background: "var(--vad-gold-dark, #d97706)", color: "#ffffff", fontWeight: 700 }}>
+              <div
+                className="vad-about__float vad-about__float--tr"
+                style={{ background: "var(--vad-gold-dark, #d97706)", color: "#ffffff", fontWeight: 700 }}
+              >
                 ~280 Awards / Cycle
               </div>
             </div>
@@ -383,7 +470,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 6: HALL OF FAME (DEEP NAVY SECTION FOR PRESTIGE)
+          SECTION 7: HALL OF FAME (DEEP NAVY SECTION FOR PRESTIGE)
           ─────────────────────────────────────────────── */}
       <section id="hall-of-fame" className="vad-section vad-section--deep vad-tt-fame">
         <div className="vad-container">
@@ -444,12 +531,12 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 7: FOLDER-BASED PHOTO ARCHIVES (LIGHT PAPER)
+          SECTION 8: FOLDER-BASED PHOTO ARCHIVES (LIGHT PAPER)
           ─────────────────────────────────────────────── */}
       <TalentTestGallery albums={galleryAlbums} />
 
       {/* ───────────────────────────────────────────────
-          SECTION 8: 5-YEAR EVOLUTION ROADMAP (WARM GREY)
+          SECTION 9: 5-YEAR EVOLUTION ROADMAP (WARM GREY)
           ─────────────────────────────────────────────── */}
       <section id="roadmap" className="vad-section vad-section--grey vad-tt-roadmap">
         <div className="vad-container">
@@ -485,7 +572,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 9: 2026 PRE-REGISTRATION & DONATION SECTION (NAVY DEEP)
+          SECTION 10: 2026 PRE-REGISTRATION & DONATION SECTION (NAVY DEEP)
           ─────────────────────────────────────────────── */}
       <section id="register" className="vad-section vad-section--deep vad-tt-support">
         <div className="vad-container">
@@ -545,7 +632,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 10: FAQS (LIGHT PAPER)
+          SECTION 11: FAQS (LIGHT PAPER)
           ─────────────────────────────────────────────── */}
       <section id="faqs" className="vad-section vad-section--paper vad-tt-faqs">
         <div className="vad-container">
