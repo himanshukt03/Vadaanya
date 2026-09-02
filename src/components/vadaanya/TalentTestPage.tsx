@@ -5,11 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   talentTestStats,
-  howItWorksSteps,
-  equityTiers,
   iitAlumni,
-  talentTestTestimonials,
-  talentTestMilestones,
   talentTestFaqs,
 } from "@/data/vadaanya/TalentTestData";
 import TalentTestRegistrationModal from "./TalentTestRegistrationModal";
@@ -57,6 +53,39 @@ const QrIcon = () => (
     <path d="M12 21v-1" />
   </svg>
 );
+
+const conciseHowItWorks = [
+  {
+    step: "01",
+    title: "Free Registration",
+    desc: "Government school students register online or via school headmasters at zero fee.",
+  },
+  {
+    step: "02",
+    title: "Study Material",
+    desc: "Free 100-page bilingual analytical reasoning booklets & solved previous year papers.",
+  },
+  {
+    step: "03",
+    title: "OMR Examination",
+    desc: "Standardized offline exam held at designated government mandal examination centers.",
+  },
+  {
+    step: "04",
+    title: "Fast OMR Scoring",
+    desc: "Automated optical scanner evaluation ensuring 100% fair, transparent, same-day verification.",
+  },
+  {
+    step: "05",
+    title: "3-Tier Awards",
+    desc: "District, mandal, and school toppers recognized with direct cash awards, trophies, and medals.",
+  },
+  {
+    step: "06",
+    title: "Long-Term Sponsorship",
+    desc: "Top scholars receive intermediate college tuition, IIT-JEE coaching fees, laptops, and mentorship.",
+  },
+];
 
 export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPageProps) {
   const [isRegModalOpen, setIsRegModalOpen] = useState(false);
@@ -253,7 +282,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 4: 5-YEAR QUESTION BOOKLET (REFINED SQUARE IMAGE & TIGHT SPACING)
+          SECTION 4: 5-YEAR QUESTION BOOKLET (SQUARE IMAGE & TIGHT SPACING)
           ─────────────────────────────────────────────── */}
       <section id="booklet" className="vad-section vad-section--paper" style={{ padding: "60px 0" }}>
         <div className="vad-container">
@@ -333,7 +362,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
               </div>
             </div>
 
-            {/* Right Column: Square Image talent_test.jpg with Elegant Styling */}
+            {/* Right Column: Square Image talent_test.jpg */}
             <div style={{ flex: "1 1 360px", maxWidth: "390px", width: "100%", margin: "0 auto" }}>
               <a
                 href={pdfUrl}
@@ -378,7 +407,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 5: HOW THE TEST WORKS (WARM GREY BACKGROUND)
+          SECTION 5: HOW THE TEST WORKS (CONCISE 6-STEP CARDS)
           ─────────────────────────────────────────────── */}
       <section id="how-it-works" className="vad-section vad-section--grey" style={{ padding: "60px 0" }}>
         <div className="vad-container">
@@ -398,53 +427,70 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                 How the Talent Test Works
               </h2>
               <p className="vad-lead" style={{ fontSize: "16px", color: "var(--vad-ink-soft)", maxWidth: "680px", margin: "0 auto" }}>
-                A structured six-step journey connecting student registration to long-term collegiate support — offline, OMR-based, and built for a level playing field.
+                A structured six-step cycle connecting free student registration to long-term collegiate support.
               </p>
             </div>
 
-            <div className="vad-tt-steps__grid">
-              {howItWorksSteps.map((step, idx) => (
-                <div key={idx} className="vad-tt-steps__card vad-tt-steps__card--light">
-                  <div className="vad-tt-steps__header">
-                    <span className="vad-tt-steps__num" style={{ color: "var(--vad-gold-dark, #d97706)" }}>
-                      {step.step}
-                    </span>
-                    <span className="vad-tt-steps__badge vad-tt-steps__badge--light">
-                      {step.badge}
-                    </span>
-                  </div>
-                  <h3 className="vad-tt-steps__title" style={{ color: "var(--vad-ink, #0a1030)" }}>
-                    {step.title}
+            {/* Concise 6 Cards Grid */}
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+                gap: "20px",
+              }}
+            >
+              {conciseHowItWorks.map((item, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    background: "#ffffff",
+                    borderRadius: "16px",
+                    padding: "22px 24px",
+                    border: "1px solid rgba(0, 0, 0, 0.07)",
+                    boxShadow: "0 4px 16px rgba(10, 16, 48, 0.04)",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "8px",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "12px",
+                      fontWeight: 800,
+                      color: "var(--vad-gold-dark, #d97706)",
+                      letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Step {item.step}
+                  </span>
+                  <h3
+                    style={{
+                      fontSize: "18px",
+                      fontWeight: 800,
+                      color: "var(--vad-navy-950, #0a1030)",
+                      margin: 0,
+                      fontFamily: "var(--vad-font-display)",
+                    }}
+                  >
+                    {item.title}
                   </h3>
-                  <p className="vad-tt-steps__tagline" style={{ color: "var(--vad-gold-deep, #b45309)" }}>
-                    {step.tagline}
-                  </p>
-                  <p className="vad-tt-steps__desc" style={{ color: "var(--vad-ink-soft, #475569)" }}>
-                    {step.description}
+                  <p style={{ fontSize: "14px", color: "var(--vad-ink-soft, #475569)", margin: 0, lineHeight: 1.55 }}>
+                    {item.desc}
                   </p>
                 </div>
               ))}
-            </div>
-
-            {/* Multiplier Loop Banner */}
-            <div className="vad-tt-steps__cycle-note vad-tt-steps__cycle-note--light">
-              <span className="vad-tt-steps__cycle-icon" style={{ color: "var(--vad-gold-dark, #d97706)" }}>
-                ↺
-              </span>
-              <p style={{ color: "var(--vad-ink, #0a1030)" }}>
-                <strong>The Self-Sustaining Cycle:</strong> Stage 6 flows directly back into Stage 1 — successful talent test alumni return as mentors, invigilators, and donors, growing the program every year.
-              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 6: RECOGNITION BUILT FOR EQUITY (CLEAN & SIMPLE TABLE)
+          SECTION 6: RECOGNITION BUILT FOR EQUITY (SIMPLE CLEAN CARDS)
           ─────────────────────────────────────────────── */}
       <section id="equity" className="vad-section vad-section--paper" style={{ padding: "60px 0" }}>
         <div className="vad-container">
-          <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
+          <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
             <div className="vad-head" style={{ textAlign: "left", marginBottom: "24px" }}>
               <span className="vad-eyebrow vad-eyebrow--dark">FAIR EVALUATION</span>
               <h2
@@ -707,7 +753,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 7: HALL OF FAME & WHAT PARENTS SAY (DEEP NAVY SECTION)
+          SECTION 7: HALL OF FAME (IIT RANKERS)
           ─────────────────────────────────────────────── */}
       <section id="hall-of-fame" className="vad-section vad-section--deep vad-tt-fame" style={{ padding: "60px 0" }}>
         <div className="vad-container">
@@ -760,29 +806,6 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                 </div>
               ))}
             </div>
-
-            {/* Dedicated "What Parents Say" Section */}
-            <div className="vad-tt-fame__testimonials-box" style={{ marginTop: "48px" }}>
-              <div style={{ textAlign: "center", marginBottom: "24px" }}>
-                <span style={{ fontSize: "11.5px", fontWeight: 800, color: "var(--vad-gold, #f2a712)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
-                  PARENT REFLECTIONS
-                </span>
-                <h3 className="vad-tt-fame__testimonials-title" style={{ margin: "6px 0 0", fontSize: "22px" }}>
-                  What Parents Say
-                </h3>
-              </div>
-              <div className="vad-tt-fame__testimonials-grid">
-                {talentTestTestimonials.map((t, idx) => (
-                  <div key={idx} className="vad-tt-fame__test-card">
-                    <p className="vad-tt-fame__test-quote">&ldquo;{t.quote}&rdquo;</p>
-                    <div className="vad-tt-fame__test-meta">
-                      <strong>{t.author}</strong>
-                      <span>{t.role}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -793,56 +816,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       <TalentTestGallery albums={galleryAlbums} />
 
       {/* ───────────────────────────────────────────────
-          SECTION 9: 5-YEAR EVOLUTION ROADMAP (WARM GREY)
-          ─────────────────────────────────────────────── */}
-      <section id="roadmap" className="vad-section vad-section--grey vad-tt-roadmap" style={{ padding: "60px 0" }}>
-        <div className="vad-container">
-          <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
-            <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "36px" }}>
-              <span className="vad-eyebrow vad-eyebrow--center vad-eyebrow--dark">TRACK RECORD</span>
-              <h2
-                style={{
-                  fontSize: "clamp(22px, 2.4vw, 32px)",
-                  margin: "10px 0 12px",
-                  color: "var(--vad-navy-950)",
-                  fontWeight: 800,
-                  fontFamily: "var(--vad-font-display)",
-                  lineHeight: 1.2,
-                }}
-              >
-                5-Year Evolution (2021 → 2026)
-              </h2>
-              <p className="vad-lead" style={{ fontSize: "16px", color: "var(--vad-ink-soft)", maxWidth: "680px", margin: "0 auto" }}>
-                Over five years, the talent test has grown from a handful of rural high schools to an institution serving thousands of students annually across Andhra Pradesh and Telangana.
-              </p>
-            </div>
-
-            <div className="vad-tt-roadmap__timeline">
-              {talentTestMilestones.map((m, idx) => (
-                <div key={idx} className="vad-tt-roadmap__item">
-                  <div className="vad-tt-roadmap__year-node vad-tt-roadmap__year-node--light">
-                    <span>{m.year}</span>
-                  </div>
-                  <div className="vad-tt-roadmap__content vad-tt-roadmap__content--light">
-                    <div className="vad-tt-roadmap__header">
-                      <h3 style={{ color: "var(--vad-ink)" }}>{m.title}</h3>
-                      {m.metrics && (
-                        <span className="vad-tt-roadmap__metric vad-tt-roadmap__metric--light">
-                          {m.metrics}
-                        </span>
-                      )}
-                    </div>
-                    <p style={{ color: "var(--vad-ink-soft)" }}>{m.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ───────────────────────────────────────────────
-          SECTION 10: 2026 PRE-REGISTRATION & DONATION SECTION (NAVY DEEP)
+          SECTION 9: 2026 PRE-REGISTRATION & DONATION SECTION (NAVY DEEP)
           ─────────────────────────────────────────────── */}
       <section id="register" className="vad-section vad-section--deep vad-tt-support" style={{ padding: "60px 0" }}>
         <div className="vad-container">
@@ -916,7 +890,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 11: FAQS (LIGHT PAPER)
+          SECTION 10: FAQS (LIGHT PAPER)
           ─────────────────────────────────────────────── */}
       <section id="faqs" className="vad-section vad-section--paper vad-tt-faqs" style={{ padding: "60px 0" }}>
         <div className="vad-container">
