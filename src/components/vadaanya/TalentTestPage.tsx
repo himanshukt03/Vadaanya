@@ -473,67 +473,200 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
               </p>
             </div>
 
-            {/* Simple Clean Table (Exact Copy of Source Image 2) */}
+            {/* Simple Clean 3-Tier Cards */}
             <div
               style={{
-                overflowX: "auto",
-                borderRadius: "14px",
-                boxShadow: "0 10px 30px rgba(10, 16, 48, 0.06)",
-                border: "1px solid rgba(0, 0, 0, 0.08)",
-                background: "#ffffff",
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                gap: "24px",
                 marginBottom: "44px",
               }}
             >
-              <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "15px" }}>
-                <thead>
-                  <tr style={{ background: "var(--vad-navy-950, #0a1030)", color: "#ffffff" }}>
-                    <th style={{ padding: "16px 22px", fontWeight: 800, fontSize: "13px", letterSpacing: "0.06em", textTransform: "uppercase" }}>
-                      TIER
-                    </th>
-                    <th style={{ padding: "16px 22px", fontWeight: 800, fontSize: "13px", letterSpacing: "0.06em", textTransform: "uppercase" }}>
-                      WHO QUALIFIES
-                    </th>
-                    <th style={{ padding: "16px 22px", fontWeight: 800, fontSize: "13px", letterSpacing: "0.06em", textTransform: "uppercase" }}>
-                      REWARD
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr style={{ background: "#fbf8f2", borderBottom: "1px solid #f1f5f9" }}>
-                    <td style={{ padding: "18px 22px", fontWeight: 700, color: "var(--vad-navy-950, #0a1030)", whiteSpace: "nowrap" }}>
-                      District Top 20
-                    </td>
-                    <td style={{ padding: "18px 22px", color: "var(--vad-ink, #1e293b)" }}>
-                      Best across all mandals; no mandal repeats
-                    </td>
-                    <td style={{ padding: "18px 22px", color: "var(--vad-navy-950, #0a1030)", fontWeight: 600 }}>
-                      ₹15,000–₹25,000, trophy, certificate
-                    </td>
-                  </tr>
-                  <tr style={{ background: "#ffffff", borderBottom: "1px solid #f1f5f9" }}>
-                    <td style={{ padding: "18px 22px", fontWeight: 700, color: "var(--vad-navy-950, #0a1030)", whiteSpace: "nowrap" }}>
-                      Mandal Topper (40)
-                    </td>
-                    <td style={{ padding: "18px 22px", color: "var(--vad-ink, #1e293b)" }}>
-                      Top scorer per mandal, not already above
-                    </td>
-                    <td style={{ padding: "18px 22px", color: "var(--vad-navy-950, #0a1030)", fontWeight: 600 }}>
-                      ₹5,000, trophy, certificate
-                    </td>
-                  </tr>
-                  <tr style={{ background: "#fbf8f2" }}>
-                    <td style={{ padding: "18px 22px", fontWeight: 700, color: "var(--vad-navy-950, #0a1030)", whiteSpace: "nowrap" }}>
-                      School Topper (~250)
-                    </td>
-                    <td style={{ padding: "18px 22px", color: "var(--vad-ink, #1e293b)" }}>
-                      One topper per school, not already above
-                    </td>
-                    <td style={{ padding: "18px 22px", color: "var(--vad-navy-950, #0a1030)", fontWeight: 600 }}>
-                      ₹500–₹1,000, trophy, certificate
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              {/* Card 1 */}
+              <div
+                style={{
+                  background: "#ffffff",
+                  border: "1px solid rgba(0, 0, 0, 0.08)",
+                  borderRadius: "18px",
+                  padding: "24px 22px",
+                  boxShadow: "0 6px 20px rgba(10, 16, 48, 0.04)",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div>
+                  <div
+                    style={{
+                      display: "inline-block",
+                      fontSize: "11px",
+                      fontWeight: 800,
+                      color: "var(--vad-gold-dark, #d97706)",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.08em",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    Tier 1
+                  </div>
+                  <h3
+                    style={{
+                      fontSize: "20px",
+                      fontWeight: 800,
+                      color: "var(--vad-navy-950, #0a1030)",
+                      margin: "0 0 8px",
+                      fontFamily: "var(--vad-font-display)",
+                    }}
+                  >
+                    District Top 20
+                  </h3>
+                  <p style={{ fontSize: "14px", color: "var(--vad-ink-soft, #64748b)", margin: 0, lineHeight: 1.5 }}>
+                    Best across all mandals; no mandal repeats
+                  </p>
+                </div>
+
+                <div
+                  style={{
+                    marginTop: "20px",
+                    paddingTop: "16px",
+                    borderTop: "1px solid #f1f5f9",
+                  }}
+                >
+                  <span style={{ fontSize: "11px", fontWeight: 700, color: "#94a3b8", letterSpacing: "0.06em", textTransform: "uppercase", display: "block" }}>
+                    Reward
+                  </span>
+                  <div style={{ fontSize: "18px", fontWeight: 800, color: "var(--vad-gold-dark, #d97706)", margin: "4px 0 2px" }}>
+                    ₹15,000 – ₹25,000
+                  </div>
+                  <span style={{ fontSize: "12.5px", color: "#64748b", fontWeight: 500 }}>
+                    Trophy &amp; Merit Certificate
+                  </span>
+                </div>
+              </div>
+
+              {/* Card 2 */}
+              <div
+                style={{
+                  background: "#ffffff",
+                  border: "1px solid rgba(0, 0, 0, 0.08)",
+                  borderRadius: "18px",
+                  padding: "24px 22px",
+                  boxShadow: "0 6px 20px rgba(10, 16, 48, 0.04)",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div>
+                  <div
+                    style={{
+                      display: "inline-block",
+                      fontSize: "11px",
+                      fontWeight: 800,
+                      color: "var(--vad-navy-700, #1E3080)",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.08em",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    Tier 2
+                  </div>
+                  <h3
+                    style={{
+                      fontSize: "20px",
+                      fontWeight: 800,
+                      color: "var(--vad-navy-950, #0a1030)",
+                      margin: "0 0 8px",
+                      fontFamily: "var(--vad-font-display)",
+                    }}
+                  >
+                    Mandal Topper (40)
+                  </h3>
+                  <p style={{ fontSize: "14px", color: "var(--vad-ink-soft, #64748b)", margin: 0, lineHeight: 1.5 }}>
+                    Top scorer per mandal, not already above
+                  </p>
+                </div>
+
+                <div
+                  style={{
+                    marginTop: "20px",
+                    paddingTop: "16px",
+                    borderTop: "1px solid #f1f5f9",
+                  }}
+                >
+                  <span style={{ fontSize: "11px", fontWeight: 700, color: "#94a3b8", letterSpacing: "0.06em", textTransform: "uppercase", display: "block" }}>
+                    Reward
+                  </span>
+                  <div style={{ fontSize: "18px", fontWeight: 800, color: "var(--vad-navy-950, #0a1030)", margin: "4px 0 2px" }}>
+                    ₹5,000
+                  </div>
+                  <span style={{ fontSize: "12.5px", color: "#64748b", fontWeight: 500 }}>
+                    Trophy &amp; Merit Certificate
+                  </span>
+                </div>
+              </div>
+
+              {/* Card 3 */}
+              <div
+                style={{
+                  background: "#ffffff",
+                  border: "1px solid rgba(0, 0, 0, 0.08)",
+                  borderRadius: "18px",
+                  padding: "24px 22px",
+                  boxShadow: "0 6px 20px rgba(10, 16, 48, 0.04)",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div>
+                  <div
+                    style={{
+                      display: "inline-block",
+                      fontSize: "11px",
+                      fontWeight: 800,
+                      color: "#10b981",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.08em",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    Tier 3
+                  </div>
+                  <h3
+                    style={{
+                      fontSize: "20px",
+                      fontWeight: 800,
+                      color: "var(--vad-navy-950, #0a1030)",
+                      margin: "0 0 8px",
+                      fontFamily: "var(--vad-font-display)",
+                    }}
+                  >
+                    School Topper (~250)
+                  </h3>
+                  <p style={{ fontSize: "14px", color: "var(--vad-ink-soft, #64748b)", margin: 0, lineHeight: 1.5 }}>
+                    One topper per school, not already above
+                  </p>
+                </div>
+
+                <div
+                  style={{
+                    marginTop: "20px",
+                    paddingTop: "16px",
+                    borderTop: "1px solid #f1f5f9",
+                  }}
+                >
+                  <span style={{ fontSize: "11px", fontWeight: 700, color: "#94a3b8", letterSpacing: "0.06em", textTransform: "uppercase", display: "block" }}>
+                    Reward
+                  </span>
+                  <div style={{ fontSize: "18px", fontWeight: 800, color: "#10b981", margin: "4px 0 2px" }}>
+                    ₹500 – ₹1,000
+                  </div>
+                  <span style={{ fontSize: "12.5px", color: "#64748b", fontWeight: 500 }}>
+                    Trophy &amp; Merit Certificate
+                  </span>
+                </div>
+              </div>
             </div>
 
             {/* Real Prize Distribution Image Banner */}
