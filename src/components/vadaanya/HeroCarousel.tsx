@@ -44,6 +44,35 @@ export default function HeroCarousel({ initialSlides = [] }: HeroCarouselProps) 
     return () => window.removeEventListener("keydown", handleKey);
   }, []);
 
+  // Preload subsequent high-resolution slides in the background after initial render
+  useEffect(() => {
+    if (typeof window === "undefined" || slides.length <= 1) return;
+
+    const preloadSubsequentSlides = () => {
+      const isMobile = window.innerWidth <= 768;
+      for (let i = 1; i < slides.length; i++) {
+        const slide = slides[i];
+        const img = new window.Image();
+        const src = isMobile
+          ? (slide.mobileImageUrl || slide.desktopImageUrl)
+          : slide.desktopImageUrl;
+        const srcset = isMobile ? slide.mobileSrcSet : slide.desktopSrcSet;
+        if (srcset) {
+          img.srcset = srcset;
+        }
+        img.src = src;
+      }
+    };
+
+    if ("requestIdleCallback" in window) {
+      const idleId = (window as any).requestIdleCallback(preloadSubsequentSlides, { timeout: 2500 });
+      return () => (window as any).cancelIdleCallback?.(idleId);
+    } else {
+      const timer = setTimeout(preloadSubsequentSlides, 1200);
+      return () => clearTimeout(timer);
+    }
+  }, [slides]);
+
   const handleSlideChange = useCallback((swiper: SwiperType) => {
     setActiveIndex(swiper.realIndex);
     setProgressActive(false);
@@ -109,10 +138,21 @@ export default function HeroCarousel({ initialSlides = [] }: HeroCarouselProps) 
         {slides.map((slide, idx) => (
           <SwiperSlide key={slide.id}>
             <div className="vad-hero__slide">
-              {/* Background image: desktop & optional mobile override */}
+              {/* Background image: desktop & optional mobile override with responsive srcSets */}
               <picture className="vad-hero__bg-picture" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", display: "block" }}>
-                {slide.mobileImageUrl && (
-                  <source media="(max-width: 768px)" srcSet={slide.mobileImageUrl} />
+                {(slide.mobileSrcSet || slide.mobileImageUrl) && (
+                  <source
+                    media="(max-width: 768px)"
+                    srcSet={slide.mobileSrcSet || slide.mobileImageUrl}
+                    sizes="100vw"
+                  />
+                )}
+                {slide.desktopSrcSet && (
+                  <source
+                    media="(min-width: 769px)"
+                    srcSet={slide.desktopSrcSet}
+                    sizes="100vw"
+                  />
                 )}
                 <Image
                   src={slide.desktopImageUrl}
@@ -121,9 +161,10 @@ export default function HeroCarousel({ initialSlides = [] }: HeroCarouselProps) 
                   sizes="100vw"
                   priority={idx === 0}
                   loading={idx === 0 ? "eager" : "lazy"}
+                  fetchPriority={idx === 0 ? "high" : "low"}
                   placeholder={slide.blurDataUrl ? "blur" : "empty"}
                   blurDataURL={slide.blurDataUrl}
-                  quality={80}
+                  unoptimized
                   className="vad-hero__bg"
                 />
               </picture>

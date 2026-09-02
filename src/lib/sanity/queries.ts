@@ -1,6 +1,14 @@
 import { defineQuery } from "next-sanity";
 import { sanityClient } from "./client";
-import { desktopImageUrl, mobileImageUrl, urlFor } from "./image";
+import {
+  desktopImageUrl,
+  mobileImageUrl,
+  urlFor,
+  heroDesktopImageUrl,
+  heroMobileImageUrl,
+  heroDesktopSrcSet,
+  heroMobileSrcSet,
+} from "./image";
 import { heroSlides as fallbackSlides } from "@/data/vadaanya/HeroData";
 import { newsItems as fallbackNewsItems } from "@/data/vadaanya/NewsData";
 import { galleryEvents as fallbackGalleryEvents } from "@/data/vadaanya/GalleryData";
@@ -105,6 +113,8 @@ export interface CarouselSlide {
   description: string;
   desktopImageUrl: string;
   mobileImageUrl?: string;
+  desktopSrcSet?: string;
+  mobileSrcSet?: string;
   blurDataUrl?: string;
   imageAlt: string;
   secondaryButtonLabel: string;
@@ -120,22 +130,34 @@ export async function getHeroSlides(): Promise<CarouselSlide[]> {
     );
 
     if (sanityData && sanityData.length > 0) {
-      return sanityData.map((s) => ({
-        id: s._id,
-        mainHeadingPart1: s.mainHeadingPart1 || "",
-        mainHeadingPart2: s.mainHeadingPart2 || "",
-        description: s.description || "",
-        desktopImageUrl: s.desktopImage
-          ? desktopImageUrl(s.desktopImage)
-          : "/vadaanya_team.jpeg",
-        mobileImageUrl: s.mobileImage
-          ? mobileImageUrl(s.mobileImage)
-          : undefined,
-        blurDataUrl: s.desktopImage?.asset?.metadata?.lqip,
-        imageAlt: `${s.mainHeadingPart1} ${s.mainHeadingPart2}`.trim() || "Hero Image",
-        secondaryButtonLabel: s.secondaryButtonLabel || "Success Stories",
-        secondaryButtonUrl: s.secondaryButtonUrl || "#stories",
-      }));
+      return sanityData.map((s, idx) => {
+        const isFirstSlide = idx === 0;
+        const desktopImg = s.desktopImage;
+        const mobileImg = s.mobileImage || s.desktopImage;
+
+        return {
+          id: s._id,
+          mainHeadingPart1: s.mainHeadingPart1 || "",
+          mainHeadingPart2: s.mainHeadingPart2 || "",
+          description: s.description || "",
+          desktopImageUrl: desktopImg
+            ? heroDesktopImageUrl(desktopImg, isFirstSlide)
+            : "/vadaanya_team.jpeg",
+          mobileImageUrl: mobileImg
+            ? heroMobileImageUrl(mobileImg, isFirstSlide)
+            : undefined,
+          desktopSrcSet: desktopImg
+            ? heroDesktopSrcSet(desktopImg, isFirstSlide)
+            : undefined,
+          mobileSrcSet: mobileImg
+            ? heroMobileSrcSet(mobileImg, isFirstSlide)
+            : undefined,
+          blurDataUrl: s.desktopImage?.asset?.metadata?.lqip,
+          imageAlt: `${s.mainHeadingPart1} ${s.mainHeadingPart2}`.trim() || "Hero Image",
+          secondaryButtonLabel: s.secondaryButtonLabel || "Success Stories",
+          secondaryButtonUrl: s.secondaryButtonUrl || "#stories",
+        };
+      });
     }
   } catch (err) {
     console.error("Failed to fetch Sanity hero slides on server:", err);

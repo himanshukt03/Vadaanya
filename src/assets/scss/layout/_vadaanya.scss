@@ -673,11 +673,17 @@ img {
   height: 104%;
   object-fit: cover;
   object-position: center 35%;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: auto;
   transition: transform 8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   transform: scale(1) translateZ(0);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   will-change: transform;
+
+  @media (max-width: 768px) {
+    object-position: center center;
+  }
 }
 
 .swiper-slide-active .vad-hero__bg {

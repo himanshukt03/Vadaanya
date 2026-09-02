@@ -14,8 +14,19 @@ export default function HeroCarouselSkeleton({ slides }: { slides: CarouselSlide
           className="vad-hero__bg-picture"
           style={{ position: "absolute", inset: 0, width: "100%", height: "100%", display: "block" }}
         >
-          {slide.mobileImageUrl && (
-            <source media="(max-width: 768px)" srcSet={slide.mobileImageUrl} />
+          {(slide.mobileSrcSet || slide.mobileImageUrl) && (
+            <source
+              media="(max-width: 768px)"
+              srcSet={slide.mobileSrcSet || slide.mobileImageUrl}
+              sizes="100vw"
+            />
+          )}
+          {slide.desktopSrcSet && (
+            <source
+              media="(min-width: 769px)"
+              srcSet={slide.desktopSrcSet}
+              sizes="100vw"
+            />
           )}
           <Image
             src={slide.desktopImageUrl}
@@ -23,6 +34,10 @@ export default function HeroCarouselSkeleton({ slides }: { slides: CarouselSlide
             fill
             sizes="100vw"
             priority
+            fetchPriority="high"
+            placeholder={slide.blurDataUrl ? "blur" : "empty"}
+            blurDataURL={slide.blurDataUrl}
+            unoptimized
             className="vad-hero__bg"
           />
         </picture>
