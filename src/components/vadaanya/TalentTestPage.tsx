@@ -12,7 +12,6 @@ import {
   talentTestMilestones,
   talentTestFaqs,
 } from "@/data/vadaanya/TalentTestData";
-import TalentTestPdfViewer from "./TalentTestPdfViewer";
 import TalentTestRegistrationModal from "./TalentTestRegistrationModal";
 import TalentTestGallery from "./TalentTestGallery";
 import type { TalentTestGalleryItem } from "@/lib/sanity/queries";
@@ -26,6 +25,14 @@ const DownloadIcon = () => (
     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
     <polyline points="7 10 12 15 17 10" />
     <line x1="12" y1="15" x2="12" y2="3" />
+  </svg>
+);
+
+const ExternalLinkIcon = () => (
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+    <polyline points="15 3 21 3 21 9" />
+    <line x1="10" y1="14" x2="21" y2="3" />
   </svg>
 );
 
@@ -60,13 +67,14 @@ const QrIcon = () => (
 );
 
 export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPageProps) {
-  const [isPdfOpen, setIsPdfOpen] = useState(false);
   const [isRegModalOpen, setIsRegModalOpen] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
   const toggleFaq = (idx: number) => {
     setOpenFaqIndex(openFaqIndex === idx ? null : idx);
   };
+
+  const pdfUrl = "/talent-test/vadaanya-talent-test-booklet.pdf";
 
   return (
     <div className="vad-talent-page">
@@ -128,13 +136,15 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
               </p>
 
               <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-                <button
-                  onClick={() => setIsPdfOpen(true)}
+                <a
+                  href={pdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="vad-btn vad-btn--gold"
                 >
                   <BookOpenIcon />
-                  <span>Download 5-Year Booklet (PDF)</span>
-                </button>
+                  <span>Open 5-Year Booklet (PDF) ↗</span>
+                </a>
 
                 <button
                   onClick={() => setIsRegModalOpen(true)}
@@ -188,10 +198,15 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                     <div className="vad-tt-feed-panel__icon">📢</div>
                     <div className="vad-tt-feed-panel__body">
                       <strong>5-Year Solved Booklet (2021–2025) Released</strong>
-                      <p>Download the official 100-page bilingual question papers & solutions booklet.</p>
-                      <button onClick={() => setIsPdfOpen(true)} className="vad-tt-feed-panel__link">
-                        Preview PDF Booklet ↗
-                      </button>
+                      <p>View the official 100-page bilingual question papers & solutions booklet.</p>
+                      <a
+                        href={pdfUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="vad-tt-feed-panel__link"
+                      >
+                        Open PDF Booklet in New Tab ↗
+                      </a>
                     </div>
                   </div>
 
@@ -246,11 +261,11 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 4: 5-YEAR QUESTION BOOKLET (LIGHT PAPER)
+          SECTION 4: 5-YEAR QUESTION BOOKLET (LIGHT PAPER WITH TALENT_TEST.JPG)
           ─────────────────────────────────────────────── */}
       <section id="booklet" className="vad-section vad-section--paper">
         <div className="vad-container">
-          <div className="vad-tt-booklet__wrapper">
+          <div className="vad-tt-booklet__wrapper" style={{ alignItems: "center" }}>
             {/* Left Column: Booklet Details */}
             <div className="vad-head vad-head--light" style={{ textAlign: "left" }}>
               <span className="vad-eyebrow vad-eyebrow--dark">OFFICIAL QUESTION BANK</span>
@@ -285,49 +300,67 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
 
               <div className="vad-tt-booklet__actions" style={{ marginTop: "24px" }}>
                 <a
-                  href="/talent-test/vadaanya-talent-test-booklet.pdf"
+                  href={pdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="vad-btn vad-btn--gold"
+                >
+                  <BookOpenIcon />
+                  <span>Open Booklet in New Tab ↗</span>
+                </a>
+
+                <a
+                  href={pdfUrl}
                   download="Vadaanya-TalentTest-5Year-Booklet(2021-2025).pdf"
                   className="vad-btn vad-btn--navy"
                 >
                   <DownloadIcon />
                   <span>Download Free PDF (4.4 MB)</span>
                 </a>
-
-                <button
-                  onClick={() => setIsPdfOpen(true)}
-                  className="vad-btn vad-btn--gold"
-                >
-                  <BookOpenIcon />
-                  <span>Preview Booklet In-Browser</span>
-                </button>
               </div>
             </div>
 
-            {/* Right Column: Visual Booklet Card */}
-            <div className="vad-tt-booklet__visual">
-              <div
-                className="vad-tt-booklet__cover-card"
-                onClick={() => setIsPdfOpen(true)}
-                role="button"
-                tabIndex={0}
-                aria-label="Preview Booklet Online"
+            {/* Right Column: Featured Image talent_test.jpg */}
+            <div className="vad-about__visual" style={{ width: "100%" }}>
+              <a
+                href={pdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ position: "relative", display: "block", width: "100%", textDecoration: "none" }}
+                title="Click to Open 5-Year Question Papers Booklet in a new tab"
               >
-                <div className="vad-tt-booklet__cover-inner">
-                  <div className="vad-tt-booklet__logo-box">
-                    <span className="vad-tt-booklet__society-title">VADAANYA JANAA SOCIETY</span>
-                    <span className="vad-tt-booklet__doc-title">5-YEAR QUESTION PAPERS BOOKLET</span>
-                    <span className="vad-tt-booklet__doc-years">2021 · 2022 · 2023 · 2024 · 2025</span>
-                  </div>
-                  <div className="vad-tt-booklet__meta-row">
-                    <span>100+ Pages</span>
-                    <span>Bilingual (TE/EN)</span>
-                    <span>Free Download</span>
-                  </div>
+                <Image
+                  src="/talent_test.jpg"
+                  alt="Srinivasa Ramanujan Talent Test 5-Year Question Papers Booklet"
+                  width={560}
+                  height={380}
+                  priority
+                  className="vad-about__img"
+                  style={{
+                    borderRadius: "18px",
+                    boxShadow: "0 16px 36px rgba(10, 16, 48, 0.12)",
+                    objectFit: "cover",
+                    width: "100%",
+                    height: "auto",
+                    maxHeight: "360px",
+                  }}
+                />
+                <div
+                  className="vad-about__float vad-about__float--tr"
+                  style={{
+                    background: "var(--vad-gold-dark, #d97706)",
+                    color: "#ffffff",
+                    fontWeight: 700,
+                    fontSize: "12px",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "6px",
+                  }}
+                >
+                  <ExternalLinkIcon />
+                  <span>100+ Pages · Click to Open ↗</span>
                 </div>
-                <span className="vad-tt-booklet__click-hint" style={{ color: "#cbd5e1" }}>
-                  Click to View Interactive Reader ↗
-                </span>
-              </div>
+              </a>
             </div>
           </div>
         </div>
@@ -595,12 +628,13 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                   <span>Pre-Register Free (Online) →</span>
                 </button>
                 <a
-                  href="/talent-test/vadaanya-talent-test-booklet.pdf"
-                  download="Vadaanya-TalentTest-5Year-Booklet.pdf"
+                  href={pdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="vad-btn vad-btn--outline"
                 >
-                  <DownloadIcon />
-                  <span>Download Solved Booklet</span>
+                  <BookOpenIcon />
+                  <span>Open Solved Booklet ↗</span>
                 </a>
               </div>
 
@@ -667,12 +701,6 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
           </div>
         </div>
       </section>
-
-      {/* PDF Modal */}
-      <TalentTestPdfViewer
-        isOpen={isPdfOpen}
-        onClose={() => setIsPdfOpen(false)}
-      />
 
       {/* Pre-Registration Modal */}
       <TalentTestRegistrationModal
