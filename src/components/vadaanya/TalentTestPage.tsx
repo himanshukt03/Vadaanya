@@ -1,8 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
+
+import "swiper/css";
+import "swiper/css/navigation";
+
 import {
   talentTestStats,
   iitAlumni,
@@ -37,22 +44,6 @@ const ChevronDownIcon = () => (
   </svg>
 );
 
-const QrIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <rect width="5" height="5" x="3" y="3" rx="1" />
-    <rect width="5" height="5" x="16" y="3" rx="1" />
-    <rect width="5" height="5" x="3" y="16" rx="1" />
-    <path d="M21 16h-3a2 2 0 0 0-2 2v3" />
-    <path d="M21 21v.01" />
-    <path d="M12 7v3a2 2 0 0 1-2 2H7" />
-    <path d="M3 12h.01" />
-    <path d="M12 3h.01" />
-    <path d="M12 16v.01" />
-    <path d="M16 12h1" />
-    <path d="M21 12v.01" />
-    <path d="M12 21v-1" />
-  </svg>
-);
 
 const conciseHowItWorks = [
   {
@@ -96,6 +87,49 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
   };
 
   const pdfUrl = "/talent-test/vadaanya-talent-test-booklet.pdf";
+  const announcementsSwiperRef = useRef<SwiperType | null>(null);
+
+  const liveAnnouncements = [
+    {
+      id: "booklet",
+      title: "5-Year Solved Booklet (2021–2025)",
+      desc: "Official 100-page bilingual question papers & solutions booklet.",
+      actionLabel: "Open PDF Booklet in New Tab ↗",
+      actionType: "link" as const,
+      href: pdfUrl,
+    },
+    {
+      id: "registration",
+      title: "2026 Pre-Registrations Open",
+      desc: "Free entry for government school students from Class 6 to 10.",
+      actionLabel: "Pre-Register Free →",
+      actionType: "modal" as const,
+    },
+    {
+      id: "iit-scholars",
+      title: "3 Scholars in Premier IITs",
+      desc: "Jugesh (AIR 377), Thulasi (AIR 2619), & Yaswanth (AIR 3563) secured national ranks.",
+      actionLabel: "View IIT Alumni →",
+      actionType: "anchor" as const,
+      href: "#alumni",
+    },
+    {
+      id: "state-awards",
+      title: "State-Level Merit Felicitations",
+      desc: "Top 10 rankers receive merit laptops, certificates & cash scholarship awards.",
+      actionLabel: "View Photo Archives →",
+      actionType: "anchor" as const,
+      href: "#gallery",
+    },
+    {
+      id: "pattern",
+      title: "Standardized OMR Exam Pattern",
+      desc: "Simulates national competitive entrance exams for government school students.",
+      actionLabel: "How It Works →",
+      actionType: "anchor" as const,
+      href: "#how-it-works",
+    },
+  ];
 
   return (
     <div className="vad-talent-page">
@@ -111,7 +145,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
         <div className="vad-container vad-page-hero__inner">
           <span className="vad-eyebrow">The Flagship Initiative · 2021–2025</span>
           <h1 className="vad-page-hero__title">
-            Srinivasa Ramanujan <span className="vad-page-hero__accent">Talent Test</span>
+            Vadaanya <span className="vad-page-hero__accent">Talent Test</span>
           </h1>
           <p className="vad-page-hero__lead" style={{ color: "#ffffff" }}>
             An annual standardized examination recognizing, rewarding, and nurturing rural government school talent from Class 6 to 10.
@@ -153,7 +187,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                 />
 
                 <p style={{ fontSize: "16px", color: "var(--vad-ink)", lineHeight: 1.75, marginBottom: "16px" }}>
-                  For five consecutive years (2021–2025), Vadaanya Janaa Society has conducted the <strong>Srinivasa Ramanujan Talent Test</strong> — an offline, standardized OMR examination provided 100% free of charge to thousands of government school students across Andhra Pradesh and Telangana.
+                  For five consecutive years (2021–2025), Vadaanya Janaa Society has conducted the <strong>Vadaanya Talent Test</strong> — an offline, standardized OMR examination provided 100% free of charge to thousands of government school students across Andhra Pradesh and Telangana.
                 </p>
 
                 <p style={{ fontSize: "16px", color: "var(--vad-ink)", lineHeight: 1.75, marginBottom: "26px" }}>
@@ -187,7 +221,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                 >
                   <Image
                     src="/events/Digital Teaching at High School/01-1.jpg"
-                    alt="Students taking the Srinivasa Ramanujan Talent Test"
+                    alt="Students taking the Vadaanya Talent Test"
                     fill
                     priority
                     sizes="(max-width: 768px) 100vw, 480px"
@@ -197,25 +231,17 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
               </div>
             </div>
 
-            {/* Horizontal Announcements Bar (Sleek, Modern, No Emojis) */}
-            <div
-              style={{
-                marginTop: "48px",
-                background: "#ffffff",
-                border: "1px solid rgba(0, 0, 0, 0.08)",
-                borderRadius: "20px",
-                padding: "20px 24px",
-                boxShadow: "0 10px 30px rgba(10, 16, 48, 0.05)",
-              }}
-            >
+            {/* Horizontal Announcements (Carousel on Desktop/Tablet, Compact List on Mobile) */}
+            <div className="vad-announcements-box">
+              {/* Header: Title only, clean and simple */}
               <div
                 style={{
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
-                  marginBottom: "16px",
+                  marginBottom: "14px",
                   borderBottom: "1px solid #f1f5f9",
-                  paddingBottom: "12px",
+                  paddingBottom: "10px",
                 }}
               >
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
@@ -232,104 +258,261 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                     Live Announcements
                   </span>
                 </div>
-                <span style={{ fontSize: "12px", color: "#94a3b8", fontWeight: 600 }}>2026 Cycle &amp; Archives</span>
               </div>
 
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-                  gap: "16px",
-                }}
-              >
-                {/* Item 1 */}
+              {/* 1. DESKTOP / TABLET VIEW: Carousel with Side Arrows */}
+              <div className="vad-announcements-desktop">
                 <div
                   style={{
-                    background: "#f8fafc",
-                    padding: "14px 18px",
-                    borderRadius: "14px",
-                    border: "1px solid #e2e8f0",
                     display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
+                    alignItems: "center",
+                    gap: "10px",
+                    position: "relative",
                   }}
                 >
-                  <div>
-                    <strong style={{ display: "block", fontSize: "13.5px", color: "var(--vad-navy-950, #0a1030)", marginBottom: "4px" }}>
-                      5-Year Solved Booklet (2021–2025)
-                    </strong>
-                    <p style={{ fontSize: "12px", color: "#64748b", margin: "0 0 8px", lineHeight: 1.45 }}>
-                      Official 100-page bilingual question papers &amp; solutions booklet.
-                    </p>
-                  </div>
-                  <a
-                    href={pdfUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ fontSize: "11.5px", fontWeight: 700, color: "var(--vad-gold-dark, #d97706)", textDecoration: "none" }}
-                  >
-                    Open PDF Booklet in New Tab ↗
-                  </a>
-                </div>
-
-                {/* Item 2 */}
-                <div
-                  style={{
-                    background: "#f8fafc",
-                    padding: "14px 18px",
-                    borderRadius: "14px",
-                    border: "1px solid #e2e8f0",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <div>
-                    <strong style={{ display: "block", fontSize: "13.5px", color: "var(--vad-navy-950, #0a1030)", marginBottom: "4px" }}>
-                      2026 Pre-Registrations Open
-                    </strong>
-                    <p style={{ fontSize: "12px", color: "#64748b", margin: "0 0 8px", lineHeight: 1.45 }}>
-                      Free entry for government school students from Class 6 to 10.
-                    </p>
-                  </div>
+                  {/* Left Side Arrow */}
                   <button
-                    onClick={() => setIsRegModalOpen(true)}
+                    type="button"
+                    onClick={() => announcementsSwiperRef.current?.slidePrev()}
+                    aria-label="Previous announcement"
                     style={{
-                      background: "none",
-                      border: "none",
-                      padding: 0,
-                      fontSize: "11.5px",
-                      fontWeight: 700,
-                      color: "var(--vad-gold-dark, #d97706)",
+                      flexShrink: 0,
+                      width: "36px",
+                      height: "36px",
+                      borderRadius: "50%",
+                      background: "#f8fafc",
+                      border: "1px solid #e2e8f0",
+                      color: "#334155",
                       cursor: "pointer",
-                      textAlign: "left",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      transition: "all 0.2s ease",
+                      boxShadow: "0 2px 6px rgba(0, 0, 0, 0.04)",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = "var(--vad-navy-950, #0a1030)";
+                      e.currentTarget.style.color = "#ffffff";
+                      e.currentTarget.style.borderColor = "var(--vad-navy-950, #0a1030)";
+                      e.currentTarget.style.transform = "scale(1.05)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = "#f8fafc";
+                      e.currentTarget.style.color = "#334155";
+                      e.currentTarget.style.borderColor = "#e2e8f0";
+                      e.currentTarget.style.transform = "scale(1)";
                     }}
                   >
-                    Pre-Register Free →
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <polyline points="15 18 9 12 15 6" />
+                    </svg>
+                  </button>
+
+                  {/* Swiper Slider */}
+                  <div style={{ flex: 1, minWidth: 0, overflow: "hidden" }}>
+                    <Swiper
+                      modules={[Navigation, Autoplay]}
+                      spaceBetween={14}
+                      slidesPerView={3}
+                      loop={true}
+                      autoplay={{ delay: 4500, disableOnInteraction: false, pauseOnMouseEnter: true }}
+                      onSwiper={(swiper) => {
+                        announcementsSwiperRef.current = swiper;
+                      }}
+                      breakpoints={{
+                        0: { slidesPerView: 1, spaceBetween: 10 },
+                        600: { slidesPerView: 2, spaceBetween: 12 },
+                        960: { slidesPerView: 3, spaceBetween: 14 },
+                      }}
+                      style={{ width: "100%" }}
+                    >
+                      {liveAnnouncements.map((item) => (
+                        <SwiperSlide key={item.id} style={{ height: "auto" }}>
+                          <div
+                            style={{
+                              background: "#f8fafc",
+                              padding: "14px 16px",
+                              borderRadius: "14px",
+                              border: "1px solid #e2e8f0",
+                              display: "flex",
+                              flexDirection: "column",
+                              justifyContent: "space-between",
+                              height: "100%",
+                              minHeight: "128px",
+                              boxSizing: "border-box",
+                              transition: "all 0.2s ease",
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.background = "#ffffff";
+                              e.currentTarget.style.borderColor = "#cbd5e1";
+                              e.currentTarget.style.boxShadow = "0 6px 16px rgba(10, 16, 48, 0.08)";
+                              e.currentTarget.style.transform = "translateY(-2px)";
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.background = "#f8fafc";
+                              e.currentTarget.style.borderColor = "#e2e8f0";
+                              e.currentTarget.style.boxShadow = "none";
+                              e.currentTarget.style.transform = "translateY(0)";
+                            }}
+                          >
+                            <div>
+                              <strong
+                                style={{
+                                  display: "block",
+                                  fontSize: "13px",
+                                  color: "var(--vad-navy-950, #0a1030)",
+                                  marginBottom: "5px",
+                                  lineHeight: 1.35,
+                                  fontWeight: 700,
+                                }}
+                              >
+                                {item.title}
+                              </strong>
+                              <p
+                                style={{
+                                  fontSize: "12px",
+                                  color: "#64748b",
+                                  margin: "0 0 10px",
+                                  lineHeight: 1.45,
+                                }}
+                              >
+                                {item.desc}
+                              </p>
+                            </div>
+
+                            {item.actionType === "modal" ? (
+                              <button
+                                type="button"
+                                onClick={() => setIsRegModalOpen(true)}
+                                style={{
+                                  background: "none",
+                                  border: "none",
+                                  padding: 0,
+                                  fontSize: "11.5px",
+                                  fontWeight: 700,
+                                  color: "var(--vad-gold-dark, #d97706)",
+                                  cursor: "pointer",
+                                  textAlign: "left",
+                                  display: "inline-flex",
+                                  alignItems: "center",
+                                  gap: "4px",
+                                }}
+                              >
+                                {item.actionLabel}
+                              </button>
+                            ) : item.actionType === "link" ? (
+                              <a
+                                href={item.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{
+                                  fontSize: "11.5px",
+                                  fontWeight: 700,
+                                  color: "var(--vad-gold-dark, #d97706)",
+                                  textDecoration: "none",
+                                  display: "inline-flex",
+                                  alignItems: "center",
+                                  gap: "4px",
+                                }}
+                              >
+                                {item.actionLabel}
+                              </a>
+                            ) : (
+                              <a
+                                href={item.href}
+                                style={{
+                                  fontSize: "11.5px",
+                                  fontWeight: 700,
+                                  color: "var(--vad-gold-dark, #d97706)",
+                                  textDecoration: "none",
+                                  display: "inline-flex",
+                                  alignItems: "center",
+                                  gap: "4px",
+                                }}
+                              >
+                                {item.actionLabel}
+                              </a>
+                            )}
+                          </div>
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                  </div>
+
+                  {/* Right Side Arrow */}
+                  <button
+                    type="button"
+                    onClick={() => announcementsSwiperRef.current?.slideNext()}
+                    aria-label="Next announcement"
+                    style={{
+                      flexShrink: 0,
+                      width: "36px",
+                      height: "36px",
+                      borderRadius: "50%",
+                      background: "#f8fafc",
+                      border: "1px solid #e2e8f0",
+                      color: "#334155",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      transition: "all 0.2s ease",
+                      boxShadow: "0 2px 6px rgba(0, 0, 0, 0.04)",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = "var(--vad-navy-950, #0a1030)";
+                      e.currentTarget.style.color = "#ffffff";
+                      e.currentTarget.style.borderColor = "var(--vad-navy-950, #0a1030)";
+                      e.currentTarget.style.transform = "scale(1.05)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = "#f8fafc";
+                      e.currentTarget.style.color = "#334155";
+                      e.currentTarget.style.borderColor = "#e2e8f0";
+                      e.currentTarget.style.transform = "scale(1)";
+                    }}
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
                   </button>
                 </div>
+              </div>
 
-                {/* Item 3 */}
-                <div
-                  style={{
-                    background: "#f8fafc",
-                    padding: "14px 18px",
-                    borderRadius: "14px",
-                    border: "1px solid #e2e8f0",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <div>
-                    <strong style={{ display: "block", fontSize: "13.5px", color: "var(--vad-navy-950, #0a1030)", marginBottom: "4px" }}>
-                      3 Scholars in Premier IITs
-                    </strong>
-                    <p style={{ fontSize: "12px", color: "#64748b", margin: 0, lineHeight: 1.45 }}>
-                      Jugesh (AIR 377), Thulasi (AIR 2619), &amp; Yaswanth (AIR 3563) secured national ranks.
+              {/* 2. MOBILE VIEW: Compact List */}
+              <div className="vad-announcements-mobile">
+                {liveAnnouncements.map((item) => (
+                  <div key={item.id} className="vad-announcement-mobile-card">
+                    <h3 className="vad-announcement-mobile-card__title">
+                      {item.title}
+                    </h3>
+                    <p className="vad-announcement-mobile-card__desc">
+                      {item.desc}
                     </p>
+                    <div className="vad-announcement-mobile-card__action">
+                      {item.actionType === "modal" ? (
+                        <button
+                          type="button"
+                          onClick={() => setIsRegModalOpen(true)}
+                        >
+                          {item.actionLabel}
+                        </button>
+                      ) : item.actionType === "link" ? (
+                        <a
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {item.actionLabel}
+                        </a>
+                      ) : (
+                        <a href={item.href}>
+                          {item.actionLabel}
+                        </a>
+                      )}
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
@@ -337,21 +520,21 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 3: 4 STAT BADGES (CLEAN LIGHT GREY SECTION)
+          SECTION 3: 4 STAT BADGES (DARK BLUE SECTION)
           ─────────────────────────────────────────────── */}
-      <section className="vad-section vad-section--grey" style={{ padding: "40px 0" }}>
+      <section className="vad-section vad-section--deep" style={{ padding: "48px 0" }}>
         <div className="vad-container">
           <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
             <div className="vad-tt-stats__grid">
               {talentTestStats.map((st, i) => (
-                <div key={i} className="vad-tt-stats__card vad-tt-stats__card--light">
-                  <span className="vad-tt-stats__num" style={{ color: "var(--vad-gold-dark, #d97706)" }}>
+                <div key={i} className="vad-tt-stats__card">
+                  <span className="vad-tt-stats__num" style={{ color: "var(--vad-gold, #f2a712)" }}>
                     {st.value}
                   </span>
-                  <span className="vad-tt-stats__lbl" style={{ color: "var(--vad-ink, #0a1030)" }}>
+                  <span className="vad-tt-stats__lbl" style={{ color: "#ffffff" }}>
                     {st.label}
                   </span>
-                  <span className="vad-tt-stats__sub" style={{ color: "var(--vad-ink-soft, #64748b)" }}>
+                  <span className="vad-tt-stats__sub" style={{ color: "#94a3b8" }}>
                     {st.sublabel}
                   </span>
                 </div>
@@ -402,7 +585,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                 }}
               />
               <p style={{ fontSize: "16px", color: "var(--vad-ink)", lineHeight: 1.75, marginBottom: "18px" }}>
-                We compiled five full years of Srinivasa Ramanujan Talent Test examination papers into a single 100-page bilingual study guide. Built to help students develop analytical and non-verbal reasoning skills from Class 6 onward.
+                We compiled five full years of Vadaanya Talent Test examination papers into a single 100-page bilingual study guide. Built to help students develop analytical and non-verbal reasoning skills from Class 6 onward.
               </p>
 
               <div className="vad-tt-booklet__features" style={{ marginBottom: "24px" }}>
@@ -473,7 +656,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                 >
                   <Image
                     src="/talent_test.jpg"
-                    alt="Srinivasa Ramanujan Talent Test 5-Year Question Papers Booklet"
+                    alt="Vadaanya Talent Test 5-Year Question Papers Booklet"
                     fill
                     sizes="(max-width: 768px) 100vw, 390px"
                     priority
@@ -489,10 +672,10 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       {/* ───────────────────────────────────────────────
           SECTION 5: HOW THE TEST WORKS (CONCISE 6-STEP CARDS)
           ─────────────────────────────────────────────── */}
-      <section id="how-it-works" className="vad-section vad-section--grey" style={{ padding: "60px 0" }}>
+      <section id="how-it-works" className="vad-section vad-section--grey vad-how-it-works-section" style={{ padding: "60px 0" }}>
         <div className="vad-container">
           <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
-            <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "36px" }}>
+            <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "32px" }}>
               <span className="vad-eyebrow vad-eyebrow--center vad-eyebrow--dark">THE ANNUAL CYCLE</span>
               <h2
                 style={{
@@ -511,14 +694,8 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
               </p>
             </div>
 
-            {/* Concise 6 Cards Grid */}
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-                gap: "20px",
-              }}
-            >
+            {/* Desktop View: 6 Elevated Cards Grid */}
+            <div className="vad-how-it-works-grid">
               {conciseHowItWorks.map((item, idx) => (
                 <div
                   key={idx}
@@ -561,6 +738,19 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                 </div>
               ))}
             </div>
+
+            {/* Mobile View: Concise 6-Step List (Minimal scrolling) */}
+            <div className="vad-how-it-works-mobile">
+              {conciseHowItWorks.map((item, idx) => (
+                <div key={idx} className="vad-how-it-works-mobile__item">
+                  <span className="vad-how-it-works-mobile__step">{item.step}</span>
+                  <div className="vad-how-it-works-mobile__content">
+                    <strong>{item.title}</strong>
+                    <p>{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -599,205 +789,87 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
               </p>
             </div>
 
-            {/* Elevated Unified 3-Tier Cards */}
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-                gap: "24px",
-                marginBottom: "48px",
-              }}
-            >
+            {/* Elevated Unified 3-Tier Cards (Responsive & Concise on Mobile) */}
+            <div className="vad-equity-grid">
               {/* Card 1 */}
-              <div
-                style={{
-                  background: "#ffffff",
-                  border: "1px solid rgba(10, 16, 48, 0.09)",
-                  borderRadius: "20px",
-                  padding: "26px 24px",
-                  boxShadow: "0 12px 28px rgba(10, 16, 48, 0.07)",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  position: "relative",
-                  overflow: "hidden",
-                }}
-              >
-                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "4px", background: "linear-gradient(90deg, var(--vad-gold, #f2a712), var(--vad-gold-dark, #d97706))" }} />
+              <div className="vad-equity-tier-card">
+                <div className="vad-equity-tier-card__bar" />
                 <div>
-                  <div
-                    style={{
-                      display: "inline-block",
-                      fontSize: "11.5px",
-                      fontWeight: 800,
-                      color: "var(--vad-gold-dark, #d97706)",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.08em",
-                      marginBottom: "10px",
-                    }}
-                  >
+                  <div className="vad-equity-tier-card__badge">
                     Tier 1
                   </div>
-                  <h3
-                    style={{
-                      fontSize: "20px",
-                      fontWeight: 800,
-                      color: "var(--vad-navy-950, #0a1030)",
-                      margin: "0 0 8px",
-                      fontFamily: "var(--vad-font-display)",
-                    }}
-                  >
+                  <h3 className="vad-equity-tier-card__title">
                     District Top 20
                   </h3>
-                  <p style={{ fontSize: "14px", color: "var(--vad-ink-soft, #64748b)", margin: 0, lineHeight: 1.5 }}>
+                  <p className="vad-equity-tier-card__desc">
                     Best across all mandals; no mandal repeats
                   </p>
                 </div>
 
-                <div
-                  style={{
-                    marginTop: "22px",
-                    paddingTop: "16px",
-                    borderTop: "1px solid #f1f5f9",
-                  }}
-                >
-                  <span style={{ fontSize: "11px", fontWeight: 700, color: "#94a3b8", letterSpacing: "0.06em", textTransform: "uppercase", display: "block" }}>
+                <div className="vad-equity-tier-card__reward-box">
+                  <span className="vad-equity-tier-card__reward-label">
                     Reward
                   </span>
-                  <div style={{ fontSize: "20px", fontWeight: 800, color: "var(--vad-gold-dark, #d97706)", margin: "4px 0 2px" }}>
+                  <div className="vad-equity-tier-card__reward-val">
                     ₹15,000 – ₹25,000
                   </div>
-                  <span style={{ fontSize: "12.5px", color: "#64748b", fontWeight: 500 }}>
+                  <span className="vad-equity-tier-card__reward-sub">
                     Trophy &amp; Merit Certificate
                   </span>
                 </div>
               </div>
 
               {/* Card 2 */}
-              <div
-                style={{
-                  background: "#ffffff",
-                  border: "1px solid rgba(10, 16, 48, 0.09)",
-                  borderRadius: "20px",
-                  padding: "26px 24px",
-                  boxShadow: "0 12px 28px rgba(10, 16, 48, 0.07)",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  position: "relative",
-                  overflow: "hidden",
-                }}
-              >
-                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "4px", background: "linear-gradient(90deg, var(--vad-gold, #f2a712), var(--vad-gold-dark, #d97706))" }} />
+              <div className="vad-equity-tier-card">
+                <div className="vad-equity-tier-card__bar" />
                 <div>
-                  <div
-                    style={{
-                      display: "inline-block",
-                      fontSize: "11.5px",
-                      fontWeight: 800,
-                      color: "var(--vad-gold-dark, #d97706)",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.08em",
-                      marginBottom: "10px",
-                    }}
-                  >
+                  <div className="vad-equity-tier-card__badge">
                     Tier 2
                   </div>
-                  <h3
-                    style={{
-                      fontSize: "20px",
-                      fontWeight: 800,
-                      color: "var(--vad-navy-950, #0a1030)",
-                      margin: "0 0 8px",
-                      fontFamily: "var(--vad-font-display)",
-                    }}
-                  >
+                  <h3 className="vad-equity-tier-card__title">
                     Mandal Topper (40)
                   </h3>
-                  <p style={{ fontSize: "14px", color: "var(--vad-ink-soft, #64748b)", margin: 0, lineHeight: 1.5 }}>
+                  <p className="vad-equity-tier-card__desc">
                     Top scorer per mandal, not already above
                   </p>
                 </div>
 
-                <div
-                  style={{
-                    marginTop: "22px",
-                    paddingTop: "16px",
-                    borderTop: "1px solid #f1f5f9",
-                  }}
-                >
-                  <span style={{ fontSize: "11px", fontWeight: 700, color: "#94a3b8", letterSpacing: "0.06em", textTransform: "uppercase", display: "block" }}>
+                <div className="vad-equity-tier-card__reward-box">
+                  <span className="vad-equity-tier-card__reward-label">
                     Reward
                   </span>
-                  <div style={{ fontSize: "20px", fontWeight: 800, color: "var(--vad-gold-dark, #d97706)", margin: "4px 0 2px" }}>
+                  <div className="vad-equity-tier-card__reward-val">
                     ₹5,000
                   </div>
-                  <span style={{ fontSize: "12.5px", color: "#64748b", fontWeight: 500 }}>
+                  <span className="vad-equity-tier-card__reward-sub">
                     Trophy &amp; Merit Certificate
                   </span>
                 </div>
               </div>
 
               {/* Card 3 */}
-              <div
-                style={{
-                  background: "#ffffff",
-                  border: "1px solid rgba(10, 16, 48, 0.09)",
-                  borderRadius: "20px",
-                  padding: "26px 24px",
-                  boxShadow: "0 12px 28px rgba(10, 16, 48, 0.07)",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  position: "relative",
-                  overflow: "hidden",
-                }}
-              >
-                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "4px", background: "linear-gradient(90deg, var(--vad-gold, #f2a712), var(--vad-gold-dark, #d97706))" }} />
+              <div className="vad-equity-tier-card">
+                <div className="vad-equity-tier-card__bar" />
                 <div>
-                  <div
-                    style={{
-                      display: "inline-block",
-                      fontSize: "11.5px",
-                      fontWeight: 800,
-                      color: "var(--vad-gold-dark, #d97706)",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.08em",
-                      marginBottom: "10px",
-                    }}
-                  >
+                  <div className="vad-equity-tier-card__badge">
                     Tier 3
                   </div>
-                  <h3
-                    style={{
-                      fontSize: "20px",
-                      fontWeight: 800,
-                      color: "var(--vad-navy-950, #0a1030)",
-                      margin: "0 0 8px",
-                      fontFamily: "var(--vad-font-display)",
-                    }}
-                  >
+                  <h3 className="vad-equity-tier-card__title">
                     School Topper (~250)
                   </h3>
-                  <p style={{ fontSize: "14px", color: "var(--vad-ink-soft, #64748b)", margin: 0, lineHeight: 1.5 }}>
+                  <p className="vad-equity-tier-card__desc">
                     One topper per school, not already above
                   </p>
                 </div>
 
-                <div
-                  style={{
-                    marginTop: "22px",
-                    paddingTop: "16px",
-                    borderTop: "1px solid #f1f5f9",
-                  }}
-                >
-                  <span style={{ fontSize: "11px", fontWeight: 700, color: "#94a3b8", letterSpacing: "0.06em", textTransform: "uppercase", display: "block" }}>
+                <div className="vad-equity-tier-card__reward-box">
+                  <span className="vad-equity-tier-card__reward-label">
                     Reward
                   </span>
-                  <div style={{ fontSize: "20px", fontWeight: 800, color: "var(--vad-gold-dark, #d97706)", margin: "4px 0 2px" }}>
+                  <div className="vad-equity-tier-card__reward-val">
                     ₹500 – ₹1,000
                   </div>
-                  <span style={{ fontSize: "12.5px", color: "#64748b", fontWeight: 500 }}>
+                  <span className="vad-equity-tier-card__reward-sub">
                     Trophy &amp; Merit Certificate
                   </span>
                 </div>
@@ -905,74 +977,52 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       <TalentTestGallery albums={galleryAlbums} />
 
       {/* ───────────────────────────────────────────────
-          SECTION 9: 2026 PRE-REGISTRATION & DONATION SECTION (NAVY DEEP)
+          SECTION 9: 2026 PRE-REGISTRATION CTA
           ─────────────────────────────────────────────── */}
       <section id="register" className="vad-section vad-section--deep vad-tt-support" style={{ padding: "60px 0" }}>
         <div className="vad-container">
-          <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
-            <div className="vad-tt-support__wrapper">
-              {/* Left Column: 2026 Pre-Registration */}
-              <div className="vad-head" style={{ textAlign: "left" }}>
-                <span className="vad-eyebrow" style={{ color: "var(--vad-gold, #f2a712)" }}>
-                  2026 REGISTRATIONS
-                </span>
-                <h2
-                  style={{
-                    fontSize: "clamp(22px, 2.4vw, 32px)",
-                    margin: "10px 0 12px",
-                    color: "#ffffff",
-                    fontWeight: 800,
-                    fontFamily: "var(--vad-font-display)",
-                    lineHeight: 1.2,
-                  }}
-                >
-                  Pre-Register for Talent Test 2026
-                </h2>
-                <p className="vad-lead" style={{ color: "#cbd5e1", fontSize: "16px", marginBottom: "20px" }}>
-                  100% free for government school students from Class 6 to 10. Pre-register now to receive exam center locations, study materials, and SMS hall ticket alerts.
-                </p>
+          <div style={{ maxWidth: "800px", margin: "0 auto", textAlign: "center" }}>
+            <span className="vad-eyebrow" style={{ color: "var(--vad-gold, #f2a712)", justifyContent: "center" }}>
+              2026 REGISTRATIONS
+            </span>
+            <h2
+              style={{
+                fontSize: "clamp(24px, 2.6vw, 36px)",
+                margin: "10px 0 14px",
+                color: "#ffffff",
+                fontWeight: 800,
+                fontFamily: "var(--vad-font-display)",
+                lineHeight: 1.2,
+              }}
+            >
+              Pre-Register for Talent Test 2026
+            </h2>
+            <p className="vad-lead" style={{ color: "#cbd5e1", fontSize: "16px", maxWidth: "660px", margin: "0 auto 24px", lineHeight: 1.6 }}>
+              100% free for government school students from Class 6 to 10. Pre-register now to receive exam center locations, study materials, and SMS hall ticket alerts.
+            </p>
 
-                <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginBottom: "24px" }}>
-                  <button
-                    onClick={() => setIsRegModalOpen(true)}
-                    className="vad-btn vad-btn--gold"
-                  >
-                    <span>Pre-Register Free (Online) →</span>
-                  </button>
-                  <a
-                    href={pdfUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="vad-btn vad-btn--outline"
-                  >
-                    <BookOpenIcon />
-                    <span>Open Solved Booklet ↗</span>
-                  </a>
-                </div>
+            <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", justifyContent: "center", marginBottom: "24px" }}>
+              <button
+                onClick={() => setIsRegModalOpen(true)}
+                className="vad-btn vad-btn--gold"
+              >
+                <span>Pre-Register Free (Online) →</span>
+              </button>
+              <a
+                href={pdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="vad-btn vad-btn--outline"
+              >
+                <BookOpenIcon />
+                <span>Open Solved Booklet ↗</span>
+              </a>
+            </div>
 
-                <div className="vad-tt-support__legal-note" style={{ color: "#94a3b8" }}>
-                  <span>🛡️ 80G &amp; 12A Certified NGO</span>
-                  <span>• NGO Darpan ID: TS/2024/0396868</span>
-                  <span>• CSR ID: CSR00071897</span>
-                </div>
-              </div>
-
-              {/* Right Column: Support / Donate QR Card */}
-              <div className="vad-tt-support__qr-box">
-                <div className="vad-tt-support__qr-card">
-                  <div className="vad-tt-support__qr-header">
-                    <QrIcon />
-                    <span>Sponsor a Student / Award</span>
-                  </div>
-                  <div className="vad-tt-support__upi-display" style={{ marginBottom: "16px" }}>
-                    <span className="vad-tt-support__upi-id">UPI ID: vadaanyasociety@sbi</span>
-                    <span className="vad-tt-support__upi-hint">₹1,000 sponsors 1 student · ₹5,000 funds 1 Mandal Award</span>
-                  </div>
-                  <Link href="/#donate" className="vad-btn vad-btn--gold" style={{ width: "100%", justifyContent: "center" }}>
-                    Donate Online &rarr;
-                  </Link>
-                </div>
-              </div>
+            <div className="vad-tt-support__legal-note" style={{ color: "#94a3b8", justifyContent: "center" }}>
+              <span>🛡️ 80G &amp; 12A Certified NGO</span>
+              <span>• NGO Darpan ID: TS/2024/0396868</span>
+              <span>• CSR ID: CSR00071897</span>
             </div>
           </div>
         </div>
