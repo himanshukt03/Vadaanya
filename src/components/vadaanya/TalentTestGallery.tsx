@@ -76,7 +76,7 @@ export default function TalentTestGallery({ albums = [] }: TalentTestGalleryProp
           <span className="vad-eyebrow vad-eyebrow--center vad-eyebrow--dark">PHOTO ARCHIVES</span>
           <h2>Exam Days & Prize Distribution Gallery</h2>
           <p className="vad-lead">
-            Explore photo archives from every edition of the Srinivasa Ramanujan Talent Test — from energetic OMR exam halls to grand state felicitation ceremonies.
+            Explore photo archives from every edition of the Vadaanya Talent Test — from energetic OMR exam halls to grand state felicitation ceremonies.
           </p>
         </div>
 
@@ -116,17 +116,18 @@ export default function TalentTestGallery({ albums = [] }: TalentTestGalleryProp
               }}
             >
               {/* Card Cover Image */}
-              <div style={{ position: "relative", width: "100%", height: "170px" }}>
+              <div className="vad-talent-gallery-cover">
                 <Image
                   src={event.coverImage}
                   alt={event.title}
                   fill
                   style={{ objectFit: "cover" }}
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 300px"
                   quality={85}
+                  placeholder={event.blurDataUrl ? "blur" : "empty"}
+                  blurDataURL={event.blurDataUrl}
                   priority={idx < 4}
                   loading={idx < 4 ? "eager" : "lazy"}
-                  unoptimized
                 />
                 <div
                   style={{
@@ -276,16 +277,14 @@ export default function TalentTestGallery({ albums = [] }: TalentTestGalleryProp
                   aria-label={`View photo ${idx + 1}`}
                 >
                   <Image
-                    src={img}
+                    src={(activeEvent.thumbnails && activeEvent.thumbnails[idx]) || img}
                     alt={`${activeEvent.title} - Image ${idx + 1}`}
                     fill
-                    sizes="(max-width: 480px) 50vw, (max-width: 768px) 33vw, (max-width: 1200px) 33vw, 500px"
-                    quality={92}
-                    priority={idx < 8}
-                    loading={idx < 8 ? "eager" : "lazy"}
+                    sizes="(max-width: 480px) 50vw, (max-width: 768px) 33vw, 250px"
+                    quality={85}
+                    loading={idx < 6 ? "eager" : "lazy"}
                     style={{ objectFit: "cover" }}
                     className="vad-gallery-thumb"
-                    unoptimized
                   />
                 </div>
               ))}
