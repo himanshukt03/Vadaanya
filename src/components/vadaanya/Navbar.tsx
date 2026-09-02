@@ -137,13 +137,13 @@ export default function Navbar() {
                       {item.label}
                     </a>
                   ) : (
-                    <a
+                    <Link
                       href={item.href}
                       role="menuitem"
                       onClick={(e) => handleNavLink(e, item.href)}
                     >
                       {item.label}
-                    </a>
+                    </Link>
                   )}
                 </li>
               ))}
@@ -152,13 +152,13 @@ export default function Navbar() {
 
           {/* Actions */}
           <div className="vad-nav__actions">
-            <a
+            <Link
               href="/#donate"
               className="vad-btn vad-btn--gold"
               onClick={(e) => handleNavLink(e, "/#donate")}
             >
               Donate
-            </a>
+            </Link>
             {/* Hamburger */}
             <button
               ref={burgerRef}
@@ -195,24 +195,24 @@ export default function Navbar() {
               {item.label}
             </a>
           ) : (
-            <a
+            <Link
               key={item.label}
               href={item.href}
               tabIndex={menuOpen ? 0 : -1}
               onClick={(e) => handleNavLink(e, item.href)}
             >
               {item.label}
-            </a>
+            </Link>
           )
         ))}
-        <a
+        <Link
           href="/#donate"
           className="vad-btn vad-btn--gold"
           tabIndex={menuOpen ? 0 : -1}
           onClick={(e) => handleNavLink(e, "/#donate")}
         >
           Donate Now →
-        </a>
+        </Link>
 
         {/* Mobile social links below Donate button */}
         <div

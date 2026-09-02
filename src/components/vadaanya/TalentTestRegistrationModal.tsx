@@ -92,7 +92,7 @@ export default function TalentTestRegistrationModal({
             </div>
             <h3>Pre-Registration Received!</h3>
             <p>
-              Thank you, <strong>{formData.name}</strong>. You have been registered for priority updates regarding the <strong>2026 Srinivasa Ramanujan Talent Test</strong>. We will notify your school and phone number (<strong>{formData.phone}</strong>) as soon as hall ticket downloads open.
+              Thank you, <strong>{formData.name}</strong>. You have been registered for priority updates regarding the <strong>2026 Vadaanya Talent Test</strong>. We will notify your school and phone number (<strong>{formData.phone}</strong>) as soon as hall ticket downloads open.
             </p>
             <button onClick={onClose} className="vad-btn vad-btn--gold" style={{ marginTop: "16px", width: "100%" }}>
               Done

@@ -287,7 +287,7 @@ export const talentTestMilestones: TalentTestMilestone[] = [
     year: "2021",
     title: "Inaugural Talent Test Launch",
     description:
-      "The first Srinivasa Ramanujan Talent Test was held across select government high schools in Andhra Pradesh and Telangana, testing 1,500+ students.",
+      "The first Vadaanya Talent Test was held across select government high schools in Andhra Pradesh and Telangana, testing 1,500+ students.",
     metrics: "1,500+ Students · 50 Schools",
   },
   {
@@ -406,7 +406,7 @@ export const fallbackTalentTestGallery: TalentTestFallbackAlbum[] = [
    ─────────────────────────────────────────────── */
 export const talentTestFaqs: TalentTestFaq[] = [
   {
-    question: "Who is eligible to participate in the Srinivasa Ramanujan Talent Test?",
+    question: "Who is eligible to participate in the Vadaanya Talent Test?",
     answer:
       "All students currently enrolled in government, Zilla Parishad (ZPHS), municipal, and social welfare residential schools from Class 6 to Class 10 across Andhra Pradesh and Telangana are eligible.",
   },

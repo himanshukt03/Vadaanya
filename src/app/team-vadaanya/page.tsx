@@ -18,6 +18,23 @@ export const metadata: Metadata = {
     description:
       "Meet Team Vadaanya, dedicated mentors and volunteers empowering government school students since 2010.",
     url: "https://vadaanya.org/team-vadaanya",
+    siteName: "Vadaanya Janaa Society",
+    locale: "en_IN",
+    type: "website",
+    images: [
+      {
+        url: "https://vadaanya.org/vadaanya_team.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "Team Vadaanya Mentors and Volunteers",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Team Vadaanya | Vadaanya",
+    description: "Meet Team Vadaanya, dedicated mentors and volunteers empowering government school students since 2010.",
+    images: ["https://vadaanya.org/vadaanya_team.jpeg"],
   },
 };
 

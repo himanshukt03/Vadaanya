@@ -175,12 +175,21 @@ export default function HeroCarousel({ initialSlides = [] }: HeroCarouselProps) 
               {/* Text content */}
               <div className="vad-hero__content">
                 <div className="vad-hero__text">
-                  <h1 className="vad-hero__headline">
-                    <span className="vad-hero__headline-white">{slide.mainHeadingPart1}</span>
-                    {slide.mainHeadingPart2 && (
-                      <> <span className="vad-hero__headline-accent">{slide.mainHeadingPart2}</span></>
-                    )}
-                  </h1>
+                  {idx === 0 ? (
+                    <h1 className="vad-hero__headline">
+                      <span className="vad-hero__headline-white">{slide.mainHeadingPart1}</span>
+                      {slide.mainHeadingPart2 && (
+                        <> <span className="vad-hero__headline-accent">{slide.mainHeadingPart2}</span></>
+                      )}
+                    </h1>
+                  ) : (
+                    <h2 className="vad-hero__headline">
+                      <span className="vad-hero__headline-white">{slide.mainHeadingPart1}</span>
+                      {slide.mainHeadingPart2 && (
+                        <> <span className="vad-hero__headline-accent">{slide.mainHeadingPart2}</span></>
+                      )}
+                    </h2>
+                  )}
 
                   <p className="vad-hero__sub">{slide.description}</p>
 

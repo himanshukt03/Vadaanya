@@ -19,6 +19,23 @@ export const metadata: Metadata = {
     description:
       "From rural government school classrooms to engineering, medicine, and civil service careers.",
     url: "https://vadaanya.org/success-stories",
+    siteName: "Vadaanya Janaa Society",
+    locale: "en_IN",
+    type: "website",
+    images: [
+      {
+        url: "https://vadaanya.org/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Vadaanya Student Success Stories",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Success Stories | Vadaanya",
+    description: "From rural government school classrooms to engineering, medicine, and civil service careers.",
+    images: ["https://vadaanya.org/og-image.png"],
   },
 };
 

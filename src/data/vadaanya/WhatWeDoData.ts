@@ -11,7 +11,7 @@ export const pillars: Pillar[] = [
     icon: "talent",
     title: "Talent tests",
     description:
-      "The Srinivasa Ramanujan Talent Test finds bright students in government schools — and rewards what others overlook.",
+      "The Vadaanya Talent Test finds bright students in government schools — and rewards what others overlook.",
   },
   {
     id: 2,

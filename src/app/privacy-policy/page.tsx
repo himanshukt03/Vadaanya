@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Privacy Policy",
   description: "Read Vadaanya Janaa Society's Privacy Policy to understand how we collect, use, and protect your personal information when you visit vadaanya.org.",
   alternates: { canonical: "https://vadaanya.org/privacy-policy" },
-  robots: { index: false, follow: true },
+  robots: { index: true, follow: true },
 };
 
 const PrivacyPolicyPage = () => {

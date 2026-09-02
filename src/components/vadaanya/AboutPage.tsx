@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import WhatWeDoSection from "@/components/vadaanya/WhatWeDoSection";
 import VisionMissionApproach from "@/components/vadaanya/VisionMissionApproach";
 
@@ -84,13 +85,13 @@ export default function AboutPage() {
               Vadaanya Janaa Society is a registered non-profit organization (Reg. No. 1433/2010). Your contribution is eligible for 80G tax exemption.
             </p>
             <div className="vad-about__cta-btns">
-              <a href="#donate" className="vad-btn vad-btn--gold">
+              <Link href="/#donate" className="vad-btn vad-btn--gold">
                 Donate Now
                 <span className="vad-arrow" aria-hidden="true">&rarr;</span>
-              </a>
-              <a href="/contact" className="vad-btn vad-btn--navy">
+              </Link>
+              <Link href="/contact" className="vad-btn vad-btn--navy">
                 Contact Us
-              </a>
+              </Link>
             </div>
           </div>
           <div className="vad-about__reg-card">
