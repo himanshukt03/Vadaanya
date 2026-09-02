@@ -440,18 +440,18 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 6: RECOGNITION BUILT FOR EQUITY (LIGHT PAPER)
+          SECTION 6: RECOGNITION BUILT FOR EQUITY (CLEAN & SIMPLE TABLE)
           ─────────────────────────────────────────────── */}
       <section id="equity" className="vad-section vad-section--paper" style={{ padding: "60px 0" }}>
         <div className="vad-container">
-          <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
-            <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "36px" }}>
-              <span className="vad-eyebrow vad-eyebrow--center vad-eyebrow--dark">FAIR EVALUATION</span>
+          <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
+            <div className="vad-head" style={{ textAlign: "left", marginBottom: "24px" }}>
+              <span className="vad-eyebrow vad-eyebrow--dark">FAIR EVALUATION</span>
               <h2
                 style={{
-                  fontSize: "clamp(22px, 2.4vw, 32px)",
-                  margin: "10px 0 12px",
-                  color: "var(--vad-navy-950)",
+                  fontSize: "clamp(24px, 2.6vw, 36px)",
+                  margin: "10px 0 14px",
+                  color: "var(--vad-navy-950, #0a1030)",
                   fontWeight: 800,
                   fontFamily: "var(--vad-font-display)",
                   lineHeight: 1.2,
@@ -459,50 +459,86 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
               >
                 Recognition, Built for Equity
               </h2>
-              <p className="vad-lead" style={{ fontSize: "16px", color: "var(--vad-ink-soft)", maxWidth: "720px", margin: "0 auto" }}>
+              <div
+                style={{
+                  width: "50px",
+                  height: "3px",
+                  background: "var(--vad-gold-deep)",
+                  margin: "12px 0 16px",
+                  borderRadius: "2px",
+                }}
+              />
+              <p style={{ fontSize: "16px", color: "var(--vad-ink-soft, #475569)", lineHeight: 1.75, margin: 0 }}>
                 Introduced in 2024, this three-tier model recognises that a strong score in a drought-prone mandal deserves the same respect as one from a resource-rich area. Roughly <strong>280 non-overlapping prizes</strong> are awarded each cycle.
               </p>
             </div>
 
-            {/* 3 Tier Cards */}
-            <div className="vad-tt-equity__grid">
-              {equityTiers.map((tier, idx) => (
-                <div
-                  key={idx}
-                  className={`vad-tt-equity__card vad-tt-equity__card--light vad-tt-equity__card--${tier.badgeColor}`}
-                >
-                  <div className="vad-tt-equity__badge">{tier.tier}</div>
-                  <h3 className="vad-tt-equity__title" style={{ color: "var(--vad-ink, #0a1030)" }}>
-                    {tier.title}
-                  </h3>
-                  <p className="vad-tt-equity__qualifier" style={{ color: "var(--vad-ink-soft, #475569)" }}>
-                    {tier.qualifier}
-                  </p>
-
-                  <div className="vad-tt-equity__reward-box vad-tt-equity__reward-box--light">
-                    <span className="vad-tt-equity__reward-lbl">Award Amount</span>
-                    <span className="vad-tt-equity__reward-val" style={{ color: tier.accentColor }}>
-                      {tier.reward}
-                    </span>
-                    <span className="vad-tt-equity__reward-winners" style={{ color: "var(--vad-ink-soft, #475569)" }}>
-                      {tier.winnerCount}
-                    </span>
-                  </div>
-
-                  <ul className="vad-tt-equity__perks">
-                    {tier.perks.map((p, pIdx) => (
-                      <li key={pIdx} style={{ color: "var(--vad-ink, #1e293b)" }}>
-                        <span className="vad-tt-equity__check">✓</span> {p}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+            {/* Simple Clean Table (Exact Copy of Source Image 2) */}
+            <div
+              style={{
+                overflowX: "auto",
+                borderRadius: "14px",
+                boxShadow: "0 10px 30px rgba(10, 16, 48, 0.06)",
+                border: "1px solid rgba(0, 0, 0, 0.08)",
+                background: "#ffffff",
+                marginBottom: "44px",
+              }}
+            >
+              <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "15px" }}>
+                <thead>
+                  <tr style={{ background: "var(--vad-navy-950, #0a1030)", color: "#ffffff" }}>
+                    <th style={{ padding: "16px 22px", fontWeight: 800, fontSize: "13px", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+                      TIER
+                    </th>
+                    <th style={{ padding: "16px 22px", fontWeight: 800, fontSize: "13px", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+                      WHO QUALIFIES
+                    </th>
+                    <th style={{ padding: "16px 22px", fontWeight: 800, fontSize: "13px", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+                      REWARD
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style={{ background: "#fbf8f2", borderBottom: "1px solid #f1f5f9" }}>
+                    <td style={{ padding: "18px 22px", fontWeight: 700, color: "var(--vad-navy-950, #0a1030)", whiteSpace: "nowrap" }}>
+                      District Top 20
+                    </td>
+                    <td style={{ padding: "18px 22px", color: "var(--vad-ink, #1e293b)" }}>
+                      Best across all mandals; no mandal repeats
+                    </td>
+                    <td style={{ padding: "18px 22px", color: "var(--vad-navy-950, #0a1030)", fontWeight: 600 }}>
+                      ₹15,000–₹25,000, trophy, certificate
+                    </td>
+                  </tr>
+                  <tr style={{ background: "#ffffff", borderBottom: "1px solid #f1f5f9" }}>
+                    <td style={{ padding: "18px 22px", fontWeight: 700, color: "var(--vad-navy-950, #0a1030)", whiteSpace: "nowrap" }}>
+                      Mandal Topper (40)
+                    </td>
+                    <td style={{ padding: "18px 22px", color: "var(--vad-ink, #1e293b)" }}>
+                      Top scorer per mandal, not already above
+                    </td>
+                    <td style={{ padding: "18px 22px", color: "var(--vad-navy-950, #0a1030)", fontWeight: 600 }}>
+                      ₹5,000, trophy, certificate
+                    </td>
+                  </tr>
+                  <tr style={{ background: "#fbf8f2" }}>
+                    <td style={{ padding: "18px 22px", fontWeight: 700, color: "var(--vad-navy-950, #0a1030)", whiteSpace: "nowrap" }}>
+                      School Topper (~250)
+                    </td>
+                    <td style={{ padding: "18px 22px", color: "var(--vad-ink, #1e293b)" }}>
+                      One topper per school, not already above
+                    </td>
+                    <td style={{ padding: "18px 22px", color: "var(--vad-navy-950, #0a1030)", fontWeight: 600 }}>
+                      ₹500–₹1,000, trophy, certificate
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
 
             {/* Real Prize Distribution Image Banner */}
-            <div style={{ marginTop: "48px", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "40px" }}>
-              <div style={{ flex: "1 1 480px" }}>
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "40px" }}>
+              <div style={{ flex: "1 1 460px" }}>
                 <div style={{ position: "relative", width: "100%", aspectRatio: "16/10", borderRadius: "20px", overflow: "hidden", boxShadow: "0 16px 36px rgba(0, 0, 0, 0.1)" }}>
                   <Image
                     src="/events/Brostal Event Vizag/01.jpg"
