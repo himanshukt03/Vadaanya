@@ -17,6 +17,7 @@ import { stories as fallbackStories } from "@/data/vadaanya/SuccessStoriesData";
 import { milestonesData as fallbackMilestones } from "@/data/vadaanya/MilestonesData";
 import { founderProfile as fallbackFounderProfile } from "@/data/vadaanya/FounderData";
 import { awardsData as fallbackAwards } from "@/data/vadaanya/AwardsData";
+import { fallbackTalentTestGallery } from "@/data/vadaanya/TalentTestData";
 
 /* ───────────────────────────────────────────────
    HERO SLIDES
@@ -347,6 +348,93 @@ export async function getGalleryEvents(): Promise<GalleryEventItem[]> {
     date: event.date,
     coverImage: event.coverImage,
     images: event.images,
+  }));
+}
+
+/* ───────────────────────────────────────────────
+   TALENT TEST GALLERY (ZERO DUPLICATION CDN)
+   ─────────────────────────────────────────────── */
+
+export const TALENT_TEST_GALLERY_QUERY = defineQuery(`
+  *[_type == "galleryEvent" && (category == "talent-test" || title match "*Talent Test*" || title match "*talent*")] | order(year desc, orderRank asc, _createdAt desc) {
+    _id,
+    title,
+    date,
+    category,
+    year,
+    subCategory,
+    coverImage {
+      asset-> {
+        _id,
+        url
+      },
+      crop,
+      hotspot
+    },
+    images[] {
+      asset-> {
+        _id,
+        url
+      },
+      crop,
+      hotspot
+    },
+    orderRank
+  }
+`);
+
+export interface TalentTestGalleryItem {
+  id: string;
+  title: string;
+  date: string;
+  year?: string;
+  subCategory?: string;
+  category?: string;
+  coverImage: string;
+  images: string[];
+}
+
+export async function getTalentTestGalleryEvents(): Promise<TalentTestGalleryItem[]> {
+  try {
+    const sanityData = await sanityClient.fetch(
+      TALENT_TEST_GALLERY_QUERY,
+      {},
+      { next: { revalidate: 3600 } }
+    );
+
+    if (sanityData && sanityData.length > 0) {
+      return sanityData.map((event: any) => ({
+        id: event._id,
+        title: event.title || "",
+        date: event.date || "",
+        year: event.year || undefined,
+        subCategory: event.subCategory || undefined,
+        category: event.category || "talent-test",
+        coverImage: event.coverImage
+          ? urlFor(event.coverImage).width(1200).auto("format").quality(92).url()
+          : "/vadaanya_team.jpeg",
+        images: (event.images || [])
+          .map((img: any) =>
+            img?.asset?.url
+              ? urlFor(img).width(2000).auto("format").quality(95).url()
+              : ""
+          )
+          .filter(Boolean),
+      }));
+    }
+  } catch (err) {
+    console.error("Failed to fetch Sanity talent test gallery events:", err);
+  }
+
+  return fallbackTalentTestGallery.map((album) => ({
+    id: album.id,
+    title: album.title,
+    date: album.date,
+    year: album.year,
+    subCategory: album.subCategory,
+    category: "talent-test",
+    coverImage: album.coverImage,
+    images: album.images,
   }));
 }
 

@@ -3,30 +3,33 @@ import Navbar from "@/components/vadaanya/Navbar";
 import TalentTestPage from "@/components/vadaanya/TalentTestPage";
 import Footer from "@/components/vadaanya/Footer";
 import ScrollToTop from "@/components/common/ScrollToTop";
-
+import { getTalentTestGalleryEvents } from "@/lib/sanity/queries";
 import JsonLd, { getBreadcrumbJsonLd } from "@/components/common/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Talent Test",
+  title: "Srinivasa Ramanujan Talent Test | Vadaanya Janaa Society",
   description:
-    "Register for the annual Srinivasa Ramanujan Talent Test for government school students across Anantapur and Sri Sathya Sai districts. Download hall tickets instantly.",
+    "Annual talent test for rural government school students across Andhra Pradesh & Telangana. Download 5-Year Question Papers & Solutions Booklet (2021-2025), view 3-tier awards, IIT alumni, and pre-register for 2026.",
   keywords: [
     "Srinivasa Ramanujan Talent Test",
     "Vadaanya Talent Test",
-    "Talent Test Hall Ticket",
+    "Talent Test Question Papers Booklet",
     "Government School Talent Test India",
     "Sri Sathya Sai Anantapur Talent Test",
+    "Talent Test Hall Ticket",
   ],
   alternates: { canonical: "https://vadaanya.org/talent-test" },
   openGraph: {
-    title: "Talent Test | Vadaanya",
+    title: "Srinivasa Ramanujan Talent Test | 5 Years of Grassroots Impact",
     description:
-      "Annual talent test for government school students across India. Instant hall ticket download.",
+      "15,000+ students tested, 500+ rewarded, 3 IIT-JEE selections. Download 5-year question paper booklet and explore photo archives.",
     url: "https://vadaanya.org/talent-test",
   },
 };
 
-export default function Page() {
+export default async function Page() {
+  const galleryAlbums = await getTalentTestGalleryEvents();
+
   const breadcrumbLd = getBreadcrumbJsonLd([
     { name: "Home", url: "https://vadaanya.org" },
     { name: "Talent Test", url: "https://vadaanya.org/talent-test" },
@@ -37,7 +40,7 @@ export default function Page() {
       <JsonLd data={breadcrumbLd} />
       <Navbar />
       <main id="top">
-        <TalentTestPage />
+        <TalentTestPage galleryAlbums={galleryAlbums} />
       </main>
       <Footer />
       <ScrollToTop />
