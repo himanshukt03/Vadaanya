@@ -51,7 +51,20 @@ const ScrollToTop = () => {
          aria-label="Scroll to top"
          data-target="html"
       >
-         <i className="fas fa-chevron-up" aria-hidden="true"></i>
+         <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#ffffff"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+            style={{ display: "block", margin: "auto" }}
+         >
+            <polyline points="18 15 12 9 6 15" />
+         </svg>
       </button>
    );
 };

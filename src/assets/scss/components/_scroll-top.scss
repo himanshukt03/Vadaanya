@@ -24,6 +24,11 @@
 	visibility: hidden;
 	transition: all 0.4s ease;
 	border: none;
+	svg {
+		stroke: #ffffff;
+		display: block;
+		margin: auto;
+	}
     @media #{$lg} {
         right: 25px;
     }
