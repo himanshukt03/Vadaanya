@@ -925,7 +925,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
               </span>
               <h2
                 style={{
-                  fontSize: "clamp(22px, 2.4vw, 34px)",
+                  fontSize: "clamp(24px, 2.6vw, 36px)",
                   margin: "10px 0 12px",
                   color: "#ffffff",
                   fontWeight: 800,
@@ -935,34 +935,26 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
               >
                 From Government Classrooms to IITs
               </h2>
-              <p className="vad-lead" style={{ color: "#cbd5e1", fontSize: "16px", maxWidth: "720px", margin: "0 auto" }}>
-                Jugesh Kumar (AIR 377), Thulasi Karthik (AIR 2619) and Yaswanth Kumar (AIR 3563) — Vadaanya Talent Test alumni who proved that rural government-school talent can conquer India&apos;s toughest entrance exams with the right mentorship.
+              <p className="vad-lead" style={{ color: "#94a3b8", fontSize: "16px", maxWidth: "680px", margin: "0 auto", lineHeight: 1.6 }}>
+                Vadaanya Talent Test scholars who proved that rural government-school students can crack India&apos;s toughest entrance exams with the right mentorship.
               </p>
             </div>
 
-            <div className="vad-tt-fame__grid">
+            <div className="vad-scholar-grid">
               {iitAlumni.map((alum, idx) => (
-                <div key={idx} className="vad-tt-fame__card">
-                  <div className="vad-tt-fame__rank-badge">{alum.airRank}</div>
-                  <div className="vad-tt-fame__cat-rank">{alum.categoryRank}</div>
-
-                  <div className="vad-tt-fame__avatar">
-                    <span className="vad-tt-fame__initials">
-                      {alum.name
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")}
-                    </span>
+                <div key={idx} className="vad-scholar-card">
+                  <div className="vad-scholar-card__rank-row">
+                    <span className="vad-scholar-card__air">{alum.airRank}</span>
+                    <span className="vad-scholar-card__cat">{alum.categoryRank}</span>
                   </div>
 
-                  <h3 className="vad-tt-fame__name">{alum.name}</h3>
-                  <span className="vad-tt-fame__college">{alum.college}</span>
-                  <p className="vad-tt-fame__bio">{alum.bio}</p>
+                  <h3 className="vad-scholar-card__name">{alum.name}</h3>
+                  <span className="vad-scholar-card__college">{alum.college}</span>
 
                   {alum.quote && (
-                    <blockquote className="vad-tt-fame__quote">
+                    <p className="vad-scholar-card__quote">
                       &ldquo;{alum.quote}&rdquo;
-                    </blockquote>
+                    </p>
                   )}
                 </div>
               ))}
