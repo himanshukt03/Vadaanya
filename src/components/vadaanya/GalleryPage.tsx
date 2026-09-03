@@ -545,7 +545,7 @@ export default function GalleryPage({
 
               {/* TAB 4: CAMPAIGN POSTERS */}
               {activeTab === "posters" && (
-                <div className="vad-media-grid">
+                <div className="vad-posters-grid">
                   {campaignPosters.map((poster) => (
                     <div
                       key={poster.id}
@@ -565,53 +565,29 @@ export default function GalleryPage({
                           src={poster.posterImage}
                           alt={poster.alt || poster.title}
                           fill
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
+                          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 240px"
                           quality={85}
                           className="vad-poster-img"
                           placeholder={poster.blurDataUrl ? "blur" : "empty"}
                           blurDataURL={poster.blurDataUrl}
                         />
-                        {poster.date && (
-                          <div
-                            style={{
-                              position: "absolute",
-                              bottom: 0,
-                              left: 0,
-                              right: 0,
-                              padding: "10px 14px",
-                              background: "linear-gradient(transparent, rgba(10, 16, 48, 0.85))",
-                              color: "white",
-                            }}
-                          >
-                            <span style={{ fontSize: "12px", color: "var(--vad-gold)", fontWeight: 700 }}>
-                              {poster.date}
-                            </span>
-                          </div>
-                        )}
                       </div>
 
                       <div className="vad-poster-card__body">
-                        <div>
-                          <h3 className="vad-poster-card__title">
-                            {poster.title}
-                          </h3>
-                          {poster.description && (
-                            <p className="vad-poster-card__desc">
-                              {poster.description}
-                            </p>
-                          )}
-                        </div>
-
-                        <div className="vad-poster-card__footer">
-                          <span style={{ fontSize: "13px", fontWeight: 700, color: "var(--vad-gold-deep, #C0820C)", display: "inline-flex", alignItems: "center", gap: "4px" }}>
-                            View Poster Details &rarr;
+                        <h3 className="vad-poster-card__title">
+                          {poster.title}
+                        </h3>
+                        {poster.date && (
+                          <span className="vad-poster-card__date">
+                            {poster.date}
                           </span>
-                        </div>
+                        )}
                       </div>
                     </div>
                   ))}
                 </div>
               )}
+
 
               {/* TAB 5: YOUTUBE */}
               {activeTab === "youtube" && (
