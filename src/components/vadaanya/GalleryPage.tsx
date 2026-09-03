@@ -595,14 +595,16 @@ export default function GalleryPage({
                       </div>
 
                       <div className="vad-poster-card__body">
-                        <h3 className="vad-poster-card__title">
-                          {poster.title}
-                        </h3>
-                        {poster.date && (
-                          <span className="vad-poster-card__date">
-                            {poster.date}
-                          </span>
-                        )}
+                        <div className="vad-poster-card__header-row">
+                          <h3 className="vad-poster-card__title">
+                            {poster.title}
+                          </h3>
+                          {poster.date && (
+                            <span className="vad-poster-card__date-badge">
+                              {poster.date}
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
                   ))}
