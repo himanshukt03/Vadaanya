@@ -160,9 +160,9 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
         <div className="vad-container">
           <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
             {/* Split Row: Left Details & Right Full-Span Image */}
-            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "48px" }}>
-              {/* Left Column: Decreased / Concise Text & Single CTA */}
-              <div style={{ flex: "1 1 480px" }}>
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "40px" }}>
+              {/* Left Column: Text */}
+              <div style={{ flex: "1 1 420px" }}>
                 <span className="vad-eyebrow vad-eyebrow--dark">Our Annual Flagship Exam</span>
                 <h2
                   style={{
@@ -190,30 +190,18 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                   For five consecutive years (2021–2025), Vadaanya Janaa Society has conducted the <strong>Vadaanya Talent Test</strong> — an offline, standardized OMR examination provided 100% free of charge to thousands of government school students across Andhra Pradesh and Telangana.
                 </p>
 
-                <p style={{ fontSize: "16px", color: "var(--vad-ink)", lineHeight: 1.75, marginBottom: "26px" }}>
+                <p style={{ fontSize: "16px", color: "var(--vad-ink)", lineHeight: 1.75, margin: 0 }}>
                   Over <strong>15,000 students</strong> have taken part, with <strong>500+ deserving scholars</strong> awarded district and mandal cash prizes, trophies, and continuous scholarships all the way from rural village classrooms to premier institutions like IITs and NITs.
                 </p>
-
-                <div>
-                  <a
-                    href={pdfUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="vad-btn vad-btn--gold"
-                  >
-                    <BookOpenIcon />
-                    <span>Open 5-Year Booklet (PDF) ↗</span>
-                  </a>
-                </div>
               </div>
 
-              {/* Right Column: Image Aligned to the Entirety of the Section */}
-              <div style={{ flex: "1 1 440px", position: "relative" }}>
+              {/* Right Column: Wider Image */}
+              <div style={{ flex: "1 1 520px", position: "relative" }}>
                 <div
                   style={{
                     position: "relative",
                     width: "100%",
-                    aspectRatio: "4 / 3.1",
+                    aspectRatio: "16 / 10.5",
                     borderRadius: "24px",
                     overflow: "hidden",
                     boxShadow: "0 20px 40px rgba(0, 0, 0, 0.12)",
@@ -224,7 +212,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                     alt="Students taking the Vadaanya Talent Test"
                     fill
                     priority
-                    sizes="(max-width: 768px) 100vw, 480px"
+                    sizes="(max-width: 768px) 100vw, 600px"
                     style={{ objectFit: "cover" }}
                   />
                 </div>
