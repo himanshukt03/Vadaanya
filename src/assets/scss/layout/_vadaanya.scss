@@ -3365,13 +3365,30 @@ img {
   }
 }
 
+.vad-announcements-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  width: 100%;
+
+  @media (max-width: 960px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 .vad-announcements-slide {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 2px 12px 2px 0;
+  padding: 2px 14px 2px 0;
+  border-right: 1px solid #f1f5f9;
   height: 100%;
   box-sizing: border-box;
+
+  &:last-child {
+    border-right: none;
+    padding-right: 0;
+  }
 
   &__title {
     font-size: 13.5px;

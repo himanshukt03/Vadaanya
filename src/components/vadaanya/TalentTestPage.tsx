@@ -1,14 +1,8 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay } from "swiper/modules";
-import type { Swiper as SwiperType } from "swiper";
-
-import "swiper/css";
-import "swiper/css/navigation";
 
 import {
   talentTestStats,
@@ -87,7 +81,22 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
   };
 
   const pdfUrl = "/talent-test/vadaanya-talent-test-booklet.pdf";
-  const announcementsSwiperRef = useRef<SwiperType | null>(null);
+  const [announcementIdx, setAnnouncementIdx] = useState(0);
+
+  const nextAnnouncement = () => {
+    setAnnouncementIdx((prev) => (prev + 1) % liveAnnouncements.length);
+  };
+
+  const prevAnnouncement = () => {
+    setAnnouncementIdx((prev) => (prev - 1 + liveAnnouncements.length) % liveAnnouncements.length);
+  };
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setAnnouncementIdx((prev) => (prev + 1) % liveAnnouncements.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   const liveAnnouncements = [
     {
@@ -241,7 +250,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                 <div style={{ display: "flex", gap: "6px" }}>
                   <button
                     type="button"
-                    onClick={() => announcementsSwiperRef.current?.slidePrev()}
+                    onClick={prevAnnouncement}
                     aria-label="Previous announcement"
                     className="vad-announcements-nav-btn"
                   >
@@ -251,7 +260,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                   </button>
                   <button
                     type="button"
-                    onClick={() => announcementsSwiperRef.current?.slideNext()}
+                    onClick={nextAnnouncement}
                     aria-label="Next announcement"
                     className="vad-announcements-nav-btn"
                   >
@@ -262,62 +271,49 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                 </div>
               </div>
 
-              {/* 1. DESKTOP / TABLET VIEW: Non-Boxy Sleek Multi-Slide Swiper */}
+              {/* 1. DESKTOP / TABLET VIEW: Instant Pure CSS Grid (Zero Flash / Double Loading) */}
               <div className="vad-announcements-desktop">
-                <Swiper
-                  modules={[Navigation, Autoplay]}
-                  spaceBetween={18}
-                  slidesPerView={3}
-                  loop={true}
-                  autoplay={{ delay: 4500, disableOnInteraction: false, pauseOnMouseEnter: true }}
-                  onSwiper={(swiper) => {
-                    announcementsSwiperRef.current = swiper;
-                  }}
-                  breakpoints={{
-                    0: { slidesPerView: 1, spaceBetween: 10 },
-                    600: { slidesPerView: 2, spaceBetween: 14 },
-                    960: { slidesPerView: 3, spaceBetween: 18 },
-                  }}
-                  style={{ width: "100%" }}
-                >
-                  {liveAnnouncements.map((item) => (
-                    <SwiperSlide key={item.id} style={{ height: "auto" }}>
-                      <div className="vad-announcements-slide">
-                        <div>
-                          <h4 className="vad-announcements-slide__title">
-                            {item.title}
-                          </h4>
-                          <p className="vad-announcements-slide__desc">
-                            {item.desc}
-                          </p>
-                        </div>
-
-                        <div className="vad-announcements-slide__action">
-                          {item.actionType === "modal" ? (
-                            <button
-                              type="button"
-                              onClick={() => setIsRegModalOpen(true)}
-                            >
-                              <span>{item.actionLabel}</span>
-                            </button>
-                          ) : item.actionType === "link" ? (
-                            <a
-                              href={item.href}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <span>{item.actionLabel}</span>
-                            </a>
-                          ) : (
-                            <a href={item.href}>
-                              <span>{item.actionLabel}</span>
-                            </a>
-                          )}
-                        </div>
+                <div className="vad-announcements-grid">
+                  {[
+                    liveAnnouncements[announcementIdx % liveAnnouncements.length],
+                    liveAnnouncements[(announcementIdx + 1) % liveAnnouncements.length],
+                    liveAnnouncements[(announcementIdx + 2) % liveAnnouncements.length],
+                  ].map((item, idx) => (
+                    <div key={`${item.id}-${idx}`} className="vad-announcements-slide">
+                      <div>
+                        <h4 className="vad-announcements-slide__title">
+                          {item.title}
+                        </h4>
+                        <p className="vad-announcements-slide__desc">
+                          {item.desc}
+                        </p>
                       </div>
-                    </SwiperSlide>
+
+                      <div className="vad-announcements-slide__action">
+                        {item.actionType === "modal" ? (
+                          <button
+                            type="button"
+                            onClick={() => setIsRegModalOpen(true)}
+                          >
+                            <span>{item.actionLabel}</span>
+                          </button>
+                        ) : item.actionType === "link" ? (
+                          <a
+                            href={item.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <span>{item.actionLabel}</span>
+                          </a>
+                        ) : (
+                          <a href={item.href}>
+                            <span>{item.actionLabel}</span>
+                          </a>
+                        )}
+                      </div>
+                    </div>
                   ))}
-                </Swiper>
+                </div>
               </div>
 
               {/* 2. MOBILE VIEW: Compact Borderless List */}
