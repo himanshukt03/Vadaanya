@@ -3345,6 +3345,15 @@ img {
   border-bottom: 1px solid #f1f5f9;
 }
 
+.vad-announcements-nav {
+  display: flex;
+  gap: 6px;
+
+  @media (max-width: 640px) {
+    display: none !important;
+  }
+}
+
 .vad-announcements-nav-btn {
   width: 26px;
   height: 26px;
@@ -3365,29 +3374,39 @@ img {
   }
 }
 
-.vad-announcements-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+.vad-announcements-desktop {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+}
+
+.vad-announcements-viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.vad-announcements-track {
+  display: flex;
   gap: 18px;
   width: 100%;
-
-  @media (max-width: 960px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  will-change: transform;
 }
 
 .vad-announcements-slide {
+  flex: 0 0 calc((100% - 36px) / 3);
+  max-width: calc((100% - 36px) / 3);
+  min-width: calc((100% - 36px) / 3);
+  box-sizing: border-box;
+  padding: 2px 14px 2px 0;
+  border-right: 1px solid #f1f5f9;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 2px 14px 2px 0;
-  border-right: 1px solid #f1f5f9;
-  height: 100%;
-  box-sizing: border-box;
 
-  &:last-child {
-    border-right: none;
-    padding-right: 0;
+  @media (max-width: 960px) {
+    flex: 0 0 calc((100% - 18px) / 2);
+    max-width: calc((100% - 18px) / 2);
+    min-width: calc((100% - 18px) / 2);
   }
 
   &__title {

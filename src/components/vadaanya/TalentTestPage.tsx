@@ -82,21 +82,37 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
 
   const pdfUrl = "/talent-test/vadaanya-talent-test-booklet.pdf";
   const [announcementIdx, setAnnouncementIdx] = useState(0);
+  const [enableTransition, setEnableTransition] = useState(true);
+
+  const totalAnnouncements = 5;
 
   const nextAnnouncement = () => {
-    setAnnouncementIdx((prev) => (prev + 1) % liveAnnouncements.length);
+    setEnableTransition(true);
+    setAnnouncementIdx((prev) => prev + 1);
   };
 
   const prevAnnouncement = () => {
-    setAnnouncementIdx((prev) => (prev - 1 + liveAnnouncements.length) % liveAnnouncements.length);
+    setEnableTransition(true);
+    setAnnouncementIdx((prev) => (prev === 0 ? totalAnnouncements - 1 : prev - 1));
   };
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setAnnouncementIdx((prev) => (prev + 1) % liveAnnouncements.length);
-    }, 5000);
+      setEnableTransition(true);
+      setAnnouncementIdx((prev) => prev + 1);
+    }, 4500);
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    if (announcementIdx === totalAnnouncements) {
+      const timeout = setTimeout(() => {
+        setEnableTransition(false);
+        setAnnouncementIdx(0);
+      }, 550);
+      return () => clearTimeout(timeout);
+    }
+  }, [announcementIdx]);
 
   const liveAnnouncements = [
     {
@@ -247,7 +263,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                   </span>
                 </div>
 
-                <div style={{ display: "flex", gap: "6px" }}>
+                <div className="vad-announcements-nav">
                   <button
                     type="button"
                     onClick={prevAnnouncement}
@@ -271,48 +287,52 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                 </div>
               </div>
 
-              {/* 1. DESKTOP / TABLET VIEW: Instant Pure CSS Grid (Zero Flash / Double Loading) */}
+              {/* 1. DESKTOP / TABLET VIEW: Smooth Sliding Track */}
               <div className="vad-announcements-desktop">
-                <div className="vad-announcements-grid">
-                  {[
-                    liveAnnouncements[announcementIdx % liveAnnouncements.length],
-                    liveAnnouncements[(announcementIdx + 1) % liveAnnouncements.length],
-                    liveAnnouncements[(announcementIdx + 2) % liveAnnouncements.length],
-                  ].map((item, idx) => (
-                    <div key={`${item.id}-${idx}`} className="vad-announcements-slide">
-                      <div>
-                        <h4 className="vad-announcements-slide__title">
-                          {item.title}
-                        </h4>
-                        <p className="vad-announcements-slide__desc">
-                          {item.desc}
-                        </p>
-                      </div>
+                <div className="vad-announcements-viewport">
+                  <div
+                    className="vad-announcements-track"
+                    style={{
+                      transform: `translateX(calc(-${announcementIdx} * ((100% - 36px) / 3 + 18px)))`,
+                      transition: enableTransition ? "transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)" : "none",
+                    }}
+                  >
+                    {[...liveAnnouncements, ...liveAnnouncements.slice(0, 3)].map((item, idx) => (
+                      <div key={`${item.id}-${idx}`} className="vad-announcements-slide">
+                        <div>
+                          <h4 className="vad-announcements-slide__title">
+                            {item.title}
+                          </h4>
+                          <p className="vad-announcements-slide__desc">
+                            {item.desc}
+                          </p>
+                        </div>
 
-                      <div className="vad-announcements-slide__action">
-                        {item.actionType === "modal" ? (
-                          <button
-                            type="button"
-                            onClick={() => setIsRegModalOpen(true)}
-                          >
-                            <span>{item.actionLabel}</span>
-                          </button>
-                        ) : item.actionType === "link" ? (
-                          <a
-                            href={item.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <span>{item.actionLabel}</span>
-                          </a>
-                        ) : (
-                          <a href={item.href}>
-                            <span>{item.actionLabel}</span>
-                          </a>
-                        )}
+                        <div className="vad-announcements-slide__action">
+                          {item.actionType === "modal" ? (
+                            <button
+                              type="button"
+                              onClick={() => setIsRegModalOpen(true)}
+                            >
+                              <span>{item.actionLabel}</span>
+                            </button>
+                          ) : item.actionType === "link" ? (
+                            <a
+                              href={item.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <span>{item.actionLabel}</span>
+                            </a>
+                          ) : (
+                            <a href={item.href}>
+                              <span>{item.actionLabel}</span>
+                            </a>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
 
