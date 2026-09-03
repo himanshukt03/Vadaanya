@@ -3178,57 +3178,52 @@ img {
   }
 }
 
-// Campaign Posters Grid & Card Styles (Compact, Small & Centered)
+// Campaign Posters Grid & Card Styles (Centered, High-Visibility)
 .vad-posters-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  gap: 24px;
   width: 100%;
 
   .vad-poster-card {
-    flex: 0 0 calc(20% - 16px);
-    max-width: 230px;
-    min-width: 180px;
+    flex: 0 0 calc(25% - 18px);
+    max-width: 290px;
+    min-width: 230px;
 
-    @media (max-width: 1200px) {
-      flex: 0 0 calc(25% - 15px);
-      max-width: 240px;
+    @media (max-width: 1100px) {
+      flex: 0 0 calc(33.333% - 16px);
+      max-width: 280px;
     }
 
-    @media (max-width: 900px) {
-      flex: 0 0 calc(33.333% - 14px);
-      max-width: 240px;
-    }
-
-    @media (max-width: 640px) {
-      flex: 0 0 calc(50% - 10px);
-      max-width: calc(50% - 10px);
+    @media (max-width: 768px) {
+      flex: 0 0 calc(50% - 12px);
+      max-width: calc(50% - 12px);
       min-width: 0;
     }
 
-    @media (max-width: 360px) {
+    @media (max-width: 440px) {
       flex: 0 0 100%;
-      max-width: 100%;
+      max-width: 320px;
     }
   }
 }
 
 .vad-poster-card {
   background: #ffffff;
-  border-radius: 14px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.07);
   display: flex;
   flex-direction: column;
   cursor: pointer;
   transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 0.3s ease;
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 14px 30px rgba(10, 16, 48, 0.12);
-    border-color: rgba(10, 16, 48, 0.15);
+    transform: translateY(-6px);
+    box-shadow: 0 16px 36px rgba(10, 16, 48, 0.14);
+    border-color: rgba(10, 16, 48, 0.18);
 
     .vad-poster-img {
       transform: scale(1.03);
@@ -3238,9 +3233,9 @@ img {
   &__img-wrap {
     position: relative;
     width: 100%;
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 3 / 4.1;
     overflow: hidden;
-    background: #f1f5f9;
+    background: #0f172a;
   }
 
   .vad-poster-img {
@@ -3249,7 +3244,7 @@ img {
   }
 
   &__body {
-    padding: 12px 14px 14px;
+    padding: 16px 18px 18px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -3258,8 +3253,8 @@ img {
 
   &__title {
     margin: 0;
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 15px;
+    font-weight: 800;
     color: var(--vad-navy-950, #0a1030);
     line-height: 1.35;
     display: -webkit-box;
@@ -3269,49 +3264,49 @@ img {
   }
 
   &__date {
-    margin-top: 4px;
-    font-size: 11.5px;
-    font-weight: 600;
+    margin-top: 6px;
+    font-size: 12.5px;
+    font-weight: 700;
     color: var(--vad-gold-dark, #d97706);
   }
 }
 
-// Poster Modal
+// Poster Modal (Centered Image on Top, Title & Description Below)
 .vad-poster-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(10, 16, 48, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(10, 16, 48, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   z-index: 99999;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 24px 16px;
   animation: vadFadeIn 0.25s ease;
-
-  @media (max-width: 640px) {
-    padding: 14px;
-  }
+  overflow-y: auto;
 }
 
 .vad-poster-modal-content {
   background: #ffffff;
   border-radius: 20px;
-  max-width: 880px;
+  max-width: 640px;
   width: 100%;
-  max-height: 90vh;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+  max-height: 92vh;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
   position: relative;
   display: flex;
-  flex-direction: row;
-  overflow: hidden;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
   animation: vadScaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
-  @media (max-width: 768px) {
-    flex-direction: column;
-    max-height: 85vh;
-    overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 9999px;
   }
 }
 
