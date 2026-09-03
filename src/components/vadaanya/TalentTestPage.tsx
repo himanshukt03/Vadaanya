@@ -219,19 +219,10 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
               </div>
             </div>
 
-            {/* Horizontal Announcements (Carousel on Desktop/Tablet, Compact List on Mobile) */}
+            {/* Horizontal Announcements Bar (Sleek, Non-Boxy, Compact) */}
             <div className="vad-announcements-box">
-              {/* Header: Title only, clean and simple */}
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  marginBottom: "14px",
-                  borderBottom: "1px solid #f1f5f9",
-                  paddingBottom: "10px",
-                }}
-              >
+              {/* Header: Title on Left, Mini Nav Arrows on Right */}
+              <div className="vad-announcements-header">
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                   <span className="vad-tt-feed-panel__pulse" aria-hidden="true" />
                   <span
@@ -246,234 +237,96 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                     Live Announcements
                   </span>
                 </div>
-              </div>
 
-              {/* 1. DESKTOP / TABLET VIEW: Carousel with Side Arrows */}
-              <div className="vad-announcements-desktop">
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "10px",
-                    position: "relative",
-                  }}
-                >
-                  {/* Left Side Arrow */}
+                <div style={{ display: "flex", gap: "6px" }}>
                   <button
                     type="button"
                     onClick={() => announcementsSwiperRef.current?.slidePrev()}
                     aria-label="Previous announcement"
-                    style={{
-                      flexShrink: 0,
-                      width: "36px",
-                      height: "36px",
-                      borderRadius: "50%",
-                      background: "#f8fafc",
-                      border: "1px solid #e2e8f0",
-                      color: "#334155",
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      transition: "all 0.2s ease",
-                      boxShadow: "0 2px 6px rgba(0, 0, 0, 0.04)",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = "var(--vad-navy-950, #0a1030)";
-                      e.currentTarget.style.color = "#ffffff";
-                      e.currentTarget.style.borderColor = "var(--vad-navy-950, #0a1030)";
-                      e.currentTarget.style.transform = "scale(1.05)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = "#f8fafc";
-                      e.currentTarget.style.color = "#334155";
-                      e.currentTarget.style.borderColor = "#e2e8f0";
-                      e.currentTarget.style.transform = "scale(1)";
-                    }}
+                    className="vad-announcements-nav-btn"
                   >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <polyline points="15 18 9 12 15 6" />
                     </svg>
                   </button>
-
-                  {/* Swiper Slider */}
-                  <div style={{ flex: 1, minWidth: 0, overflow: "hidden" }}>
-                    <Swiper
-                      modules={[Navigation, Autoplay]}
-                      spaceBetween={14}
-                      slidesPerView={3}
-                      loop={true}
-                      autoplay={{ delay: 4500, disableOnInteraction: false, pauseOnMouseEnter: true }}
-                      onSwiper={(swiper) => {
-                        announcementsSwiperRef.current = swiper;
-                      }}
-                      breakpoints={{
-                        0: { slidesPerView: 1, spaceBetween: 10 },
-                        600: { slidesPerView: 2, spaceBetween: 12 },
-                        960: { slidesPerView: 3, spaceBetween: 14 },
-                      }}
-                      style={{ width: "100%" }}
-                    >
-                      {liveAnnouncements.map((item) => (
-                        <SwiperSlide key={item.id} style={{ height: "auto" }}>
-                          <div
-                            style={{
-                              background: "#f8fafc",
-                              padding: "14px 16px",
-                              borderRadius: "14px",
-                              border: "1px solid #e2e8f0",
-                              display: "flex",
-                              flexDirection: "column",
-                              justifyContent: "space-between",
-                              height: "100%",
-                              minHeight: "128px",
-                              boxSizing: "border-box",
-                              transition: "all 0.2s ease",
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.background = "#ffffff";
-                              e.currentTarget.style.borderColor = "#cbd5e1";
-                              e.currentTarget.style.boxShadow = "0 6px 16px rgba(10, 16, 48, 0.08)";
-                              e.currentTarget.style.transform = "translateY(-2px)";
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.background = "#f8fafc";
-                              e.currentTarget.style.borderColor = "#e2e8f0";
-                              e.currentTarget.style.boxShadow = "none";
-                              e.currentTarget.style.transform = "translateY(0)";
-                            }}
-                          >
-                            <div>
-                              <strong
-                                style={{
-                                  display: "block",
-                                  fontSize: "13px",
-                                  color: "var(--vad-navy-950, #0a1030)",
-                                  marginBottom: "5px",
-                                  lineHeight: 1.35,
-                                  fontWeight: 700,
-                                }}
-                              >
-                                {item.title}
-                              </strong>
-                              <p
-                                style={{
-                                  fontSize: "12px",
-                                  color: "#64748b",
-                                  margin: "0 0 10px",
-                                  lineHeight: 1.45,
-                                }}
-                              >
-                                {item.desc}
-                              </p>
-                            </div>
-
-                            {item.actionType === "modal" ? (
-                              <button
-                                type="button"
-                                onClick={() => setIsRegModalOpen(true)}
-                                style={{
-                                  background: "none",
-                                  border: "none",
-                                  padding: 0,
-                                  fontSize: "11.5px",
-                                  fontWeight: 700,
-                                  color: "var(--vad-gold-dark, #d97706)",
-                                  cursor: "pointer",
-                                  textAlign: "left",
-                                  display: "inline-flex",
-                                  alignItems: "center",
-                                  gap: "4px",
-                                }}
-                              >
-                                {item.actionLabel}
-                              </button>
-                            ) : item.actionType === "link" ? (
-                              <a
-                                href={item.href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{
-                                  fontSize: "11.5px",
-                                  fontWeight: 700,
-                                  color: "var(--vad-gold-dark, #d97706)",
-                                  textDecoration: "none",
-                                  display: "inline-flex",
-                                  alignItems: "center",
-                                  gap: "4px",
-                                }}
-                              >
-                                {item.actionLabel}
-                              </a>
-                            ) : (
-                              <a
-                                href={item.href}
-                                style={{
-                                  fontSize: "11.5px",
-                                  fontWeight: 700,
-                                  color: "var(--vad-gold-dark, #d97706)",
-                                  textDecoration: "none",
-                                  display: "inline-flex",
-                                  alignItems: "center",
-                                  gap: "4px",
-                                }}
-                              >
-                                {item.actionLabel}
-                              </a>
-                            )}
-                          </div>
-                        </SwiperSlide>
-                      ))}
-                    </Swiper>
-                  </div>
-
-                  {/* Right Side Arrow */}
                   <button
                     type="button"
                     onClick={() => announcementsSwiperRef.current?.slideNext()}
                     aria-label="Next announcement"
-                    style={{
-                      flexShrink: 0,
-                      width: "36px",
-                      height: "36px",
-                      borderRadius: "50%",
-                      background: "#f8fafc",
-                      border: "1px solid #e2e8f0",
-                      color: "#334155",
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      transition: "all 0.2s ease",
-                      boxShadow: "0 2px 6px rgba(0, 0, 0, 0.04)",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = "var(--vad-navy-950, #0a1030)";
-                      e.currentTarget.style.color = "#ffffff";
-                      e.currentTarget.style.borderColor = "var(--vad-navy-950, #0a1030)";
-                      e.currentTarget.style.transform = "scale(1.05)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = "#f8fafc";
-                      e.currentTarget.style.color = "#334155";
-                      e.currentTarget.style.borderColor = "#e2e8f0";
-                      e.currentTarget.style.transform = "scale(1)";
-                    }}
+                    className="vad-announcements-nav-btn"
                   >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <polyline points="9 18 15 12 9 6" />
                     </svg>
                   </button>
                 </div>
               </div>
 
-              {/* 2. MOBILE VIEW: Compact List */}
+              {/* 1. DESKTOP / TABLET VIEW: Non-Boxy Sleek Multi-Slide Swiper */}
+              <div className="vad-announcements-desktop">
+                <Swiper
+                  modules={[Navigation, Autoplay]}
+                  spaceBetween={18}
+                  slidesPerView={3}
+                  loop={true}
+                  autoplay={{ delay: 4500, disableOnInteraction: false, pauseOnMouseEnter: true }}
+                  onSwiper={(swiper) => {
+                    announcementsSwiperRef.current = swiper;
+                  }}
+                  breakpoints={{
+                    0: { slidesPerView: 1, spaceBetween: 10 },
+                    600: { slidesPerView: 2, spaceBetween: 14 },
+                    960: { slidesPerView: 3, spaceBetween: 18 },
+                  }}
+                  style={{ width: "100%" }}
+                >
+                  {liveAnnouncements.map((item) => (
+                    <SwiperSlide key={item.id} style={{ height: "auto" }}>
+                      <div className="vad-announcements-slide">
+                        <div>
+                          <h4 className="vad-announcements-slide__title">
+                            {item.title}
+                          </h4>
+                          <p className="vad-announcements-slide__desc">
+                            {item.desc}
+                          </p>
+                        </div>
+
+                        <div className="vad-announcements-slide__action">
+                          {item.actionType === "modal" ? (
+                            <button
+                              type="button"
+                              onClick={() => setIsRegModalOpen(true)}
+                            >
+                              <span>{item.actionLabel}</span>
+                            </button>
+                          ) : item.actionType === "link" ? (
+                            <a
+                              href={item.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <span>{item.actionLabel}</span>
+                            </a>
+                          ) : (
+                            <a href={item.href}>
+                              <span>{item.actionLabel}</span>
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+
+              {/* 2. MOBILE VIEW: Compact Borderless List */}
               <div className="vad-announcements-mobile">
                 {liveAnnouncements.map((item) => (
                   <div key={item.id} className="vad-announcement-mobile-card">
-                    <h3 className="vad-announcement-mobile-card__title">
+                    <h4 className="vad-announcement-mobile-card__title">
                       {item.title}
-                    </h3>
+                    </h4>
                     <p className="vad-announcement-mobile-card__desc">
                       {item.desc}
                     </p>
@@ -483,7 +336,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                           type="button"
                           onClick={() => setIsRegModalOpen(true)}
                         >
-                          {item.actionLabel}
+                          <span>{item.actionLabel}</span>
                         </button>
                       ) : item.actionType === "link" ? (
                         <a
@@ -491,11 +344,11 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          {item.actionLabel}
+                          <span>{item.actionLabel}</span>
                         </a>
                       ) : (
                         <a href={item.href}>
-                          {item.actionLabel}
+                          <span>{item.actionLabel}</span>
                         </a>
                       )}
                     </div>
