@@ -4205,21 +4205,34 @@ img {
   }
 }
 
-// ---- Talent Test Gallery Grid (3 in desktop for symmetrical 3x2, 2 in tablet, 1 in mobile) ----
+// ---- Talent Test Gallery Grid (4 in a row on desktop, centered if 1, 2, or 3 cards) ----
 .vad-talent-gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 24px;
   width: 100%;
 
-  @media (max-width: 990px) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
+  .vad-talent-gallery-card {
+    flex: 0 0 calc(25% - 18px);
+    max-width: calc(25% - 18px);
+    min-width: 240px;
 
-  @media (max-width: 640px) {
-    grid-template-columns: 1fr;
-    gap: 18px;
+    @media (max-width: 1100px) {
+      flex: 0 0 calc(33.333% - 16px);
+      max-width: calc(33.333% - 16px);
+    }
+
+    @media (max-width: 820px) {
+      flex: 0 0 calc(50% - 12px);
+      max-width: calc(50% - 12px);
+    }
+
+    @media (max-width: 640px) {
+      flex: 0 0 100%;
+      max-width: 100%;
+      min-width: 100%;
+    }
   }
 }
 
