@@ -220,7 +220,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                   }}
                 >
                   <Image
-                    src="/events/Digital Teaching at High School/01-1.jpg"
+                    src="/talent-test/talent_hero.jpg"
                     alt="Students taking the Vadaanya Talent Test"
                     fill
                     priority
@@ -881,7 +881,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
               <div style={{ flex: "1 1 460px" }}>
                 <div style={{ position: "relative", width: "100%", aspectRatio: "16/10", borderRadius: "20px", overflow: "hidden", boxShadow: "0 16px 36px rgba(0, 0, 0, 0.1)" }}>
                   <Image
-                    src="/events/Brostal Event Vizag/01.jpg"
+                    src="/talent-test/talent_test_image.JPG"
                     alt="Talent Test Prize Distribution Ceremony"
                     fill
                     sizes="(max-width: 768px) 100vw, 480px"
