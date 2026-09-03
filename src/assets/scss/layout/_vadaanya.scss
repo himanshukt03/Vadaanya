@@ -4205,16 +4205,16 @@ img {
   }
 }
 
-// ---- Talent Test Gallery Grid (4 in desktop, 3 in tablet, 1 in mobile) ----
+// ---- Talent Test Gallery Grid (3 in desktop for symmetrical 3x2, 2 in tablet, 1 in mobile) ----
 .vad-talent-gallery-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   width: 100%;
 
-  @media (max-width: 1024px) {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
+  @media (max-width: 990px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 
   @media (max-width: 640px) {
