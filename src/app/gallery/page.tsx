@@ -4,20 +4,25 @@ import Wrapper from "@/layouts/Wrapper";
 import Navbar from "@/components/vadaanya/Navbar";
 import Footer from "@/components/vadaanya/Footer";
 import GalleryPageClient from "@/components/vadaanya/GalleryPageClient";
-import { getGalleryEvents, getPrintMediaCollections, getNewsArticles } from "@/lib/sanity/queries";
+import {
+  getGalleryEvents,
+  getPrintMediaCollections,
+  getNewsArticles,
+  getCampaignPosters,
+} from "@/lib/sanity/queries";
 
 import JsonLd, { getBreadcrumbJsonLd } from "@/components/common/JsonLd";
 
 export const metadata: Metadata = {
   title: "Media",
   description:
-    "Explore photos, newspaper clippings, and videos documenting Vadaanya Janaa Society's talent tests, laptop donations, and scholarship award ceremonies.",
-  keywords: ["Vadaanya media", "Vadaanya gallery", "education NGO photos", "print media press coverage"],
+    "Explore photos, newspaper clippings, videos, and campaign posters documenting Vadaanya Janaa Society's talent tests, laptop donations, and scholarship award ceremonies.",
+  keywords: ["Vadaanya media", "Vadaanya gallery", "education NGO photos", "print media press coverage", "campaign posters"],
   alternates: { canonical: "https://vadaanya.org/gallery" },
   openGraph: {
     title: "Media | Vadaanya",
     description:
-      "Photos, newspaper press clippings, and video coverage of Vadaanya events across India.",
+      "Photos, newspaper press clippings, campaign posters, and video coverage of Vadaanya events across India.",
     url: "https://vadaanya.org/gallery",
     siteName: "Vadaanya Janaa Society",
     locale: "en_IN",
@@ -34,7 +39,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Media | Vadaanya",
-    description: "Photos, newspaper press clippings, and video coverage of Vadaanya events across India.",
+    description: "Photos, newspaper press clippings, campaign posters, and video coverage of Vadaanya events across India.",
     images: ["https://vadaanya.org/og-image.png"],
   },
 };
@@ -43,6 +48,7 @@ export default async function Gallery() {
   const galleryEvents = await getGalleryEvents();
   const printMediaCollections = await getPrintMediaCollections();
   const newsItems = await getNewsArticles();
+  const campaignPosters = await getCampaignPosters();
 
   const breadcrumbLd = getBreadcrumbJsonLd([
     { name: "Home", url: "https://vadaanya.org" },
@@ -58,6 +64,7 @@ export default async function Gallery() {
           galleryEvents={galleryEvents}
           printMediaCollections={printMediaCollections}
           newsItems={newsItems}
+          campaignPosters={campaignPosters}
         />
       </main>
       <Footer />

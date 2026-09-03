@@ -9,6 +9,7 @@ import {
   successStorySchema,
   founderProfileSchema,
   awardSchema,
+  campaignPosterSchema,
 } from "./src/lib/sanity/schemas";
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "b4t4r5i2";
@@ -29,6 +30,7 @@ export default defineConfig({
       successStorySchema,
       founderProfileSchema,
       awardSchema,
+      campaignPosterSchema,
     ],
   },
 });

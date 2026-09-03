@@ -18,6 +18,7 @@ import { milestonesData as fallbackMilestones } from "@/data/vadaanya/Milestones
 import { founderProfile as fallbackFounderProfile } from "@/data/vadaanya/FounderData";
 import { awardsData as fallbackAwards } from "@/data/vadaanya/AwardsData";
 import { fallbackTalentTestGallery } from "@/data/vadaanya/TalentTestData";
+import { fallbackCampaignPosters } from "@/data/vadaanya/CampaignPostersData";
 
 /* ───────────────────────────────────────────────
    HERO SLIDES
@@ -1010,6 +1011,117 @@ export async function getHomeAbout(): Promise<HomeAboutItem> {
   }
 
   return fallbackData;
+}
+
+/* ───────────────────────────────────────────────
+   CAMPAIGN POSTERS
+   ─────────────────────────────────────────────── */
+
+export const CAMPAIGN_POSTERS_QUERY = defineQuery(`
+  *[_type == "campaignPoster"] | order(orderRank asc, _createdAt desc) {
+    _id,
+    title,
+    description,
+    date,
+    category,
+    posterImage {
+      asset-> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      crop,
+      hotspot,
+      alt
+    }
+  }
+`);
+
+export interface SanityCampaignPoster {
+  _id: string;
+  title: string;
+  description?: string;
+  date?: string;
+  category?: string;
+  posterImage?: {
+    asset?: {
+      _id: string;
+      url: string;
+      metadata?: {
+        lqip?: string;
+      };
+    };
+    crop?: {
+      top: number;
+      bottom: number;
+      left: number;
+      right: number;
+    };
+    hotspot?: {
+      x: number;
+      y: number;
+      height: number;
+      width: number;
+    };
+    alt?: string;
+  };
+}
+
+export interface CampaignPosterItem {
+  id: string;
+  title: string;
+  description: string;
+  posterImage: string;
+  alt: string;
+  date?: string;
+  category?: string;
+  blurDataUrl?: string;
+}
+
+export async function getCampaignPosters(): Promise<CampaignPosterItem[]> {
+  const fallback = fallbackCampaignPosters.map((poster) => ({
+    id: poster.id,
+    title: poster.title,
+    description: poster.description,
+    posterImage: poster.posterImage,
+    alt: poster.alt,
+    date: poster.date,
+    category: poster.category,
+    blurDataUrl: poster.blurDataUrl,
+  }));
+
+  try {
+    const sanityPosters: SanityCampaignPoster[] = await sanityClient.fetch(
+      CAMPAIGN_POSTERS_QUERY,
+      {},
+      { next: { revalidate: 3600 } }
+    );
+
+    if (sanityPosters && sanityPosters.length > 0) {
+      return sanityPosters.map((poster, index) => {
+        const imageUrl = poster.posterImage?.asset
+          ? urlFor(poster.posterImage).width(900).auto("format").quality(85).url()
+          : fallback[index % fallback.length]?.posterImage || "/talent-test/talent_hero.jpg";
+
+        return {
+          id: poster._id,
+          title: poster.title || `Campaign Poster ${index + 1}`,
+          description: poster.description || "",
+          posterImage: imageUrl,
+          alt: poster.posterImage?.alt || poster.title || "Vadaanya Campaign Poster",
+          date: poster.date,
+          category: poster.category,
+          blurDataUrl: poster.posterImage?.asset?.metadata?.lqip,
+        };
+      });
+    }
+  } catch (err) {
+    console.error("Failed to fetch Sanity campaign posters on server:", err);
+  }
+
+  return fallback;
 }
 
 

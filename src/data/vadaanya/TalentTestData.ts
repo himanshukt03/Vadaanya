@@ -74,7 +74,7 @@ export const talentTestStats: TalentTestStat[] = [
   },
   {
     value: "400+",
-    label: "Scholarships & Laptops",
+    label: "Scholarships",
     sublabel: "Long-term academic & digital enablement support",
   },
   {
@@ -413,7 +413,7 @@ export const talentTestFaqs: TalentTestFaq[] = [
   {
     question: "Is there any registration or exam fee?",
     answer:
-      "No. The talent test is 100% free for all students and government schools. Study booklets, OMR sheets, exam materials, and award ceremonies are fully funded by Vadaanya Janaa Society and our donors.",
+      "No. The talent test is 100% free for all students and government schools. Study booklets, OMR sheets, exam materials, and award ceremonies are fully funded by Vadaanya and our donors.",
   },
   {
     question: "What is the medium and question pattern of the examination?",

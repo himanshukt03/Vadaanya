@@ -2,7 +2,12 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import type { GalleryEventItem, PrintMediaCollectionItem, NewsArticleItem } from "@/lib/sanity/queries";
+import type {
+  GalleryEventItem,
+  PrintMediaCollectionItem,
+  NewsArticleItem,
+  CampaignPosterItem,
+} from "@/lib/sanity/queries";
 import dynamic from "next/dynamic";
 import PublisherLogo from "./PublisherLogo";
 
@@ -29,7 +34,7 @@ const ChevronRight = () => (
   </svg>
 );
 
-const MediaSkeletonGrid = ({ count = 4, type = "gallery" }: { count?: number; type?: "gallery" | "print" | "news" | "youtube" }) => {
+const MediaSkeletonGrid = ({ count = 4, type = "gallery" }: { count?: number; type?: "gallery" | "print" | "news" | "posters" | "youtube" }) => {
   return (
     <div style={{
       display: "grid",
@@ -54,7 +59,7 @@ const MediaSkeletonGrid = ({ count = 4, type = "gallery" }: { count?: number; ty
           }}
         >
           {type !== "news" ? (
-            <div className="vad-skeleton-shimmer" style={{ width: "100%", height: type === "print" ? "280px" : "170px" }} />
+            <div className="vad-skeleton-shimmer" style={{ width: "100%", height: type === "print" ? "280px" : type === "posters" ? "340px" : "170px" }} />
           ) : null}
 
           <div style={{ padding: "22px 24px", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
@@ -98,16 +103,23 @@ interface GalleryPageProps {
   galleryEvents?: GalleryEventItem[];
   printMediaCollections?: PrintMediaCollectionItem[];
   newsItems?: NewsArticleItem[];
+  campaignPosters?: CampaignPosterItem[];
 }
 
-export default function GalleryPage({ galleryEvents = [], printMediaCollections = [], newsItems = [] }: GalleryPageProps) {
-  const [activeTab, setActiveTab] = useState<"gallery" | "print" | "news" | "youtube">("gallery");
+export default function GalleryPage({
+  galleryEvents = [],
+  printMediaCollections = [],
+  newsItems = [],
+  campaignPosters = [],
+}: GalleryPageProps) {
+  const [activeTab, setActiveTab] = useState<"gallery" | "print" | "news" | "posters" | "youtube">("gallery");
   const [activeEvent, setActiveEvent] = useState<GalleryEventItem | PrintMediaCollectionItem | null>(null);
+  const [activePoster, setActivePoster] = useState<CampaignPosterItem | null>(null);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // Tab change handler with skeleton loader transition
-  const handleTabChange = (tab: "gallery" | "print" | "news" | "youtube") => {
+  const handleTabChange = (tab: "gallery" | "print" | "news" | "posters" | "youtube") => {
     if (tab === activeTab) return;
     setIsLoading(true);
     setActiveTab(tab);
@@ -118,13 +130,13 @@ export default function GalleryPage({ galleryEvents = [], printMediaCollections 
 
   // Prevent background scrolling when a modal or lightbox is open
   useEffect(() => {
-    if (activeEvent || lightboxIndex !== null) {
+    if (activeEvent || activePoster || lightboxIndex !== null) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
     }
     return () => { document.body.style.overflow = ""; };
-  }, [activeEvent, lightboxIndex]);
+  }, [activeEvent, activePoster, lightboxIndex]);
 
   const handleNextImage = () => {
     if (!activeEvent || lightboxIndex === null) return;
@@ -136,13 +148,15 @@ export default function GalleryPage({ galleryEvents = [], printMediaCollections 
     setLightboxIndex((lightboxIndex - 1 + activeEvent.images.length) % activeEvent.images.length);
   };
 
-  // Keyboard navigation for lightbox
+  // Keyboard navigation for lightbox & poster modal
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (lightboxIndex !== null) {
         if (e.key === "Escape") setLightboxIndex(null);
         if (e.key === "ArrowRight") handleNextImage();
         if (e.key === "ArrowLeft") handlePrevImage();
+      } else if (activePoster) {
+        if (e.key === "Escape") setActivePoster(null);
       } else if (activeEvent) {
         if (e.key === "Escape") setActiveEvent(null);
       }
@@ -161,12 +175,12 @@ export default function GalleryPage({ galleryEvents = [], printMediaCollections 
             Vadaanya <span className="vad-page-hero__accent">Media</span>
           </h1>
           <p className="vad-page-hero__lead" style={{ marginTop: "12px", fontSize: "16.5px", maxWidth: "620px", margin: "12px auto 0", color: "#ffffff" }}>
-            Explore our photo galleries, newspaper print coverage, news updates, and YouTube video highlights.
+            Explore our photo galleries, newspaper print coverage, campaign posters, news updates, and YouTube video highlights.
           </p>
         </div>
       </section>
 
-      {/* 2. Media Content Section with 4 Toggle Bars */}
+      {/* 2. Media Content Section with 5 Toggle Bars */}
       <section className="vad-section vad-section--paper" style={{ padding: "50px 0 80px" }}>
         <div className="vad-container">
           
@@ -241,6 +255,25 @@ export default function GalleryPage({ galleryEvents = [], printMediaCollections 
 
               <button
                 type="button"
+                onClick={() => handleTabChange("posters")}
+                style={{
+                  padding: "10px 24px",
+                  borderRadius: "9999px",
+                  fontSize: "14.5px",
+                  fontWeight: 700,
+                  border: "none",
+                  cursor: "pointer",
+                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                  background: activeTab === "posters" ? "linear-gradient(135deg, var(--vad-navy-950), var(--vad-navy-800))" : "transparent",
+                  color: activeTab === "posters" ? "#ffffff" : "#475569",
+                  boxShadow: activeTab === "posters" ? "0 4px 14px rgba(7, 14, 39, 0.25)" : "none",
+                }}
+              >
+                Campaign Posters
+              </button>
+
+              <button
+                type="button"
                 onClick={() => handleTabChange("youtube")}
                 style={{
                   padding: "10px 24px",
@@ -269,12 +302,13 @@ export default function GalleryPage({ galleryEvents = [], printMediaCollections 
               <select
                 id="vad-media-category-select"
                 value={activeTab}
-                onChange={(e) => handleTabChange(e.target.value as "gallery" | "print" | "news" | "youtube")}
+                onChange={(e) => handleTabChange(e.target.value as "gallery" | "print" | "news" | "posters" | "youtube")}
                 className="vad-media-select"
               >
                 <option value="gallery">Gallery</option>
                 <option value="print">Print Media</option>
                 <option value="news">News Articles</option>
+                <option value="posters">Campaign Posters</option>
                 <option value="youtube">Youtube</option>
               </select>
               <div className="vad-media-select-icon">
@@ -509,7 +543,77 @@ export default function GalleryPage({ galleryEvents = [], printMediaCollections 
                 </div>
               )}
 
-              {/* TAB 4: YOUTUBE */}
+              {/* TAB 4: CAMPAIGN POSTERS */}
+              {activeTab === "posters" && (
+                <div className="vad-media-grid">
+                  {campaignPosters.map((poster) => (
+                    <div
+                      key={poster.id}
+                      onClick={() => setActivePoster(poster)}
+                      className="vad-poster-card"
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          setActivePoster(poster);
+                        }
+                      }}
+                    >
+                      <div className="vad-poster-card__img-wrap">
+                        <Image
+                          src={poster.posterImage}
+                          alt={poster.alt || poster.title}
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
+                          quality={85}
+                          className="vad-poster-img"
+                          placeholder={poster.blurDataUrl ? "blur" : "empty"}
+                          blurDataURL={poster.blurDataUrl}
+                        />
+                        {poster.date && (
+                          <div
+                            style={{
+                              position: "absolute",
+                              bottom: 0,
+                              left: 0,
+                              right: 0,
+                              padding: "10px 14px",
+                              background: "linear-gradient(transparent, rgba(10, 16, 48, 0.85))",
+                              color: "white",
+                            }}
+                          >
+                            <span style={{ fontSize: "12px", color: "var(--vad-gold)", fontWeight: 700 }}>
+                              {poster.date}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="vad-poster-card__body">
+                        <div>
+                          <h3 className="vad-poster-card__title">
+                            {poster.title}
+                          </h3>
+                          {poster.description && (
+                            <p className="vad-poster-card__desc">
+                              {poster.description}
+                            </p>
+                          )}
+                        </div>
+
+                        <div className="vad-poster-card__footer">
+                          <span style={{ fontSize: "13px", fontWeight: 700, color: "var(--vad-gold-deep, #C0820C)", display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                            View Poster Details &rarr;
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* TAB 5: YOUTUBE */}
               {activeTab === "youtube" && (
                 <div style={{ width: "100%" }}>
                   <VideoGalleryClient />
@@ -727,6 +831,178 @@ export default function GalleryPage({ galleryEvents = [], printMediaCollections 
           >
             <ChevronRight />
           </button>
+        </div>
+      )}
+
+      {/* 5. Campaign Poster Detail Modal */}
+      {activePoster && (
+        <div
+          className="vad-poster-modal-overlay"
+          onClick={() => setActivePoster(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="poster-modal-title"
+        >
+          <div
+            className="vad-poster-modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setActivePoster(null)}
+              aria-label="Close poster details"
+              style={{
+                position: "absolute",
+                top: "14px",
+                right: "14px",
+                background: "rgba(10, 16, 48, 0.6)",
+                border: "none",
+                width: "38px",
+                height: "38px",
+                borderRadius: "50%",
+                color: "#ffffff",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                zIndex: 20,
+                transition: "background 0.2s ease, transform 0.2s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "var(--vad-navy-950, #0a1030)";
+                e.currentTarget.style.transform = "scale(1.05)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "rgba(10, 16, 48, 0.6)";
+                e.currentTarget.style.transform = "scale(1)";
+              }}
+            >
+              <CloseIcon />
+            </button>
+
+            {/* Left: Large Poster Image */}
+            <div
+              style={{
+                flex: "1 1 50%",
+                position: "relative",
+                minHeight: "360px",
+                background: "#070e27",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "20px",
+              }}
+            >
+              <div
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  height: "100%",
+                  minHeight: "340px",
+                  maxHeight: "560px",
+                }}
+              >
+                <Image
+                  src={activePoster.posterImage}
+                  alt={activePoster.alt || activePoster.title}
+                  fill
+                  quality={95}
+                  style={{ objectFit: "contain" }}
+                  sizes="(max-width: 768px) 100vw, 450px"
+                />
+              </div>
+            </div>
+
+            {/* Right: Title & Description Content */}
+            <div
+              style={{
+                flex: "1 1 50%",
+                padding: "36px 30px 30px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                overflowY: "auto",
+                background: "#ffffff",
+              }}
+            >
+              <div>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px", flexWrap: "wrap" }}>
+                  <span
+                    style={{
+                      background: "rgba(217, 119, 6, 0.12)",
+                      color: "var(--vad-gold-dark, #d97706)",
+                      fontSize: "12px",
+                      fontWeight: 700,
+                      padding: "4px 10px",
+                      borderRadius: "9999px",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
+                    {activePoster.category || "Campaign Poster"}
+                  </span>
+                  {activePoster.date && (
+                    <span style={{ fontSize: "13px", color: "#64748b", fontWeight: 600 }}>
+                      {activePoster.date}
+                    </span>
+                  )}
+                </div>
+
+                <h2
+                  id="poster-modal-title"
+                  style={{
+                    margin: "0 0 16px",
+                    fontSize: "22px",
+                    fontWeight: 800,
+                    color: "var(--vad-navy-950, #0a1030)",
+                    lineHeight: 1.3,
+                  }}
+                >
+                  {activePoster.title}
+                </h2>
+
+                <div
+                  style={{
+                    fontSize: "15px",
+                    color: "var(--vad-ink-soft, #475569)",
+                    lineHeight: 1.7,
+                    whiteSpace: "pre-line",
+                  }}
+                >
+                  {activePoster.description || "No additional description provided."}
+                </div>
+              </div>
+
+              <div
+                style={{
+                  marginTop: "24px",
+                  paddingTop: "20px",
+                  borderTop: "1px solid #f1f5f9",
+                  display: "flex",
+                  gap: "12px",
+                  flexWrap: "wrap",
+                }}
+              >
+                <a
+                  href={activePoster.posterImage}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="vad-btn vad-btn--gold"
+                  style={{ fontSize: "13.5px", padding: "10px 20px" }}
+                >
+                  <span>Open Full Image ↗</span>
+                </a>
+                <button
+                  type="button"
+                  onClick={() => setActivePoster(null)}
+                  className="vad-btn vad-btn--outline"
+                  style={{ fontSize: "13.5px", padding: "10px 20px" }}
+                >
+                  <span>Close</span>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </>
