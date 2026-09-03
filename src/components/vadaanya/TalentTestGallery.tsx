@@ -30,6 +30,26 @@ const ChevronRight = () => (
 export default function TalentTestGallery({ albums = [] }: TalentTestGalleryProps) {
   const [activeEvent, setActiveEvent] = useState<TalentTestGalleryItem | null>(null);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [expanded, setExpanded] = useState<boolean>(false);
+  const [initialLimit, setInitialLimit] = useState<number>(4);
+
+  // Responsive limit based on screen size: 4 on desktop (1 row), 3 on iPad/tablet (1 row), 2 on mobile (1 row)
+  useEffect(() => {
+    const updateLimit = () => {
+      if (window.innerWidth <= 640) {
+        setInitialLimit(2);
+      } else if (window.innerWidth <= 1024) {
+        setInitialLimit(3);
+      } else {
+        setInitialLimit(4);
+      }
+    };
+    updateLimit();
+    window.addEventListener("resize", updateLimit);
+    return () => window.removeEventListener("resize", updateLimit);
+  }, []);
+
+  const displayedAlbums = expanded ? albums : albums.slice(0, initialLimit);
 
   // Lock background scroll when modal or lightbox is open
   useEffect(() => {
@@ -74,7 +94,7 @@ export default function TalentTestGallery({ albums = [] }: TalentTestGalleryProp
         {/* Section Header */}
         <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "36px" }}>
           <span className="vad-eyebrow vad-eyebrow--center vad-eyebrow--dark">PHOTO ARCHIVES</span>
-          <h2>Exam Days & Prize Distribution Gallery</h2>
+          <h2>Exam Days &amp; Prize Distribution Gallery</h2>
           <p className="vad-lead">
             Explore photo archives from every edition of the Vadaanya Talent Test — from energetic OMR exam halls to grand state felicitation ceremonies.
           </p>
@@ -82,7 +102,7 @@ export default function TalentTestGallery({ albums = [] }: TalentTestGalleryProp
 
         {/* Gallery Cards Grid: 4 in desktop, 3 in tablet, 2 in phone */}
         <div className="vad-talent-gallery-grid">
-          {albums.map((event, idx) => (
+          {displayedAlbums.map((event, idx) => (
             <div
               key={event.id}
               onClick={() => setActiveEvent(event)}
@@ -180,6 +200,32 @@ export default function TalentTestGallery({ albums = [] }: TalentTestGalleryProp
             </div>
           ))}
         </div>
+
+        {/* View More / View Less Toggle Button */}
+        {albums.length > initialLimit && (
+          <div style={{ textAlign: "center", marginTop: "36px" }}>
+            <button
+              type="button"
+              onClick={() => setExpanded(!expanded)}
+              className="vad-btn vad-btn--outline"
+              style={{
+                padding: "12px 32px",
+                fontSize: "14.5px",
+                fontWeight: 700,
+                borderRadius: "9999px",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+              }}
+            >
+              <span>
+                {expanded
+                  ? "Show Less Albums ↑"
+                  : `View More Albums (${albums.length - initialLimit} more) ↓`}
+              </span>
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Event Images Drawer / Modal Grid (Matching Gallery Media Page) */}

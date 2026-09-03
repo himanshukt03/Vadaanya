@@ -255,25 +255,6 @@ export default function GalleryPage({
 
               <button
                 type="button"
-                onClick={() => handleTabChange("posters")}
-                style={{
-                  padding: "10px 24px",
-                  borderRadius: "9999px",
-                  fontSize: "14.5px",
-                  fontWeight: 700,
-                  border: "none",
-                  cursor: "pointer",
-                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                  background: activeTab === "posters" ? "linear-gradient(135deg, var(--vad-navy-950), var(--vad-navy-800))" : "transparent",
-                  color: activeTab === "posters" ? "#ffffff" : "#475569",
-                  boxShadow: activeTab === "posters" ? "0 4px 14px rgba(7, 14, 39, 0.25)" : "none",
-                }}
-              >
-                Campaign Posters
-              </button>
-
-              <button
-                type="button"
                 onClick={() => handleTabChange("youtube")}
                 style={{
                   padding: "10px 24px",
@@ -290,6 +271,25 @@ export default function GalleryPage({
               >
                 Youtube
               </button>
+
+              <button
+                type="button"
+                onClick={() => handleTabChange("posters")}
+                style={{
+                  padding: "10px 24px",
+                  borderRadius: "9999px",
+                  fontSize: "14.5px",
+                  fontWeight: 700,
+                  border: "none",
+                  cursor: "pointer",
+                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                  background: activeTab === "posters" ? "linear-gradient(135deg, var(--vad-navy-950), var(--vad-navy-800))" : "transparent",
+                  color: activeTab === "posters" ? "#ffffff" : "#475569",
+                  boxShadow: activeTab === "posters" ? "0 4px 14px rgba(7, 14, 39, 0.25)" : "none",
+                }}
+              >
+                Campaign Posters
+              </button>
             </div>
           </div>
 
@@ -302,14 +302,14 @@ export default function GalleryPage({
               <select
                 id="vad-media-category-select"
                 value={activeTab}
-                onChange={(e) => handleTabChange(e.target.value as "gallery" | "print" | "news" | "posters" | "youtube")}
+                onChange={(e) => handleTabChange(e.target.value as "gallery" | "print" | "news" | "youtube" | "posters")}
                 className="vad-media-select"
               >
                 <option value="gallery">Gallery</option>
                 <option value="print">Print Media</option>
                 <option value="news">News Articles</option>
-                <option value="posters">Campaign Posters</option>
                 <option value="youtube">Youtube</option>
+                <option value="posters">Campaign Posters</option>
               </select>
               <div className="vad-media-select-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -418,12 +418,12 @@ export default function GalleryPage({
                         e.currentTarget.style.borderColor = "rgba(0,0,0,0.06)";
                       }}
                     >
-                      <div className="vad-media-card-img-wrap" style={{ position: "relative", width: "100%", height: "280px", overflow: "hidden", background: "#f5f7fa" }}>
+                      <div className="vad-media-card-img-wrap" style={{ position: "relative", width: "100%", height: "235px", overflow: "hidden", background: "#f5f7fa" }}>
                         <Image
                           src={collection.coverImage}
                           alt={collection.title}
                           fill
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 320px"
                           quality={85}
                           placeholder={collection.blurDataUrl ? "blur" : "empty"}
                           blurDataURL={collection.blurDataUrl}
@@ -438,15 +438,15 @@ export default function GalleryPage({
                           pointerEvents: "none"
                         }} />
                       </div>
-                      <div className="vad-media-card-body" style={{ padding: "22px 24px", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                      <div className="vad-media-card-body" style={{ padding: "18px 20px", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                         <div>
-                          <h3 className="vad-media-card-title" style={{ margin: 0, fontSize: "19px", color: "var(--vad-navy-950)", fontWeight: 800, lineHeight: 1.3 }}>
+                          <h3 className="vad-media-card-title" style={{ margin: 0, fontSize: "17.5px", color: "var(--vad-navy-950)", fontWeight: 800, lineHeight: 1.3 }}>
                             {collection.title}
                           </h3>
                           {collection.language && (
                             <div style={{
-                              margin: "6px 0 0",
-                              fontSize: "14px",
+                              margin: "5px 0 0",
+                              fontSize: "13px",
                               fontWeight: 600,
                               color: "var(--vad-navy-700, #1E3080)",
                               letterSpacing: "0.01em"
@@ -456,19 +456,19 @@ export default function GalleryPage({
                           )}
                         </div>
 
-                        <div className="vad-media-card-sub" style={{
-                          marginTop: "18px",
-                          paddingTop: "14px",
-                          borderTop: "1px solid rgba(0,0,0,0.06)",
+                        <div style={{
+                          marginTop: "16px",
+                          paddingTop: "12px",
+                          borderTop: "1px solid #f1f5f9",
                           display: "flex",
-                          flexDirection: "column",
-                          gap: "8px"
+                          alignItems: "center",
+                          justifyContent: "space-between"
                         }}>
-                          <span style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13.5px", color: "var(--vad-ink-soft)", fontWeight: 600 }}>
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                          <span style={{ fontSize: "12.5px", color: "#64748b", fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
                             {collection.images.length} Clippings
                           </span>
-                          <span style={{ fontSize: "13px", fontWeight: 700, color: "var(--vad-gold-deep, #C0820C)", display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                          <span style={{ fontSize: "13px", fontWeight: 700, color: "var(--vad-gold-deep)" }}>
                             View Gallery &rarr;
                           </span>
                         </div>
@@ -478,35 +478,49 @@ export default function GalleryPage({
                 </div>
               )}
 
-              {/* TAB 3: NEWS */}
+              {/* TAB 3: NEWS ARTICLES */}
               {activeTab === "news" && (
                 <div className="vad-media-grid">
-                  {newsItems.map((item) => (
+                  {newsItems.map((item, idx) => (
                     <div
                       key={item.id}
                       style={{
                         background: "#ffffff",
                         borderRadius: "16px",
-                        overflow: "hidden",
+                        padding: "24px",
                         boxShadow: "0 8px 24px rgba(0,0,0,0.06)",
                         border: "1px solid rgba(0,0,0,0.06)",
-                        padding: "22px 24px",
                         display: "flex",
                         flexDirection: "column",
                         justifyContent: "space-between",
-                        transition: "transform 0.3s ease, box-shadow 0.3s ease"
+                        transition: "all 0.3s cubic-bezier(0.22, 0.61, 0.36, 1)"
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = "translateY(-4px)";
-                        e.currentTarget.style.boxShadow = "0 12px 30px rgba(0,0,0,0.1)";
+                        e.currentTarget.style.transform = "translateY(-6px)";
+                        e.currentTarget.style.boxShadow = "0 16px 36px rgba(10, 16, 48, 0.12)";
+                        e.currentTarget.style.borderColor = "rgba(10, 16, 48, 0.15)";
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.transform = "translateY(0)";
                         e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.06)";
+                        e.currentTarget.style.borderColor = "rgba(0,0,0,0.06)";
                       }}
                     >
                       <div>
-                        <PublisherLogo publisher={item.publisher} link={item.link} />
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px" }}>
+                          {item.publisher ? (
+                            <PublisherLogo publisher={item.publisher} />
+                          ) : (
+                            <span style={{ fontSize: "12px", fontWeight: 700, color: "var(--vad-gold-deep)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                              {item.tag || "Press Coverage"}
+                            </span>
+                          )}
+                          {item.date && (
+                            <span style={{ fontSize: "12.5px", color: "var(--vad-ink-soft)", fontWeight: 600 }}>
+                              {item.date}
+                            </span>
+                          )}
+                        </div>
                         <h3 className="vad-media-card-title" style={{ margin: "0 0 10px", fontSize: "15.5px", fontWeight: 800, color: "var(--vad-navy-950)", lineHeight: 1.35 }}>
                           {item.title}
                         </h3>
@@ -543,7 +557,14 @@ export default function GalleryPage({
                 </div>
               )}
 
-              {/* TAB 4: CAMPAIGN POSTERS */}
+              {/* TAB 4: YOUTUBE */}
+              {activeTab === "youtube" && (
+                <div style={{ width: "100%" }}>
+                  <VideoGalleryClient />
+                </div>
+              )}
+
+              {/* TAB 5: CAMPAIGN POSTERS */}
               {activeTab === "posters" && (
                 <div className="vad-posters-grid">
                   {campaignPosters.map((poster) => (
@@ -565,7 +586,7 @@ export default function GalleryPage({
                           src={poster.posterImage}
                           alt={poster.alt || poster.title}
                           fill
-                          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 240px"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 290px"
                           quality={85}
                           className="vad-poster-img"
                           placeholder={poster.blurDataUrl ? "blur" : "empty"}
@@ -585,14 +606,6 @@ export default function GalleryPage({
                       </div>
                     </div>
                   ))}
-                </div>
-              )}
-
-
-              {/* TAB 5: YOUTUBE */}
-              {activeTab === "youtube" && (
-                <div style={{ width: "100%" }}>
-                  <VideoGalleryClient />
                 </div>
               )}
             </>

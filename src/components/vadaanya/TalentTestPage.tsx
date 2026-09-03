@@ -126,7 +126,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
     {
       id: "registration",
       title: "2026 Pre-Registrations Open",
-      desc: "Free entry for government school students from Class 6 to 10.",
+      desc: "Free entry for government school students from Class 9 to 10.",
       actionLabel: "Pre-Register Free →",
       actionType: "modal" as const,
     },
@@ -173,7 +173,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
             Vadaanya <span className="vad-page-hero__accent">Talent Test</span>
           </h1>
           <p className="vad-page-hero__lead" style={{ color: "#ffffff" }}>
-            An annual standardized examination recognizing, rewarding, and nurturing rural government school talent from Class 6 to 10.
+            An annual standardized examination recognizing, rewarding, and nurturing rural government school talent from Class 9 to 10.
           </p>
         </div>
       </section>
@@ -646,14 +646,17 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
               </p>
             </div>
 
-            {/* Elevated Unified 3-Tier Cards (Responsive & Concise on Mobile) */}
+            {/* Elevated Unified 3-Tier Cards (Responsive with Gold, Silver, Bronze Medals) */}
             <div className="vad-equity-grid">
-              {/* Card 1 */}
-              <div className="vad-equity-tier-card">
+              {/* Card 1 - Gold Medal */}
+              <div className="vad-equity-tier-card vad-equity-tier-card--gold">
                 <div className="vad-equity-tier-card__bar" />
                 <div>
-                  <div className="vad-equity-tier-card__badge">
-                    Tier 1
+                  <div className="vad-equity-tier-card__header-row">
+                    <div className="vad-equity-tier-card__badge">
+                      Tier 1
+                    </div>
+                    <span className="vad-equity-tier-card__medal-icon" title="Gold Medal">🥇</span>
                   </div>
                   <h3 className="vad-equity-tier-card__title">
                     District Top 20
@@ -676,12 +679,15 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                 </div>
               </div>
 
-              {/* Card 2 */}
-              <div className="vad-equity-tier-card">
+              {/* Card 2 - Silver Medal */}
+              <div className="vad-equity-tier-card vad-equity-tier-card--silver">
                 <div className="vad-equity-tier-card__bar" />
                 <div>
-                  <div className="vad-equity-tier-card__badge">
-                    Tier 2
+                  <div className="vad-equity-tier-card__header-row">
+                    <div className="vad-equity-tier-card__badge">
+                      Tier 2
+                    </div>
+                    <span className="vad-equity-tier-card__medal-icon" title="Silver Medal">🥈</span>
                   </div>
                   <h3 className="vad-equity-tier-card__title">
                     Mandal Topper (40)
@@ -704,12 +710,15 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                 </div>
               </div>
 
-              {/* Card 3 */}
-              <div className="vad-equity-tier-card">
+              {/* Card 3 - Bronze Medal */}
+              <div className="vad-equity-tier-card vad-equity-tier-card--bronze">
                 <div className="vad-equity-tier-card__bar" />
                 <div>
-                  <div className="vad-equity-tier-card__badge">
-                    Tier 3
+                  <div className="vad-equity-tier-card__header-row">
+                    <div className="vad-equity-tier-card__badge">
+                      Tier 3
+                    </div>
+                    <span className="vad-equity-tier-card__medal-icon" title="Bronze Medal">🥉</span>
                   </div>
                   <h3 className="vad-equity-tier-card__title">
                     School Topper (~250)
@@ -730,40 +739,6 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                     Trophy &amp; Merit Certificate
                   </span>
                 </div>
-              </div>
-            </div>
-
-            {/* Real Prize Distribution Image Banner */}
-            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "40px" }}>
-              <div style={{ flex: "1 1 460px" }}>
-                <div style={{ position: "relative", width: "100%", aspectRatio: "16/10", borderRadius: "20px", overflow: "hidden", boxShadow: "0 16px 36px rgba(0, 0, 0, 0.1)" }}>
-                  <Image
-                    src="/talent-test/talent_test_image.JPG"
-                    alt="Talent Test Prize Distribution Ceremony"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 480px"
-                    style={{ objectFit: "cover" }}
-                  />
-                </div>
-              </div>
-
-              <div style={{ flex: "1 1 420px" }}>
-                <span className="vad-eyebrow vad-eyebrow--dark">GRASSROOTS INCLUSION</span>
-                <h3 style={{ fontSize: "22px", fontWeight: 800, color: "var(--vad-navy-950)", fontFamily: "var(--vad-font-display)", margin: "10px 0 12px" }}>
-                  Empowering Every Government School
-                </h3>
-                <div
-                  style={{
-                    width: "50px",
-                    height: "3px",
-                    background: "var(--vad-gold-deep)",
-                    margin: "12px 0 16px",
-                    borderRadius: "2px",
-                  }}
-                />
-                <p style={{ fontSize: "15.5px", color: "var(--vad-ink)", lineHeight: 1.75, margin: 0 }}>
-                  By guaranteeing that District Top 20 winners don&apos;t crowd out Mandal toppers, and Mandal toppers don&apos;t take School prizes, every single participating school receives its own recognized champion with medals and certificates presented at morning school assemblies.
-                </p>
               </div>
             </div>
           </div>
@@ -848,7 +823,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
               Pre-Register for Talent Test 2026
             </h2>
             <p className="vad-lead" style={{ color: "#cbd5e1", fontSize: "16px", maxWidth: "660px", margin: "0 auto 24px", lineHeight: 1.6 }}>
-              100% free for government school students from Class 6 to 10. Pre-register now to receive exam center locations, study materials, and SMS hall ticket alerts.
+              100% free for government school students from Class 9 to 10. Pre-register now to receive exam center locations, study materials, and SMS hall ticket alerts.
             </p>
 
             <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", justifyContent: "center", marginBottom: "24px" }}>
