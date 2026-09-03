@@ -7,6 +7,7 @@ const REVALIDATE_TYPES = [
   "newsArticle",
   "galleryEvent",
   "printMediaCollection",
+  "campaignPoster",
   "successStory",
 ];
 

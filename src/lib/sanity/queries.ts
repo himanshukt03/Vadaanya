@@ -1096,7 +1096,7 @@ export async function getCampaignPosters(): Promise<CampaignPosterItem[]> {
     const sanityPosters: SanityCampaignPoster[] = await sanityClient.fetch(
       CAMPAIGN_POSTERS_QUERY,
       {},
-      { next: { revalidate: 3600 } }
+      { next: { revalidate: 0 } }
     );
 
     if (sanityPosters && sanityPosters.length > 0) {
