@@ -810,8 +810,9 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       <TalentTestGallery albums={galleryAlbums} />
 
       {/* ───────────────────────────────────────────────
-          SECTION 9: 2026 PRE-REGISTRATION CTA
+          SECTION 9: 2026 PRE-REGISTRATION CTA (Temporarily commented out for future use)
           ─────────────────────────────────────────────── */}
+      {/*
       <section id="register" className="vad-section vad-section--deep vad-tt-support" style={{ padding: "60px 0" }}>
         <div className="vad-container">
           <div style={{ maxWidth: "800px", margin: "0 auto", textAlign: "center" }}>
@@ -860,6 +861,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
           </div>
         </div>
       </section>
+      */}
 
       {/* ───────────────────────────────────────────────
           SECTION 10: FAQS (LIGHT PAPER)
