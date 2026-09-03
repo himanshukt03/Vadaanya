@@ -646,10 +646,10 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
               </p>
             </div>
 
-            {/* Elevated Unified 3-Tier Cards (Responsive with Gold, Silver, Bronze Medals) */}
+            {/* Elevated Unified 3-Tier Cards (Uniform styling with prominent Gold, Silver, Bronze medals and centered rewards) */}
             <div className="vad-equity-grid">
               {/* Card 1 - Gold Medal */}
-              <div className="vad-equity-tier-card vad-equity-tier-card--gold">
+              <div className="vad-equity-tier-card">
                 <div className="vad-equity-tier-card__bar" />
                 <div>
                   <div className="vad-equity-tier-card__header-row">
@@ -680,7 +680,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
               </div>
 
               {/* Card 2 - Silver Medal */}
-              <div className="vad-equity-tier-card vad-equity-tier-card--silver">
+              <div className="vad-equity-tier-card">
                 <div className="vad-equity-tier-card__bar" />
                 <div>
                   <div className="vad-equity-tier-card__header-row">
@@ -711,7 +711,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
               </div>
 
               {/* Card 3 - Bronze Medal */}
-              <div className="vad-equity-tier-card vad-equity-tier-card--bronze">
+              <div className="vad-equity-tier-card">
                 <div className="vad-equity-tier-card__bar" />
                 <div>
                   <div className="vad-equity-tier-card__header-row">
