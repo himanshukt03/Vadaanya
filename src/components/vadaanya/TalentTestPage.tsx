@@ -1,20 +1,35 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
 
 import {
-  talentTestStats,
-  iitAlumni,
-  talentTestFaqs,
+  talentTestStats as defaultStats,
+  talentTestFaqs as defaultFaqs,
 } from "@/data/vadaanya/TalentTestData";
-import TalentTestRegistrationModal from "./TalentTestRegistrationModal";
 import TalentTestGallery from "./TalentTestGallery";
-import type { TalentTestGalleryItem } from "@/lib/sanity/queries";
+import type {
+  TalentTestGalleryItem,
+  TalentTestPageData,
+  TalentTestScholarData,
+  TalentTestAboutImage,
+} from "@/lib/sanity/queries";
+import {
+  fallbackTalentTestAnnouncements,
+  fallbackHowItWorksSteps,
+  fallbackEquityTiers,
+  fallbackIitScholars,
+} from "@/lib/sanity/queries";
 
 interface TalentTestPageProps {
   galleryAlbums?: TalentTestGalleryItem[];
+  talentTestData?: TalentTestPageData;
 }
 
 const DownloadIcon = () => (
@@ -38,43 +53,102 @@ const ChevronDownIcon = () => (
   </svg>
 );
 
+function renderFormattedText(text: string) {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((part, idx) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return <strong key={idx}>{part.slice(2, -2)}</strong>;
+    }
+    return part;
+  });
+}
 
-const conciseHowItWorks = [
-  {
-    step: "01",
-    title: "Free Registration",
-    desc: "Government school students register online or via school headmasters at zero fee.",
-  },
-  {
-    step: "02",
-    title: "Study Material",
-    desc: "Free 100-page bilingual analytical reasoning booklets & solved previous year papers.",
-  },
-  {
-    step: "03",
-    title: "OMR Examination",
-    desc: "Standardized offline exam held at designated government mandal examination centers.",
-  },
-  {
-    step: "04",
-    title: "Fast OMR Scoring",
-    desc: "Automated optical scanner evaluation ensuring 100% fair, transparent, same-day verification.",
-  },
-  {
-    step: "05",
-    title: "3-Tier Awards",
-    desc: "District, mandal, and school toppers recognized with direct cash awards, trophies, and medals.",
-  },
-  {
-    step: "06",
-    title: "Long-Term Sponsorship",
-    desc: "Top scholars receive intermediate college tuition, IIT-JEE coaching fees, laptops, and mentorship.",
-  },
-];
+function ScholarCard({ alum }: { alum: TalentTestScholarData }) {
+  return (
+    <div className="vad-scholar-card">
+      {alum.imageUrl && (
+        <div className="vad-scholar-card__image-wrap">
+          <Image
+            src={alum.imageUrl}
+            alt={alum.name}
+            fill
+            sizes="(max-width: 640px) 70vw, (max-width: 1024px) 33vw, 270px"
+            style={{ objectFit: "cover" }}
+            placeholder={alum.blurDataUrl ? "blur" : "empty"}
+            blurDataURL={alum.blurDataUrl}
+          />
+        </div>
+      )}
 
-export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPageProps) {
-  const [isRegModalOpen, setIsRegModalOpen] = useState(false);
+      <div className="vad-scholar-card__content">
+        <div className="vad-scholar-card__rank-row">
+          <span className="vad-scholar-card__air">{alum.airRank}</span>
+          {alum.categoryRank && (
+            <span className="vad-scholar-card__cat">{alum.categoryRank}</span>
+          )}
+        </div>
+
+        <h3 className="vad-scholar-card__name">{alum.name}</h3>
+        <span className="vad-scholar-card__college">{alum.college}</span>
+      </div>
+    </div>
+  );
+}
+
+export default function TalentTestPage({
+  galleryAlbums = [],
+  talentTestData,
+}: TalentTestPageProps) {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+  const scholarSwiperRef = useRef<SwiperType | null>(null);
+  const mobileScholarSwiperRef = useRef<SwiperType | null>(null);
+  const [activeAboutIdx, setActiveAboutIdx] = useState(0);
+
+  const aboutEyebrow = talentTestData?.aboutEyebrow || "Our Annual Flagship Exam";
+  const aboutTitle = talentTestData?.aboutTitle || "About the Talent Test";
+  const aboutParagraphs =
+    talentTestData?.aboutParagraphs && talentTestData.aboutParagraphs.length > 0
+      ? talentTestData.aboutParagraphs
+      : [
+          "For five consecutive years (2021–2025), Vadaanya Janaa Society has conducted the **Vadaanya Talent Test** — an offline, standardized OMR examination provided 100% free of charge to thousands of government school students across Andhra Pradesh and Telangana.",
+          "Over **15,000 students** have taken part, with **500+ deserving scholars** awarded district and mandal cash prizes, trophies, and continuous scholarships all the way from rural village classrooms to premier institutions like IITs and NITs.",
+        ];
+
+  const defaultAboutImages: TalentTestAboutImage[] = [
+    {
+      url: "/talent-test/talent_hero.jpg",
+      alt: "Students taking the Vadaanya Talent Test",
+    },
+    {
+      url: "/talent-test/talent_header_bg.jpg",
+      alt: "Vadaanya Talent Test 2022 Felicitation Ceremony",
+    },
+    {
+      url: "/talent-test/talent_test_image.JPG",
+      alt: "Government school students writing the Talent Test",
+    },
+  ];
+
+  const aboutImages =
+    talentTestData?.aboutImages && talentTestData.aboutImages.length > 0
+      ? talentTestData.aboutImages
+      : defaultAboutImages;
+
+  useEffect(() => {
+    if (aboutImages.length <= 1) return;
+    const timer = setInterval(() => {
+      setActiveAboutIdx((prev) => (prev + 1) % aboutImages.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [aboutImages.length]);
+
+  const prevAboutImage = () => {
+    setActiveAboutIdx((prev) => (prev === 0 ? aboutImages.length - 1 : prev - 1));
+  };
+
+  const nextAboutImage = () => {
+    setActiveAboutIdx((prev) => (prev + 1) % aboutImages.length);
+  };
 
   const toggleFaq = (idx: number) => {
     setOpenFaqIndex(openFaqIndex === idx ? null : idx);
@@ -84,7 +158,12 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
   const [announcementIdx, setAnnouncementIdx] = useState(0);
   const [enableTransition, setEnableTransition] = useState(true);
 
-  const totalAnnouncements = 5;
+  const announcementsList =
+    talentTestData?.announcements && talentTestData.announcements.length > 0
+      ? talentTestData.announcements
+      : fallbackTalentTestAnnouncements;
+
+  const totalAnnouncements = announcementsList.length;
 
   const nextAnnouncement = () => {
     setEnableTransition(true);
@@ -97,12 +176,13 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
   };
 
   useEffect(() => {
+    if (totalAnnouncements <= 1) return;
     const timer = setInterval(() => {
       setEnableTransition(true);
       setAnnouncementIdx((prev) => prev + 1);
     }, 4500);
     return () => clearInterval(timer);
-  }, []);
+  }, [totalAnnouncements]);
 
   useEffect(() => {
     if (announcementIdx === totalAnnouncements) {
@@ -112,62 +192,66 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       }, 550);
       return () => clearTimeout(timeout);
     }
-  }, [announcementIdx]);
+  }, [announcementIdx, totalAnnouncements]);
 
-  const liveAnnouncements = [
-    {
-      id: "booklet",
-      title: "5-Year Solved Booklet (2021–2025)",
-      desc: "Official 100-page bilingual question papers & solutions booklet.",
-      actionLabel: "Open PDF Booklet in New Tab ↗",
-      actionType: "link" as const,
-      href: pdfUrl,
-    },
-    {
-      id: "registration",
-      title: "2026 Pre-Registrations Open",
-      desc: "Free entry for government school students from Class 9 to 10.",
-      actionLabel: "Pre-Register Free →",
-      actionType: "modal" as const,
-    },
-    {
-      id: "iit-scholars",
-      title: "3 Scholars in Premier IITs",
-      desc: "Jugesh (AIR 377), Thulasi (AIR 2619), & Yaswanth (AIR 3563) secured national ranks.",
-      actionLabel: "View IIT Alumni →",
-      actionType: "anchor" as const,
-      href: "#alumni",
-    },
-    {
-      id: "state-awards",
-      title: "State-Level Merit Felicitations",
-      desc: "Top 10 rankers receive merit laptops, certificates & cash scholarship awards.",
-      actionLabel: "View Photo Archives →",
-      actionType: "anchor" as const,
-      href: "#gallery",
-    },
-    {
-      id: "pattern",
-      title: "Standardized OMR Exam Pattern",
-      desc: "Simulates national competitive entrance exams for government school students.",
-      actionLabel: "How It Works →",
-      actionType: "anchor" as const,
-      href: "#how-it-works",
-    },
-  ];
+  const statsList =
+    talentTestData?.stats && talentTestData.stats.length > 0
+      ? talentTestData.stats
+      : defaultStats;
+
+  const howItWorksSteps =
+    talentTestData?.howItWorksSteps && talentTestData.howItWorksSteps.length > 0
+      ? talentTestData.howItWorksSteps
+      : fallbackHowItWorksSteps;
+
+  const equityTiersList =
+    talentTestData?.equityTiers && talentTestData.equityTiers.length > 0
+      ? talentTestData.equityTiers
+      : fallbackEquityTiers;
+
+  const scholarsList =
+    talentTestData?.iitScholars && talentTestData.iitScholars.length > 0
+      ? talentTestData.iitScholars
+      : fallbackIitScholars;
+
+  const faqsList =
+    talentTestData?.faqs && talentTestData.faqs.length > 0
+      ? talentTestData.faqs
+      : defaultFaqs;
 
   return (
     <div className="vad-talent-page">
       {/* ───────────────────────────────────────────────
-          SECTION 1: TOP BANNER (SOLID DEEP NAVY - NO IMAGE BACKDROP)
+          SECTION 1: TOP BANNER (WITH TALENT TEST BACKDROP IMAGE)
           ─────────────────────────────────────────────── */}
       <section
         className="vad-page-hero vad-section--deep"
         style={{
+          position: "relative",
+          overflow: "hidden",
           padding: "clamp(55px, 4.5vw, 75px) 0 clamp(24px, 2vw, 32px)",
         }}
       >
-        <div className="vad-container vad-page-hero__inner">
+        {/* Backdrop Image with Navy Vignette Overlay */}
+        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+          <Image
+            src="/talent-test/talent_header_bg.jpg"
+            alt="Talent Test Header Background"
+            fill
+            priority
+            sizes="100vw"
+            style={{ objectFit: "cover", objectPosition: "center" }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "linear-gradient(90deg, rgba(6, 11, 34, 0.90) 0%, rgba(6, 11, 34, 0.78) 50%, rgba(6, 11, 34, 0.90) 100%)",
+            }}
+          />
+        </div>
+
+        <div className="vad-container vad-page-hero__inner" style={{ position: "relative", zIndex: 1 }}>
           <span className="vad-eyebrow">The Flagship Initiative · 2021–2025</span>
           <h1 className="vad-page-hero__title">
             Vadaanya <span className="vad-page-hero__accent">Talent Test</span>
@@ -181,14 +265,94 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       {/* ───────────────────────────────────────────────
           SECTION 2: ABOUT THE TALENT TEST + HORIZONTAL ANNOUNCEMENTS BAR
           ─────────────────────────────────────────────── */}
-      <section className="vad-section vad-section--paper" style={{ padding: "60px 0" }}>
+      <section className="vad-section vad-section--grey" style={{ padding: "36px 0 60px" }}>
         <div className="vad-container">
           <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
-            {/* Split Row: Left Details & Right Full-Span Image */}
-            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "40px" }}>
+            {/* Horizontal Announcements Bar (Placed Above About Talent Test, Compact & Eye-Catching) */}
+            <div className="vad-announcements-box">
+              {/* Header: Title on Left, Eye-Catchy Slider Nav Buttons on Right */}
+              <div className="vad-announcements-header">
+                <div className="vad-announcements-badge-wrap">
+                  <span className="vad-announcements-pulse-dot" aria-hidden="true">
+                    <span className="vad-announcements-pulse-ring" />
+                  </span>
+                  <span className="vad-announcements-badge-text">
+                    News Updates
+                  </span>
+                </div>
+
+                <div className="vad-announcements-nav">
+                  <button
+                    type="button"
+                    onClick={prevAnnouncement}
+                    aria-label="Previous announcement"
+                    className="vad-announcements-nav-btn"
+                  >
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <polyline points="15 18 9 12 15 6" />
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={nextAnnouncement}
+                    aria-label="Next announcement"
+                    className="vad-announcements-nav-btn"
+                  >
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              {/* Sliding Track */}
+              <div className="vad-announcements-viewport">
+                <div
+                  className="vad-announcements-track"
+                  style={{
+                    ["--slide-idx" as string]: announcementIdx,
+                    transition: enableTransition ? "transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)" : "none",
+                  }}
+                >
+                  {[...announcementsList, ...announcementsList.slice(0, 3)].map((item, idx) => (
+                    <div key={`${idx}-${item.title}`} className="vad-announcements-slide">
+                      <div className="vad-announcements-slide__content">
+                        <h4 className="vad-announcements-slide__title">
+                          {item.title}
+                        </h4>
+                        <p className="vad-announcements-slide__desc">
+                          {item.desc}
+                        </p>
+                      </div>
+
+                      {item.actionType && item.actionType !== "none" && item.actionLabel ? (
+                        <div className="vad-announcements-slide__action">
+                          {item.actionType === "link" || item.actionType === "modal" ? (
+                            <a
+                              href={item.href || "/contact"}
+                              target={item.href?.startsWith("http") || item.href?.endsWith(".pdf") ? "_blank" : undefined}
+                              rel={item.href?.startsWith("http") || item.href?.endsWith(".pdf") ? "noopener noreferrer" : undefined}
+                            >
+                              <span>{item.actionLabel}</span>
+                            </a>
+                          ) : (
+                            <a href={item.href || "#"}>
+                              <span>{item.actionLabel}</span>
+                            </a>
+                          )}
+                        </div>
+                      ) : null}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Split Row: Left Details & Right Full-Span Image Slideshow */}
+            <div className="vad-about-split">
               {/* Left Column: Text */}
-              <div style={{ flex: "1 1 420px" }}>
-                <span className="vad-eyebrow vad-eyebrow--dark">Our Annual Flagship Exam</span>
+              <div>
+                <span className="vad-eyebrow vad-eyebrow--dark">{aboutEyebrow}</span>
                 <h2
                   style={{
                     fontSize: "clamp(22px, 2.4vw, 32px)",
@@ -199,7 +363,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                     lineHeight: 1.15,
                   }}
                 >
-                  About the Talent Test
+                  {aboutTitle}
                 </h2>
                 <div
                   style={{
@@ -211,165 +375,81 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                   }}
                 />
 
-                <p style={{ fontSize: "16px", color: "var(--vad-ink)", lineHeight: 1.75, marginBottom: "16px" }}>
-                  For five consecutive years (2021–2025), Vadaanya Janaa Society has conducted the <strong>Vadaanya Talent Test</strong> — an offline, standardized OMR examination provided 100% free of charge to thousands of government school students across Andhra Pradesh and Telangana.
-                </p>
-
-                <p style={{ fontSize: "16px", color: "var(--vad-ink)", lineHeight: 1.75, margin: 0 }}>
-                  Over <strong>15,000 students</strong> have taken part, with <strong>500+ deserving scholars</strong> awarded district and mandal cash prizes, trophies, and continuous scholarships all the way from rural village classrooms to premier institutions like IITs and NITs.
-                </p>
-              </div>
-
-              {/* Right Column: Wider Image */}
-              <div style={{ flex: "1 1 520px", position: "relative" }}>
-                <div
-                  style={{
-                    position: "relative",
-                    width: "100%",
-                    aspectRatio: "16 / 10.5",
-                    borderRadius: "24px",
-                    overflow: "hidden",
-                    boxShadow: "0 20px 40px rgba(0, 0, 0, 0.12)",
-                  }}
-                >
-                  <Image
-                    src="/talent-test/talent_hero.jpg"
-                    alt="Students taking the Vadaanya Talent Test"
-                    fill
-                    priority
-                    sizes="(max-width: 768px) 100vw, 600px"
-                    style={{ objectFit: "cover" }}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Horizontal Announcements Bar (Sleek, Non-Boxy, Compact) */}
-            <div className="vad-announcements-box">
-              {/* Header: Title on Left, Mini Nav Arrows on Right */}
-              <div className="vad-announcements-header">
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <span className="vad-tt-feed-panel__pulse" aria-hidden="true" />
-                  <span
+                {aboutParagraphs.map((para, pIdx) => (
+                  <p
+                    key={pIdx}
                     style={{
-                      fontSize: "11px",
-                      fontWeight: 800,
-                      color: "var(--vad-gold-dark, #d97706)",
-                      letterSpacing: "0.08em",
-                      textTransform: "uppercase",
+                      fontSize: "16px",
+                      color: "var(--vad-ink)",
+                      lineHeight: 1.75,
+                      marginBottom: pIdx === aboutParagraphs.length - 1 ? 0 : "16px",
                     }}
                   >
-                    Live Announcements
-                  </span>
-                </div>
-
-                <div className="vad-announcements-nav">
-                  <button
-                    type="button"
-                    onClick={prevAnnouncement}
-                    aria-label="Previous announcement"
-                    className="vad-announcements-nav-btn"
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <polyline points="15 18 9 12 15 6" />
-                    </svg>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={nextAnnouncement}
-                    aria-label="Next announcement"
-                    className="vad-announcements-nav-btn"
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <polyline points="9 18 15 12 9 6" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-
-              {/* 1. DESKTOP / TABLET VIEW: Smooth Sliding Track */}
-              <div className="vad-announcements-desktop">
-                <div className="vad-announcements-viewport">
-                  <div
-                    className="vad-announcements-track"
-                    style={{
-                      transform: `translateX(calc(-${announcementIdx} * ((100% - 36px) / 3 + 18px)))`,
-                      transition: enableTransition ? "transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)" : "none",
-                    }}
-                  >
-                    {[...liveAnnouncements, ...liveAnnouncements.slice(0, 3)].map((item, idx) => (
-                      <div key={`${item.id}-${idx}`} className="vad-announcements-slide">
-                        <div>
-                          <h4 className="vad-announcements-slide__title">
-                            {item.title}
-                          </h4>
-                          <p className="vad-announcements-slide__desc">
-                            {item.desc}
-                          </p>
-                        </div>
-
-                        <div className="vad-announcements-slide__action">
-                          {item.actionType === "modal" ? (
-                            <button
-                              type="button"
-                              onClick={() => setIsRegModalOpen(true)}
-                            >
-                              <span>{item.actionLabel}</span>
-                            </button>
-                          ) : item.actionType === "link" ? (
-                            <a
-                              href={item.href}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <span>{item.actionLabel}</span>
-                            </a>
-                          ) : (
-                            <a href={item.href}>
-                              <span>{item.actionLabel}</span>
-                            </a>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* 2. MOBILE VIEW: Compact Borderless List */}
-              <div className="vad-announcements-mobile">
-                {liveAnnouncements.map((item) => (
-                  <div key={item.id} className="vad-announcement-mobile-card">
-                    <h4 className="vad-announcement-mobile-card__title">
-                      {item.title}
-                    </h4>
-                    <p className="vad-announcement-mobile-card__desc">
-                      {item.desc}
-                    </p>
-                    <div className="vad-announcement-mobile-card__action">
-                      {item.actionType === "modal" ? (
-                        <button
-                          type="button"
-                          onClick={() => setIsRegModalOpen(true)}
-                        >
-                          <span>{item.actionLabel}</span>
-                        </button>
-                      ) : item.actionType === "link" ? (
-                        <a
-                          href={item.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <span>{item.actionLabel}</span>
-                        </a>
-                      ) : (
-                        <a href={item.href}>
-                          <span>{item.actionLabel}</span>
-                        </a>
-                      )}
-                    </div>
-                  </div>
+                    {renderFormattedText(para)}
+                  </p>
                 ))}
+              </div>
+
+              {/* Right Column: Shuffling Fade-in/out Image Slideshow */}
+              <div style={{ position: "relative", width: "100%" }}>
+                <div className="vad-about-slideshow">
+                  {aboutImages.map((img, imgIdx) => (
+                    <div
+                      key={imgIdx}
+                      className={`vad-about-slideshow__slide ${imgIdx === activeAboutIdx ? "is-active" : ""}`}
+                    >
+                      <Image
+                        src={img.url}
+                        alt={img.alt || "Vadaanya Talent Test photo"}
+                        fill
+                        priority={imgIdx === 0}
+                        sizes="(max-width: 768px) 100vw, 600px"
+                        placeholder={img.blurDataUrl ? "blur" : "empty"}
+                        blurDataURL={img.blurDataUrl}
+                        style={{ objectFit: "cover" }}
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                {/* Subtle Manual Arrows & Progress Dots Placed Outside the Image Box */}
+                {aboutImages.length > 1 && (
+                  <div className="vad-about-slideshow-nav">
+                    <button
+                      type="button"
+                      onClick={prevAboutImage}
+                      aria-label="Previous photo"
+                      className="vad-about-slideshow-nav__btn"
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <polyline points="15 18 9 12 15 6" />
+                      </svg>
+                    </button>
+
+                    <div className="vad-about-slideshow-nav__dots">
+                      {aboutImages.map((_, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => setActiveAboutIdx(idx)}
+                          aria-label={`Go to slide ${idx + 1}`}
+                          className={`vad-about-slideshow-nav__dot ${idx === activeAboutIdx ? "is-active" : ""}`}
+                        />
+                      ))}
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={nextAboutImage}
+                      aria-label="Next photo"
+                      className="vad-about-slideshow-nav__btn"
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <polyline points="9 18 15 12 9 6" />
+                      </svg>
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -379,11 +459,11 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       {/* ───────────────────────────────────────────────
           SECTION 3: 4 STAT BADGES (DARK BLUE SECTION)
           ─────────────────────────────────────────────── */}
-      <section className="vad-section vad-section--deep" style={{ padding: "48px 0" }}>
+      <section className="vad-section vad-section--deep" style={{ padding: "26px 0" }}>
         <div className="vad-container">
           <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
             <div className="vad-tt-stats__grid">
-              {talentTestStats.map((st, i) => (
+              {statsList.map((st, i) => (
                 <div key={i} className="vad-tt-stats__card">
                   <span className="vad-tt-stats__num" style={{ color: "var(--vad-gold, #f2a712)" }}>
                     {st.value}
@@ -419,7 +499,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
           >
             {/* Left Column: Booklet Details */}
             <div style={{ flex: "1 1 480px" }}>
-              <span className="vad-eyebrow vad-eyebrow--dark">OFFICIAL QUESTION BANK</span>
+              <span className="vad-eyebrow vad-eyebrow--dark">OFFICIAL QUESTION BOOKLET</span>
               <h2
                 style={{
                   fontSize: "clamp(22px, 2.4vw, 32px)",
@@ -482,8 +562,8 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
               </div>
             </div>
 
-            {/* Right Column: Taller Image talent_test.jpg displaying complete artwork */}
-            <div style={{ flex: "1 1 360px", maxWidth: "390px", width: "100%", margin: "0 auto" }}>
+            {/* Right Column: Booklet Cover Artwork */}
+            <div style={{ flex: "1 1 290px", maxWidth: "310px", width: "100%", margin: "0 auto" }}>
               <a
                 href={pdfUrl}
                 target="_blank"
@@ -495,29 +575,29 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                   style={{
                     position: "relative",
                     width: "100%",
-                    aspectRatio: "3 / 3.7",
-                    borderRadius: "24px",
+                    aspectRatio: "1236 / 1609",
+                    borderRadius: "18px",
                     overflow: "hidden",
-                    boxShadow: "0 20px 40px rgba(0, 0, 0, 0.12)",
-                    border: "1px solid rgba(0, 0, 0, 0.06)",
-                    transition: "transform 0.4s ease, box-shadow 0.4s ease",
+                    boxShadow: "0 16px 36px rgba(0, 0, 0, 0.14)",
+                    border: "1px solid rgba(0, 0, 0, 0.08)",
+                    transition: "transform 0.35s ease, box-shadow 0.35s ease",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "scale(1.03)";
-                    e.currentTarget.style.boxShadow = "0 24px 48px rgba(10, 16, 48, 0.18)";
+                    e.currentTarget.style.transform = "scale(1.025) translateY(-4px)";
+                    e.currentTarget.style.boxShadow = "0 22px 44px rgba(10, 16, 48, 0.2)";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "scale(1)";
-                    e.currentTarget.style.boxShadow = "0 20px 40px rgba(0, 0, 0, 0.12)";
+                    e.currentTarget.style.transform = "scale(1) translateY(0)";
+                    e.currentTarget.style.boxShadow = "0 16px 36px rgba(0, 0, 0, 0.14)";
                   }}
                 >
                   <Image
-                    src="/talent_test.jpg"
+                    src="/talent-test/talent_test_booklet_image.jpg"
                     alt="Vadaanya Talent Test 5-Year Question Papers Booklet"
                     fill
-                    sizes="(max-width: 768px) 100vw, 390px"
+                    sizes="(max-width: 768px) 100vw, 310px"
                     priority
-                    style={{ objectFit: "contain", background: "#0a1030" }}
+                    style={{ objectFit: "cover" }}
                   />
                 </div>
               </a>
@@ -529,11 +609,13 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       {/* ───────────────────────────────────────────────
           SECTION 5: HOW THE TEST WORKS (CONCISE 6-STEP CARDS)
           ─────────────────────────────────────────────── */}
-      <section id="how-it-works" className="vad-section vad-section--grey vad-how-it-works-section" style={{ padding: "60px 0" }}>
+      <section id="how-it-works" className="vad-section vad-section--grey vad-how-it-works-section" style={{ padding: "42px 0" }}>
         <div className="vad-container">
           <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
-            <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "32px" }}>
-              <span className="vad-eyebrow vad-eyebrow--center vad-eyebrow--dark">THE ANNUAL CYCLE</span>
+            <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "24px" }}>
+              <span className="vad-eyebrow vad-eyebrow--center vad-eyebrow--dark">
+                {talentTestData?.howItWorksEyebrow || "THE ANNUAL CYCLE"}
+              </span>
               <h2
                 style={{
                   fontSize: "clamp(22px, 2.4vw, 32px)",
@@ -544,52 +626,24 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                   lineHeight: 1.2,
                 }}
               >
-                How the Talent Test Works
+                {talentTestData?.howItWorksHeading || "How the Talent Test Works"}
               </h2>
               <p className="vad-lead" style={{ fontSize: "16px", color: "var(--vad-ink-soft)", maxWidth: "680px", margin: "0 auto" }}>
-                A structured six-step cycle connecting free student registration to long-term collegiate support.
+                {talentTestData?.howItWorksLead || "A structured six-step cycle connecting free student registration to long-term collegiate support."}
               </p>
             </div>
 
             {/* Desktop View: 6 Elevated Cards Grid */}
             <div className="vad-how-it-works-grid">
-              {conciseHowItWorks.map((item, idx) => (
-                <div
-                  key={idx}
-                  style={{
-                    background: "#ffffff",
-                    borderRadius: "16px",
-                    padding: "22px 24px",
-                    border: "1px solid rgba(0, 0, 0, 0.07)",
-                    boxShadow: "0 4px 16px rgba(10, 16, 48, 0.04)",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "8px",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: "12px",
-                      fontWeight: 800,
-                      color: "var(--vad-gold-dark, #d97706)",
-                      letterSpacing: "0.08em",
-                      textTransform: "uppercase",
-                    }}
-                  >
+              {howItWorksSteps.map((item, idx) => (
+                <div key={idx} className="vad-step-card">
+                  <span className="vad-step-card__badge">
                     Step {item.step}
                   </span>
-                  <h3
-                    style={{
-                      fontSize: "18px",
-                      fontWeight: 800,
-                      color: "var(--vad-navy-950, #0a1030)",
-                      margin: 0,
-                      fontFamily: "var(--vad-font-display)",
-                    }}
-                  >
+                  <h3 className="vad-step-card__title">
                     {item.title}
                   </h3>
-                  <p style={{ fontSize: "14px", color: "var(--vad-ink-soft, #475569)", margin: 0, lineHeight: 1.55 }}>
+                  <p className="vad-step-card__desc">
                     {item.desc}
                   </p>
                 </div>
@@ -598,7 +652,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
 
             {/* Mobile View: Concise 6-Step List (Minimal scrolling) */}
             <div className="vad-how-it-works-mobile">
-              {conciseHowItWorks.map((item, idx) => (
+              {howItWorksSteps.map((item, idx) => (
                 <div key={idx} className="vad-how-it-works-mobile__item">
                   <span className="vad-how-it-works-mobile__step">{item.step}</span>
                   <div className="vad-how-it-works-mobile__content">
@@ -615,11 +669,13 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       {/* ───────────────────────────────────────────────
           SECTION 6: RECOGNITION BUILT FOR EQUITY (ELEVATED CARDS ON SOFT GREY)
           ─────────────────────────────────────────────── */}
-      <section id="equity" className="vad-section vad-section--grey" style={{ padding: "60px 0" }}>
+      <section id="equity" className="vad-section vad-equity-section" style={{ padding: "48px 0" }}>
         <div className="vad-container">
           <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
-            <div className="vad-head" style={{ textAlign: "left", marginBottom: "28px" }}>
-              <span className="vad-eyebrow vad-eyebrow--dark">FAIR EVALUATION</span>
+            <div className="vad-head" style={{ textAlign: "left", marginBottom: "22px" }}>
+              <span className="vad-eyebrow vad-eyebrow--dark">
+                {talentTestData?.equityEyebrow || "FAIR EVALUATION"}
+              </span>
               <h2
                 style={{
                   fontSize: "clamp(24px, 2.6vw, 36px)",
@@ -630,7 +686,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                   lineHeight: 1.2,
                 }}
               >
-                Recognition, Built for Equity
+                {talentTestData?.equityHeading || "Recognition, Built for Equity"}
               </h2>
               <div
                 style={{
@@ -642,104 +698,49 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                 }}
               />
               <p style={{ fontSize: "16px", color: "var(--vad-ink-soft, #475569)", lineHeight: 1.75, margin: 0 }}>
-                Introduced in 2024, this three-tier model recognises that a strong score in a drought-prone mandal deserves the same respect as one from a resource-rich area. Roughly <strong>280 non-overlapping prizes</strong> are awarded each cycle.
+                {talentTestData?.equityDescription || "Introduced in 2024, this three-tier model recognises that a strong score in a drought-prone mandal deserves the same respect as one from a resource-rich area. Roughly 280 non-overlapping prizes are awarded each cycle."}
               </p>
             </div>
 
-            {/* Elevated Unified 3-Tier Cards (Uniform styling with prominent Gold, Silver, Bronze medals and centered rewards) */}
+            {/* Elevated Unified 3-Tier Cards */}
             <div className="vad-equity-grid">
-              {/* Card 1 - Gold Medal */}
-              <div className="vad-equity-tier-card">
-                <div className="vad-equity-tier-card__bar" />
-                <div>
-                  <div className="vad-equity-tier-card__header-row">
-                    <div className="vad-equity-tier-card__badge">
-                      Tier 1
+              {equityTiersList.map((tierItem, idx) => (
+                <div key={idx} className="vad-equity-tier-card">
+                  <div className="vad-equity-tier-card__bar" />
+                  <div>
+                    <div className="vad-equity-tier-card__header-row">
+                      <div className="vad-equity-tier-card__badge">
+                        {tierItem.tier}
+                      </div>
+                      {tierItem.medal && (
+                        <span className="vad-equity-tier-card__medal-icon" title={tierItem.tier}>
+                          {tierItem.medal}
+                        </span>
+                      )}
                     </div>
-                    <span className="vad-equity-tier-card__medal-icon" title="Gold Medal">🥇</span>
+                    <h3 className="vad-equity-tier-card__title">
+                      {tierItem.title}
+                    </h3>
+                    <p className="vad-equity-tier-card__desc">
+                      {tierItem.desc}
+                    </p>
                   </div>
-                  <h3 className="vad-equity-tier-card__title">
-                    District Top 20
-                  </h3>
-                  <p className="vad-equity-tier-card__desc">
-                    Best across all mandals; no mandal repeats
-                  </p>
-                </div>
 
-                <div className="vad-equity-tier-card__reward-box">
-                  <span className="vad-equity-tier-card__reward-label">
-                    Reward
-                  </span>
-                  <div className="vad-equity-tier-card__reward-val">
-                    ₹15,000 – ₹25,000
-                  </div>
-                  <span className="vad-equity-tier-card__reward-sub">
-                    Trophy &amp; Merit Certificate
-                  </span>
-                </div>
-              </div>
-
-              {/* Card 2 - Silver Medal */}
-              <div className="vad-equity-tier-card">
-                <div className="vad-equity-tier-card__bar" />
-                <div>
-                  <div className="vad-equity-tier-card__header-row">
-                    <div className="vad-equity-tier-card__badge">
-                      Tier 2
+                  <div className="vad-equity-tier-card__reward-box">
+                    <span className="vad-equity-tier-card__reward-label">
+                      Reward
+                    </span>
+                    <div className="vad-equity-tier-card__reward-val">
+                      {tierItem.rewardVal}
                     </div>
-                    <span className="vad-equity-tier-card__medal-icon" title="Silver Medal">🥈</span>
+                    {tierItem.rewardSub && (
+                      <span className="vad-equity-tier-card__reward-sub">
+                        {tierItem.rewardSub}
+                      </span>
+                    )}
                   </div>
-                  <h3 className="vad-equity-tier-card__title">
-                    Mandal Topper (40)
-                  </h3>
-                  <p className="vad-equity-tier-card__desc">
-                    Top scorer per mandal, not already above
-                  </p>
                 </div>
-
-                <div className="vad-equity-tier-card__reward-box">
-                  <span className="vad-equity-tier-card__reward-label">
-                    Reward
-                  </span>
-                  <div className="vad-equity-tier-card__reward-val">
-                    ₹5,000
-                  </div>
-                  <span className="vad-equity-tier-card__reward-sub">
-                    Trophy &amp; Merit Certificate
-                  </span>
-                </div>
-              </div>
-
-              {/* Card 3 - Bronze Medal */}
-              <div className="vad-equity-tier-card">
-                <div className="vad-equity-tier-card__bar" />
-                <div>
-                  <div className="vad-equity-tier-card__header-row">
-                    <div className="vad-equity-tier-card__badge">
-                      Tier 3
-                    </div>
-                    <span className="vad-equity-tier-card__medal-icon" title="Bronze Medal">🥉</span>
-                  </div>
-                  <h3 className="vad-equity-tier-card__title">
-                    School Topper (~250)
-                  </h3>
-                  <p className="vad-equity-tier-card__desc">
-                    One topper per school, not already above
-                  </p>
-                </div>
-
-                <div className="vad-equity-tier-card__reward-box">
-                  <span className="vad-equity-tier-card__reward-label">
-                    Reward
-                  </span>
-                  <div className="vad-equity-tier-card__reward-val">
-                    ₹500 – ₹1,000
-                  </div>
-                  <span className="vad-equity-tier-card__reward-sub">
-                    Trophy &amp; Merit Certificate
-                  </span>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
@@ -753,7 +754,7 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
           <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
             <div className="vad-head vad-head--center" style={{ marginBottom: "36px" }}>
               <span className="vad-eyebrow vad-eyebrow--center" style={{ color: "var(--vad-gold, #f2a712)" }}>
-                NATIONAL ACADEMIC SUCCESS
+                {talentTestData?.iitEyebrow || "NATIONAL ACADEMIC SUCCESS"}
               </span>
               <h2
                 style={{
@@ -765,31 +766,144 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                   lineHeight: 1.2,
                 }}
               >
-                From Government Classrooms to IITs
+                {talentTestData?.iitHeading || "From Government Classrooms to IITs"}
               </h2>
               <p className="vad-lead" style={{ color: "#94a3b8", fontSize: "16px", maxWidth: "680px", margin: "0 auto", lineHeight: 1.6 }}>
-                Vadaanya Talent Test scholars who proved that rural government-school students can crack India&apos;s toughest entrance exams with the right mentorship.
+                {talentTestData?.iitLead || "Vadaanya Talent Test scholars who proved that rural government-school students can crack India's toughest entrance exams with the right mentorship."}
               </p>
             </div>
 
-            <div className="vad-scholar-grid">
-              {iitAlumni.map((alum, idx) => (
-                <div key={idx} className="vad-scholar-card">
-                  <div className="vad-scholar-card__rank-row">
-                    <span className="vad-scholar-card__air">{alum.airRank}</span>
-                    <span className="vad-scholar-card__cat">{alum.categoryRank}</span>
-                  </div>
+            {/* Mobile View (< 768px): Always a carousel just like home page success stories */}
+            <div className="vad-scholars-mobile-carousel">
+              <Swiper
+                modules={[Navigation, Autoplay]}
+                spaceBetween={12}
+                slidesPerView={1.3}
+                loop={false}
+                autoplay={{ delay: 4500, disableOnInteraction: false, pauseOnMouseEnter: true }}
+                onSwiper={(swiper) => {
+                  mobileScholarSwiperRef.current = swiper;
+                }}
+                breakpoints={{
+                  0: { slidesPerView: 1.25, spaceBetween: 10 },
+                  440: { slidesPerView: 1.8, spaceBetween: 12 },
+                  600: { slidesPerView: 2.3, spaceBetween: 14 },
+                }}
+                className="vad-scholars-swiper"
+              >
+                {scholarsList.map((alum, idx) => (
+                  <SwiperSlide key={`mob-${idx}`} style={{ height: "auto" }}>
+                    <ScholarCard alum={alum} />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
 
-                  <h3 className="vad-scholar-card__name">{alum.name}</h3>
-                  <span className="vad-scholar-card__college">{alum.college}</span>
+              {/* Mobile Navigation Controls */}
+              <div className="vad-scholars-nav vad-scholars-nav--mobile">
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (mobileScholarSwiperRef.current?.isBeginning) {
+                      mobileScholarSwiperRef.current.slideTo(scholarsList.length - 1);
+                    } else {
+                      mobileScholarSwiperRef.current?.slidePrev();
+                    }
+                  }}
+                  aria-label="Previous scholar"
+                  className="vad-scholars-nav-btn"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <polyline points="15 18 9 12 15 6" />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (mobileScholarSwiperRef.current?.isEnd) {
+                      mobileScholarSwiperRef.current.slideTo(0);
+                    } else {
+                      mobileScholarSwiperRef.current?.slideNext();
+                    }
+                  }}
+                  aria-label="Next scholar"
+                  className="vad-scholars-nav-btn"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                </button>
+              </div>
+            </div>
 
-                  {alum.quote && (
-                    <p className="vad-scholar-card__quote">
-                      &ldquo;{alum.quote}&rdquo;
-                    </p>
-                  )}
+            {/* Desktop View (>= 768px): Normal cards if <= 4, Carousel if >= 5 */}
+            <div className="vad-scholars-desktop-view">
+              {scholarsList.length <= 4 ? (
+                <div className={`vad-scholar-grid vad-scholar-grid--${scholarsList.length}`}>
+                  {scholarsList.map((alum, idx) => (
+                    <ScholarCard key={`desk-${idx}`} alum={alum} />
+                  ))}
                 </div>
-              ))}
+              ) : (
+                <div className="vad-scholars-carousel-wrapper" style={{ position: "relative", width: "100%" }}>
+                  <Swiper
+                    modules={[Navigation, Autoplay]}
+                    spaceBetween={18}
+                    slidesPerView={4}
+                    loop={false}
+                    autoplay={{ delay: 4500, disableOnInteraction: false, pauseOnMouseEnter: true }}
+                    onSwiper={(swiper) => {
+                      scholarSwiperRef.current = swiper;
+                    }}
+                    breakpoints={{
+                      768: { slidesPerView: 3, spaceBetween: 16 },
+                      1024: { slidesPerView: 4, spaceBetween: 18 },
+                    }}
+                    className="vad-scholars-swiper"
+                  >
+                    {scholarsList.map((alum, idx) => (
+                      <SwiperSlide key={`desk-slide-${idx}`} style={{ height: "auto" }}>
+                        <ScholarCard alum={alum} />
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+
+                  {/* Navigation Controls */}
+                  <div className="vad-scholars-nav">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (scholarSwiperRef.current?.isBeginning) {
+                          scholarSwiperRef.current.slideTo(scholarsList.length - 1);
+                        } else {
+                          scholarSwiperRef.current?.slidePrev();
+                        }
+                      }}
+                      aria-label="Previous scholar"
+                      className="vad-scholars-nav-btn"
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <polyline points="15 18 9 12 15 6" />
+                      </svg>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (scholarSwiperRef.current?.isEnd) {
+                          scholarSwiperRef.current.slideTo(0);
+                        } else {
+                          scholarSwiperRef.current?.slideNext();
+                        }
+                      }}
+                      aria-label="Next scholar"
+                      className="vad-scholars-nav-btn"
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <polyline points="9 18 15 12 9 6" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -820,28 +934,28 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                 lineHeight: 1.2,
               }}
             >
-              Pre-Register for Talent Test 2026
+              Talent Test 2026 Preparation & Details
             </h2>
             <p className="vad-lead" style={{ color: "#cbd5e1", fontSize: "16px", maxWidth: "660px", margin: "0 auto 24px", lineHeight: 1.6 }}>
-              100% free for government school students from Class 9 to 10. Pre-register now to receive exam center locations, study materials, and SMS hall ticket alerts.
+              100% free for government school students from Class 9 to 10. Access exam syllabi, 5-year solved question banks, and reach out to our team for test center inquiries.
             </p>
 
             <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", justifyContent: "center", marginBottom: "24px" }}>
-              <button
-                onClick={() => setIsRegModalOpen(true)}
-                className="vad-btn vad-btn--gold"
-              >
-                <span>Pre-Register Free (Online) →</span>
-              </button>
               <a
                 href={pdfUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="vad-btn vad-btn--outline"
+                className="vad-btn vad-btn--gold"
               >
                 <BookOpenIcon />
-                <span>Open Solved Booklet ↗</span>
+                <span>Open Solved Booklet (PDF) ↗</span>
               </a>
+              <Link
+                href="/contact"
+                className="vad-btn vad-btn--outline"
+              >
+                <span>Contact Us for Details →</span>
+              </Link>
             </div>
 
             <div className="vad-tt-support__legal-note" style={{ color: "#94a3b8", justifyContent: "center" }}>
@@ -855,13 +969,15 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
       */}
 
       {/* ───────────────────────────────────────────────
-          SECTION 10: FAQS (LIGHT PAPER)
+          SECTION 10: FAQS (GREY BACKGROUND, WHITE ACCORDIONS)
           ─────────────────────────────────────────────── */}
-      <section id="faqs" className="vad-section vad-section--paper vad-tt-faqs" style={{ padding: "60px 0" }}>
+      <section id="faqs" className="vad-section vad-section--grey vad-tt-faqs" style={{ padding: "64px 0", borderTop: "1px solid #e2e8f0" }}>
         <div className="vad-container">
           <div style={{ maxWidth: "860px", margin: "0 auto" }}>
             <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "36px" }}>
-              <span className="vad-eyebrow vad-eyebrow--center vad-eyebrow--dark">FAQ</span>
+              <span className="vad-eyebrow vad-eyebrow--center vad-eyebrow--dark">
+                {talentTestData?.faqEyebrow || "FAQ"}
+              </span>
               <h2
                 style={{
                   fontSize: "clamp(22px, 2.4vw, 32px)",
@@ -872,12 +988,12 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
                   lineHeight: 1.2,
                 }}
               >
-                Frequently Asked Questions
+                {talentTestData?.faqHeading || "Frequently Asked Questions"}
               </h2>
             </div>
 
             <div className="vad-tt-faqs__list">
-              {talentTestFaqs.map((faq, idx) => (
+              {faqsList.map((faq, idx) => (
                 <div
                   key={idx}
                   className={`vad-tt-faqs__item vad-tt-faqs__item--light ${openFaqIndex === idx ? "is-open" : ""}`}
@@ -903,12 +1019,6 @@ export default function TalentTestPage({ galleryAlbums = [] }: TalentTestPagePro
           </div>
         </div>
       </section>
-
-      {/* Pre-Registration Modal */}
-      <TalentTestRegistrationModal
-        isOpen={isRegModalOpen}
-        onClose={() => setIsRegModalOpen(false)}
-      />
     </div>
   );
 }

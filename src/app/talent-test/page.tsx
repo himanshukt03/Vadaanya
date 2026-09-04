@@ -3,7 +3,7 @@ import Navbar from "@/components/vadaanya/Navbar";
 import TalentTestPage from "@/components/vadaanya/TalentTestPage";
 import Footer from "@/components/vadaanya/Footer";
 import ScrollToTop from "@/components/common/ScrollToTop";
-import { getTalentTestGalleryEvents } from "@/lib/sanity/queries";
+import { getTalentTestGalleryEvents, getTalentTestPageData } from "@/lib/sanity/queries";
 import JsonLd, { getBreadcrumbJsonLd, getTalentTestJsonLd } from "@/components/common/JsonLd";
 
 export const metadata: Metadata = {
@@ -44,7 +44,10 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const galleryAlbums = await getTalentTestGalleryEvents();
+  const [galleryAlbums, talentTestData] = await Promise.all([
+    getTalentTestGalleryEvents(),
+    getTalentTestPageData(),
+  ]);
 
   const breadcrumbLd = getBreadcrumbJsonLd([
     { name: "Home", url: "https://vadaanya.org" },
@@ -56,7 +59,7 @@ export default async function Page() {
       <JsonLd data={[breadcrumbLd, getTalentTestJsonLd()]} />
       <Navbar />
       <main id="top">
-        <TalentTestPage galleryAlbums={galleryAlbums} />
+        <TalentTestPage galleryAlbums={galleryAlbums} talentTestData={talentTestData} />
       </main>
       <Footer />
       <ScrollToTop />

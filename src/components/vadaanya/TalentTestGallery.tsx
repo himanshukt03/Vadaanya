@@ -95,9 +95,6 @@ export default function TalentTestGallery({ albums = [] }: TalentTestGalleryProp
         <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "36px" }}>
           <span className="vad-eyebrow vad-eyebrow--center vad-eyebrow--dark">PHOTO ARCHIVES</span>
           <h2>Exam Days &amp; Prize Distribution Gallery</h2>
-          <p className="vad-lead">
-            Explore photo archives from every edition of the Vadaanya Talent Test — from energetic OMR exam halls to grand state felicitation ceremonies.
-          </p>
         </div>
 
         {/* Gallery Cards Grid: 4 in desktop, 3 in tablet, 2 in phone */}
@@ -207,21 +204,22 @@ export default function TalentTestGallery({ albums = [] }: TalentTestGalleryProp
             <button
               type="button"
               onClick={() => setExpanded(!expanded)}
-              className="vad-btn vad-btn--outline"
+              className="vad-btn vad-btn--gold"
               style={{
-                padding: "12px 32px",
-                fontSize: "14.5px",
+                padding: "13px 32px",
+                fontSize: "15px",
                 fontWeight: 700,
                 borderRadius: "9999px",
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "8px",
+                cursor: "pointer",
               }}
             >
               <span>
                 {expanded
                   ? "Show Less Albums ↑"
-                  : `View More Albums (${albums.length - initialLimit} more) ↓`}
+                  : `View More ↓`}
               </span>
             </button>
           </div>
