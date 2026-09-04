@@ -44,6 +44,7 @@ const nextConfig: NextConfig = {
     ],
   },
   images: {
+    unoptimized: true,
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 31536000,
     qualities: [75, 80, 82, 85, 90, 92, 95],
