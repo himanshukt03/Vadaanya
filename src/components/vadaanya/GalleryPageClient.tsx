@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import GalleryPage from "./GalleryPage";
 import GalleryPageSkeleton from "./GalleryPageSkeleton";
 import type {
@@ -34,11 +34,13 @@ export default function GalleryPageClient({
   }
 
   return (
-    <GalleryPage
-      galleryEvents={galleryEvents}
-      printMediaCollections={printMediaCollections}
-      newsItems={newsItems}
-      campaignPosters={campaignPosters}
-    />
+    <Suspense fallback={<GalleryPageSkeleton />}>
+      <GalleryPage
+        galleryEvents={galleryEvents}
+        printMediaCollections={printMediaCollections}
+        newsItems={newsItems}
+        campaignPosters={campaignPosters}
+      />
+    </Suspense>
   );
 }
