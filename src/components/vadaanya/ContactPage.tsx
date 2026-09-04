@@ -16,7 +16,7 @@ export default function ContactPage() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     // Validation
@@ -30,6 +30,16 @@ export default function ContactPage() {
     if (!formData.subject.trim()) newErrors.subject = "Subject is required";
     if (!formData.message.trim()) newErrors.message = "Message is required";
     
+    // Honeypot anti-spam check
+    const formEl = e.currentTarget;
+    const honeypot = (formEl.elements.namedItem("botcheck") as HTMLInputElement)?.value;
+    if (honeypot) {
+      setSubmitStatus("success");
+      setFormData({ name: "", email: "", subject: "", message: "" });
+      setTimeout(() => setSubmitStatus("idle"), 4000);
+      return;
+    }
+
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
@@ -187,6 +197,15 @@ export default function ContactPage() {
               </h3>
               
               <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                {/* Honeypot field for spam prevention */}
+                <input
+                  type="text"
+                  name="botcheck"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  style={{ display: "none" }}
+                />
                 
                 {/* Form Group: Name */}
                 <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>

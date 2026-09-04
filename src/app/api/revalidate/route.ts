@@ -9,50 +9,52 @@ const REVALIDATE_TYPES = [
   "printMediaCollection",
   "campaignPoster",
   "successStory",
+  "talentTestPage",
 ];
 
 export async function POST(req: NextRequest) {
   try {
     const secret = process.env.SANITY_REVALIDATE_SECRET;
 
-    if (secret) {
-      const { isValidSignature, body } = await parseBody<{ _type?: string }>(
-        req,
-        secret,
-        true
-      );
-      if (!isValidSignature) {
-        return new Response("Invalid webhook signature", { status: 401 });
-      }
-      revalidatePath("/", "layout");
-      if (body?._type && (REVALIDATE_TYPES.includes(body._type) || body._type === "newsArticle" || body._type === "galleryEvent" || body._type === "printMediaCollection" || body._type === "successStory")) {
-        revalidatePath("/gallery", "page");
-        revalidatePath("/success-stories", "page");
-      }
-      return NextResponse.json({
-        revalidated: true,
-        now: Date.now(),
-        type: body?._type || "unknown",
-      });
+    if (!secret) {
+      return new Response("Webhook secret not configured", { status: 500 });
     }
 
-    // Failsafe: If no secret is configured in env variables, revalidate cache directly
+    const { isValidSignature, body } = await parseBody<{ _type?: string }>(
+      req,
+      secret,
+      true
+    );
+
+    if (!isValidSignature) {
+      return new Response("Invalid webhook signature", { status: 401 });
+    }
+
     revalidatePath("/", "layout");
+
+    if (body?._type && (REVALIDATE_TYPES.includes(body._type) || body._type === "newsArticle" || body._type === "galleryEvent" || body._type === "printMediaCollection" || body._type === "successStory")) {
+      revalidatePath("/gallery", "page");
+      revalidatePath("/success-stories", "page");
+    }
+
+    if (body?._type === "talentTestPage") {
+      revalidatePath("/talent-test", "page");
+    }
+
     return NextResponse.json({
       revalidated: true,
       now: Date.now(),
-      message: "Cache purged without secret verification",
+      type: body?._type || "unknown",
     });
   } catch (err) {
-    // Secondary Failsafe: Purge cache even if payload parsing had a warning
-    try {
-      revalidatePath("/", "layout");
-    } catch (_) {}
-    return NextResponse.json({
-      revalidated: true,
-      now: Date.now(),
-      error: (err as Error).message,
-    });
+    return NextResponse.json(
+      {
+        revalidated: false,
+        now: Date.now(),
+        error: (err as Error).message,
+      },
+      { status: 400 }
+    );
   }
 }
 
