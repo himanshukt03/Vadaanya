@@ -655,9 +655,10 @@ export default function GalleryPage({
                           src={poster.posterImage}
                           alt={poster.alt || poster.title}
                           fill
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 290px"
+                          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 240px"
                           quality={85}
                           className="vad-poster-img"
+                          style={{ objectFit: "contain" }}
                           placeholder={poster.blurDataUrl ? "blur" : "empty"}
                           blurDataURL={poster.blurDataUrl}
                         />
