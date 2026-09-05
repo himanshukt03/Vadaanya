@@ -19,6 +19,7 @@ import type {
   TalentTestPageData,
   TalentTestScholarData,
   TalentTestAboutImage,
+  TalentTestAnnouncement,
 } from "@/lib/sanity/queries";
 import {
   fallbackTalentTestAnnouncements,
@@ -26,6 +27,7 @@ import {
   fallbackEquityTiers,
   fallbackIitScholars,
 } from "@/lib/sanity/queries";
+import { urlFor } from "@/lib/sanity/image";
 
 interface TalentTestPageProps {
   galleryAlbums?: TalentTestGalleryItem[];
@@ -210,43 +212,96 @@ export default function TalentTestPage({
 
   const pdfUrl = "/talent-test/vadaanya-talent-test-booklet.pdf";
   const [announcementIdx, setAnnouncementIdx] = useState(0);
-  const [enableTransition, setEnableTransition] = useState(true);
+  const [visibleCards, setVisibleCards] = useState(3);
+  const [carouselPaused, setCarouselPaused] = useState(false);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
   const announcementsList =
     talentTestData?.announcements && talentTestData.announcements.length > 0
       ? talentTestData.announcements
       : fallbackTalentTestAnnouncements;
 
-  const totalAnnouncements = announcementsList.length;
+  useEffect(() => {
+    const updateVisible = () => {
+      if (typeof window === "undefined") return;
+      if (window.innerWidth < 640) {
+        setVisibleCards(1);
+      } else if (window.innerWidth < 992) {
+        setVisibleCards(2);
+      } else {
+        setVisibleCards(3);
+      }
+    };
+    updateVisible();
+    window.addEventListener("resize", updateVisible);
+    return () => window.removeEventListener("resize", updateVisible);
+  }, []);
+
+  const maxAnnouncementIdx = Math.max(0, announcementsList.length - visibleCards);
+
+  useEffect(() => {
+    if (announcementIdx > maxAnnouncementIdx) {
+      setAnnouncementIdx(maxAnnouncementIdx);
+    }
+  }, [maxAnnouncementIdx, announcementIdx]);
 
   const nextAnnouncement = () => {
-    setEnableTransition(true);
-    setAnnouncementIdx((prev) => prev + 1);
+    setAnnouncementIdx((prev) => (prev >= maxAnnouncementIdx ? 0 : prev + 1));
   };
 
   const prevAnnouncement = () => {
-    setEnableTransition(true);
-    setAnnouncementIdx((prev) => (prev === 0 ? totalAnnouncements - 1 : prev - 1));
+    setAnnouncementIdx((prev) => (prev <= 0 ? maxAnnouncementIdx : prev - 1));
   };
 
   useEffect(() => {
-    if (totalAnnouncements <= 1) return;
+    if (maxAnnouncementIdx <= 0 || carouselPaused) return;
     const timer = setInterval(() => {
-      setEnableTransition(true);
-      setAnnouncementIdx((prev) => prev + 1);
-    }, 4500);
+      setAnnouncementIdx((prev) => (prev >= maxAnnouncementIdx ? 0 : prev + 1));
+    }, 5500);
     return () => clearInterval(timer);
-  }, [totalAnnouncements]);
+  }, [maxAnnouncementIdx, carouselPaused]);
 
-  useEffect(() => {
-    if (announcementIdx === totalAnnouncements) {
-      const timeout = setTimeout(() => {
-        setEnableTransition(false);
-        setAnnouncementIdx(0);
-      }, 550);
-      return () => clearTimeout(timeout);
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX === null) return;
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 45) {
+      if (diff > 0) nextAnnouncement();
+      else prevAnnouncement();
     }
-  }, [announcementIdx, totalAnnouncements]);
+    setTouchStartX(null);
+  };
+
+  const getAnnouncementImage = (item: TalentTestAnnouncement, index: number) => {
+    if (item.image) {
+      if (typeof item.image === "string") return item.image;
+      if (typeof item.image === "object") {
+        try {
+          const u = urlFor(item.image).width(640).height(420).fit("crop").auto("format").quality(85).url();
+          if (u) return u;
+        } catch {
+          if (item.image.asset?.url) return item.image.asset.url;
+        }
+      }
+    }
+    const defaultImages = [
+      "/talent-test/talent_test_booklet_image.jpg",
+      "/events/Digital Teaching at High School/01-1.jpg",
+      "/Ashok.jpg",
+      "/events/Brostal Event Vizag/01.jpg",
+      "/talent_test.jpg",
+    ];
+    return defaultImages[index % defaultImages.length];
+  };
+
+  const getAnnouncementDate = (item: TalentTestAnnouncement, index: number) => {
+    const defaultDates = ["01 Feb 2025", "15 Jan 2025", "20 Dec 2024", "05 Dec 2024", "18 Nov 2024"];
+    if (item.date && /\d/.test(item.date)) return item.date;
+    return defaultDates[index % defaultDates.length];
+  };
 
   const statsList =
     talentTestData?.stats && talentTestData.stats.length > 0
@@ -317,91 +372,198 @@ export default function TalentTestPage({
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 2: ABOUT THE TALENT TEST + HORIZONTAL ANNOUNCEMENTS BAR
+          SECTION 2: LATEST NEWS & UPDATES (CAROUSEL CARDS)
           ─────────────────────────────────────────────── */}
-      <section className="vad-section vad-section--grey" style={{ padding: "36px 0 60px" }}>
+      <section className="vad-section vad-section--grey vad-news-section">
         <div className="vad-container">
-          <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
-            {/* Horizontal Announcements Bar (Placed Above About Talent Test, Compact & Eye-Catching) */}
-            <div className="vad-announcements-box">
-              {/* Header: Title on Left, Eye-Catchy Slider Nav Buttons on Right */}
-              <div className="vad-announcements-header">
-                <div className="vad-announcements-badge-wrap">
-                  <span className="vad-announcements-pulse-dot" aria-hidden="true">
-                    <span className="vad-announcements-pulse-ring" />
-                  </span>
-                  <span className="vad-announcements-badge-text">
-                    News Updates
-                  </span>
-                </div>
-
-                <div className="vad-announcements-nav">
-                  <button
-                    type="button"
-                    onClick={prevAnnouncement}
-                    aria-label="Previous announcement"
-                    className="vad-announcements-nav-btn"
-                  >
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <polyline points="15 18 9 12 15 6" />
-                    </svg>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={nextAnnouncement}
-                    aria-label="Next announcement"
-                    className="vad-announcements-nav-btn"
-                  >
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <polyline points="9 18 15 12 9 6" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-
-              {/* Sliding Track */}
-              <div className="vad-announcements-viewport">
-                <div
-                  className="vad-announcements-track"
-                  style={{
-                    ["--slide-idx" as string]: announcementIdx,
-                    transition: enableTransition ? "transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)" : "none",
-                  }}
-                >
-                  {[...announcementsList, ...announcementsList.slice(0, 3)].map((item, idx) => (
-                    <div key={`${idx}-${item.title}`} className="vad-announcements-slide">
-                      <div className="vad-announcements-slide__content">
-                        <h4 className="vad-announcements-slide__title">
-                          {item.title}
-                        </h4>
-                        <p className="vad-announcements-slide__desc">
-                          {item.desc}
-                        </p>
-                      </div>
-
-                      {item.actionType && item.actionType !== "none" && item.actionLabel ? (
-                        <div className="vad-announcements-slide__action">
-                          {item.actionType === "link" || item.actionType === "modal" ? (
-                            <a
-                              href={item.href || "/contact"}
-                              target={item.href?.startsWith("http") || item.href?.endsWith(".pdf") ? "_blank" : undefined}
-                              rel={item.href?.startsWith("http") || item.href?.endsWith(".pdf") ? "noopener noreferrer" : undefined}
-                            >
-                              <span>{item.actionLabel}</span>
-                            </a>
-                          ) : (
-                            <a href={item.href || "#"}>
-                              <span>{item.actionLabel}</span>
-                            </a>
-                          )}
-                        </div>
-                      ) : null}
-                    </div>
-                  ))}
-                </div>
-              </div>
+          <div style={{ maxWidth: "1220px", margin: "0 auto" }}>
+            {/* Section Header: Matches Website Standard Eyebrow & Title */}
+            <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "14px" }}>
+              <span className="vad-eyebrow vad-eyebrow--center vad-eyebrow--dark">
+                News &amp; Updates
+              </span>
+              <h2
+                style={{
+                  fontSize: "clamp(22px, 2.3vw, 32px)",
+                  margin: "4px 0 0",
+                  color: "var(--vad-navy-950)",
+                  fontWeight: 800,
+                  fontFamily: "var(--vad-font-display)",
+                  lineHeight: 1.2,
+                }}
+              >
+                Latest News &amp; Updates
+              </h2>
             </div>
 
+            {/* Carousel Row with Desktop Side Arrows & Cards Viewport */}
+            <div
+              className="vad-news-carousel"
+              onMouseEnter={() => setCarouselPaused(true)}
+              onMouseLeave={() => setCarouselPaused(false)}
+            >
+              {/* Desktop Left Arrow Button */}
+              <button
+                type="button"
+                onClick={prevAnnouncement}
+                aria-label="Previous announcement"
+                className="vad-news-carousel__arrow vad-news-carousel__arrow--desktop vad-news-carousel__arrow--prev"
+                disabled={announcementsList.length <= visibleCards}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
+
+              {/* Viewport & Track */}
+              <div
+                className="vad-news-carousel__viewport"
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+              >
+                <div
+                  className="vad-news-carousel__track"
+                  style={{
+                    transform: `translateX(-${announcementIdx * (100 / visibleCards)}%)`,
+                    transition: "transform 0.45s cubic-bezier(0.25, 1, 0.5, 1)",
+                  }}
+                >
+                  {announcementsList.map((item, idx) => {
+                    const imgSrc = getAnnouncementImage(item, idx);
+                    const dateText = getAnnouncementDate(item, idx);
+                    const href = item.href || "#booklet";
+                    const isExternal = href.startsWith("http") || href.endsWith(".pdf");
+
+                    return (
+                      <div
+                        key={`${idx}-${item.title}`}
+                        className="vad-news-carousel__slide"
+                        style={{
+                          flex: `0 0 ${100 / visibleCards}%`,
+                          maxWidth: `${100 / visibleCards}%`,
+                        }}
+                      >
+                        <a
+                          href={href}
+                          target={isExternal ? "_blank" : undefined}
+                          rel={isExternal ? "noopener noreferrer" : undefined}
+                          className="vad-news-card-link"
+                        >
+                          <article className="vad-news-card">
+                            {/* Card Image */}
+                            <div className="vad-news-card__media">
+                              <Image
+                                src={imgSrc}
+                                alt={item.title}
+                                fill
+                                sizes="(max-width: 640px) 100vw, (max-width: 992px) 50vw, 400px"
+                                style={{ objectFit: "cover" }}
+                                className="vad-news-card__img"
+                              />
+                            </div>
+
+                            {/* Card Content */}
+                            <div className="vad-news-card__body">
+                              <span className="vad-news-card__date">
+                                {dateText}
+                              </span>
+                              <h3 className="vad-news-card__title">
+                                {item.title}
+                              </h3>
+                              <p className="vad-news-card__desc">
+                                {item.desc}
+                              </p>
+
+                              {/* Card Action Link & Arrow */}
+                              <div className="vad-news-card__action-row">
+                                <span className="vad-news-card__action-btn" aria-hidden="true">
+                                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12" />
+                                    <polyline points="12 5 19 12 12 19" />
+                                  </svg>
+                                </span>
+                                {item.actionLabel && (
+                                  <span className="vad-news-card__action-label">
+                                    {item.actionLabel}
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          </article>
+                        </a>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Desktop Right Arrow Button */}
+              <button
+                type="button"
+                onClick={nextAnnouncement}
+                aria-label="Next announcement"
+                className="vad-news-carousel__arrow vad-news-carousel__arrow--desktop vad-news-carousel__arrow--next"
+                disabled={announcementsList.length <= visibleCards}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Bottom Controls: Dots on desktop, and Arrows + Dots on mobile */}
+            <div className="vad-news-carousel__controls">
+              {/* Mobile Prev Arrow */}
+              <button
+                type="button"
+                onClick={prevAnnouncement}
+                aria-label="Previous announcement"
+                className="vad-news-carousel__arrow vad-news-carousel__arrow--mobile vad-news-carousel__arrow--prev"
+                disabled={announcementsList.length <= visibleCards}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
+
+              {/* Pagination Dots */}
+              {maxAnnouncementIdx > 0 && (
+                <div className="vad-news-carousel__dots">
+                  {Array.from({ length: maxAnnouncementIdx + 1 }).map((_, dotIdx) => (
+                    <button
+                      key={dotIdx}
+                      type="button"
+                      onClick={() => setAnnouncementIdx(dotIdx)}
+                      className={`vad-news-carousel__dot ${dotIdx === announcementIdx ? "is-active" : ""}`}
+                      aria-label={`Go to slide ${dotIdx + 1}`}
+                    />
+                  ))}
+                </div>
+              )}
+
+              {/* Mobile Next Arrow */}
+              <button
+                type="button"
+                onClick={nextAnnouncement}
+                aria-label="Next announcement"
+                className="vad-news-carousel__arrow vad-news-carousel__arrow--mobile vad-news-carousel__arrow--next"
+                disabled={announcementsList.length <= visibleCards}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ───────────────────────────────────────────────
+          SECTION 3: ABOUT THE TALENT TEST
+          ─────────────────────────────────────────────── */}
+      <section className="vad-section" style={{ padding: "46px 0 54px", backgroundColor: "#ffffff" }}>
+        <div className="vad-container">
+          <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
             {/* Split Row: Left Details & Right Full-Span Image Slideshow */}
             <div className="vad-about-split">
               {/* Left Column: Text */}
@@ -663,7 +825,7 @@ export default function TalentTestPage({
       {/* ───────────────────────────────────────────────
           SECTION 5: HOW THE TEST WORKS (GREY BACKGROUND, CONCISE 6-STEP CARDS)
           ─────────────────────────────────────────────── */}
-      <section id="how-it-works" className="vad-section vad-how-it-works-section" style={{ padding: "36px 0 24px", background: "#edf0f6" }}>
+      <section id="how-it-works" className="vad-section vad-how-it-works-section" style={{ padding: "40px 0 44px", background: "#edf0f6" }}>
         <div className="vad-container">
           <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
             <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "32px" }}>
@@ -725,7 +887,7 @@ export default function TalentTestPage({
       {/* ───────────────────────────────────────────────
           SECTION 6: RECOGNITION BUILT FOR EQUITY (ELEVATED CARDS ON SOFT GREY)
           ─────────────────────────────────────────────── */}
-      <section id="equity" className="vad-section vad-equity-section" style={{ padding: "26px 0 38px" }}>
+      <section id="equity" className="vad-section vad-equity-section" style={{ padding: "44px 0 40px" }}>
         <div className="vad-container">
           <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
             <div className="vad-head" style={{ textAlign: "left", marginBottom: "22px" }}>
@@ -806,6 +968,7 @@ export default function TalentTestPage({
           SECTION 7: HALL OF FAME (IIT RANKERS)
           ─────────────────────────────────────────────── */}
       <section id="hall-of-fame" className="vad-section vad-section--deep vad-tt-fame" style={{ padding: "22px 0 38px" }}>
+        <div id="alumni" style={{ position: "relative", top: "-80px" }} />
         <div className="vad-container">
           <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
             <div className="vad-head vad-head--center" style={{ marginBottom: "24px" }}>
