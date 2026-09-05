@@ -42,3 +42,7 @@ next-env.d.ts
 
 # Telugu news assets
 /public/news-telugu
+
+# sanity studio build artifacts
+.sanity
+/dist/

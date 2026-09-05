@@ -1134,6 +1134,9 @@ export interface TalentTestAnnouncement {
   actionLabel?: string;
   actionType?: "anchor" | "link" | "none" | "modal";
   href?: string;
+  image?: string | any;
+  date?: string;
+  tag?: string;
 }
 
 export interface TalentTestStatData {
@@ -1208,7 +1211,19 @@ export const TALENT_TEST_PAGE_QUERY = defineQuery(`
       desc,
       actionLabel,
       actionType,
-      href
+      href,
+      date,
+      image {
+        asset-> {
+          _id,
+          url,
+          metadata {
+            lqip
+          }
+        },
+        crop,
+        hotspot
+      }
     },
     aboutEyebrow,
     aboutTitle,
@@ -1274,38 +1289,48 @@ export const TALENT_TEST_PAGE_QUERY = defineQuery(`
 export const fallbackTalentTestAnnouncements: TalentTestAnnouncement[] = [
   {
     title: "5-Year Solved Booklet (2021–2025)",
-    desc: "Official 100-page bilingual question bank & solutions.",
+    desc: "Official 100-page bilingual question bank & analytical reasoning solutions.",
     actionLabel: "Open PDF ↗",
     actionType: "link",
     href: "/talent-test/vadaanya-talent-test-booklet.pdf",
+    image: "/talent-test/talent_test_booklet_image.jpg",
+    date: "01 Feb 2025",
   },
   {
     title: "2026 Test Details & Inquiries",
-    desc: "Free entry for Class 9 & 10 rural students.",
+    desc: "Free entry for Class 9 & 10 rural government school students across AP & Telangana.",
     actionLabel: "Contact Us →",
     actionType: "link",
     href: "/contact",
+    image: "/events/Digital Teaching at High School/01-1.jpg",
+    date: "15 Jan 2025",
   },
   {
     title: "3 Scholars in Premier IITs",
-    desc: "AIR 377, AIR 2619 & AIR 3563 national ranks.",
+    desc: "Rural talent cracking JEE Advanced with AIR 377, AIR 2619 & AIR 3563 national ranks.",
     actionLabel: "View IIT Alumni →",
     actionType: "anchor",
     href: "#alumni",
+    image: "/Ashok.jpg",
+    date: "20 Dec 2024",
   },
   {
     title: "State Merit Felicitations",
-    desc: "Merit laptops, certificates & cash scholarship awards.",
+    desc: "Merit laptops, certificates, and cash scholarship awards for mandal champions.",
     actionLabel: "View Photo Archives →",
     actionType: "anchor",
     href: "#gallery",
+    image: "/events/Brostal Event Vizag/01.jpg",
+    date: "05 Dec 2024",
   },
   {
     title: "Standardized OMR Exam Pattern",
-    desc: "Simulates national competitive entrance exams.",
+    desc: "Simulates national competitive entrance exams with computerized evaluation.",
     actionLabel: "How It Works →",
     actionType: "anchor",
     href: "#how-it-works",
+    image: "/talent_test.jpg",
+    date: "18 Nov 2024",
   },
 ];
 

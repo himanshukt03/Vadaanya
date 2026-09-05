@@ -80,6 +80,14 @@ async function seedTalentTestPage() {
   const aboutImg2 = await uploadImage("talent-test/talent_header_bg.jpg");
   const aboutImg3 = await uploadImage("talent-test/talent_test_image.JPG");
 
+  // Upload announcement card photos
+  console.log("Uploading announcement card photos...");
+  const newsImg1 = await uploadImage("talent-test/talent_test_booklet_image.jpg");
+  const newsImg2 = await uploadImage("events/Digital Teaching at High School/01-1.jpg");
+  const newsImg3 = await uploadImage("Ashok.jpg");
+  const newsImg4 = await uploadImage("events/Brostal Event Vizag/01.jpg");
+  const newsImg5 = await uploadImage("talent_test.jpg");
+
   const doc = {
     _id: "talentTestPage-main",
     _type: "talentTestPage",
@@ -88,6 +96,8 @@ async function seedTalentTestPage() {
         _key: "announcement-1",
         title: "5-Year Solved Booklet (2021–2025)",
         desc: "Official 100-page bilingual question bank & solutions.",
+        date: "01 Feb 2025",
+        ...(newsImg1 ? imageRef(newsImg1) : {}),
         actionLabel: "Open PDF ↗",
         actionType: "link",
         href: "/talent-test/vadaanya-talent-test-booklet.pdf",
@@ -96,6 +106,8 @@ async function seedTalentTestPage() {
         _key: "announcement-2",
         title: "2026 Test Details & Inquiries",
         desc: "Free entry for Class 9 & 10 rural students.",
+        date: "15 Jan 2025",
+        ...(newsImg2 ? imageRef(newsImg2) : {}),
         actionLabel: "Contact Us →",
         actionType: "link",
         href: "/contact",
@@ -104,6 +116,8 @@ async function seedTalentTestPage() {
         _key: "announcement-3",
         title: "3 Scholars in Premier IITs",
         desc: "AIR 377, AIR 2619 & AIR 3563 national ranks.",
+        date: "20 Dec 2024",
+        ...(newsImg3 ? imageRef(newsImg3) : {}),
         actionLabel: "View IIT Alumni →",
         actionType: "anchor",
         href: "#alumni",
@@ -112,6 +126,8 @@ async function seedTalentTestPage() {
         _key: "announcement-4",
         title: "State Merit Felicitations",
         desc: "Merit laptops, certificates & cash scholarship awards.",
+        date: "05 Dec 2024",
+        ...(newsImg4 ? imageRef(newsImg4) : {}),
         actionLabel: "View Photo Archives →",
         actionType: "anchor",
         href: "#gallery",
@@ -120,6 +136,8 @@ async function seedTalentTestPage() {
         _key: "announcement-5",
         title: "Standardized OMR Exam Pattern",
         desc: "Simulates national competitive entrance exams.",
+        date: "18 Nov 2024",
+        ...(newsImg5 ? imageRef(newsImg5) : {}),
         actionLabel: "How It Works →",
         actionType: "anchor",
         href: "#how-it-works",

@@ -72,7 +72,28 @@ export const talentTestPageSchema = defineType({
               type: "string",
               hidden: ({ parent }) => !parent?.actionType || parent.actionType === "none",
             }),
+            defineField({
+              name: "date",
+              title: "Display Date",
+              type: "string",
+              description: "e.g. '01 Feb 2025' or '15 Jan 2025'",
+            }),
+            defineField({
+              name: "image",
+              title: "Card Image",
+              type: "image",
+              options: {
+                hotspot: true,
+              },
+            }),
           ],
+          preview: {
+            select: {
+              title: "title",
+              subtitle: "date",
+              media: "image",
+            },
+          },
         }),
       ],
     }),
