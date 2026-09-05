@@ -89,10 +89,10 @@ export default function TalentTestGallery({ albums = [] }: TalentTestGalleryProp
   });
 
   return (
-    <section id="gallery" className="vad-section vad-section--paper">
+    <section id="gallery" className="vad-section vad-section--paper" style={{ padding: "44px 0 28px" }}>
       <div className="vad-container">
         {/* Section Header */}
-        <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "36px" }}>
+        <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "28px" }}>
           <span className="vad-eyebrow vad-eyebrow--center vad-eyebrow--dark">PHOTO ARCHIVES</span>
           <h2>Exam Days &amp; Prize Distribution Gallery</h2>
         </div>
@@ -200,7 +200,7 @@ export default function TalentTestGallery({ albums = [] }: TalentTestGalleryProp
 
         {/* View More / View Less Toggle Button */}
         {albums.length > initialLimit && (
-          <div style={{ textAlign: "center", marginTop: "36px" }}>
+          <div style={{ textAlign: "center", marginTop: "26px" }}>
             <button
               type="button"
               onClick={() => setExpanded(!expanded)}

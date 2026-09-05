@@ -53,6 +53,46 @@ const ChevronDownIcon = () => (
   </svg>
 );
 
+const stepIcons: React.ReactNode[] = [
+  // 1. Free Registration - Pen
+  <svg key="pen" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+    <path d="m15 5 4 4" />
+  </svg>,
+  // 2. Study Material - Open Book
+  <svg key="book" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+  </svg>,
+  // 3. OMR Examination - Exam Sheet
+  <svg key="exam" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+    <path d="m9 14 2 2 4-4" />
+  </svg>,
+  // 4. Fast OMR Scoring - Scan / Verification
+  <svg key="scan" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+    <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+    <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+    <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+    <path d="m9 12 2 2 4-4" />
+  </svg>,
+  // 5. 3-Tier Awards - Trophy / Award
+  <svg key="award" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+    <path d="M4 22h16" />
+    <path d="M10 14.66V17c0 .55-.45 1-1 1H8c-.55 0-1 .45-1 1v1h10v-1c0-.55-.45-1-1-1h-1c-.55 0-1-.45-1-1v-2.34" />
+    <path d="M18 4H6v7a6 6 0 0 0 12 0V4Z" />
+  </svg>,
+  // 6. Long-Term Sponsorship - Graduation Cap
+  <svg key="sponsor" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+    <path d="M6 12v5c3 3 9 3 12 0v-5" />
+  </svg>,
+];
+
 function renderFormattedText(text: string) {
   const parts = text.split(/(\*\*[^*]+\*\*)/g);
   return parts.map((part, idx) => {
@@ -64,6 +104,20 @@ function renderFormattedText(text: string) {
 }
 
 function ScholarCard({ alum }: { alum: TalentTestScholarData }) {
+  // Clean redundant student name if it was accidentally typed into the college field in CMS
+  let collegeText = alum.college || "";
+  if (collegeText.includes(" - ")) {
+    const [firstPart, ...rest] = collegeText.split(" - ");
+    const firstName = alum.name.trim().split(" ")[0].toLowerCase();
+    const lastName = alum.name.trim().split(" ").slice(-1)[0].toLowerCase();
+    if (firstPart.toLowerCase().includes(firstName) || firstPart.toLowerCase().includes(lastName)) {
+      collegeText = rest.join(" - ").trim();
+    }
+  }
+  if (collegeText.startsWith("IT - ")) {
+    collegeText = collegeText.replace("IT - ", "IIT - ");
+  }
+
   return (
     <div className="vad-scholar-card">
       {alum.imageUrl && (
@@ -89,7 +143,7 @@ function ScholarCard({ alum }: { alum: TalentTestScholarData }) {
         </div>
 
         <h3 className="vad-scholar-card__name">{alum.name}</h3>
-        <span className="vad-scholar-card__college">{alum.college}</span>
+        <span className="vad-scholar-card__college">{collegeText}</span>
       </div>
     </div>
   );
@@ -240,23 +294,23 @@ export default function TalentTestPage({
             fill
             priority
             sizes="100vw"
-            style={{ objectFit: "cover", objectPosition: "center" }}
+            style={{ objectFit: "cover", objectPosition: "top" }}
           />
           <div
             style={{
               position: "absolute",
               inset: 0,
-              background: "linear-gradient(90deg, rgba(6, 11, 34, 0.90) 0%, rgba(6, 11, 34, 0.78) 50%, rgba(6, 11, 34, 0.90) 100%)",
+              background: "linear-gradient(90deg, rgba(6, 11, 34, 0.80) 0%, rgba(6, 11, 34, 0.62) 50%, rgba(6, 11, 34, 0.80) 100%)",
             }}
           />
         </div>
 
-        <div className="vad-container vad-page-hero__inner" style={{ position: "relative", zIndex: 1 }}>
-          <span className="vad-eyebrow">The Flagship Initiative · 2021–2025</span>
-          <h1 className="vad-page-hero__title">
+        <div className="vad-container vad-page-hero__inner" style={{ position: "relative", zIndex: 1, textAlign: "center" }}>
+          <span className="vad-eyebrow">The Flagship Initiative</span>
+          <h1 className="vad-page-hero__title" style={{ textShadow: "0 2px 14px rgba(0, 0, 0, 0.6)" }}>
             Vadaanya <span className="vad-page-hero__accent">Talent Test</span>
           </h1>
-          <p className="vad-page-hero__lead" style={{ color: "#ffffff" }}>
+          <p className="vad-page-hero__lead" style={{ color: "#ffffff", textShadow: "0 1px 8px rgba(0, 0, 0, 0.7)" }}>
             An annual standardized examination recognizing, rewarding, and nurturing rural government school talent from Class 9 to 10.
           </p>
         </div>
@@ -607,19 +661,19 @@ export default function TalentTestPage({
       </section>
 
       {/* ───────────────────────────────────────────────
-          SECTION 5: HOW THE TEST WORKS (CONCISE 6-STEP CARDS)
+          SECTION 5: HOW THE TEST WORKS (GREY BACKGROUND, CONCISE 6-STEP CARDS)
           ─────────────────────────────────────────────── */}
-      <section id="how-it-works" className="vad-section vad-section--grey vad-how-it-works-section" style={{ padding: "42px 0" }}>
+      <section id="how-it-works" className="vad-section vad-how-it-works-section" style={{ padding: "36px 0 24px", background: "#edf0f6" }}>
         <div className="vad-container">
           <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
-            <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "24px" }}>
+            <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "32px" }}>
               <span className="vad-eyebrow vad-eyebrow--center vad-eyebrow--dark">
                 {talentTestData?.howItWorksEyebrow || "THE ANNUAL CYCLE"}
               </span>
               <h2
                 style={{
-                  fontSize: "clamp(22px, 2.4vw, 32px)",
-                  margin: "10px 0 12px",
+                  fontSize: "clamp(24px, 2.6vw, 36px)",
+                  margin: "10px 0 0",
                   color: "var(--vad-navy-950)",
                   fontWeight: 800,
                   fontFamily: "var(--vad-font-display)",
@@ -628,18 +682,20 @@ export default function TalentTestPage({
               >
                 {talentTestData?.howItWorksHeading || "How the Talent Test Works"}
               </h2>
-              <p className="vad-lead" style={{ fontSize: "16px", color: "var(--vad-ink-soft)", maxWidth: "680px", margin: "0 auto" }}>
-                {talentTestData?.howItWorksLead || "A structured six-step cycle connecting free student registration to long-term collegiate support."}
-              </p>
             </div>
 
             {/* Desktop View: 6 Elevated Cards Grid */}
             <div className="vad-how-it-works-grid">
               {howItWorksSteps.map((item, idx) => (
                 <div key={idx} className="vad-step-card">
-                  <span className="vad-step-card__badge">
-                    Step {item.step}
-                  </span>
+                  <div className="vad-step-card__header">
+                    <span className="vad-step-card__badge">
+                      Step {item.step}
+                    </span>
+                    <span className="vad-step-card__icon" aria-hidden="true">
+                      {stepIcons[idx % stepIcons.length]}
+                    </span>
+                  </div>
                   <h3 className="vad-step-card__title">
                     {item.title}
                   </h3>
@@ -669,7 +725,7 @@ export default function TalentTestPage({
       {/* ───────────────────────────────────────────────
           SECTION 6: RECOGNITION BUILT FOR EQUITY (ELEVATED CARDS ON SOFT GREY)
           ─────────────────────────────────────────────── */}
-      <section id="equity" className="vad-section vad-equity-section" style={{ padding: "48px 0" }}>
+      <section id="equity" className="vad-section vad-equity-section" style={{ padding: "26px 0 38px" }}>
         <div className="vad-container">
           <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
             <div className="vad-head" style={{ textAlign: "left", marginBottom: "22px" }}>
@@ -749,17 +805,17 @@ export default function TalentTestPage({
       {/* ───────────────────────────────────────────────
           SECTION 7: HALL OF FAME (IIT RANKERS)
           ─────────────────────────────────────────────── */}
-      <section id="hall-of-fame" className="vad-section vad-section--deep vad-tt-fame" style={{ padding: "60px 0" }}>
+      <section id="hall-of-fame" className="vad-section vad-section--deep vad-tt-fame" style={{ padding: "22px 0 38px" }}>
         <div className="vad-container">
           <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
-            <div className="vad-head vad-head--center" style={{ marginBottom: "36px" }}>
+            <div className="vad-head vad-head--center" style={{ marginBottom: "24px" }}>
               <span className="vad-eyebrow vad-eyebrow--center" style={{ color: "var(--vad-gold, #f2a712)" }}>
                 {talentTestData?.iitEyebrow || "NATIONAL ACADEMIC SUCCESS"}
               </span>
               <h2
                 style={{
                   fontSize: "clamp(24px, 2.6vw, 36px)",
-                  margin: "10px 0 12px",
+                  margin: "6px 0 0",
                   color: "#ffffff",
                   fontWeight: 800,
                   fontFamily: "var(--vad-font-display)",
@@ -768,9 +824,6 @@ export default function TalentTestPage({
               >
                 {talentTestData?.iitHeading || "From Government Classrooms to IITs"}
               </h2>
-              <p className="vad-lead" style={{ color: "#94a3b8", fontSize: "16px", maxWidth: "680px", margin: "0 auto", lineHeight: 1.6 }}>
-                {talentTestData?.iitLead || "Vadaanya Talent Test scholars who proved that rural government-school students can crack India's toughest entrance exams with the right mentorship."}
-              </p>
             </div>
 
             {/* Mobile View (< 768px): Always a carousel just like home page success stories */}
@@ -969,19 +1022,16 @@ export default function TalentTestPage({
       */}
 
       {/* ───────────────────────────────────────────────
-          SECTION 10: FAQS (GREY BACKGROUND, WHITE ACCORDIONS)
+          SECTION 10: FAQS (GREYER BACKGROUND, WHITE ACCORDIONS)
           ─────────────────────────────────────────────── */}
-      <section id="faqs" className="vad-section vad-section--grey vad-tt-faqs" style={{ padding: "64px 0", borderTop: "1px solid #e2e8f0" }}>
+      <section id="faqs" className="vad-section vad-tt-faqs" style={{ padding: "40px 0 54px", borderTop: "1px solid #e2e8f0", background: "#edf0f6" }}>
         <div className="vad-container">
           <div style={{ maxWidth: "860px", margin: "0 auto" }}>
-            <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "36px" }}>
-              <span className="vad-eyebrow vad-eyebrow--center vad-eyebrow--dark">
-                {talentTestData?.faqEyebrow || "FAQ"}
-              </span>
+            <div className="vad-head vad-head--center vad-head--light" style={{ marginBottom: "26px" }}>
               <h2
                 style={{
-                  fontSize: "clamp(22px, 2.4vw, 32px)",
-                  margin: "10px 0 12px",
+                  fontSize: "clamp(24px, 2.6vw, 36px)",
+                  margin: "0 0 12px",
                   color: "var(--vad-navy-950)",
                   fontWeight: 800,
                   fontFamily: "var(--vad-font-display)",
