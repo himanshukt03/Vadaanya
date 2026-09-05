@@ -7,5 +7,5 @@ export { milestoneSchema } from "./milestone";
 export { founderProfileSchema } from "./founderProfile";
 export { awardSchema } from "./award";
 export { campaignPosterSchema } from "./campaignPoster";
-export { talentTestPageSchema } from "./talentTestPage";
+export { talentTestPageSchema, announcementItemSchema } from "./talentTestPage";
 

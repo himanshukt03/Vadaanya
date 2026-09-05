@@ -1,5 +1,81 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 
+export const announcementItemSchema = defineType({
+  name: "announcementItem",
+  title: "Announcement",
+  type: "object",
+  fields: [
+    defineField({
+      name: "title",
+      title: "Title",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "desc",
+      title: "Short Description",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "actionType",
+      title: "Action Type",
+      type: "string",
+      options: {
+        list: [
+          { title: "None (No Action)", value: "none" },
+          { title: "Anchor (#section)", value: "anchor" },
+          { title: "External Link / PDF", value: "link" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "none",
+    }),
+    defineField({
+      name: "actionLabel",
+      title: "Action Label",
+      type: "string",
+      description: "Optional when Action Type is None",
+      hidden: ({ parent }) => !parent?.actionType || parent.actionType === "none",
+      validation: (Rule) =>
+        Rule.custom((val, context) => {
+          const parent = context.parent as { actionType?: string } | undefined;
+          if (parent?.actionType && parent.actionType !== "none" && !val) {
+            return "Action label is required when an action type is selected";
+          }
+          return true;
+        }),
+    }),
+    defineField({
+      name: "href",
+      title: "Target URL / Anchor",
+      type: "string",
+      hidden: ({ parent }) => !parent?.actionType || parent.actionType === "none",
+    }),
+    defineField({
+      name: "date",
+      title: "Display Date",
+      type: "string",
+      description: "e.g. '01 Feb 2025' or '15 Jan 2025'",
+    }),
+    defineField({
+      name: "image",
+      title: "Card Image",
+      type: "image",
+      options: {
+        hotspot: true,
+      },
+    }),
+  ],
+  preview: {
+    select: {
+      title: "title",
+      subtitle: "date",
+      media: "image",
+    },
+  },
+});
+
 export const talentTestPageSchema = defineType({
   name: "talentTestPage",
   title: "Talent Test Page",
@@ -21,79 +97,7 @@ export const talentTestPageSchema = defineType({
       group: "announcements",
       of: [
         defineArrayMember({
-          type: "object",
-          name: "announcementItem",
-          title: "Announcement",
-          fields: [
-            defineField({
-              name: "title",
-              title: "Title",
-              type: "string",
-              validation: (Rule) => Rule.required(),
-            }),
-            defineField({
-              name: "desc",
-              title: "Short Description",
-              type: "string",
-              validation: (Rule) => Rule.required(),
-            }),
-            defineField({
-              name: "actionType",
-              title: "Action Type",
-              type: "string",
-              options: {
-                list: [
-                  { title: "None (No Action)", value: "none" },
-                  { title: "Anchor (#section)", value: "anchor" },
-                  { title: "External Link / PDF", value: "link" },
-                ],
-                layout: "radio",
-              },
-              initialValue: "none",
-            }),
-            defineField({
-              name: "actionLabel",
-              title: "Action Label",
-              type: "string",
-              description: "Optional when Action Type is None",
-              hidden: ({ parent }) => !parent?.actionType || parent.actionType === "none",
-              validation: (Rule) =>
-                Rule.custom((val, context) => {
-                  const parent = context.parent as { actionType?: string } | undefined;
-                  if (parent?.actionType && parent.actionType !== "none" && !val) {
-                    return "Action label is required when an action type is selected";
-                  }
-                  return true;
-                }),
-            }),
-            defineField({
-              name: "href",
-              title: "Target URL / Anchor",
-              type: "string",
-              hidden: ({ parent }) => !parent?.actionType || parent.actionType === "none",
-            }),
-            defineField({
-              name: "date",
-              title: "Display Date",
-              type: "string",
-              description: "e.g. '01 Feb 2025' or '15 Jan 2025'",
-            }),
-            defineField({
-              name: "image",
-              title: "Card Image",
-              type: "image",
-              options: {
-                hotspot: true,
-              },
-            }),
-          ],
-          preview: {
-            select: {
-              title: "title",
-              subtitle: "date",
-              media: "image",
-            },
-          },
+          type: "announcementItem",
         }),
       ],
     }),

@@ -11,6 +11,7 @@ import {
   awardSchema,
   campaignPosterSchema,
   talentTestPageSchema,
+  announcementItemSchema,
 } from "./src/lib/sanity/schemas";
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "b4t4r5i2";
@@ -33,6 +34,7 @@ export default defineConfig({
       awardSchema,
       campaignPosterSchema,
       talentTestPageSchema,
+      announcementItemSchema,
     ],
   },
 });
