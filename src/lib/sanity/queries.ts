@@ -1392,6 +1392,14 @@ export const fallbackEquityTiers: TalentTestEquityTierData[] = [
     rewardVal: "₹500 – ₹1,000",
     rewardSub: "Trophy & Merit Certificate",
   },
+  {
+    tier: "Tier 4",
+    medal: "📜",
+    title: "All Participants",
+    desc: "Every student who attempts the examination",
+    rewardVal: "Digital Certificate",
+    rewardSub: "E-Certificate of Participation",
+  },
 ];
 
 export const fallbackIitScholars: TalentTestScholarData[] = [
@@ -1471,7 +1479,7 @@ export async function getTalentTestPageData(): Promise<TalentTestPageData> {
     equityEyebrow: "FAIR EVALUATION",
     equityHeading: "Recognition, Built for Equity",
     equityDescription:
-      "Introduced in 2024, this three-tier model recognises that a strong score in a drought-prone mandal deserves the same respect as one from a resource-rich area. Roughly 280 non-overlapping prizes are awarded each cycle.",
+      "Introduced in 2024, this four-tier model recognises that a strong score in a drought-prone mandal deserves the same respect as one from a resource-rich area. Roughly 280 non-overlapping prizes and digital certificates for all participants are awarded each cycle.",
     equityTiers: fallbackEquityTiers,
     iitEyebrow: "NATIONAL ACADEMIC SUCCESS",
     iitHeading: "From Government Classrooms to IITs",
@@ -1497,9 +1505,9 @@ export async function getTalentTestPageData(): Promise<TalentTestPageData> {
           "The exam is bilingual (Telugu & English). It consists of objective multiple-choice questions (MCQs) covering Non-Verbal Reasoning, Mental Ability, Quantitative Aptitude, General Science, and Basic Mathematics.",
       },
       {
-        question: "How does the three-tier equity prize system work?",
+        question: "How does the four-tier equity prize system work?",
         answer:
-          "Introduced in 2024, the model awards District Top 20 (₹15,000–₹25,000), Mandal Champions (₹5,000 each across ~40 mandals), and School Toppers (₹500–₹1,000 per school). No student wins twice, ensuring approximately 280 distinct students win awards each cycle.",
+          "Introduced in 2024, the model awards District Top 20 (₹15,000–₹25,000), Mandal Champions (₹5,000 each across ~40 mandals), School Toppers (₹500–₹1,000 per school), and verified Digital Participation Certificates for all students who attempt the exam. No student wins twice in top tiers, ensuring approximately 280 distinct students win cash awards each cycle.",
       },
       {
         question: "How can students and schools prepare for the upcoming exam?",

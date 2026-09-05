@@ -916,7 +916,7 @@ export default function TalentTestPage({
                 }}
               />
               <p style={{ fontSize: "16px", color: "var(--vad-ink-soft, #475569)", lineHeight: 1.75, margin: 0 }}>
-                {talentTestData?.equityDescription || "Introduced in 2024, this three-tier model recognises that a strong score in a drought-prone mandal deserves the same respect as one from a resource-rich area. Roughly 280 non-overlapping prizes are awarded each cycle."}
+                {talentTestData?.equityDescription || "Introduced in 2024, this four-tier model recognises that a strong score in a drought-prone mandal deserves the same respect as one from a resource-rich area. Roughly 280 non-overlapping prizes and digital certificates for all participants are awarded each cycle."}
               </p>
             </div>
 
