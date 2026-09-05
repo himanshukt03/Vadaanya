@@ -15,9 +15,9 @@ const menuItems: MenuItem[] = [
   { label: "Home", href: "/" },
   { label: "About us", href: "/about" },
   { label: "Success Stories", href: "/success-stories" },
+  { label: "Team Vadaanya", href: "/team-vadaanya" },
   { label: "Talent Test", href: "/talent-test" },
   { label: "Media", href: "/gallery" },
-  { label: "Team Vadaanya", href: "/team-vadaanya" },
   { label: "Contact us", href: "/contact" },
 ];
 
