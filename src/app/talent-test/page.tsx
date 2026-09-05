@@ -28,9 +28,11 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://vadaanya.org/talent_test.jpg",
+        url: "https://vadaanya.org/og-image.png",
+        secureUrl: "https://vadaanya.org/og-image.png",
         width: 1200,
         height: 630,
+        type: "image/png",
         alt: "Vadaanya Talent Test - Vadaanya Janaa Society",
       },
     ],
@@ -39,7 +41,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Vadaanya Talent Test | Vadaanya Janaa Society",
     description: "15,000+ students tested, 500+ rewarded, 3 IIT-JEE selections. Download question papers booklet & explore photo archives.",
-    images: ["https://vadaanya.org/talent_test.jpg"],
+    images: ["https://vadaanya.org/og-image.png"],
   },
 };
 

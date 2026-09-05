@@ -23,9 +23,11 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://vadaanya.org/vadaanya_team.jpeg",
+        url: "https://vadaanya.org/og-image.png",
+        secureUrl: "https://vadaanya.org/og-image.png",
         width: 1200,
         height: 630,
+        type: "image/png",
         alt: "Team Vadaanya Mentors and Volunteers",
       },
     ],
@@ -34,7 +36,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Team Vadaanya | Vadaanya",
     description: "Meet Team Vadaanya, dedicated mentors and volunteers empowering government school students since 2010.",
-    images: ["https://vadaanya.org/vadaanya_team.jpeg"],
+    images: ["https://vadaanya.org/og-image.png"],
   },
 };
 
