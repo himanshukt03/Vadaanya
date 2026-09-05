@@ -887,10 +887,10 @@ export default function TalentTestPage({
       {/* ───────────────────────────────────────────────
           SECTION 6: RECOGNITION BUILT FOR EQUITY (ELEVATED CARDS ON SOFT GREY)
           ─────────────────────────────────────────────── */}
-      <section id="equity" className="vad-section vad-equity-section" style={{ padding: "44px 0 40px" }}>
+      <section id="equity" className="vad-section vad-equity-section" style={{ padding: "54px 0 52px" }}>
         <div className="vad-container">
-          <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
-            <div className="vad-head" style={{ textAlign: "left", marginBottom: "22px" }}>
+          <div style={{ maxWidth: "1220px", margin: "0 auto" }}>
+            <div className="vad-head" style={{ textAlign: "left", marginBottom: "30px" }}>
               <span className="vad-eyebrow vad-eyebrow--dark">
                 {talentTestData?.equityEyebrow || "FAIR EVALUATION"}
               </span>
@@ -915,7 +915,7 @@ export default function TalentTestPage({
                   borderRadius: "2px",
                 }}
               />
-              <p style={{ fontSize: "16px", color: "var(--vad-ink-soft, #475569)", lineHeight: 1.75, margin: 0 }}>
+              <p style={{ fontSize: "16px", color: "var(--vad-ink-soft, #475569)", lineHeight: 1.75, margin: 0, maxWidth: "860px" }}>
                 {talentTestData?.equityDescription || "Introduced in 2024, this four-tier model recognises that a strong score in a drought-prone mandal deserves the same respect as one from a resource-rich area. Roughly 280 non-overlapping prizes and digital certificates for all participants are awarded each cycle."}
               </p>
             </div>
