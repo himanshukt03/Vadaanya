@@ -74,7 +74,7 @@ export default function AboutPage() {
       <WhatWeDoSection />
 
       {/* 5. Registration + CTA */}
-      <section className="vad-section vad-section--paper" style={{ padding: "48px 0", background: "#ffffff" }}>
+      <section className="vad-section vad-section--paper" style={{ padding: "48px 0", background: "#fbf8f2", borderTop: "1px solid #ede4d4" }}>
         <div className="vad-container vad-about__cta">
           <div className="vad-about__cta-text">
             <span className="vad-eyebrow vad-eyebrow--dark">Get Involved</span>

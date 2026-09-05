@@ -61,7 +61,7 @@ const icons: Record<string, React.FC> = {
 
 export default function WhatWeDoSection() {
   return (
-    <section id="whatwedo" className="vad-section vad-section--grey">
+    <section id="whatwedo" className="vad-section vad-section--paper" style={{ padding: "36px 0 56px", background: "#ffffff" }}>
       <div className="vad-container">
         <div className="vad-head vad-head--center vad-head--light">
           <span className="vad-eyebrow vad-eyebrow--dark">What We Do</span>

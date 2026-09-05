@@ -22,7 +22,7 @@ const vmaItems = [
 
 export default function VisionMissionApproach() {
   return (
-    <section className="vad-section" style={{ padding: "36px 0 44px", background: "#f8fafc", borderTop: "1px solid #e2e8f0" }}>
+    <section className="vad-section" style={{ padding: "36px 0 28px", background: "#edf0f6", borderTop: "1px solid #e2e8f0", borderBottom: "1px solid #e2e8f0" }}>
       <div className="vad-container">
         <div
           style={{

@@ -104,7 +104,7 @@ export default function FoundersPage({ founderProfile, awards }: FoundersPagePro
       </section>
 
       {/* 2. Meet the Founder & Collective Leadership */}
-      <section className="vad-section" style={{ background: "#f8fafc", padding: "60px 0", borderTop: "1px solid rgba(0,0,0,0.05)" }}>
+      <section className="vad-section" style={{ background: "#edf0f6", padding: "60px 0", borderTop: "1px solid rgba(0,0,0,0.05)" }}>
         <div className="vad-container">
           <div style={{ maxWidth: "1060px", margin: "0 auto", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "50px" }}>
             {/* Left: Compact image with soft shadow and floating card */}
@@ -238,7 +238,7 @@ export default function FoundersPage({ founderProfile, awards }: FoundersPagePro
       </section>
 
       {/* 4. Taking Rural Talent to the World */}
-      <section className="vad-section" style={{ background: "#f8fafc", padding: "30px 0", borderTop: "1px solid rgba(0,0,0,0.05)" }}>
+      <section className="vad-section" style={{ background: "#edf0f6", padding: "30px 0", borderTop: "1px solid rgba(0,0,0,0.05)" }}>
         <div className="vad-container">
           <div style={{ maxWidth: "1060px", margin: "0 auto", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "36px" }}>
             
