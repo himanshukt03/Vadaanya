@@ -49,7 +49,18 @@ export default function TalentTestGallery({ albums = [] }: TalentTestGalleryProp
     return () => window.removeEventListener("resize", updateLimit);
   }, []);
 
-  const displayedAlbums = expanded ? albums : albums.slice(0, initialLimit);
+  const sortedAlbums = React.useMemo(() => {
+    return [...albums].sort((a, b) => {
+      const yearA = parseInt(a.year || (a.date && a.date.match(/\d{4}/)?.[0]) || "0", 10);
+      const yearB = parseInt(b.year || (b.date && b.date.match(/\d{4}/)?.[0]) || "0", 10);
+      if (yearB !== yearA) {
+        return yearB - yearA;
+      }
+      return (b.id || "").localeCompare(a.id || "");
+    });
+  }, [albums]);
+
+  const displayedAlbums = expanded ? sortedAlbums : sortedAlbums.slice(0, initialLimit);
 
   // Lock background scroll when modal or lightbox is open
   useEffect(() => {
@@ -199,7 +210,7 @@ export default function TalentTestGallery({ albums = [] }: TalentTestGalleryProp
         </div>
 
         {/* View More / View Less Toggle Button */}
-        {albums.length > initialLimit && (
+        {sortedAlbums.length > initialLimit && (
           <div style={{ textAlign: "center", marginTop: "26px" }}>
             <button
               type="button"
