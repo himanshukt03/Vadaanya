@@ -10,7 +10,7 @@ export default function AboutPage() {
       <section 
         className="vad-page-hero vad-section--deep"
         style={{ 
-          padding: "clamp(50px, 4vw, 70px) 0 clamp(20px, 1.8vw, 28px)",
+          padding: "clamp(58px, 5.5vw, 95px) 0 clamp(28px, 2.8vw, 48px)",
           backgroundImage: "linear-gradient(rgba(10, 16, 48, 0.7), rgba(10, 16, 48, 0.82)), url('/vadaanya_team.jpeg')",
           backgroundSize: "cover",
           backgroundPosition: "center",

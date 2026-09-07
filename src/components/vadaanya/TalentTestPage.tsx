@@ -144,7 +144,15 @@ function ScholarCard({ alum }: { alum: TalentTestScholarData }) {
           )}
         </div>
 
-        <h3 className="vad-scholar-card__name">{alum.name}</h3>
+        <h3
+          className="vad-scholar-card__name"
+          style={{
+            whiteSpace: "nowrap",
+            fontSize: alum.name.length > 20 ? "13.5px" : alum.name.length > 16 ? "14.5px" : "15.5px",
+          }}
+        >
+          {alum.name}
+        </h3>
         <span className="vad-scholar-card__college">{collegeText}</span>
       </div>
     </div>
@@ -338,29 +346,49 @@ export default function TalentTestPage({
         style={{
           position: "relative",
           overflow: "hidden",
-          padding: "clamp(55px, 4.5vw, 75px) 0 clamp(24px, 2vw, 32px)",
+          padding: "clamp(58px, 5.5vw, 95px) 0 clamp(28px, 2.8vw, 48px)",
         }}
       >
-        {/* Backdrop Image with Navy Vignette Overlay */}
-        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+        {/* Backdrop Layer 1: Blurred background fill (desktop only) */}
+        <div className="vad-hero-bg-blur">
           <Image
-            src="/talent-test/talent_header_bg.jpg"
-            alt="Talent Test Header Background"
+            src="/talent-test/talent_test_banner.jpeg"
+            alt=""
             fill
             priority
             sizes="100vw"
-            style={{ objectFit: "cover", objectPosition: "top" }}
-          />
-          <div
             style={{
-              position: "absolute",
-              inset: 0,
-              background: "linear-gradient(90deg, rgba(6, 11, 34, 0.80) 0%, rgba(6, 11, 34, 0.62) 50%, rgba(6, 11, 34, 0.80) 100%)",
+              objectFit: "cover",
+              objectPosition: "center",
+              filter: "blur(20px) brightness(0.40)",
+              transform: "scale(1.15)",
             }}
           />
         </div>
 
-        <div className="vad-container vad-page-hero__inner" style={{ position: "relative", zIndex: 1, textAlign: "center" }}>
+        {/* Backdrop Layer 2: Main Image (Edge-to-edge on mobile, side padding + mask on desktop) */}
+        <div className="vad-hero-bg-main" style={{ opacity: 0.82 }}>
+          <Image
+            src="/talent-test/talent_test_banner.jpeg"
+            alt="Talent Test Header Background"
+            fill
+            priority
+            sizes="100vw"
+          />
+        </div>
+
+        {/* Backdrop Layer 3: Dark Vignette Overlay */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 2,
+            background: "linear-gradient(90deg, rgba(6, 11, 34, 0.85) 0%, rgba(6, 11, 34, 0.65) 50%, rgba(6, 11, 34, 0.85) 100%)",
+            pointerEvents: "none",
+          }}
+        />
+
+        <div className="vad-container vad-page-hero__inner" style={{ position: "relative", zIndex: 3, textAlign: "center" }}>
           <span className="vad-eyebrow">The Flagship Initiative</span>
           <h1 className="vad-page-hero__title" style={{ textShadow: "0 2px 14px rgba(0, 0, 0, 0.6)" }}>
             Vadaanya <span className="vad-page-hero__accent">Talent Test</span>
@@ -450,23 +478,17 @@ export default function TalentTestPage({
                           className="vad-news-card-link"
                         >
                           <article className="vad-news-card">
-                            {/* Card Image */}
-                            <div className="vad-news-card__media">
-                              <Image
-                                src={imgSrc}
-                                alt={item.title}
-                                fill
-                                sizes="(max-width: 640px) 100vw, (max-width: 992px) 50vw, 400px"
-                                style={{ objectFit: "cover" }}
-                                className="vad-news-card__img"
-                              />
-                            </div>
-
                             {/* Card Content */}
                             <div className="vad-news-card__body">
-                              <span className="vad-news-card__date">
-                                {dateText}
-                              </span>
+                              <div className="vad-news-card__header">
+                                <span className="vad-news-card__date">
+                                  {dateText}
+                                </span>
+                                <span className="vad-news-card__badge">
+                                  <span className="vad-news-card__red-dot" />
+                                  Update
+                                </span>
+                              </div>
                               <h3 className="vad-news-card__title">
                                 {item.title}
                               </h3>
@@ -718,15 +740,16 @@ export default function TalentTestPage({
               <span className="vad-eyebrow vad-eyebrow--dark">OFFICIAL QUESTION BOOKLET</span>
               <h2
                 style={{
-                  fontSize: "clamp(22px, 2.4vw, 32px)",
+                  fontSize: "clamp(14px, 2.1vw, 29px)",
                   margin: "10px 0 12px",
                   color: "var(--vad-navy-950)",
                   fontWeight: 800,
                   fontFamily: "var(--vad-font-display)",
                   lineHeight: 1.2,
+                  whiteSpace: "nowrap",
                 }}
               >
-                5-Year Question Papers &amp; Solutions (2021–2025)
+                5-Year Question Paper Booklet (2021–2025)
               </h2>
               <div
                 style={{
@@ -738,25 +761,25 @@ export default function TalentTestPage({
                 }}
               />
               <p style={{ fontSize: "16px", color: "var(--vad-ink)", lineHeight: 1.75, marginBottom: "18px" }}>
-                We compiled five full years of Vadaanya Talent Test examination papers into a single 100-page bilingual study guide. Built to help students develop analytical and non-verbal reasoning skills from Class 6 onward.
+                We compiled five years of Vadaanya Talent Test question papers into a single 100-page bilingual booklet. It helps students from Classes 6 to 9 prepare for the Talent Test, which is conducted for students of Classes 9 and 10.
               </p>
 
               <div className="vad-tt-booklet__features" style={{ marginBottom: "24px" }}>
                 <div className="vad-tt-booklet__feat" style={{ color: "var(--vad-ink)", fontSize: "14.5px" }}>
                   <span className="vad-tt-booklet__feat-icon">✓</span>
-                  <span>5 Complete Solved Exam Editions (2021, 2022, 2023, 2024, 2025)</span>
+                  <span>5 Complete Exam Editions (2021, 2022, 2023, 2024, 2025)</span>
                 </div>
                 <div className="vad-tt-booklet__feat" style={{ color: "var(--vad-ink)", fontSize: "14.5px" }}>
                   <span className="vad-tt-booklet__feat-icon">✓</span>
-                  <span>Bilingual Question Formats (Telugu &amp; English side-by-side)</span>
+                  <span>Bilingual Questions &amp; Answer Keys (Telugu &amp; English)</span>
                 </div>
                 <div className="vad-tt-booklet__feat" style={{ color: "var(--vad-ink)", fontSize: "14.5px" }}>
                   <span className="vad-tt-booklet__feat-icon">✓</span>
-                  <span>Covers Logical Reasoning, Mental Ability, Math &amp; Science</span>
+                  <span>Syllabus covering Logical Reasoning, Mental Ability, Mathematics &amp; Science</span>
                 </div>
               </div>
 
-              <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+              <div className="vad-tt-booklet__btn-row">
                 <a
                   href={pdfUrl}
                   target="_blank"
