@@ -124,8 +124,8 @@ const Preloader = () => {
             src="/logos/PPT-logo.png"
             alt="Vadaanya Janaa Society"
             width={120}
-            height={42}
-            style={{ objectFit: "contain", width: "auto", height: "auto" }}
+            height={34}
+            style={{ objectFit: "contain", height: "34px", width: "auto" }}
             priority
           />
         </div>

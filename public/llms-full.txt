@@ -86,7 +86,14 @@ Ashok serves as a **Student Mentor** with the **International Startup Foundation
 ## 3. Core Programs
 
 ### 1. Vadaanya Talent Test
-An annual competitive scholarship examination for government school students in Classes 8, 9, and 10 across 12 districts in AP and Telangana. Top rankers receive long-term scholarships, stipends, and digital devices.
+An annual competitive scholarship examination for government school students in Classes 6, 7, 8, and 9 across AP and Telangana.
+- **5-Year Question Paper Booklet (2021–2025)**: 100-page bilingual compilation of 5 years of Talent Test question papers with answer keys, step-by-step solutions, and subject guidance.
+- **4-Tier Merit Recognition**:
+  - **Level 1 (District Top 10)**: Cash awards ₹8,000 – ₹30,000 + Trophy & Merit Certificate.
+  - **Level 2 (Mandal Toppers)**: Cash awards ₹3,000 – ₹6,000 + Trophy & Merit Certificate.
+  - **Level 3 (School Toppers)**: Cash awards ₹500 – ₹1,000 + Trophy & Merit Certificate.
+  - **Level 4 (All Participants)**: Digital E-Certificate of Participation for every student.
+- **Hall of Fame & IIT Admissions**: Government school rankers securing seats in premier institutes like IIT Madras (AIR 377), IISc Bengaluru (AIR 2619), IIT Kharagpur (AIR 3563), and more.
 
 ### 2. Higher Education Scholarships
 Direct financial support covering tuition fees and living expenses for intermediate and college students (B.Tech, MBBS, B.Sc, CA, B.Com).

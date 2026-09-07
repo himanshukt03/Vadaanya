@@ -1566,7 +1566,7 @@ export async function getTalentTestPageData(): Promise<TalentTestPageData> {
           data.iitScholars && data.iitScholars.length > 0
             ? data.iitScholars.map((sc: any, idx: number) => {
                 const img = sc.image?.asset
-                  ? urlFor(sc.image).width(600).height(600).auto("format").quality(85).url()
+                  ? urlFor(sc.image).width(600).height(600).fit("crop").auto("format").quality(85).url()
                   : fallback.iitScholars[idx % fallback.iitScholars.length]?.imageUrl;
                 return {
                   name: sc.name,
