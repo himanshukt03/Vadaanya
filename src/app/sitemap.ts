@@ -3,7 +3,7 @@ import type { MetadataRoute } from "next";
 const BASE_URL = "https://vadaanya.org";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const lastMod = new Date("2026-09-02");
+  const lastMod = new Date("2026-09-08");
 
   return [
     {
