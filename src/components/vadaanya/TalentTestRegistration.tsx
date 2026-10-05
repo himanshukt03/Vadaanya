@@ -288,47 +288,27 @@ export default function TalentTestRegistration() {
   return (
     <div className="vad-reg-page">
       {/* ───────────────────────────────────────────────
-          HERO BANNER & LIVE QUOTA METRICS
+          HERO BANNER (Clean, Executive, No Clutter)
           ─────────────────────────────────────────────── */}
       <header className="vad-reg-hero">
         <div className="vad-reg-container">
-          <div className="vad-reg-hero__badge-wrap">
-            <span className="vad-reg-hero__badge">
-              <span className="vad-news-card__red-dot" />
-              Annual Talent Test 2026
-            </span>
-            <span className="vad-reg-hero__badge vad-reg-hero__badge--green">
-              Free Entry • Class 9 & 10
-            </span>
-          </div>
-
+          <span className="vad-reg-hero__eyebrow">Vadaanya Janaa Society</span>
           <h1 className="vad-reg-hero__title">
-            Vadaanya Talent Test <span>2026</span> Registration
+            Talent Test <span>2026</span> Registration
           </h1>
           <p className="vad-reg-hero__lead">
-            Online student application for rural government schools across Anantapur and Sri Sathya Sai districts.
+            Online student application for rural government schools (Classes 9 & 10) across Anantapur and Sri Sathya Sai districts.
           </p>
 
-          <div className="vad-reg-hero__quotas">
-            <div className="vad-reg-hero__quota-card">
-              <div className="vad-reg-hero__quota-head">
-                <span>Anantapur Quota</span>
-                <span className="vad-reg-hero__quota-count">3,142 / 4,000</span>
-              </div>
-              <div className="vad-reg-hero__progress-bar">
-                <div className="vad-reg-hero__progress-fill" style={{ width: "78%" }} />
-              </div>
-            </div>
-
-            <div className="vad-reg-hero__quota-card">
-              <div className="vad-reg-hero__quota-head">
-                <span>Sri Sathya Sai Quota</span>
-                <span className="vad-reg-hero__quota-count">2,890 / 4,000</span>
-              </div>
-              <div className="vad-reg-hero__progress-bar">
-                <div className="vad-reg-hero__progress-fill" style={{ width: "72%" }} />
-              </div>
-            </div>
+          {/* Minimal Inline Capacity Tracker (No boxes, no gradient lines) */}
+          <div className="vad-reg-hero__meta">
+            <span className="vad-reg-hero__meta-item">
+              <span className="vad-reg-hero__meta-dot" /> Anantapur Quota: <strong>3,142 / 4,000 Enrolled</strong>
+            </span>
+            <span className="vad-reg-hero__meta-divider">•</span>
+            <span className="vad-reg-hero__meta-item">
+              <span className="vad-reg-hero__meta-dot vad-reg-hero__meta-dot--gold" /> Sri Sathya Sai Quota: <strong>2,890 / 4,000 Enrolled</strong>
+            </span>
           </div>
         </div>
       </header>
@@ -460,6 +440,7 @@ export default function TalentTestRegistration() {
             <div className="vad-success-view">
               {/* Official Acknowledgment Slip */}
               <article className="vad-receipt-card" id="printable-receipt">
+                <div className="vad-receipt-card__top-bar" />
                 <div className="vad-receipt-card__header">
                   <div className="vad-receipt-card__logo-wrap">
                     <Image
@@ -471,13 +452,16 @@ export default function TalentTestRegistration() {
                       style={{ height: "auto", width: "auto", maxHeight: "38px" }}
                     />
                     <div>
-                      <div style={{ fontSize: "14px", fontWeight: 800, color: "var(--vad-navy-950)" }}>
+                      <div className="vad-receipt-card__brand-title">
                         Vadaanya Janaa Society
                       </div>
                       <div className="vad-receipt-card__subbrand">
                         Talent Test 2026 • Official Registration Slip
                       </div>
                     </div>
+                  </div>
+                  <div className="vad-receipt-card__ref-badge">
+                    Provisional Slip
                   </div>
                 </div>
 
@@ -489,10 +473,14 @@ export default function TalentTestRegistration() {
                   <button
                     type="button"
                     onClick={copyRegNo}
-                    className="vad-receipt-card__copy-btn"
+                    className="vad-receipt-card__copy-btn vad-no-print"
+                    title="Copy Registration Number"
                   >
                     {copied ? "✓ Copied" : "Copy Number"}
                   </button>
+                  <div className="vad-receipt-card__reg-status-pill vad-print-only">
+                    Registered
+                  </div>
                 </div>
 
                 <div className="vad-receipt-card__body">
@@ -507,13 +495,13 @@ export default function TalentTestRegistration() {
                         <td>{formData.relativeName}</td>
                       </tr>
                       <tr>
-                        <th>Gender & Class</th>
+                        <th>Gender &amp; Class</th>
                         <td>
                           {formData.gender} • {formData.studentClass}
                         </td>
                       </tr>
                       <tr>
-                        <th>District & Mandal</th>
+                        <th>District &amp; Mandal</th>
                         <td>
                           {activeDistrictInfo.name} • {formData.mandal}
                         </td>
@@ -532,26 +520,33 @@ export default function TalentTestRegistration() {
                       </tr>
                       <tr>
                         <th>Status</th>
-                        <td style={{ color: "#16a34a" }}>CONFIRMED (Seat Reserved)</td>
+                        <td style={{ color: "#16a34a", fontWeight: 700 }}>Registered</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
 
-                <div className="vad-receipt-card__footer">
-                  <strong>Important Notice:</strong> Exam Date is <strong>December 15, 2026</strong>. 
-                  Hall tickets will be available for download starting <strong>December 7, 2026</strong> at <code>www.vadaanya.org</code> using this Registration Number or student&apos;s Aadhaar number.
+                <div className="vad-receipt-card__advisory">
+                  <div className="vad-receipt-card__advisory-title">
+                    Important Advisory • For Reference Only
+                  </div>
+                  <p className="vad-receipt-card__advisory-p">
+                    This document is an <strong>official registration slip for reference purposes only</strong>. When official Hall Tickets are released on <strong>December 7, 2026</strong>, visit <strong>www.vadaanya.org</strong> and enter this Registration Number (<code>{generatedRegNo}</code>) or the student&apos;s registered Aadhaar number to download your Hall Ticket.
+                  </p>
+                  <div className="vad-receipt-card__advisory-warning">
+                    <strong>Notice:</strong> This slip <u>does NOT constitute an exam hall ticket</u> and will not grant entry into the examination hall. You must bring your official Hall Ticket on exam day (<strong>December 15, 2026</strong>).
+                  </div>
                 </div>
               </article>
 
               {/* Actions */}
-              <div style={{ display: "flex", justifyContent: "center", gap: "10px", flexWrap: "wrap", marginTop: "16px" }}>
+              <div className="vad-receipt-actions vad-no-print" style={{ display: "flex", justifyContent: "center", gap: "10px", flexWrap: "wrap", marginTop: "16px" }}>
                 <button
                   type="button"
                   onClick={() => window.print()}
                   className="vad-btn-step vad-btn-step--primary"
                 >
-                  Print / Save Receipt
+                  Download Slip
                 </button>
                 <button
                   type="button"
@@ -581,7 +576,7 @@ export default function TalentTestRegistration() {
                     </h2>
                     <p className="vad-form-card__subtitle">
                       {currentStep === 0 && "Enter Aadhaar and WhatsApp contact number to proceed."}
-                      {currentStep === 1 && "Provide student name, relative name, gender, and class."}
+                      {currentStep === 1 && "Provide student name, relative name, gender, and academic class."}
                       {currentStep === 2 && "Select institution, future study stream, and vocational interest."}
                     </p>
                   </div>
@@ -594,7 +589,7 @@ export default function TalentTestRegistration() {
               </div>
 
               {/* ───────────────────────────────────────────────
-                  STEP 1: AADHAAR + WHATSAPP
+                  STEP 1: AADHAAR + WHATSAPP (2-COLUMN BALANCED)
                   ─────────────────────────────────────────────── */}
               {currentStep === 0 && (
                 <div>
@@ -660,54 +655,57 @@ export default function TalentTestRegistration() {
                     </div>
                   )}
 
-                  {/* Aadhaar Field */}
-                  <div className="vad-field-group">
-                    <label htmlFor="aadhaar" className="vad-field-group__label">
-                      <span>
-                        Student 12-Digit Aadhaar Number <span className="req">*</span>
-                      </span>
-                      <span className="vad-field-group__hint">
-                        {formData.aadhaar.replace(/\s/g, "").length} / 12 digits
-                      </span>
-                    </label>
-                    <input
-                      type="text"
-                      id="aadhaar"
-                      inputMode="numeric"
-                      autoComplete="off"
-                      placeholder="1234 5678 9012"
-                      value={formData.aadhaar}
-                      onChange={(e) => handleAadhaarChange(e.target.value)}
-                      className={`vad-field-group__input ${errors.aadhaar ? "has-error" : ""}`}
-                      style={{ letterSpacing: "0.08em", fontWeight: 600 }}
-                    />
-                    {errors.aadhaar && <span className="vad-field-group__error">{errors.aadhaar}</span>}
-                  </div>
-
-                  {/* WhatsApp Mobile Field */}
-                  <div className="vad-field-group">
-                    <label htmlFor="whatsapp" className="vad-field-group__label">
-                      <span>
-                        WhatsApp Mobile Number <span className="req">*</span>
-                      </span>
-                    </label>
-                    <div className="vad-field-group__input-wrap">
-                      <span className="vad-field-group__prefix">+91</span>
+                  {/* 2-Column Row for Aadhaar and Mobile */}
+                  <div className="vad-form-row">
+                    {/* Aadhaar Field */}
+                    <div className="vad-field-group">
+                      <label htmlFor="aadhaar" className="vad-field-group__label">
+                        <span>
+                          Student 12-Digit Aadhaar Number <span className="req">*</span>
+                        </span>
+                        <span className="vad-field-group__hint">
+                          {formData.aadhaar.replace(/\s/g, "").length} / 12 digits
+                        </span>
+                      </label>
                       <input
-                        type="tel"
-                        id="whatsapp"
+                        type="text"
+                        id="aadhaar"
                         inputMode="numeric"
-                        placeholder="98765 43210"
-                        value={formData.whatsapp}
-                        onChange={(e) => handlePhoneChange(e.target.value)}
-                        className={`vad-field-group__input has-prefix ${errors.whatsapp ? "has-error" : ""}`}
-                        style={{ fontWeight: 600 }}
+                        autoComplete="off"
+                        placeholder="1234 5678 9012"
+                        value={formData.aadhaar}
+                        onChange={(e) => handleAadhaarChange(e.target.value)}
+                        className={`vad-field-group__input ${errors.aadhaar ? "has-error" : ""}`}
+                        style={{ letterSpacing: "0.08em", fontWeight: 600 }}
                       />
+                      {errors.aadhaar && <span className="vad-field-group__error">{errors.aadhaar}</span>}
                     </div>
-                    {errors.whatsapp && <span className="vad-field-group__error">{errors.whatsapp}</span>}
-                    <span style={{ fontSize: "11.5px", color: "#64748b" }}>
-                      Used for sending Registration Number & Hall Ticket download link
-                    </span>
+
+                    {/* WhatsApp Mobile Field */}
+                    <div className="vad-field-group">
+                      <label htmlFor="whatsapp" className="vad-field-group__label">
+                        <span>
+                          WhatsApp Mobile Number <span className="req">*</span>
+                        </span>
+                      </label>
+                      <div className="vad-field-group__input-wrap">
+                        <span className="vad-field-group__prefix">+91</span>
+                        <input
+                          type="tel"
+                          id="whatsapp"
+                          inputMode="numeric"
+                          placeholder="98765 43210"
+                          value={formData.whatsapp}
+                          onChange={(e) => handlePhoneChange(e.target.value)}
+                          className={`vad-field-group__input has-prefix ${errors.whatsapp ? "has-error" : ""}`}
+                          style={{ fontWeight: 600 }}
+                        />
+                      </div>
+                      {errors.whatsapp && <span className="vad-field-group__error">{errors.whatsapp}</span>}
+                      <span style={{ fontSize: "11.5px", color: "#64748b" }}>
+                        Used for sending Registration Number & Hall Ticket link
+                      </span>
+                    </div>
                   </div>
                 </div>
               )}
@@ -723,8 +721,8 @@ export default function TalentTestRegistration() {
                       background: "#f8fafc",
                       border: "1px solid #e2e8f0",
                       borderRadius: "8px",
-                      padding: "8px 12px",
-                      marginBottom: "16px",
+                      padding: "8px 14px",
+                      marginBottom: "18px",
                       display: "flex",
                       justifyContent: "space-between",
                       alignItems: "center",
@@ -753,124 +751,136 @@ export default function TalentTestRegistration() {
                     </button>
                   </div>
 
-                  {/* Student Full Name */}
-                  <div className="vad-field-group">
-                    <label htmlFor="fullName" className="vad-field-group__label">
-                      <span>
-                        Student Full Name <span className="req">*</span>
-                      </span>
-                    </label>
-                    <input
-                      type="text"
-                      id="fullName"
-                      placeholder="As per school register (e.g. K. Harika)"
-                      value={formData.fullName}
-                      onChange={(e) => {
-                        setFormData((prev) => ({ ...prev, fullName: e.target.value }));
-                        if (errors.fullName) setErrors((prev) => ({ ...prev, fullName: "" }));
-                      }}
-                      className={`vad-field-group__input ${errors.fullName ? "has-error" : ""}`}
-                    />
-                    {errors.fullName && <span className="vad-field-group__error">{errors.fullName}</span>}
-                  </div>
-
-                  {/* Father / Relative Name */}
-                  <div className="vad-field-group">
-                    <label htmlFor="relativeName" className="vad-field-group__label">
-                      <span>
-                        Father / Mother / Guardian Name <span className="req">*</span>
-                      </span>
-                    </label>
-                    <input
-                      type="text"
-                      id="relativeName"
-                      placeholder="e.g. K. Venkatesulu"
-                      value={formData.relativeName}
-                      onChange={(e) => {
-                        setFormData((prev) => ({ ...prev, relativeName: e.target.value }));
-                        if (errors.relativeName) setErrors((prev) => ({ ...prev, relativeName: "" }));
-                      }}
-                      className={`vad-field-group__input ${errors.relativeName ? "has-error" : ""}`}
-                    />
-                    {errors.relativeName && <span className="vad-field-group__error">{errors.relativeName}</span>}
-                  </div>
-
-                  {/* Gender - Simple Radio Buttons */}
-                  <div className="vad-field-group">
-                    <label className="vad-field-group__label">
-                      <span>
-                        Gender <span className="req">*</span>
-                      </span>
-                    </label>
-                    <div className="vad-radio-group">
-                      <label className={`vad-radio-label ${formData.gender === "MALE" ? "is-checked" : ""}`}>
-                        <input
-                          type="radio"
-                          name="gender"
-                          value="MALE"
-                          checked={formData.gender === "MALE"}
-                          onChange={() => {
-                            setFormData((prev) => ({ ...prev, gender: "MALE" }));
-                            if (errors.gender) setErrors((prev) => ({ ...prev, gender: "" }));
-                          }}
-                        />
-                        <span>Male</span>
+                  {/* 2-Column Row for Student Name & Relative Name */}
+                  <div className="vad-form-row">
+                    <div className="vad-field-group">
+                      <label htmlFor="fullName" className="vad-field-group__label">
+                        <span>
+                          Student Full Name <span className="req">*</span>
+                        </span>
                       </label>
-
-                      <label className={`vad-radio-label ${formData.gender === "FEMALE" ? "is-checked" : ""}`}>
-                        <input
-                          type="radio"
-                          name="gender"
-                          value="FEMALE"
-                          checked={formData.gender === "FEMALE"}
-                          onChange={() => {
-                            setFormData((prev) => ({ ...prev, gender: "FEMALE" }));
-                            if (errors.gender) setErrors((prev) => ({ ...prev, gender: "" }));
-                          }}
-                        />
-                        <span>Female</span>
-                      </label>
+                      <input
+                        type="text"
+                        id="fullName"
+                        placeholder="As per school register (e.g. K. Harika)"
+                        value={formData.fullName}
+                        onChange={(e) => {
+                          setFormData((prev) => ({ ...prev, fullName: e.target.value }));
+                          if (errors.fullName) setErrors((prev) => ({ ...prev, fullName: "" }));
+                        }}
+                        className={`vad-field-group__input ${errors.fullName ? "has-error" : ""}`}
+                      />
+                      {errors.fullName && <span className="vad-field-group__error">{errors.fullName}</span>}
                     </div>
-                    {errors.gender && <span className="vad-field-group__error">{errors.gender}</span>}
+
+                    <div className="vad-field-group">
+                      <label htmlFor="relativeName" className="vad-field-group__label">
+                        <span>
+                          Father / Mother / Guardian Name <span className="req">*</span>
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        id="relativeName"
+                        placeholder="e.g. K. Venkatesulu"
+                        value={formData.relativeName}
+                        onChange={(e) => {
+                          setFormData((prev) => ({ ...prev, relativeName: e.target.value }));
+                          if (errors.relativeName) setErrors((prev) => ({ ...prev, relativeName: "" }));
+                        }}
+                        className={`vad-field-group__input ${errors.relativeName ? "has-error" : ""}`}
+                      />
+                      {errors.relativeName && <span className="vad-field-group__error">{errors.relativeName}</span>}
+                    </div>
                   </div>
 
-                  {/* Class / Standard - Simple Radio Buttons */}
-                  <div className="vad-field-group">
-                    <label className="vad-field-group__label">
-                      <span>
-                        Academic Class <span className="req">*</span>
-                      </span>
-                    </label>
-                    <div className="vad-radio-group">
-                      <label className={`vad-radio-label ${formData.studentClass === "Class 9" ? "is-checked" : ""}`}>
-                        <input
-                          type="radio"
-                          name="studentClass"
-                          value="Class 9"
-                          checked={formData.studentClass === "Class 9"}
-                          onChange={() => {
-                            setFormData((prev) => ({ ...prev, studentClass: "Class 9" }));
-                            if (errors.studentClass) setErrors((prev) => ({ ...prev, studentClass: "" }));
-                          }}
-                        />
-                        <span>Class 9</span>
+                  {/* 2-Column Row for Gender & Class with Clean Circular Radio Buttons */}
+                  <div className="vad-form-row" style={{ marginTop: "4px" }}>
+                    {/* Gender */}
+                    <div className="vad-field-group">
+                      <label className="vad-field-group__label">
+                        <span>
+                          Gender <span className="req">*</span>
+                        </span>
                       </label>
+                      <div className="vad-radio-group">
+                        <label className={`vad-radio-label ${formData.gender === "MALE" ? "is-checked" : ""}`}>
+                          <input
+                            type="radio"
+                            name="gender"
+                            value="MALE"
+                            checked={formData.gender === "MALE"}
+                            onChange={() => {
+                              setFormData((prev) => ({ ...prev, gender: "MALE" }));
+                              if (errors.gender) setErrors((prev) => ({ ...prev, gender: "" }));
+                            }}
+                            className="vad-radio-hidden-input"
+                          />
+                          <span className={`vad-radio-circle ${formData.gender === "MALE" ? "is-checked" : ""}`} />
+                          <span className="vad-radio-text">Male</span>
+                        </label>
 
-                      <label className={`vad-radio-label ${formData.studentClass === "Class 10" ? "is-checked" : ""}`}>
-                        <input
-                          type="radio"
-                          name="studentClass"
-                          value="Class 10"
-                          checked={formData.studentClass === "Class 10"}
-                          onChange={() => {
-                            setFormData((prev) => ({ ...prev, studentClass: "Class 10" }));
-                            if (errors.studentClass) setErrors((prev) => ({ ...prev, studentClass: "" }));
-                          }}
-                        />
-                        <span>Class 10 (SSC)</span>
-                      </label>
+                        <label className={`vad-radio-label ${formData.gender === "FEMALE" ? "is-checked" : ""}`}>
+                          <input
+                            type="radio"
+                            name="gender"
+                            value="FEMALE"
+                            checked={formData.gender === "FEMALE"}
+                            onChange={() => {
+                              setFormData((prev) => ({ ...prev, gender: "FEMALE" }));
+                              if (errors.gender) setErrors((prev) => ({ ...prev, gender: "" }));
+                            }}
+                            className="vad-radio-hidden-input"
+                          />
+                          <span className={`vad-radio-circle ${formData.gender === "FEMALE" ? "is-checked" : ""}`} />
+                          <span className="vad-radio-text">Female</span>
+                        </label>
+                      </div>
+                      {errors.gender && <span className="vad-field-group__error">{errors.gender}</span>}
                     </div>
-                    {errors.studentClass && <span className="vad-field-group__error">{errors.studentClass}</span>}
+
+                    {/* Class */}
+                    <div className="vad-field-group">
+                      <label className="vad-field-group__label">
+                        <span>
+                          Academic Class <span className="req">*</span>
+                        </span>
+                      </label>
+                      <div className="vad-radio-group">
+                        <label className={`vad-radio-label ${formData.studentClass === "Class 9" ? "is-checked" : ""}`}>
+                          <input
+                            type="radio"
+                            name="studentClass"
+                            value="Class 9"
+                            checked={formData.studentClass === "Class 9"}
+                            onChange={() => {
+                              setFormData((prev) => ({ ...prev, studentClass: "Class 9" }));
+                              if (errors.studentClass) setErrors((prev) => ({ ...prev, studentClass: "" }));
+                            }}
+                            className="vad-radio-hidden-input"
+                          />
+                          <span className={`vad-radio-circle ${formData.studentClass === "Class 9" ? "is-checked" : ""}`} />
+                          <span className="vad-radio-text">Class 9</span>
+                        </label>
+
+                        <label className={`vad-radio-label ${formData.studentClass === "Class 10" ? "is-checked" : ""}`}>
+                          <input
+                            type="radio"
+                            name="studentClass"
+                            value="Class 10"
+                            checked={formData.studentClass === "Class 10"}
+                            onChange={() => {
+                              setFormData((prev) => ({ ...prev, studentClass: "Class 10" }));
+                              if (errors.studentClass) setErrors((prev) => ({ ...prev, studentClass: "" }));
+                            }}
+                            className="vad-radio-hidden-input"
+                          />
+                          <span className={`vad-radio-circle ${formData.studentClass === "Class 10" ? "is-checked" : ""}`} />
+                          <span className="vad-radio-text">Class 10 (SSC)</span>
+                        </label>
+                      </div>
+                      {errors.studentClass && <span className="vad-field-group__error">{errors.studentClass}</span>}
+                    </div>
                   </div>
                 </div>
               )}
@@ -880,7 +890,7 @@ export default function TalentTestRegistration() {
                   ─────────────────────────────────────────────── */}
               {currentStep === 2 && (
                 <div>
-                  {/* District Selection - Simple Radio */}
+                  {/* District Selection - Clean Radio */}
                   <div className="vad-field-group">
                     <label className="vad-field-group__label">
                       <span>
@@ -895,8 +905,10 @@ export default function TalentTestRegistration() {
                           value="ATP"
                           checked={formData.district === "ATP"}
                           onChange={() => handleDistrictChange("ATP")}
+                          className="vad-radio-hidden-input"
                         />
-                        <span>Anantapur District</span>
+                        <span className={`vad-radio-circle ${formData.district === "ATP" ? "is-checked" : ""}`} />
+                        <span className="vad-radio-text">Anantapur District</span>
                       </label>
 
                       <label className={`vad-radio-label ${formData.district === "SSS" ? "is-checked" : ""}`}>
@@ -906,8 +918,10 @@ export default function TalentTestRegistration() {
                           value="SSS"
                           checked={formData.district === "SSS"}
                           onChange={() => handleDistrictChange("SSS")}
+                          className="vad-radio-hidden-input"
                         />
-                        <span>Sri Sathya Sai District</span>
+                        <span className={`vad-radio-circle ${formData.district === "SSS" ? "is-checked" : ""}`} />
+                        <span className="vad-radio-text">Sri Sathya Sai District</span>
                       </label>
                     </div>
                   </div>
@@ -1008,60 +1022,61 @@ export default function TalentTestRegistration() {
                     </div>
                   )}
 
-                  {/* Future Higher Education Stream - Dropdown */}
-                  <div className="vad-field-group" style={{ marginTop: "18px" }}>
-                    <label htmlFor="stream" className="vad-field-group__label">
-                      <span>
-                        Future Stream of Study (After Class 10) <span className="req">*</span>
-                      </span>
-                    </label>
-                    <select
-                      id="stream"
-                      value={formData.stream}
-                      onChange={(e) => {
-                        setFormData((prev) => ({ ...prev, stream: e.target.value }));
-                        if (errors.stream) setErrors((prev) => ({ ...prev, stream: "" }));
-                      }}
-                      className={`vad-field-group__select ${errors.stream ? "has-error" : ""}`}
-                    >
-                      {STREAM_OPTIONS.map((opt) => (
-                        <option key={opt.id} value={opt.id}>
-                          {opt.name}
-                        </option>
-                      ))}
-                    </select>
-                    {errors.stream && <span className="vad-field-group__error">{errors.stream}</span>}
-                  </div>
+                  {/* Future Stream & Vocational Interest in a 2-Column Row */}
+                  <div className="vad-form-row" style={{ marginTop: "6px" }}>
+                    <div className="vad-field-group">
+                      <label htmlFor="stream" className="vad-field-group__label">
+                        <span>
+                          Future Stream of Study (After Class 10) <span className="req">*</span>
+                        </span>
+                      </label>
+                      <select
+                        id="stream"
+                        value={formData.stream}
+                        onChange={(e) => {
+                          setFormData((prev) => ({ ...prev, stream: e.target.value }));
+                          if (errors.stream) setErrors((prev) => ({ ...prev, stream: "" }));
+                        }}
+                        className={`vad-field-group__select ${errors.stream ? "has-error" : ""}`}
+                      >
+                        {STREAM_OPTIONS.map((opt) => (
+                          <option key={opt.id} value={opt.id}>
+                            {opt.name}
+                          </option>
+                        ))}
+                      </select>
+                      {errors.stream && <span className="vad-field-group__error">{errors.stream}</span>}
+                    </div>
 
-                  {/* Vocational Skills Interest - Dropdown */}
-                  <div className="vad-field-group">
-                    <label htmlFor="vocationalInterest" className="vad-field-group__label">
-                      <span>
-                        Vocational Training Interest (Optional) <span className="req">*</span>
-                      </span>
-                    </label>
-                    <select
-                      id="vocationalInterest"
-                      value={formData.vocationalInterest}
-                      onChange={(e) => {
-                        setFormData((prev) => ({ ...prev, vocationalInterest: e.target.value }));
-                        if (errors.vocationalInterest) setErrors((prev) => ({ ...prev, vocationalInterest: "" }));
-                      }}
-                      className={`vad-field-group__select ${errors.vocationalInterest ? "has-error" : ""}`}
-                    >
-                      {VOCATIONAL_OPTIONS.map((voc) => (
-                        <option key={voc.id} value={voc.id}>
-                          {voc.name}
-                        </option>
-                      ))}
-                    </select>
-                    {errors.vocationalInterest && (
-                      <span className="vad-field-group__error">{errors.vocationalInterest}</span>
-                    )}
+                    <div className="vad-field-group">
+                      <label htmlFor="vocationalInterest" className="vad-field-group__label">
+                        <span>
+                          Vocational Training Interest (Optional) <span className="req">*</span>
+                        </span>
+                      </label>
+                      <select
+                        id="vocationalInterest"
+                        value={formData.vocationalInterest}
+                        onChange={(e) => {
+                          setFormData((prev) => ({ ...prev, vocationalInterest: e.target.value }));
+                          if (errors.vocationalInterest) setErrors((prev) => ({ ...prev, vocationalInterest: "" }));
+                        }}
+                        className={`vad-field-group__select ${errors.vocationalInterest ? "has-error" : ""}`}
+                      >
+                        {VOCATIONAL_OPTIONS.map((voc) => (
+                          <option key={voc.id} value={voc.id}>
+                            {voc.name}
+                          </option>
+                        ))}
+                      </select>
+                      {errors.vocationalInterest && (
+                        <span className="vad-field-group__error">{errors.vocationalInterest}</span>
+                      )}
+                    </div>
                   </div>
 
                   {/* Honor Declaration Checkbox */}
-                  <div style={{ marginTop: "18px", padding: "10px 0" }}>
+                  <div style={{ marginTop: "14px", padding: "6px 0" }}>
                     <label style={{ display: "flex", alignItems: "flex-start", gap: "8px", cursor: "pointer" }}>
                       <input
                         type="checkbox"
@@ -1112,7 +1127,7 @@ export default function TalentTestRegistration() {
                 </button>
               </div>
 
-              {/* Discreet Demo Helper (subtle link at bottom, no loud banner) */}
+              {/* Discreet Demo Helper */}
               <div className="vad-reg-test-helper">
                 <span>Demo testing: </span>
                 <button type="button" onClick={handlePreFillDemo}>
