@@ -37,16 +37,16 @@ const INITIAL_FORM: FormData = {
   whatsapp: "",
   fullName: "",
   relativeName: "",
-  gender: "MALE",
-  studentClass: "Class 10",
+  gender: "",
+  studentClass: "",
   district: "ATP",
-  mandal: "Gooty",
+  mandal: "",
   village: "",
   schoolName: "",
   customSchoolName: "",
-  stream: "MPC",
-  vocationalInterest: "None",
-  declaration: true,
+  stream: "",
+  vocationalInterest: "",
+  declaration: false,
 };
 
 export default function TalentTestRegistration() {
@@ -55,6 +55,7 @@ export default function TalentTestRegistration() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
   const [generatedRegNo, setGeneratedRegNo] = useState<string>("");
   const [completedTimestamp, setCompletedTimestamp] = useState<string>("");
   const [copied, setCopied] = useState(false);
@@ -91,11 +92,10 @@ export default function TalentTestRegistration() {
 
   // When district changes, reset mandal & school
   const handleDistrictChange = (distId: "ATP" | "SSS") => {
-    const defaultMandal = DISTRICTS_DATA[distId].mandals[0] || "";
     setFormData((prev) => ({
       ...prev,
       district: distId,
-      mandal: defaultMandal,
+      mandal: "",
       schoolName: "",
       customSchoolName: "",
     }));
@@ -108,6 +108,63 @@ export default function TalentTestRegistration() {
       schoolName: "",
       customSchoolName: "",
     }));
+  };
+
+  // Direct client-side PDF download using html2canvas & jsPDF
+  const handleDownloadSlip = async () => {
+    const el = document.getElementById("printable-receipt");
+    if (!el) return;
+
+    setIsDownloading(true);
+    try {
+      const html2canvasModule = await import("html2canvas");
+      const html2canvas = html2canvasModule.default;
+      const { jsPDF } = await import("jspdf");
+
+      // Temporarily hide elements with .vad-no-print inside the receipt
+      const noPrintEls = el.querySelectorAll<HTMLElement>(".vad-no-print");
+      noPrintEls.forEach((node) => {
+        node.style.display = "none";
+      });
+
+      const canvas = await html2canvas(el, {
+        scale: 2.5,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: "#ffffff",
+        logging: false,
+      });
+
+      // Restore hidden elements
+      noPrintEls.forEach((node) => {
+        node.style.display = "";
+      });
+
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4",
+      });
+
+      const pdfWidth = 210;
+      const pdfHeight = 297;
+      const margin = 14;
+      const contentWidth = pdfWidth - margin * 2;
+      const contentHeight = (canvas.height * contentWidth) / canvas.width;
+
+      const posY = contentHeight < pdfHeight - 28 ? Math.max(12, (pdfHeight - contentHeight) / 2) : 12;
+
+      pdf.addImage(imgData, "PNG", margin, posY, contentWidth, contentHeight);
+
+      const safeRegNo = (generatedRegNo || "Registration").replace(/[^a-zA-Z0-9_-]/g, "_");
+      pdf.save(`Vadaanya-Talent-Test-Slip-${safeRegNo}.pdf`);
+    } catch (err) {
+      console.error("Direct PDF download error, opening print dialog as fallback:", err);
+      window.print();
+    } finally {
+      setIsDownloading(false);
+    }
   };
 
   const triggerAutoSave = () => {
@@ -449,14 +506,18 @@ export default function TalentTestRegistration() {
                       width={140}
                       height={38}
                       priority
+                      unoptimized
                       style={{ height: "auto", width: "auto", maxHeight: "38px" }}
                     />
                     <div>
                       <div className="vad-receipt-card__brand-title">
-                        Vadaanya Janaa Society
+                        VADAANYA JANAA SOCIETY
                       </div>
                       <div className="vad-receipt-card__subbrand">
-                        Talent Test 2026 • Official Registration Slip
+                        TALENT TEST 2026 • OFFICIAL REGISTRATION SLIP
+                      </div>
+                      <div className="vad-receipt-card__subtag">
+                        Rural Student Scholarship &amp; Educational Empowerment Initiative
                       </div>
                     </div>
                   </div>
@@ -467,19 +528,21 @@ export default function TalentTestRegistration() {
 
                 <div className="vad-receipt-card__reg-banner">
                   <div>
-                    <div className="vad-receipt-card__reg-label">Registration Number</div>
+                    <div className="vad-receipt-card__reg-label">Official Registration Number</div>
                     <div className="vad-receipt-card__reg-code">{generatedRegNo}</div>
                   </div>
-                  <button
-                    type="button"
-                    onClick={copyRegNo}
-                    className="vad-receipt-card__copy-btn vad-no-print"
-                    title="Copy Registration Number"
-                  >
-                    {copied ? "✓ Copied" : "Copy Number"}
-                  </button>
-                  <div className="vad-receipt-card__reg-status-pill vad-print-only">
-                    Registered
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <button
+                      type="button"
+                      onClick={copyRegNo}
+                      className="vad-receipt-card__copy-btn vad-no-print"
+                      title="Copy Registration Number"
+                    >
+                      {copied ? "✓ Copied" : "Copy Number"}
+                    </button>
+                    <div className="vad-receipt-card__reg-status-pill">
+                      ● Registered
+                    </div>
                   </div>
                 </div>
 
@@ -507,8 +570,16 @@ export default function TalentTestRegistration() {
                         </td>
                       </tr>
                       <tr>
+                        <th>Village / Town</th>
+                        <td>{formData.village || "—"}</td>
+                      </tr>
+                      <tr>
                         <th>School Name</th>
                         <td>{resolvedSchool}</td>
+                      </tr>
+                      <tr>
+                        <th>Future Stream</th>
+                        <td>{formData.stream || "General"}</td>
                       </tr>
                       <tr>
                         <th>Registered Mobile</th>
@@ -520,7 +591,7 @@ export default function TalentTestRegistration() {
                       </tr>
                       <tr>
                         <th>Status</th>
-                        <td style={{ color: "#16a34a", fontWeight: 700 }}>Registered</td>
+                        <td style={{ color: "#16a34a", fontWeight: 800 }}>Registered</td>
                       </tr>
                     </tbody>
                   </table>
@@ -531,7 +602,7 @@ export default function TalentTestRegistration() {
                     Important Advisory • For Reference Only
                   </div>
                   <p className="vad-receipt-card__advisory-p">
-                    This document is an <strong>official registration slip for reference purposes only</strong>. When official Hall Tickets are released on <strong>December 7, 2026</strong>, visit <strong>www.vadaanya.org</strong> and enter this Registration Number (<code>{generatedRegNo}</code>) or the student&apos;s registered Aadhaar number to download your Hall Ticket.
+                    This document is an <strong>official registration slip for reference purposes only</strong>. When official Hall Tickets are released on <strong>December 7, 2026</strong>, visit <strong>www.vadaanya.org</strong> and enter your Registration Number or the student&apos;s registered Aadhaar number to download your Hall Ticket.
                   </p>
                   <div className="vad-receipt-card__advisory-warning">
                     <strong>Notice:</strong> This slip <u>does NOT constitute an exam hall ticket</u> and will not grant entry into the examination hall. You must bring your official Hall Ticket on exam day (<strong>December 15, 2026</strong>).
@@ -543,10 +614,24 @@ export default function TalentTestRegistration() {
               <div className="vad-receipt-actions vad-no-print" style={{ display: "flex", justifyContent: "center", gap: "10px", flexWrap: "wrap", marginTop: "16px" }}>
                 <button
                   type="button"
-                  onClick={() => window.print()}
+                  onClick={handleDownloadSlip}
+                  disabled={isDownloading}
                   className="vad-btn-step vad-btn-step--primary"
                 >
-                  Download Slip
+                  {isDownloading ? (
+                    <>
+                      <span className="vad-btn-spinner" /> Downloading PDF...
+                    </>
+                  ) : (
+                    <>
+                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                      </svg>
+                      Download Slip
+                    </>
+                  )}
                 </button>
                 <button
                   type="button"
@@ -938,14 +1023,16 @@ export default function TalentTestRegistration() {
                         id="mandal"
                         value={formData.mandal}
                         onChange={(e) => handleMandalChange(e.target.value)}
-                        className="vad-field-group__select"
+                        className={`vad-field-group__select ${!formData.mandal ? "is-placeholder" : ""} ${errors.mandal ? "has-error" : ""}`}
                       >
+                        <option value="">-- Select Mandal in {activeDistrictInfo.name} --</option>
                         {activeDistrictInfo.mandals.map((m) => (
                           <option key={m} value={m}>
                             {m}
                           </option>
                         ))}
                       </select>
+                      {errors.mandal && <span className="vad-field-group__error">{errors.mandal}</span>}
                     </div>
 
                     {/* Village / Town */}
@@ -984,9 +1071,9 @@ export default function TalentTestRegistration() {
                         setFormData((prev) => ({ ...prev, schoolName: e.target.value }));
                         if (errors.schoolName) setErrors((prev) => ({ ...prev, schoolName: "" }));
                       }}
-                      className={`vad-field-group__select ${errors.schoolName ? "has-error" : ""}`}
+                      className={`vad-field-group__select ${!formData.schoolName ? "is-placeholder" : ""} ${errors.schoolName ? "has-error" : ""}`}
                     >
-                      <option value="">-- Select School in {formData.mandal} --</option>
+                      <option value="">{formData.mandal ? `-- Select School in ${formData.mandal} --` : "-- Select Mandal First --"}</option>
                       {schoolsList.map((sch) => (
                         <option key={sch} value={sch}>
                           {sch}
@@ -1037,8 +1124,9 @@ export default function TalentTestRegistration() {
                           setFormData((prev) => ({ ...prev, stream: e.target.value }));
                           if (errors.stream) setErrors((prev) => ({ ...prev, stream: "" }));
                         }}
-                        className={`vad-field-group__select ${errors.stream ? "has-error" : ""}`}
+                        className={`vad-field-group__select ${!formData.stream ? "is-placeholder" : ""} ${errors.stream ? "has-error" : ""}`}
                       >
+                        <option value="">-- Select Stream of Study --</option>
                         {STREAM_OPTIONS.map((opt) => (
                           <option key={opt.id} value={opt.id}>
                             {opt.name}
@@ -1061,8 +1149,9 @@ export default function TalentTestRegistration() {
                           setFormData((prev) => ({ ...prev, vocationalInterest: e.target.value }));
                           if (errors.vocationalInterest) setErrors((prev) => ({ ...prev, vocationalInterest: "" }));
                         }}
-                        className={`vad-field-group__select ${errors.vocationalInterest ? "has-error" : ""}`}
+                        className={`vad-field-group__select ${!formData.vocationalInterest ? "is-placeholder" : ""} ${errors.vocationalInterest ? "has-error" : ""}`}
                       >
+                        <option value="">-- Select Vocational Interest (Optional) --</option>
                         {VOCATIONAL_OPTIONS.map((voc) => (
                           <option key={voc.id} value={voc.id}>
                             {voc.name}

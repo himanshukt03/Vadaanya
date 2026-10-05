@@ -351,13 +351,27 @@
     border-radius: 8px;
     border: 1px solid #cbd5e1;
     background: #ffffff;
-    color: var(--vad-ink);
+    color: var(--vad-navy-950, #0a1946);
     outline: none;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
+    &::placeholder,
+    &::-webkit-input-placeholder,
+    &::-moz-placeholder,
+    &:-ms-input-placeholder {
+      color: #94a3b8 !important;
+      opacity: 1 !important;
+      font-weight: 400 !important;
+    }
+
+    &.is-placeholder {
+      color: #94a3b8 !important;
+      font-weight: 400 !important;
+    }
+
     &:focus {
-      border-color: var(--vad-gold-dark, #d97706);
-      box-shadow: 0 0 0 3px rgba(242, 167, 18, 0.18);
+      border-color: var(--vad-navy-700, #1e3080);
+      box-shadow: 0 0 0 3px rgba(30, 48, 128, 0.14);
     }
 
     &.has-prefix {
@@ -367,6 +381,24 @@
     &.has-error {
       border-color: #ef4444;
       background: #fef2f2;
+    }
+  }
+
+  &__select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+    padding-right: 40px;
+    cursor: pointer;
+
+    option[value=""] {
+      color: #94a3b8 !important;
+    }
+
+    option:not([value=""]) {
+      color: #0f172a !important;
     }
   }
 
@@ -611,6 +643,18 @@
   padding: 12px 0 6px;
 }
 
+// Button loading spinner
+.vad-btn-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(15, 23, 42, 0.25);
+  border-top-color: #0f172a;
+  border-radius: 50%;
+  display: inline-block;
+  animation: vad-spin 0.7s linear infinite;
+  vertical-align: middle;
+}
+
 // Official Admission / Acknowledgment Slip
 .vad-receipt-card {
   max-width: 660px;
@@ -630,7 +674,7 @@
   &__header {
     background: #ffffff;
     border-bottom: 2px solid var(--vad-navy-950);
-    padding: 16px 24px;
+    padding: 16px 24px 14px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -651,16 +695,23 @@
     font-size: 15px;
     font-weight: 800;
     color: var(--vad-navy-950);
-    letter-spacing: 0.01em;
+    letter-spacing: 0.02em;
     margin: 0;
   }
 
   &__subbrand {
     font-size: 11px;
     font-weight: 700;
-    color: #64748b;
+    color: #1e3080;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    margin-top: 2px;
+  }
+
+  &__subtag {
+    font-size: 10px;
+    font-weight: 500;
+    color: #64748b;
     margin-top: 2px;
   }
 
@@ -693,29 +744,29 @@
   }
 
   &__reg-label {
-    font-size: 11px;
+    font-size: 10.5px;
     font-weight: 700;
     text-transform: uppercase;
     color: #64748b;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
   }
 
   &__reg-code {
     font-family: monospace;
-    font-size: 20px;
+    font-size: 21px;
     font-weight: 800;
     color: var(--vad-navy-700);
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
   }
 
   &__copy-btn {
-    height: 32px;
+    height: 30px;
     padding: 0 12px;
     border-radius: 6px;
     border: 1px solid #cbd5e1;
     background: #ffffff;
     color: #334155;
-    font-size: 12px;
+    font-size: 11.5px;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -735,14 +786,17 @@
     background: #f0fdf4;
     border: 1px solid #86efac;
     border-radius: 4px;
-    padding: 3px 8px;
+    padding: 3px 9px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
   }
 
   &__body {
-    padding: 14px 24px 8px;
+    padding: 12px 24px 8px;
 
     @media (max-width: 640px) {
-      padding: 12px 16px 6px;
+      padding: 10px 14px 6px;
     }
   }
 
@@ -756,10 +810,15 @@
       &:last-child {
         border-bottom: none;
       }
+
+      &:nth-child(even) th,
+      &:nth-child(even) td {
+        background: #fcfdfe;
+      }
     }
 
     th {
-      padding: 7px 0;
+      padding: 6.5px 8px;
       color: #64748b;
       font-weight: 600;
       width: 40%;
@@ -768,7 +827,7 @@
     }
 
     td {
-      padding: 7px 0;
+      padding: 6.5px 8px;
       color: var(--vad-navy-950);
       font-weight: 700;
       text-align: right;
@@ -779,13 +838,13 @@
   &__advisory {
     background: #f8fafc;
     border-top: 1px solid #e2e8f0;
-    padding: 14px 24px;
+    padding: 12px 24px;
     font-size: 12px;
     line-height: 1.5;
     color: #334155;
 
     @media (max-width: 640px) {
-      padding: 12px 16px;
+      padding: 10px 14px;
     }
 
     &-title {
@@ -800,7 +859,7 @@
     &-p {
       margin: 0 0 6px;
       color: #334155;
-      font-size: 12px;
+      font-size: 11.5px;
       line-height: 1.5;
     }
 
@@ -810,15 +869,10 @@
       border-radius: 6px;
       padding: 6px 10px;
       color: #9f1239;
-      font-size: 11.5px;
+      font-size: 11px;
       line-height: 1.45;
     }
   }
-}
-
-// Print Utility Helpers
-.vad-print-only {
-  display: none !important;
 }
 
 // Discreet Test Helper link (no loud banner)
@@ -843,10 +897,10 @@
   }
 }
 
-// ---- PRINT STYLESHEET (GUARANTEED 1-PAGE & CENTERED) ----
+// ---- PRINT STYLESHEET (GUARANTEED STRICT 1-PAGE & CENTERED) ----
 @page {
   size: A4 portrait;
-  margin: 12mm auto;
+  margin: 10mm;
 }
 
 @media print {
@@ -856,63 +910,32 @@
     margin: 0 !important;
     padding: 0 !important;
     width: 100% !important;
-    height: auto !important;
-    overflow: visible !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    overflow: hidden !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
 
-  // Hide browser navigation, hero, stepper, buttons, and action bars
-  header,
-  footer,
-  nav,
-  .vad-nav,
-  .vad-footer,
-  .vad-reg-hero,
-  .vad-stepper,
-  .vad-form-actions,
-  .vad-reg-test-helper,
-  .vad-receipt-actions,
-  .vad-receipt-card__copy-btn,
-  .vad-no-print {
-    display: none !important;
+  // Hide everything by default
+  body * {
     visibility: hidden !important;
   }
 
-  .vad-reg-page {
-    padding: 0 !important;
-    margin: 0 !important;
-    background: #ffffff !important;
-    min-height: auto !important;
+  // Only show the receipt card and its children
+  #printable-receipt,
+  #printable-receipt * {
+    visibility: visible !important;
   }
 
-  .vad-reg-container {
-    max-width: 100% !important;
+  #printable-receipt {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 auto !important;
+    max-width: 630px !important;
     width: 100% !important;
-    padding: 0 !important;
-    margin: 0 auto !important;
-  }
-
-  .vad-form-card {
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    margin: 0 auto !important;
-    background: transparent !important;
-  }
-
-  .vad-success-view {
-    padding: 0 !important;
-    margin: 0 auto !important;
-    width: 100% !important;
-    display: block !important;
-  }
-
-  // Centered single-page receipt slip
-  .vad-receipt-card {
-    max-width: 640px !important;
-    width: 100% !important;
-    margin: 0 auto !important;
     box-shadow: none !important;
     border: 1.5px solid #0f172a !important;
     border-radius: 8px !important;
@@ -924,90 +947,92 @@
     break-before: avoid !important;
     overflow: hidden !important;
 
-    &__top-bar {
+    .vad-receipt-card__top-bar {
       height: 3px !important;
       background: #1e3080 !important;
     }
 
-    &__header {
+    .vad-receipt-card__header {
       border-bottom: 2px solid #0f172a !important;
-      padding: 12px 18px 10px !important;
+      padding: 10px 16px 8px !important;
     }
 
-    &__brand-title {
+    .vad-receipt-card__brand-title {
       color: #000000 !important;
     }
 
-    &__ref-badge {
+    .vad-receipt-card__ref-badge {
       background: #f8fafc !important;
       color: #0f172a !important;
       border-color: #0f172a !important;
     }
 
-    &__reg-banner {
+    .vad-receipt-card__reg-banner {
       background: #f8fafc !important;
       border-bottom: 1px solid #cbd5e1 !important;
-      padding: 10px 18px !important;
+      padding: 8px 16px !important;
     }
 
-    &__reg-code {
+    .vad-receipt-card__reg-code {
       color: #0f172a !important;
+      font-size: 19px !important;
     }
 
-    &__copy-btn {
+    .vad-receipt-card__copy-btn {
       display: none !important;
     }
 
-    &__body {
-      padding: 10px 18px 6px !important;
+    .vad-receipt-card__body {
+      padding: 8px 16px 4px !important;
     }
 
-    &__table {
-      font-size: 13px !important;
+    .vad-receipt-card__table {
+      font-size: 12.5px !important;
 
       tr {
         border-bottom: 1px solid #e2e8f0 !important;
       }
 
       th {
-        padding: 5px 0 !important;
+        padding: 4px 6px !important;
         color: #334155 !important;
-        font-size: 12px !important;
+        font-size: 11.5px !important;
       }
 
       td {
-        padding: 5px 0 !important;
+        padding: 4px 6px !important;
         color: #000000 !important;
-        font-size: 12.5px !important;
+        font-size: 12px !important;
       }
     }
 
-    &__advisory {
+    .vad-receipt-card__advisory {
       background: #f8fafc !important;
       border-top: 1px solid #cbd5e1 !important;
-      padding: 10px 18px !important;
+      padding: 8px 16px !important;
       page-break-inside: avoid !important;
       break-inside: avoid !important;
 
       &-p {
-        font-size: 11.5px !important;
-        line-height: 1.45 !important;
-        margin-bottom: 5px !important;
+        font-size: 11px !important;
+        line-height: 1.4 !important;
+        margin-bottom: 4px !important;
       }
 
       &-warning {
         background: #fafafa !important;
         border: 1px solid #0f172a !important;
         color: #000000 !important;
-        font-size: 11px !important;
-        line-height: 1.4 !important;
-        padding: 5px 8px !important;
+        font-size: 10.5px !important;
+        line-height: 1.35 !important;
+        padding: 4px 8px !important;
       }
     }
   }
 
-  .vad-print-only {
-    display: inline-block !important;
+  .vad-no-print {
+    display: none !important;
+    visibility: hidden !important;
   }
 }
 
