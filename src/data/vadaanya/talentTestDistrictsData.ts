@@ -69,7 +69,7 @@ export const DISTRICTS_DATA: Record<"ATP" | "SSS", DistrictInfo> = {
       "Gudibanda",
       "Hindupur",
       "Kadiri",
-      "Kanaganapalli",
+      "Tadimarri",
       "Kothacheruvu",
       "Lepakshi",
       "Madakasira",
