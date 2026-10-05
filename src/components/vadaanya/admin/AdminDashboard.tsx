@@ -33,10 +33,26 @@ export default function AdminDashboard() {
   const [filterClass, setFilterClass] = useState<string>("ALL");
   const [filterGender, setFilterGender] = useState<string>("ALL");
   const [filterStatus, setFilterStatus] = useState<string>("ALL");
+  const [isMobileStudentFilterOpen, setIsMobileStudentFilterOpen] = useState(false);
 
-  // Filters for Schools Outreach
   const [schoolFilter, setSchoolFilter] = useState<"ALL" | "LAGGING">("ALL");
   const [schoolSearch, setSchoolSearch] = useState("");
+  const [schoolDistrict, setSchoolDistrict] = useState<string>("ALL");
+  const [schoolMandal, setSchoolMandal] = useState<string>("ALL");
+  const [isMobileSchoolFilterOpen, setIsMobileSchoolFilterOpen] = useState(false);
+
+  // Deduplicated Mandals for Schools based on district selection
+  const availableSchoolMandals = useMemo(() => {
+    let list: string[] = [];
+    if (schoolDistrict === "ATP") {
+      list = DISTRICTS_DATA.ATP.mandals;
+    } else if (schoolDistrict === "SSS") {
+      list = DISTRICTS_DATA.SSS.mandals;
+    } else {
+      list = [...DISTRICTS_DATA.ATP.mandals, ...DISTRICTS_DATA.SSS.mandals];
+    }
+    return Array.from(new Set(list)).sort((a, b) => a.localeCompare(b));
+  }, [schoolDistrict]);
 
   // Deduplicated Mandals based on district selection
   const availableMandals = useMemo(() => {
@@ -80,6 +96,8 @@ export default function AdminDashboard() {
   const filteredSchools = useMemo(() => {
     return MOCK_SCHOOLS.filter((sch) => {
       if (schoolFilter === "LAGGING" && !sch.isRedFlag) return false;
+      if (schoolDistrict !== "ALL" && sch.districtId !== schoolDistrict) return false;
+      if (schoolMandal !== "ALL" && sch.mandal !== schoolMandal) return false;
       if (schoolSearch.trim()) {
         const q = schoolSearch.toLowerCase().trim();
         const match =
@@ -90,7 +108,28 @@ export default function AdminDashboard() {
       }
       return true;
     });
-  }, [schoolFilter, schoolSearch]);
+  }, [schoolFilter, schoolDistrict, schoolMandal, schoolSearch]);
+
+  const hasActiveSchoolFilter =
+    schoolDistrict !== "ALL" ||
+    schoolMandal !== "ALL" ||
+    schoolFilter !== "ALL" ||
+    schoolSearch.trim().length > 0;
+
+  const activeSchoolFilterCount =
+    (schoolDistrict !== "ALL" ? 1 : 0) +
+    (schoolMandal !== "ALL" ? 1 : 0) +
+    (schoolFilter !== "ALL" ? 1 : 0);
+
+  const activeStudentFilterCount =
+    (filterDistrict !== "ALL" ? 1 : 0) +
+    (filterMandal !== "ALL" ? 1 : 0) +
+    (filterClass !== "ALL" ? 1 : 0) +
+    (filterGender !== "ALL" ? 1 : 0) +
+    (filterStatus !== "ALL" ? 1 : 0);
+
+  const hasActiveStudentFilter =
+    activeStudentFilterCount > 0 || searchQuery.trim().length > 0;
 
   const laggingCount = useMemo(() => {
     return MOCK_SCHOOLS.filter((s) => s.isRedFlag).length;
@@ -370,7 +409,7 @@ export default function AdminDashboard() {
               </svg>
               <input
                 type="text"
-                placeholder="Search registrations, schools..."
+                placeholder="Search"
                 value={searchQuery}
                 onChange={(e) => {
                   setSearchQuery(e.target.value);
@@ -383,7 +422,7 @@ export default function AdminDashboard() {
           </div>
 
           <div className="admin-header__right">
-            {/* Reload Button (replacing live sync indicator) */}
+            {/* Reload Button */}
             <button
               type="button"
               className="btn-reload"
@@ -401,16 +440,8 @@ export default function AdminDashboard() {
                 <path d="M1 20v-6h6" />
                 <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
               </svg>
-              <span>{isReloading ? "Reloading..." : "Reload"}</span>
+              <span className="btn-reload__text">{isReloading ? "Reloading..." : "Reload"}</span>
             </button>
-
-            <div className="user-profile">
-              <div className="avatar">HS</div>
-              <div className="meta">
-                <p className="name">Operations Admin</p>
-                <p className="role">admin.vadaanya.org</p>
-              </div>
-            </div>
           </div>
         </header>
 
@@ -458,39 +489,46 @@ export default function AdminDashboard() {
               )}
 
               {activeTab === "schools" && (
-                <button
-                  type="button"
-                  className="btn-outline"
-                  onClick={downloadMandalOutreachExport}
-                >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                  </svg>
-                  <span>Download School Sheet</span>
-                </button>
+                <div className="desktop-only-action" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <span style={{ fontSize: "13px", color: "#64748b", fontWeight: 500 }}>
+                    Download all schools sheet
+                  </span>
+                  <button
+                    type="button"
+                    className="btn-outline"
+                    onClick={() => downloadMandalOutreachExport(MOCK_SCHOOLS)}
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    <span>Download .csv</span>
+                  </button>
+                </div>
               )}
 
-              <button
-                type="button"
-                className="btn-primary"
-                onClick={() => {
-                  if (activeTab === "reports") {
-                    downloadOmrScannerExport();
-                  } else {
-                    setActiveTab("reports");
-                  }
-                }}
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <polyline points="14 2 14 8 20 8" />
-                  <line x1="16" y1="13" x2="8" y2="13" />
-                  <line x1="16" y1="17" x2="8" y2="17" />
-                </svg>
-                <span>OMR Export (.csv)</span>
-              </button>
+              {activeTab !== "schools" && (
+                <button
+                  type="button"
+                  className="btn-primary"
+                  onClick={() => {
+                    if (activeTab === "reports") {
+                      downloadOmrScannerExport();
+                    } else {
+                      setActiveTab("reports");
+                    }
+                  }}
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                  </svg>
+                  <span>OMR Export (.csv)</span>
+                </button>
+              )}
             </div>
           </div>
 
@@ -515,7 +553,6 @@ export default function AdminDashboard() {
                   <div className="kpi-card__value">{ADMIN_KPIS.confirmedCount.toLocaleString()}</div>
                   <div className="kpi-card__footer">
                     <span className="trend-pill">+{ADMIN_KPIS.todayVelocity} today</span>
-                    <span className="sub-note">Target: {ADMIN_KPIS.totalTarget.toLocaleString()} cap</span>
                   </div>
                 </div>
 
@@ -532,7 +569,6 @@ export default function AdminDashboard() {
                   <div className="kpi-card__value">{ADMIN_KPIS.conversionRate}%</div>
                   <div className="kpi-card__footer">
                     <span className="trend-pill">+1.4% vs last week</span>
-                    <span className="sub-note">Initiated to V26</span>
                   </div>
                 </div>
 
@@ -549,7 +585,6 @@ export default function AdminDashboard() {
                   <div className="kpi-card__value">{ADMIN_KPIS.pendingDraftsCount}</div>
                   <div className="kpi-card__footer">
                     <span className="trend-pill down">-12 abandoned</span>
-                    <span className="sub-note">WhatsApp follow-up ready</span>
                   </div>
                 </div>
 
@@ -567,7 +602,6 @@ export default function AdminDashboard() {
                   <div className="kpi-card__value">{ADMIN_KPIS.participatingSchools}</div>
                   <div className="kpi-card__footer">
                     <span className="trend-pill">90.6% reach</span>
-                    <span className="sub-note">384 total target schools</span>
                   </div>
                 </div>
               </div>
@@ -586,7 +620,6 @@ export default function AdminDashboard() {
                   </div>
                   <div className="quota-card__footer">
                     <span>Remaining capacity: {ADMIN_KPIS.atpQuota - ADMIN_KPIS.atpRegistered} seats</span>
-                    <span className="status-text">Active Normal</span>
                   </div>
                 </div>
 
@@ -602,7 +635,6 @@ export default function AdminDashboard() {
                   </div>
                   <div className="quota-card__footer">
                     <span>Remaining capacity: {ADMIN_KPIS.sssQuota - ADMIN_KPIS.sssRegistered} seats</span>
-                    <span className="status-text">Active Normal</span>
                   </div>
                 </div>
               </div>
@@ -614,10 +646,6 @@ export default function AdminDashboard() {
                     <h3>Completion Rate at Every Step</h3>
                     <p>Real-time completion rate and drop-off metrics across the 4 registration steps</p>
                   </div>
-                  <div className="overall-rate">
-                    <div className="label">End-to-End Conversion</div>
-                    <div className="val">{ADMIN_KPIS.conversionRate}%</div>
-                  </div>
                 </div>
 
                 <div className="funnel-card__steps">
@@ -628,13 +656,6 @@ export default function AdminDashboard() {
                     >
                       <div className="node-header">
                         <span className="step-num">Step {idx}: {step.name}</span>
-                        {step.dropOffCount > 0 ? (
-                          <span className="dropoff-badge">-{step.dropOffCount} ({step.dropOffRate}%)</span>
-                        ) : (
-                          <span style={{ fontSize: "10.5px", color: "#16a34a", fontWeight: 600 }}>
-                            Entry Gate
-                          </span>
-                        )}
                       </div>
                       <div className="node-count">{step.count.toLocaleString()}</div>
                       <div className="node-meta" style={{ fontSize: "11px", color: "#64748b", marginTop: "2px" }}>
@@ -853,102 +874,282 @@ export default function AdminDashboard() {
           {/* ============================================================ */}
           {activeTab === "students" && (
             <>
-              {/* Multi-Dimensional Filter Toolbar */}
-              <div className="admin-filters-card">
-                <div className="filters-row">
-                  <div className="filter-item">
-                    <label>District</label>
-                    <select
-                      value={filterDistrict}
-                      onChange={(e) => {
-                        setFilterDistrict(e.target.value);
-                        setFilterMandal("ALL");
-                      }}
-                    >
-                      <option value="ALL">All Districts</option>
-                      <option value="ATP">Anantapur (ATP)</option>
-                      <option value="SSS">Sri Sathya Sai (SSS)</option>
-                    </select>
-                  </div>
-
-                  <div className="filter-item">
-                    <label>Mandal</label>
-                    <select
-                      value={filterMandal}
-                      onChange={(e) => setFilterMandal(e.target.value)}
-                    >
-                      <option value="ALL">All Mandals ({availableMandals.length})</option>
-                      {availableMandals.map((m, idx) => (
-                        <option key={`${m}-${idx}`} value={m}>
-                          {m}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div className="filter-item">
-                    <label>Class</label>
-                    <select
-                      value={filterClass}
-                      onChange={(e) => setFilterClass(e.target.value)}
-                    >
-                      <option value="ALL">All Classes</option>
-                      <option value="Class 9">Class 9</option>
-                      <option value="Class 10">Class 10</option>
-                    </select>
-                  </div>
-
-                  <div className="filter-item">
-                    <label>Gender</label>
-                    <select
-                      value={filterGender}
-                      onChange={(e) => setFilterGender(e.target.value)}
-                    >
-                      <option value="ALL">All Genders</option>
-                      <option value="MALE">Boys (Male)</option>
-                      <option value="FEMALE">Girls (Female)</option>
-                    </select>
-                  </div>
-
-                  <div className="filter-item">
-                    <label>Status</label>
-                    <select
-                      value={filterStatus}
-                      onChange={(e) => setFilterStatus(e.target.value)}
-                    >
-                      <option value="ALL">All Status</option>
-                      <option value="COMPLETED">Confirmed (V26)</option>
-                      <option value="PENDING">Pending</option>
-                    </select>
-                  </div>
-
-                  <div className="filter-actions">
+              {/* Mobile Compact Action Bar (Search + Filter + Download) */}
+              <div className="admin-mobile-filter-bar">
+                <div className="mobile-search-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                  {searchQuery && (
                     <button
                       type="button"
-                      className="btn-outline"
-                      onClick={() => {
-                        setFilterDistrict("ALL");
-                        setFilterMandal("ALL");
-                        setFilterClass("ALL");
-                        setFilterGender("ALL");
-                        setFilterStatus("ALL");
-                        setSearchQuery("");
-                      }}
+                      className="clear-search-btn"
+                      onClick={() => setSearchQuery("")}
+                      aria-label="Clear search"
                     >
-                      Reset Filters
+                      ✕
                     </button>
-                    <button
-                      type="button"
-                      className="btn-primary"
-                      onClick={() => downloadFilteredStudentsCsv(filteredStudents)}
-                    >
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                        <polyline points="7 10 12 15 17 10" />
-                        <line x1="12" y1="15" x2="12" y2="3" />
-                      </svg>
-                      <span>Export Filtered ({filteredStudents.length})</span>
-                    </button>
+                  )}
+                </div>
+
+                <button
+                  type="button"
+                  className={`btn-mobile-filter ${activeStudentFilterCount > 0 ? "has-active" : ""}`}
+                  onClick={() => setIsMobileStudentFilterOpen(true)}
+                  aria-label="Open filter options"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+                  </svg>
+                  <span>Filter</span>
+                  {activeStudentFilterCount > 0 && (
+                    <span className="filter-badge">{activeStudentFilterCount}</span>
+                  )}
+                </button>
+
+                <button
+                  type="button"
+                  className="btn-mobile-download"
+                  onClick={() => downloadFilteredStudentsCsv(filteredStudents)}
+                  title={`Export filtered students (${filteredStudents.length})`}
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span>.csv</span>
+                </button>
+              </div>
+
+              {/* Mobile Filter Modal / Popup */}
+              {isMobileStudentFilterOpen && (
+                <div
+                  className="admin-filter-modal-backdrop"
+                  onClick={() => setIsMobileStudentFilterOpen(false)}
+                >
+                  <div
+                    className="admin-filter-modal"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="admin-filter-modal__header">
+                      <div className="title-group">
+                        <h3>Filter Students</h3>
+                        {activeStudentFilterCount > 0 && (
+                          <span className="active-count-tag">{activeStudentFilterCount} active</span>
+                        )}
+                      </div>
+                      <button
+                        type="button"
+                        className="close-btn"
+                        onClick={() => setIsMobileStudentFilterOpen(false)}
+                        aria-label="Close"
+                      >
+                        ✕
+                      </button>
+                    </div>
+
+                    <div className="admin-filter-modal__body">
+                      <div className="filter-field">
+                        <label>District</label>
+                        <select
+                          value={filterDistrict}
+                          onChange={(e) => {
+                            setFilterDistrict(e.target.value);
+                            setFilterMandal("ALL");
+                          }}
+                        >
+                          <option value="ALL">All Districts</option>
+                          <option value="ATP">Anantapur (ATP)</option>
+                          <option value="SSS">Sri Sathya Sai (SSS)</option>
+                        </select>
+                      </div>
+
+                      <div className="filter-field">
+                        <label>Mandal</label>
+                        <select
+                          value={filterMandal}
+                          onChange={(e) => setFilterMandal(e.target.value)}
+                        >
+                          <option value="ALL">All Mandals ({availableMandals.length})</option>
+                          {availableMandals.map((m, idx) => (
+                            <option key={`m-pop-st-${m}-${idx}`} value={m}>
+                              {m}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div className="filter-field">
+                        <label>Class</label>
+                        <select
+                          value={filterClass}
+                          onChange={(e) => setFilterClass(e.target.value)}
+                        >
+                          <option value="ALL">All Classes</option>
+                          <option value="Class 9">Class 9</option>
+                          <option value="Class 10">Class 10</option>
+                        </select>
+                      </div>
+
+                      <div className="filter-field">
+                        <label>Gender</label>
+                        <select
+                          value={filterGender}
+                          onChange={(e) => setFilterGender(e.target.value)}
+                        >
+                          <option value="ALL">All Genders</option>
+                          <option value="MALE">Boys (Male)</option>
+                          <option value="FEMALE">Girls (Female)</option>
+                        </select>
+                      </div>
+
+                      <div className="filter-field">
+                        <label>Status</label>
+                        <select
+                          value={filterStatus}
+                          onChange={(e) => setFilterStatus(e.target.value)}
+                        >
+                          <option value="ALL">All Status</option>
+                          <option value="COMPLETED">Confirmed</option>
+                          <option value="PENDING">Pending</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="admin-filter-modal__footer">
+                      {activeStudentFilterCount > 0 && (
+                        <button
+                          type="button"
+                          className="btn-modal-reset"
+                          onClick={() => {
+                            setFilterDistrict("ALL");
+                            setFilterMandal("ALL");
+                            setFilterClass("ALL");
+                            setFilterGender("ALL");
+                            setFilterStatus("ALL");
+                          }}
+                        >
+                          Reset Filters
+                        </button>
+                      )}
+                      <button
+                        type="button"
+                        className="btn-modal-done"
+                        onClick={() => setIsMobileStudentFilterOpen(false)}
+                      >
+                        Done
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Desktop Filter Strip */}
+              <div className="admin-desktop-filters">
+                <div className="admin-filters-card">
+                  <div className="filters-row">
+                    <div className="filter-item">
+                      <label>District</label>
+                      <select
+                        value={filterDistrict}
+                        onChange={(e) => {
+                          setFilterDistrict(e.target.value);
+                          setFilterMandal("ALL");
+                        }}
+                      >
+                        <option value="ALL">All Districts</option>
+                        <option value="ATP">Anantapur (ATP)</option>
+                        <option value="SSS">Sri Sathya Sai (SSS)</option>
+                      </select>
+                    </div>
+
+                    <div className="filter-item">
+                      <label>Mandal</label>
+                      <select
+                        value={filterMandal}
+                        onChange={(e) => setFilterMandal(e.target.value)}
+                      >
+                        <option value="ALL">All Mandals ({availableMandals.length})</option>
+                        {availableMandals.map((m, idx) => (
+                          <option key={`${m}-${idx}`} value={m}>
+                            {m}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="filter-item">
+                      <label>Class</label>
+                      <select
+                        value={filterClass}
+                        onChange={(e) => setFilterClass(e.target.value)}
+                      >
+                        <option value="ALL">All Classes</option>
+                        <option value="Class 9">Class 9</option>
+                        <option value="Class 10">Class 10</option>
+                      </select>
+                    </div>
+
+                    <div className="filter-item">
+                      <label>Gender</label>
+                      <select
+                        value={filterGender}
+                        onChange={(e) => setFilterGender(e.target.value)}
+                      >
+                        <option value="ALL">All Genders</option>
+                        <option value="MALE">Boys (Male)</option>
+                        <option value="FEMALE">Girls (Female)</option>
+                      </select>
+                    </div>
+
+                    <div className="filter-item">
+                      <label>Status</label>
+                      <select
+                        value={filterStatus}
+                        onChange={(e) => setFilterStatus(e.target.value)}
+                      >
+                        <option value="ALL">All Status</option>
+                        <option value="COMPLETED">Confirmed</option>
+                        <option value="PENDING">Pending</option>
+                      </select>
+                    </div>
+
+                    <div className="filter-actions">
+                      <button
+                        type="button"
+                        className="btn-outline"
+                        onClick={() => {
+                          setFilterDistrict("ALL");
+                          setFilterMandal("ALL");
+                          setFilterClass("ALL");
+                          setFilterGender("ALL");
+                          setFilterStatus("ALL");
+                          setSearchQuery("");
+                        }}
+                      >
+                        Reset Filters
+                      </button>
+                      <button
+                        type="button"
+                        className="btn-primary"
+                        onClick={() => downloadFilteredStudentsCsv(filteredStudents)}
+                      >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                          <polyline points="7 10 12 15 17 10" />
+                          <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                        <span>Export Filtered ({filteredStudents.length})</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1045,43 +1246,246 @@ export default function AdminDashboard() {
           {/* ============================================================ */}
           {activeTab === "schools" && (
             <>
-              {/* Filter Strip */}
-              <div className="admin-filters-card">
-                <div className="filters-row" style={{ alignItems: "center" }}>
-                  <div className="filter-item" style={{ minWidth: "220px" }}>
-                    <label>View Mode</label>
-                    <select
-                      value={schoolFilter}
-                      onChange={(e) => setSchoolFilter(e.target.value as "ALL" | "LAGGING")}
-                    >
-                      <option value="ALL">All Schools ({MOCK_SCHOOLS.length})</option>
-                      <option value="LAGGING">Lagging Schools (&lt;5 Registered) — {laggingCount} Red Flags</option>
-                    </select>
-                  </div>
-
-                  <div className="filter-item" style={{ flex: 1, minWidth: "240px" }}>
-                    <label>Search School or Headmaster</label>
-                    <input
-                      type="text"
-                      placeholder="Search school name, Mandal, or HM..."
-                      value={schoolSearch}
-                      onChange={(e) => setSchoolSearch(e.target.value)}
-                    />
-                  </div>
-
-                  <div className="filter-actions">
+              {/* Mobile Compact Action Bar (Search + Filter + Download) */}
+              <div className="admin-mobile-filter-bar">
+                <div className="mobile-search-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    value={schoolSearch}
+                    onChange={(e) => setSchoolSearch(e.target.value)}
+                  />
+                  {schoolSearch && (
                     <button
                       type="button"
-                      className="btn-primary"
-                      onClick={downloadMandalOutreachExport}
+                      className="clear-search-btn"
+                      onClick={() => setSchoolSearch("")}
+                      aria-label="Clear search"
                     >
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                        <polyline points="7 10 12 15 17 10" />
-                        <line x1="12" y1="15" x2="12" y2="3" />
-                      </svg>
-                      <span>Download Mandal Sheet (.csv)</span>
+                      ✕
                     </button>
+                  )}
+                </div>
+
+                <button
+                  type="button"
+                  className={`btn-mobile-filter ${activeSchoolFilterCount > 0 ? "has-active" : ""}`}
+                  onClick={() => setIsMobileSchoolFilterOpen(true)}
+                  aria-label="Open filter options"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+                  </svg>
+                  <span>Filter</span>
+                  {activeSchoolFilterCount > 0 && (
+                    <span className="filter-badge">{activeSchoolFilterCount}</span>
+                  )}
+                </button>
+
+                <button
+                  type="button"
+                  className="btn-mobile-download"
+                  onClick={() => downloadMandalOutreachExport(hasActiveSchoolFilter ? filteredSchools : MOCK_SCHOOLS)}
+                  title={hasActiveSchoolFilter ? "Download filtered sheet (.csv)" : "Download all schools sheet (.csv)"}
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span>.csv</span>
+                </button>
+              </div>
+
+              {/* Mobile Filter Modal / Popup */}
+              {isMobileSchoolFilterOpen && (
+                <div
+                  className="admin-filter-modal-backdrop"
+                  onClick={() => setIsMobileSchoolFilterOpen(false)}
+                >
+                  <div
+                    className="admin-filter-modal"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="admin-filter-modal__header">
+                      <div className="title-group">
+                        <h3>Filter Schools</h3>
+                        {activeSchoolFilterCount > 0 && (
+                          <span className="active-count-tag">{activeSchoolFilterCount} active</span>
+                        )}
+                      </div>
+                      <button
+                        type="button"
+                        className="close-btn"
+                        onClick={() => setIsMobileSchoolFilterOpen(false)}
+                        aria-label="Close"
+                      >
+                        ✕
+                      </button>
+                    </div>
+
+                    <div className="admin-filter-modal__body">
+                      <div className="filter-field">
+                        <label>District</label>
+                        <select
+                          value={schoolDistrict}
+                          onChange={(e) => {
+                            setSchoolDistrict(e.target.value);
+                            setSchoolMandal("ALL");
+                          }}
+                        >
+                          <option value="ALL">All Districts</option>
+                          <option value="ATP">Anantapur (ATP)</option>
+                          <option value="SSS">Sri Sathya Sai (SSS)</option>
+                        </select>
+                      </div>
+
+                      <div className="filter-field">
+                        <label>Mandal</label>
+                        <select
+                          value={schoolMandal}
+                          onChange={(e) => setSchoolMandal(e.target.value)}
+                        >
+                          <option value="ALL">All Mandals ({availableSchoolMandals.length})</option>
+                          {availableSchoolMandals.map((m, idx) => (
+                            <option key={`m-pop-${m}-${idx}`} value={m}>
+                              {m}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div className="filter-field">
+                        <label>View Mode</label>
+                        <select
+                          value={schoolFilter}
+                          onChange={(e) => setSchoolFilter(e.target.value as "ALL" | "LAGGING")}
+                        >
+                          <option value="ALL">All Schools ({MOCK_SCHOOLS.length})</option>
+                          <option value="LAGGING">Lagging Schools (&lt;5 Registered) — {laggingCount} Red Flags</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="admin-filter-modal__footer">
+                      {activeSchoolFilterCount > 0 && (
+                        <button
+                          type="button"
+                          className="btn-modal-reset"
+                          onClick={() => {
+                            setSchoolDistrict("ALL");
+                            setSchoolMandal("ALL");
+                            setSchoolFilter("ALL");
+                          }}
+                        >
+                          Reset Filters
+                        </button>
+                      )}
+                      <button
+                        type="button"
+                        className="btn-modal-done"
+                        onClick={() => setIsMobileSchoolFilterOpen(false)}
+                      >
+                        Done
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Desktop Filter Strip */}
+              <div className="admin-desktop-filters">
+                <div className="admin-filters-card">
+                  <div className="filters-row" style={{ alignItems: "center" }}>
+                    <div className="filter-item">
+                      <label>District</label>
+                      <select
+                        value={schoolDistrict}
+                        onChange={(e) => {
+                          setSchoolDistrict(e.target.value);
+                          setSchoolMandal("ALL");
+                        }}
+                      >
+                        <option value="ALL">All Districts</option>
+                        <option value="ATP">Anantapur (ATP)</option>
+                        <option value="SSS">Sri Sathya Sai (SSS)</option>
+                      </select>
+                    </div>
+
+                    <div className="filter-item">
+                      <label>Mandal</label>
+                      <select
+                        value={schoolMandal}
+                        onChange={(e) => setSchoolMandal(e.target.value)}
+                      >
+                        <option value="ALL">All Mandals ({availableSchoolMandals.length})</option>
+                        {availableSchoolMandals.map((m, idx) => (
+                          <option key={`sch-m-${m}-${idx}`} value={m}>
+                            {m}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="filter-item">
+                      <label>View Mode</label>
+                      <select
+                        value={schoolFilter}
+                        onChange={(e) => setSchoolFilter(e.target.value as "ALL" | "LAGGING")}
+                      >
+                        <option value="ALL">All Schools ({MOCK_SCHOOLS.length})</option>
+                        <option value="LAGGING">Lagging Schools (&lt;5 Registered) — {laggingCount} Red Flags</option>
+                      </select>
+                    </div>
+
+                    <div className="filter-item" style={{ flex: 1, minWidth: "220px" }}>
+                      <label>Search School or Headmaster</label>
+                      <input
+                        type="text"
+                        placeholder="Search"
+                        value={schoolSearch}
+                        onChange={(e) => setSchoolSearch(e.target.value)}
+                      />
+                    </div>
+
+                    {hasActiveSchoolFilter && (
+                      <div className="filter-actions">
+                        <button
+                          type="button"
+                          className="btn-outline"
+                          onClick={() => {
+                            setSchoolDistrict("ALL");
+                            setSchoolMandal("ALL");
+                            setSchoolFilter("ALL");
+                            setSchoolSearch("");
+                          }}
+                        >
+                          Reset Filters
+                        </button>
+
+                        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                          <span style={{ fontSize: "12.5px", color: "#64748b", fontWeight: 500, whiteSpace: "nowrap" }}>
+                            Download filtered sheet
+                          </span>
+                          <button
+                            type="button"
+                            className="btn-primary"
+                            onClick={() => downloadMandalOutreachExport(filteredSchools)}
+                          >
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                              <polyline points="7 10 12 15 17 10" />
+                              <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                            <span>Download .csv</span>
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -1100,7 +1504,16 @@ export default function AdminDashboard() {
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredSchools.map((sch) => (
+                    {filteredSchools.length === 0 ? (
+                      <tr>
+                        <td colSpan={6} style={{ textAlign: "center", padding: "36px" }}>
+                          <p style={{ color: "#64748b", margin: 0, fontSize: "13px" }}>
+                            No schools matched your filter criteria.
+                          </p>
+                        </td>
+                      </tr>
+                    ) : (
+                      filteredSchools.map((sch) => (
                       <tr key={sch.id}>
                         <td>
                           <div className="school-meta">
@@ -1152,7 +1565,8 @@ export default function AdminDashboard() {
                           </div>
                         </td>
                       </tr>
-                    ))}
+                    ))
+                  )}
                   </tbody>
                 </table>
               </div>
@@ -1177,7 +1591,12 @@ export default function AdminDashboard() {
                       className="btn-outline"
                       onClick={downloadDraftRecoveryExport}
                     >
-                      Download Recovery Sheet (.csv)
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                      </svg>
+                      <span>Export (.csv)</span>
                     </button>
                   </div>
                 </div>
@@ -1190,15 +1609,6 @@ export default function AdminDashboard() {
                     >
                       <div className="node-header">
                         <span className="step-num">Step {idx}: {step.name}</span>
-                        {step.dropOffCount > 0 ? (
-                          <span className="dropoff-badge">
-                            -{step.dropOffCount} ({step.dropOffRate}%)
-                          </span>
-                        ) : (
-                          <span style={{ fontSize: "10.5px", color: "#16a34a", fontWeight: 600 }}>
-                            Entry Gate
-                          </span>
-                        )}
                       </div>
                       <div className="node-count">{step.count.toLocaleString()}</div>
                       <div className="node-meta" style={{ fontSize: "11px", color: "#64748b", marginTop: "2px" }}>
@@ -1233,7 +1643,7 @@ export default function AdminDashboard() {
                         <polyline points="7 10 12 15 17 10" />
                         <line x1="12" y1="15" x2="12" y2="3" />
                       </svg>
-                      <span>Export Recovery Sheet</span>
+                      <span>Export (.csv)</span>
                     </button>
                   </div>
                 </div>
@@ -1315,12 +1725,8 @@ export default function AdminDashboard() {
                     <p>
                       Strictly formatted optical mark recognition mapping sheet used to ingest candidate records directly into high-speed OMR sheet evaluation equipment.
                     </p>
-                    <div className="schema-preview">
-                      Roll_No | Reg_No | Full_Name | Father_Name | Gender | Class | Center_Code | Room_No | Bench_No | School_Name
-                    </div>
                   </div>
                   <div className="report-card__bottom">
-                    <span className="format-info">Format: UTF-8 CSV / Excel</span>
                     <button
                       type="button"
                       className="btn-primary"
@@ -1331,8 +1737,9 @@ export default function AdminDashboard() {
                         <polyline points="7 10 12 15 17 10" />
                         <line x1="12" y1="15" x2="12" y2="3" />
                       </svg>
-                      <span>Download OMR File</span>
+                      <span>Export (.csv)</span>
                     </button>
+                    <span className="format-info">Format: UTF-8 CSV / Excel</span>
                   </div>
                 </div>
 
@@ -1344,24 +1751,21 @@ export default function AdminDashboard() {
                     <p>
                       Comprehensive school-by-school registration tallies across all 64 Mandals. Highlights schools with &lt;5 registrations for physical field visits.
                     </p>
-                    <div className="schema-preview">
-                      District | Mandal | School_Name | Category | Completed_Count | Pending_Count | HM_Name | HM_Mobile_Number
-                    </div>
                   </div>
                   <div className="report-card__bottom">
-                    <span className="format-info">Format: UTF-8 CSV / Excel</span>
                     <button
                       type="button"
                       className="btn-primary"
-                      onClick={downloadMandalOutreachExport}
+                      onClick={() => downloadMandalOutreachExport()}
                     >
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                         <polyline points="7 10 12 15 17 10" />
                         <line x1="12" y1="15" x2="12" y2="3" />
                       </svg>
-                      <span>Download School Count Sheet</span>
+                      <span>Export (.csv)</span>
                     </button>
+                    <span className="format-info">Format: UTF-8 CSV / Excel</span>
                   </div>
                 </div>
 
@@ -1373,12 +1777,8 @@ export default function AdminDashboard() {
                     <p>
                       Targeted student recovery sheet containing WhatsApp numbers and drop-off timestamps of students with pending applications.
                     </p>
-                    <div className="schema-preview">
-                      Aadhaar_Last4 | WhatsApp_Number | Full_Name | District | Mandal | Last_Completed_Block | Started_At
-                    </div>
                   </div>
                   <div className="report-card__bottom">
-                    <span className="format-info">Format: UTF-8 CSV / Excel</span>
                     <button
                       type="button"
                       className="btn-primary"
@@ -1389,8 +1789,9 @@ export default function AdminDashboard() {
                         <polyline points="7 10 12 15 17 10" />
                         <line x1="12" y1="15" x2="12" y2="3" />
                       </svg>
-                      <span>Download Recovery Sheet</span>
+                      <span>Export (.csv)</span>
                     </button>
+                    <span className="format-info">Format: UTF-8 CSV / Excel</span>
                   </div>
                 </div>
 
@@ -1402,12 +1803,8 @@ export default function AdminDashboard() {
                     <p>
                       Aggregates student interest in technical trades (Electrical, Plumbing, Carpentry, Painting) and intermediate streams for state skill partnerships.
                     </p>
-                    <div className="schema-preview">
-                      Mandal | School | Class | Future_Stream | Vocational_Trade_Choice | Student_Count
-                    </div>
                   </div>
                   <div className="report-card__bottom">
-                    <span className="format-info">Format: UTF-8 CSV / Excel</span>
                     <button
                       type="button"
                       className="btn-primary"
@@ -1418,8 +1815,9 @@ export default function AdminDashboard() {
                         <polyline points="7 10 12 15 17 10" />
                         <line x1="12" y1="15" x2="12" y2="3" />
                       </svg>
-                      <span>Download Skills Report</span>
+                      <span>Export (.csv)</span>
                     </button>
+                    <span className="format-info">Format: UTF-8 CSV / Excel</span>
                   </div>
                 </div>
               </div>
@@ -1470,7 +1868,7 @@ export default function AdminDashboard() {
                   <label>Registration Status</label>
                   <div className="value">
                     <span className={`badge ${selectedStudent.status === "COMPLETED" ? "completed" : "pending"}`}>
-                      {selectedStudent.status === "COMPLETED" ? "Confirmed (V26)" : "Pending"}
+                      {selectedStudent.status === "COMPLETED" ? "Confirmed" : "Pending"}
                     </span>
                   </div>
                 </div>
