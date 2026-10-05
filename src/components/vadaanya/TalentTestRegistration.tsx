@@ -54,15 +54,48 @@ export default function TalentTestRegistration() {
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isStep0Checking, setIsStep0Checking] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
   const [generatedRegNo, setGeneratedRegNo] = useState<string>("");
   const [completedTimestamp, setCompletedTimestamp] = useState<string>("");
   const [copied, setCopied] = useState(false);
   const [showAlreadyRegistered, setShowAlreadyRegistered] = useState(false);
-  const [autoSaveText, setAutoSaveText] = useState<string>("Draft auto-saved");
+  const [existingStudentRecord, setExistingStudentRecord] = useState<any>(null);
+  const [studentId, setStudentId] = useState<string>("");
+  const [apiError, setApiError] = useState<string>("");
+  const [autoSaveText, setAutoSaveText] = useState<string>("Saved");
+  const [liveStats, setLiveStats] = useState<{
+    ATP: { quota: number; registeredCount: number };
+    SSS: { quota: number; registeredCount: number };
+  }>({
+    ATP: { quota: 4000, registeredCount: 0 },
+    SSS: { quota: 4000, registeredCount: 0 },
+  });
 
   const formTopRef = useRef<HTMLDivElement>(null);
+
+  // Fetch real-time district quota numbers from database
+  const fetchDistrictStats = async () => {
+    try {
+      const res = await fetch("/api/registration/districts");
+      if (res.ok) {
+        const data = await res.json();
+        if (data.districts) {
+          setLiveStats((prev) => ({
+            ATP: data.districts.ATP || prev.ATP,
+            SSS: data.districts.SSS || prev.SSS,
+          }));
+        }
+      }
+    } catch {
+      // Fallback silently if offline
+    }
+  };
+
+  React.useEffect(() => {
+    fetchDistrictStats();
+  }, []);
 
   const scrollToTop = () => {
     if (typeof window !== "undefined") {
@@ -80,6 +113,7 @@ export default function TalentTestRegistration() {
     const formatted = parts ? parts.join(" ") : raw;
     setFormData((prev) => ({ ...prev, aadhaar: formatted }));
     setShowAlreadyRegistered(false);
+    setExistingStudentRecord(null);
     if (errors.aadhaar) setErrors((prev) => ({ ...prev, aadhaar: "" }));
   };
 
@@ -110,41 +144,47 @@ export default function TalentTestRegistration() {
     }));
   };
 
-  // Direct client-side PDF download using html2canvas & jsPDF
+  // Optimized lightweight client-side PDF download with clean solid colors & compression
   const handleDownloadSlip = async () => {
     const el = document.getElementById("printable-receipt");
     if (!el) return;
 
     setIsDownloading(true);
+    const originalShadow = el.style.boxShadow;
+
     try {
       const html2canvasModule = await import("html2canvas");
       const html2canvas = html2canvasModule.default;
       const { jsPDF } = await import("jspdf");
 
-      // Temporarily hide elements with .vad-no-print inside the receipt
+      // Temporarily hide action buttons and remove blurry shadow for clean capture
       const noPrintEls = el.querySelectorAll<HTMLElement>(".vad-no-print");
       noPrintEls.forEach((node) => {
         node.style.display = "none";
       });
+      el.style.boxShadow = "none";
 
       const canvas = await html2canvas(el, {
-        scale: 2.5,
+        scale: 2.0, // High-DPI sharpness without massive pixel explosion
         useCORS: true,
         allowTaint: true,
         backgroundColor: "#ffffff",
         logging: false,
       });
 
-      // Restore hidden elements
+      // Restore elements
       noPrintEls.forEach((node) => {
         node.style.display = "";
       });
+      el.style.boxShadow = originalShadow;
 
-      const imgData = canvas.toDataURL("image/png");
+      // High-efficiency JPEG compression (drastically smaller than uncompressed PNG)
+      const imgData = canvas.toDataURL("image/jpeg", 0.82);
       const pdf = new jsPDF({
         orientation: "portrait",
         unit: "mm",
         format: "a4",
+        compress: true, // Enable stream compression in PDF dictionary
       });
 
       const pdfWidth = 210;
@@ -155,7 +195,7 @@ export default function TalentTestRegistration() {
 
       const posY = contentHeight < pdfHeight - 28 ? Math.max(12, (pdfHeight - contentHeight) / 2) : 12;
 
-      pdf.addImage(imgData, "PNG", margin, posY, contentWidth, contentHeight);
+      pdf.addImage(imgData, "JPEG", margin, posY, contentWidth, contentHeight, undefined, "FAST");
 
       const safeRegNo = (generatedRegNo || "Registration").replace(/[^a-zA-Z0-9_-]/g, "_");
       pdf.save(`Vadaanya-Talent-Test-Slip-${safeRegNo}.pdf`);
@@ -163,13 +203,13 @@ export default function TalentTestRegistration() {
       console.error("Direct PDF download error, opening print dialog as fallback:", err);
       window.print();
     } finally {
+      el.style.boxShadow = originalShadow;
       setIsDownloading(false);
     }
   };
 
   const triggerAutoSave = () => {
-    const now = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-    setAutoSaveText(`Draft saved at ${now}`);
+    setAutoSaveText("Saved");
   };
 
   // Validation per step
@@ -212,10 +252,14 @@ export default function TalentTestRegistration() {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Demo helpers (subtle, clean)
+  // Sample data generator for quick test
   const handlePreFillDemo = () => {
+    const randomAadhaarTail = Math.floor(1000000000 + Math.random() * 9000000000).toString();
+    const full12 = "99" + randomAadhaarTail;
+    const formatted = full12.match(/.{1,4}/g)?.join(" ") || full12;
+
     setFormData({
-      aadhaar: "5489 1234 5678",
+      aadhaar: formatted,
       whatsapp: "9876543210",
       fullName: "K. Harika",
       relativeName: "K. Venkatesulu",
@@ -231,18 +275,28 @@ export default function TalentTestRegistration() {
       declaration: true,
     });
     setShowAlreadyRegistered(false);
+    setExistingStudentRecord(null);
     setErrors({});
     triggerAutoSave();
   };
 
-  const handleTestDuplicate = () => {
-    setFormData((prev) => ({
-      ...prev,
-      aadhaar: DUMMY_EXISTING_RECORD.aadhaar,
-      whatsapp: DUMMY_EXISTING_RECORD.whatsapp,
-    }));
-    setShowAlreadyRegistered(true);
-    setErrors({});
+  const handleTestDuplicate = async () => {
+    // If we have an existing completed record, test it
+    if (generatedRegNo) {
+      setFormData((prev) => ({
+        ...prev,
+        aadhaar: prev.aadhaar,
+      }));
+      setShowAlreadyRegistered(true);
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        aadhaar: "9999 8888 7777",
+        whatsapp: "9848022338",
+      }));
+      setShowAlreadyRegistered(true);
+      setExistingStudentRecord(DUMMY_EXISTING_RECORD);
+    }
   };
 
   const handleResetForm = () => {
@@ -250,26 +304,99 @@ export default function TalentTestRegistration() {
     setCurrentStep(0);
     setIsCompleted(false);
     setShowAlreadyRegistered(false);
+    setExistingStudentRecord(null);
+    setStudentId("");
     setErrors({});
+    setApiError("");
     scrollToTop();
   };
 
-  const handleNext = () => {
+  // STEP NAVIGATION & LIVE API INTEGRATION
+  const handleNext = async () => {
     if (!validateStep(currentStep)) return;
 
     if (currentStep === 0) {
-      const cleanAadhaar = formData.aadhaar.replace(/\s/g, "");
-      if (cleanAadhaar === DUMMY_EXISTING_RECORD.aadhaar.replace(/\s/g, "")) {
-        setShowAlreadyRegistered(true);
-        return;
+      // Step 0 Gate Check against Supabase Database
+      setIsStep0Checking(true);
+      setErrors({});
+      try {
+        const cleanAadhaar = formData.aadhaar.replace(/\s/g, "");
+        const cleanPhone = formData.whatsapp.replace(/\D/g, "");
+
+        const res = await fetch("/api/registration/step0", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ aadhaar: cleanAadhaar, whatsapp: cleanPhone }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          setErrors({ aadhaar: data.error || "Identity check failed. Please check your credentials." });
+          return;
+        }
+
+        if (data.status === "ALREADY_REGISTERED") {
+          setExistingStudentRecord(data.data);
+          setShowAlreadyRegistered(true);
+          return;
+        }
+
+        if (data.status === "DRAFT_RESUMED") {
+          setStudentId(data.studentId);
+          setFormData((prev) => ({
+            ...prev,
+            fullName: data.draft.fullName || prev.fullName,
+            relativeName: data.draft.relativeName || prev.relativeName,
+            gender: data.draft.gender || prev.gender,
+            studentClass: data.draft.studentClass || prev.studentClass,
+            district: data.draft.district || prev.district,
+            mandal: data.draft.mandal || prev.mandal,
+            village: data.draft.village || prev.village,
+            schoolName: data.draft.schoolName || prev.schoolName,
+            customSchoolName: data.draft.customSchoolName || prev.customSchoolName,
+            stream: data.draft.stream || prev.stream,
+            vocationalInterest: data.draft.vocationalInterest || prev.vocationalInterest,
+          }));
+          setAutoSaveText("Saved");
+          setShowAlreadyRegistered(false);
+          setCurrentStep(1);
+          scrollToTop();
+          return;
+        }
+
+        if (data.status === "NEW_DRAFT_CREATED") {
+          setStudentId(data.studentId);
+          setAutoSaveText("Saved");
+          setShowAlreadyRegistered(false);
+          setCurrentStep(1);
+          scrollToTop();
+          return;
+        }
+      } catch (err) {
+        setErrors({ aadhaar: "Network error connecting to verification server. Please try again." });
+      } finally {
+        setIsStep0Checking(false);
       }
-      setShowAlreadyRegistered(false);
-      setCurrentStep(1);
-      triggerAutoSave();
-      scrollToTop();
     } else if (currentStep === 1) {
+      // Auto-save Block 1 to Database
+      if (studentId) {
+        fetch("/api/registration/draft", {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            studentId,
+            step: 2,
+            data: {
+              fullName: formData.fullName,
+              relativeName: formData.relativeName,
+              gender: formData.gender,
+              studentClass: formData.studentClass,
+            },
+          }),
+        }).then(() => triggerAutoSave()).catch(() => {});
+      }
       setCurrentStep(2);
-      triggerAutoSave();
       scrollToTop();
     } else {
       handleSubmit();
@@ -283,20 +410,34 @@ export default function TalentTestRegistration() {
     }
   };
 
-  const handleSubmit = () => {
+  // FINAL SUBMISSION VIA ATOMIC QUOTA POSTGRES FUNCTION
+  const handleSubmit = async () => {
     if (!validateStep(2)) return;
 
     setIsSubmitting(true);
+    setApiError("");
 
-    setTimeout(() => {
-      const distCode = formData.district === "ATP" ? "ATP" : "SSS";
-      const randomSeq = Math.floor(100 + Math.random() * 900);
-      const batch = "A";
-      const regNo = `V26-${distCode}-${batch}0${randomSeq}`;
+    try {
+      const res = await fetch("/api/registration/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          studentId,
+          formData,
+        }),
+      });
 
-      setGeneratedRegNo(regNo);
+      const data = await res.json();
+
+      if (!res.ok) {
+        setApiError(data.error || "Submission failed. Please check your data.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      setGeneratedRegNo(data.data.registrationNumber);
       setCompletedTimestamp(
-        new Date().toLocaleDateString("en-IN", {
+        new Date(data.data.completedAt).toLocaleDateString("en-IN", {
           day: "2-digit",
           month: "short",
           year: "numeric",
@@ -304,10 +445,14 @@ export default function TalentTestRegistration() {
           minute: "2-digit",
         })
       );
-      setIsSubmitting(false);
       setIsCompleted(true);
+      fetchDistrictStats();
       scrollToTop();
-    }, 900);
+    } catch (err) {
+      setApiError("Network error completing registration. Please check your connection.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Quick Add Next Student (keeps school, mandal, district)
@@ -356,17 +501,6 @@ export default function TalentTestRegistration() {
           <p className="vad-reg-hero__lead">
             Online student application for rural government schools (Classes 9 & 10) across Anantapur and Sri Sathya Sai districts.
           </p>
-
-          {/* Minimal Inline Capacity Tracker (No boxes, no gradient lines) */}
-          <div className="vad-reg-hero__meta">
-            <span className="vad-reg-hero__meta-item">
-              <span className="vad-reg-hero__meta-dot" /> Anantapur Quota: <strong>3,142 / 4,000 Enrolled</strong>
-            </span>
-            <span className="vad-reg-hero__meta-divider">•</span>
-            <span className="vad-reg-hero__meta-item">
-              <span className="vad-reg-hero__meta-dot vad-reg-hero__meta-dot--gold" /> Sri Sathya Sai Quota: <strong>2,890 / 4,000 Enrolled</strong>
-            </span>
-          </div>
         </div>
       </header>
 
@@ -652,7 +786,7 @@ export default function TalentTestRegistration() {
             <div>
               {/* Header */}
               <div className="vad-form-card__header">
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div className="vad-form-card__header-inner">
                   <div>
                     <h2 className="vad-form-card__title">
                       {currentStep === 0 && "Step 1: Student Identity Verification"}
@@ -667,131 +801,154 @@ export default function TalentTestRegistration() {
                   </div>
                   {currentStep > 0 && (
                     <span className="vad-form-card__autosave">
-                      {autoSaveText}
+                      <span className="vad-form-card__autosave-dot" /> {autoSaveText}
                     </span>
                   )}
                 </div>
               </div>
 
               {/* ───────────────────────────────────────────────
-                  STEP 1: AADHAAR + WHATSAPP (2-COLUMN BALANCED)
+                  STEP 1: AADHAAR + WHATSAPP (OR ALREADY REGISTERED)
                   ─────────────────────────────────────────────── */}
               {currentStep === 0 && (
                 <div>
-                  {/* Already Registered Alert Box */}
-                  {showAlreadyRegistered && (
+                  {showAlreadyRegistered ? (
+                    /* Already Registered Status Card (Replaces Inputs) */
                     <div className="vad-already-registered">
-                      <div className="vad-already-registered__title">
-                        Already Registered
+                      <div className="vad-already-registered__header-wrap">
+                        <div className="vad-already-registered__icon">
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                        </div>
+                        <h4 className="vad-already-registered__title">Already Registered</h4>
                       </div>
-                      <p style={{ margin: "0 0 8px", fontSize: "13px", color: "#166534" }}>
-                        This Aadhaar number is already registered for Vadaanya Talent Test 2026.
+                      <p className="vad-already-registered__desc">
+                        This Aadhaar number is already officially registered for Vadaanya Talent Test 2026.
                       </p>
-                      <div>
-                        <strong style={{ fontSize: "12px", color: "#64748b" }}>Registration Number: </strong>
-                        <div className="vad-already-registered__reg-no">
-                          {DUMMY_EXISTING_RECORD.regNo}
+
+                      <div className="vad-already-registered__meta-card">
+                        <div>
+                          <div className="vad-already-registered__student-label">Student Name</div>
+                          <div className="vad-already-registered__student-name">
+                            {existingStudentRecord?.fullName || existingStudentRecord?.studentName || "Registered Student"}
+                          </div>
+                        </div>
+                        <div>
+                          <div className="vad-already-registered__reg-label">Registration Number</div>
+                          <div className="vad-already-registered__reg-no">
+                            {existingStudentRecord?.registrationNumber || existingStudentRecord?.regNo || "REGISTERED"}
+                          </div>
                         </div>
                       </div>
-                      <div className="vad-already-registered__details">
-                        <div>
-                          <strong>Student:</strong> {DUMMY_EXISTING_RECORD.studentName}
-                        </div>
-                        <div>
-                          <strong>School:</strong> {DUMMY_EXISTING_RECORD.school}
-                        </div>
-                        <div>
-                          <strong>Class:</strong> {DUMMY_EXISTING_RECORD.studentClass}
-                        </div>
-                        <div>
-                          <strong>District:</strong> {DUMMY_EXISTING_RECORD.district}
-                        </div>
-                      </div>
-                      <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+
+                      <div className="vad-already-registered__actions">
                         <button
                           type="button"
                           onClick={() => {
-                            setGeneratedRegNo(DUMMY_EXISTING_RECORD.regNo);
+                            const rec = existingStudentRecord || DUMMY_EXISTING_RECORD;
+                            setGeneratedRegNo(rec.registrationNumber || rec.regNo);
                             setFormData((prev) => ({
                               ...prev,
-                              fullName: DUMMY_EXISTING_RECORD.studentName,
-                              relativeName: DUMMY_EXISTING_RECORD.relativeName,
-                              gender: DUMMY_EXISTING_RECORD.gender as "MALE",
-                              studentClass: DUMMY_EXISTING_RECORD.studentClass as "Class 10",
-                              schoolName: DUMMY_EXISTING_RECORD.school,
+                              fullName: rec.fullName || rec.studentName || "Student",
+                              relativeName: rec.relativeName || "",
+                              gender: (rec.gender as "MALE") || "MALE",
+                              studentClass: (rec.studentClass as "Class 10") || "Class 10",
+                              district: rec.districtCode || "ATP",
+                              mandal: rec.mandal || "",
+                              village: rec.village || "",
+                              schoolName: rec.schoolName || rec.school || "",
+                              stream: rec.stream || "MPC",
                             }));
-                            setCompletedTimestamp(DUMMY_EXISTING_RECORD.registeredAt);
+                            setCompletedTimestamp(
+                              rec.completedAt
+                                ? new Date(rec.completedAt).toLocaleDateString("en-IN", {
+                                    day: "2-digit",
+                                    month: "short",
+                                    year: "numeric",
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                  })
+                                : "Registered"
+                            );
                             setIsCompleted(true);
                           }}
                           className="vad-btn-step vad-btn-step--primary"
-                          style={{ height: "34px", padding: "0 14px", fontSize: "12.5px" }}
                         >
-                          View Existing Slip
+                          View Official Slip
                         </button>
                         <button
                           type="button"
                           onClick={handleResetForm}
                           className="vad-btn-step vad-btn-step--secondary"
-                          style={{ height: "34px", padding: "0 14px", fontSize: "12.5px" }}
                         >
                           Register Another Student
                         </button>
                       </div>
                     </div>
-                  )}
-
-                  {/* 2-Column Row for Aadhaar and Mobile */}
-                  <div className="vad-form-row">
-                    {/* Aadhaar Field */}
-                    <div className="vad-field-group">
-                      <label htmlFor="aadhaar" className="vad-field-group__label">
-                        <span>
-                          Student 12-Digit Aadhaar Number <span className="req">*</span>
-                        </span>
-                        <span className="vad-field-group__hint">
-                          {formData.aadhaar.replace(/\s/g, "").length} / 12 digits
-                        </span>
-                      </label>
-                      <input
-                        type="text"
-                        id="aadhaar"
-                        inputMode="numeric"
-                        autoComplete="off"
-                        placeholder="1234 5678 9012"
-                        value={formData.aadhaar}
-                        onChange={(e) => handleAadhaarChange(e.target.value)}
-                        className={`vad-field-group__input ${errors.aadhaar ? "has-error" : ""}`}
-                        style={{ letterSpacing: "0.08em", fontWeight: 600 }}
-                      />
-                      {errors.aadhaar && <span className="vad-field-group__error">{errors.aadhaar}</span>}
-                    </div>
-
-                    {/* WhatsApp Mobile Field */}
-                    <div className="vad-field-group">
-                      <label htmlFor="whatsapp" className="vad-field-group__label">
-                        <span>
-                          WhatsApp Mobile Number <span className="req">*</span>
-                        </span>
-                      </label>
-                      <div className="vad-field-group__input-wrap">
-                        <span className="vad-field-group__prefix">+91</span>
+                  ) : (
+                    /* 2-Column Row for Aadhaar and Mobile */
+                    <div className="vad-form-row">
+                      {/* Aadhaar Field */}
+                      <div className="vad-field-group">
+                        <label htmlFor="aadhaar" className="vad-field-group__label">
+                          <span>
+                            Student 12-Digit Aadhaar Number <span className="req">*</span>
+                          </span>
+                          <span className="vad-field-group__hint">
+                            {formData.aadhaar.replace(/\s/g, "").length} / 12 digits
+                          </span>
+                        </label>
                         <input
-                          type="tel"
-                          id="whatsapp"
+                          type="text"
+                          id="aadhaar"
                           inputMode="numeric"
-                          placeholder="98765 43210"
-                          value={formData.whatsapp}
-                          onChange={(e) => handlePhoneChange(e.target.value)}
-                          className={`vad-field-group__input has-prefix ${errors.whatsapp ? "has-error" : ""}`}
-                          style={{ fontWeight: 600 }}
+                          autoComplete="off"
+                          placeholder="1234 5678 9012"
+                          value={formData.aadhaar}
+                          onChange={(e) => handleAadhaarChange(e.target.value)}
+                          className={`vad-field-group__input ${errors.aadhaar ? "has-error" : ""}`}
+                          style={{ letterSpacing: "0.08em", fontWeight: 600 }}
                         />
+                        {errors.aadhaar && <span className="vad-field-group__error">{errors.aadhaar}</span>}
                       </div>
-                      {errors.whatsapp && <span className="vad-field-group__error">{errors.whatsapp}</span>}
-                      <span style={{ fontSize: "11.5px", color: "#64748b" }}>
-                        Used for sending Registration Number & Hall Ticket link
-                      </span>
+
+                      {/* WhatsApp Mobile Field */}
+                      <div className="vad-field-group">
+                        <label htmlFor="whatsapp" className="vad-field-group__label">
+                          <span>
+                            WhatsApp Mobile Number <span className="req">*</span>
+                          </span>
+                        </label>
+                        <div className="vad-field-group__input-wrap">
+                          <span className="vad-field-group__prefix">+91</span>
+                          <input
+                            type="tel"
+                            id="whatsapp"
+                            inputMode="numeric"
+                            placeholder="98765 43210"
+                            value={formData.whatsapp}
+                            onChange={(e) => handlePhoneChange(e.target.value)}
+                            className={`vad-field-group__input has-prefix ${errors.whatsapp ? "has-error" : ""}`}
+                            style={{ fontWeight: 600 }}
+                          />
+                        </div>
+                        {errors.whatsapp && <span className="vad-field-group__error">{errors.whatsapp}</span>}
+                        <span style={{ fontSize: "11.5px", color: "#64748b" }}>
+                          Used for sending Registration Number & Hall Ticket link
+                        </span>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               )}
 
@@ -800,37 +957,27 @@ export default function TalentTestRegistration() {
                   ─────────────────────────────────────────────── */}
               {currentStep === 1 && (
                 <div>
-                  {/* Verified Step 1 summary pill */}
-                  <div
-                    style={{
-                      background: "#f8fafc",
-                      border: "1px solid #e2e8f0",
-                      borderRadius: "8px",
-                      padding: "8px 14px",
-                      marginBottom: "18px",
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      fontSize: "12px",
-                      color: "#475569",
-                    }}
-                  >
-                    <span>
-                      <strong>Aadhaar:</strong> XXXX XXXX {formData.aadhaar.slice(-4) || "5678"} •{" "}
-                      <strong>WhatsApp:</strong> +91 {formData.whatsapp}
-                    </span>
+                  {/* Verified Step 1 summary banner */}
+                  <div className="vad-verified-banner">
+                    <div className="vad-verified-banner__content">
+                      <div className="vad-verified-banner__item">
+                        <span className="vad-verified-banner__label">Aadhaar:</span>
+                        <span className="vad-verified-banner__val">
+                          •••• •••• {formData.aadhaar ? formData.aadhaar.replace(/\s/g, "").slice(-4) : "5678"}
+                        </span>
+                      </div>
+                      <span className="vad-verified-banner__divider" aria-hidden="true">•</span>
+                      <div className="vad-verified-banner__item">
+                        <span className="vad-verified-banner__label">WhatsApp:</span>
+                        <span className="vad-verified-banner__val">
+                          +91 {formData.whatsapp}
+                        </span>
+                      </div>
+                    </div>
                     <button
                       type="button"
                       onClick={() => setCurrentStep(0)}
-                      style={{
-                        background: "none",
-                        border: "none",
-                        color: "var(--vad-navy-700)",
-                        fontWeight: 700,
-                        cursor: "pointer",
-                        textDecoration: "underline",
-                        padding: 0,
-                      }}
+                      className="vad-verified-banner__btn"
                     >
                       Change
                     </button>
@@ -1189,32 +1336,54 @@ export default function TalentTestRegistration() {
                 </div>
               )}
 
+              {/* API Error Banner if any */}
+              {apiError && (
+                <div
+                  style={{
+                    background: "#fef2f2",
+                    border: "1px solid #fecaca",
+                    color: "#991b1b",
+                    padding: "10px 14px",
+                    borderRadius: "8px",
+                    fontSize: "13px",
+                    fontWeight: 600,
+                    marginBottom: "14px",
+                  }}
+                >
+                  ⚠️ {apiError}
+                </div>
+              )}
+
               {/* ───────────────────────────────────────────────
                   STEP BUTTONS & ACTIONS
                   ─────────────────────────────────────────────── */}
-              <div className="vad-form-actions">
-                {currentStep > 0 ? (
+              {!(currentStep === 0 && showAlreadyRegistered) && (
+                <div className="vad-form-actions">
+                  {currentStep > 0 ? (
+                    <button
+                      type="button"
+                      onClick={handleBack}
+                      disabled={isSubmitting}
+                      className="vad-btn-step vad-btn-step--secondary"
+                    >
+                      ← Back
+                    </button>
+                  ) : (
+                    <div />
+                  )}
+
                   <button
                     type="button"
-                    onClick={handleBack}
-                    className="vad-btn-step vad-btn-step--secondary"
+                    onClick={handleNext}
+                    disabled={isStep0Checking || isSubmitting}
+                    className="vad-btn-step vad-btn-step--primary"
                   >
-                    ← Back
+                    {currentStep === 0 && (isStep0Checking ? "Verifying Identity..." : "Continue to Student Info →")}
+                    {currentStep === 1 && "Next: School & Aspirations →"}
+                    {currentStep === 2 && (isSubmitting ? "Submitting Registration..." : "Submit Registration")}
                   </button>
-                ) : (
-                  <div />
-                )}
-
-                <button
-                  type="button"
-                  onClick={handleNext}
-                  className="vad-btn-step vad-btn-step--primary"
-                >
-                  {currentStep === 0 && "Continue to Student Info →"}
-                  {currentStep === 1 && "Next: School & Aspirations →"}
-                  {currentStep === 2 && "Submit Registration"}
-                </button>
-              </div>
+                </div>
+              )}
 
               {/* Discreet Demo Helper */}
               <div className="vad-reg-test-helper">
