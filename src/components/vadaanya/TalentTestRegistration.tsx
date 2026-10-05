@@ -597,16 +597,16 @@ export default function TalentTestRegistration() {
                   </table>
                 </div>
 
-                <div className="vad-receipt-card__advisory">
-                  <div className="vad-receipt-card__advisory-title">
-                    Important Advisory • For Reference Only
-                  </div>
-                  <p className="vad-receipt-card__advisory-p">
-                    This document is an <strong>official registration slip for reference purposes only</strong>. When official Hall Tickets are released on <strong>December 7, 2026</strong>, visit <strong>www.vadaanya.org</strong> and enter your Registration Number or the student&apos;s registered Aadhaar number to download your Hall Ticket.
-                  </p>
-                  <div className="vad-receipt-card__advisory-warning">
-                    <strong>Notice:</strong> This slip <u>does NOT constitute an exam hall ticket</u> and will not grant entry into the examination hall. You must bring your official Hall Ticket on exam day (<strong>December 15, 2026</strong>).
-                  </div>
+                <div className="vad-receipt-card__note">
+                  <div className="vad-receipt-card__note-title">Note:</div>
+                  <ul className="vad-receipt-card__note-list">
+                    <li>
+                      This registration slip is for reference only and cannot be used as a hall ticket for entry into the examination hall.
+                    </li>
+                    <li>
+                      Download your official Hall Ticket from <strong>vadaanya.org</strong> starting <strong>December 7, 2026</strong>, using your Registration Number or registered Aadhaar number.
+                    </li>
+                  </ul>
                 </div>
               </article>
 
