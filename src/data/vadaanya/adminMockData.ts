@@ -534,7 +534,7 @@ export function downloadOmrScannerExport(): void {
 }
 
 // 2. Mandal Coordinator Outreach Sheet (Section 9.2)
-export function downloadMandalOutreachExport(): void {
+export function downloadMandalOutreachExport(schools: SchoolOutreachRecord[] = MOCK_SCHOOLS): void {
   const headers = [
     "District",
     "Mandal",
@@ -547,7 +547,7 @@ export function downloadMandalOutreachExport(): void {
     "Lagging_RedFlag",
   ];
 
-  const rows = MOCK_SCHOOLS.map((s) => [
+  const rows = schools.map((s) => [
     s.districtName,
     s.mandal,
     s.schoolName,
