@@ -1,0 +1,1834 @@
+import os
+import subprocess
+
+html_content = r"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Vadaanya Talent Test 2026 – System Architecture & Implementation Guide</title>
+<style>
+  @page {
+    size: A4;
+    margin: 15mm 15mm 15mm 15mm;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1e293b;
+    background: #ffffff;
+    font-size: 10pt;
+    line-height: 1.45;
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Section Page Breaks */
+  .page-break {
+    page-break-before: always;
+  }
+
+  .avoid-break {
+    page-break-inside: avoid;
+  }
+
+  /* Cover Page */
+  .cover {
+    background: #0f2744;
+    color: #ffffff;
+    padding: 24mm 16mm 20mm 16mm;
+    margin: -15mm -15mm 0 -15mm;
+    min-height: 297mm;
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cover-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9.5pt;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #94a3b8;
+    margin-bottom: 22mm;
+    font-weight: 600;
+  }
+
+  .cover-title {
+    font-size: 32pt;
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 0 0 6mm 0;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+  }
+
+  .cover-subtitle {
+    font-size: 15pt;
+    color: #cbd5e1;
+    font-weight: 400;
+    margin: 0 0 8mm 0;
+  }
+
+  .cover-tags {
+    font-size: 9.5pt;
+    color: #94a3b8;
+    margin-bottom: 22mm;
+    letter-spacing: 0.02em;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-bottom: 22mm;
+  }
+
+  .stat-card {
+    background: #ffffff;
+    color: #0f172a;
+    padding: 12px 8px;
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-size: 20pt;
+    font-weight: 800;
+    color: #1e3a8a;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 8pt;
+    color: #475569;
+    line-height: 1.3;
+    font-weight: 600;
+  }
+
+  .meta-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    color: #1e293b;
+    border-radius: 4px;
+    overflow: hidden;
+    font-size: 9.5pt;
+  }
+
+  .meta-table td {
+    padding: 8px 14px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .meta-table td:first-child {
+    font-weight: 700;
+    width: 32%;
+    color: #0f172a;
+    border-right: 1px solid #e2e8f0;
+  }
+
+  /* Internal Page Header & Footer */
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 8pt;
+    color: #64748b;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 3px;
+    margin-bottom: 6mm;
+  }
+
+  .page-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 8pt;
+    color: #64748b;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 3px;
+    margin-top: 6mm;
+  }
+
+  /* Headings */
+  h1 {
+    font-size: 19pt;
+    font-weight: 800;
+    color: #0f2744;
+    margin: 0 0 3.5mm 0;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-size: 12pt;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin: 4mm 0 2mm 0;
+    border-bottom: 1.5px solid #e2e8f0;
+    padding-bottom: 1mm;
+  }
+
+  h3 {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 3mm 0 1.5mm 0;
+  }
+
+  p {
+    margin: 0 0 2.5mm 0;
+  }
+
+  /* Tables */
+  table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.5pt;
+    margin: 2.5mm 0 3.5mm 0;
+    page-break-inside: avoid;
+  }
+
+  table.data-table th {
+    background: #0f2744;
+    color: #ffffff;
+    font-weight: 700;
+    text-align: left;
+    padding: 5.5px 9px;
+    border: 1px solid #0f2744;
+  }
+
+  table.data-table td {
+    padding: 5px 9px;
+    border: 1px solid #cbd5e1;
+    vertical-align: top;
+  }
+
+  table.data-table tr:nth-child(even) td {
+    background: #f8fafc;
+  }
+
+  /* Alert Boxes */
+  .callout {
+    padding: 7px 11px;
+    border-radius: 4px;
+    font-size: 8.5pt;
+    margin: 2.5mm 0 3mm 0;
+    border-left: 4px solid;
+    page-break-inside: avoid;
+  }
+
+  .callout-blue { background: #f0f7ff; border-color: #0284c7; color: #0c4a6e; }
+  .callout-amber { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
+  .callout-green { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
+  .callout-purple { background: #faf5ff; border-color: #9333ea; color: #581c87; }
+
+  /* Diagram & Cards */
+  .diagram-container {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 5px;
+    padding: 8px 10px;
+    margin: 2.5mm 0 3.5mm 0;
+    page-break-inside: avoid;
+  }
+
+  .flow-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 7px;
+    margin: 2mm 0;
+  }
+
+  .flow-box {
+    flex: 1;
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-size: 8pt;
+    text-align: center;
+    border: 1px solid;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+
+  .flow-arrow {
+    font-size: 13pt;
+    font-weight: 700;
+    color: #64748b;
+  }
+
+  .box-blue { background: #e0f2fe; border-color: #0284c7; color: #0369a1; }
+  .box-green { background: #dcfce7; border-color: #16a34a; color: #15803d; }
+  .box-amber { background: #fef3c7; border-color: #d97706; color: #b45309; }
+  .box-red { background: #fee2e2; border-color: #dc2626; color: #b91c1c; }
+  .box-purple { background: #f3e8ff; border-color: #9333ea; color: #7e22ce; }
+  .box-dark { background: #0f2744; border-color: #0f2744; color: #ffffff; }
+
+  code {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: 8pt;
+    background: #f1f5f9;
+    padding: 1px 3px;
+    border-radius: 3px;
+    color: #0f172a;
+    border: 1px solid #e2e8f0;
+  }
+
+  pre {
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 7px 10px;
+    border-radius: 4px;
+    font-size: 7.5pt;
+    line-height: 1.35;
+    margin: 2mm 0 3mm 0;
+    page-break-inside: avoid;
+    white-space: pre-wrap;
+  }
+
+  ul, ol {
+    margin: 0 0 2.5mm 0;
+    padding-left: 5mm;
+  }
+
+  li {
+    margin-bottom: 1.2mm;
+    font-size: 8.8pt;
+  }
+
+  .toc-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 2mm 0;
+    border-bottom: 1px dotted #cbd5e1;
+    font-size: 9pt;
+  }
+
+  .toc-item .title {
+    font-weight: 600;
+    color: #0f2744;
+  }
+
+  .toc-item .dots {
+    flex-grow: 1;
+    border-bottom: 1px dotted #94a3b8;
+    margin: 0 6px 3px 6px;
+  }
+
+  .toc-item .page-num {
+    font-weight: 700;
+    color: #1e3a8a;
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: COVER -->
+<div class="cover">
+  <div class="cover-header">
+    <span>Vadaanya Foundation</span>
+    <span>Technical Specification · v2.0.0</span>
+  </div>
+  <div class="cover-title">
+    Vadaanya Talent Test 2026
+  </div>
+  <div class="cover-subtitle">
+    System Architecture & End-to-End Implementation Guide
+  </div>
+  <div class="cover-tags">
+    Two-Step Entry Gate · Database Drafts · Aadhaar-Safe Encryption · Hall Tickets · Pure Analytics Dashboard · Build Roadmap
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">8,000</div>
+      <div class="stat-label">Students (Classes 9 and 10)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">2</div>
+      <div class="stat-label">Districts: Anantapur & Sri Sathya Sai</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">64</div>
+      <div class="stat-label">Mandals (32 per district)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">384+</div>
+      <div class="stat-label">Eligible Rural Schools</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">Dec 15</div>
+      <div class="stat-label">Exam Day, 2026</div>
+    </div>
+  </div>
+
+  <table class="meta-table">
+    <tr><td>Document Version</td><td>2.0.0 (Updated with Step-0 Gate, DB Drafts, Pure Analytics & V26 Format)</td></tr>
+    <tr><td>Build Target Completion</td><td>October 16, 2026</td></tr>
+    <tr><td>Registration Window</td><td>November 1, 2026 – November 30, 2026</td></tr>
+    <tr><td>Exam Date</td><td>December 15, 2026</td></tr>
+    <tr><td>Live Portals</td><td><code>www.vadaanya.org</code> (Public) · <code>admin.vadaanya.org</code> (Analytics Dashboard)</td></tr>
+    <tr><td>Technical Lead</td><td>Himanshu Shetty</td></tr>
+    <tr><td>Senior Review Team</td><td>Avinash Gupta, Abdul, Ismail, Manoj, Chandramouli, Syed Ubedulla, Ashok Padapati</td></tr>
+  </table>
+</div>
+
+<!-- PAGE 2: TABLE OF CONTENTS -->
+<div class="page-break">
+  <div class="page-header">
+    <span>Vadaanya Talent Test 2026 · System Architecture & Implementation Guide</span>
+    <span>v2.0.0</span>
+  </div>
+
+  <h1>Contents</h1>
+
+  <div class="toc-item"><span class="title">1. Project at a Glance</span><span class="dots"></span><span class="page-num">3</span></div>
+  <div class="toc-item"><span class="title">2. Rural Ground Realities and Technical Responses</span><span class="dots"></span><span class="page-num">4</span></div>
+  <div class="toc-item"><span class="title">3. System Architecture</span><span class="dots"></span><span class="page-num">6</span></div>
+  <div class="toc-item"><span class="title">4. Aadhaar Data Protection & Zero-Leakage Cryptography</span><span class="dots"></span><span class="page-num">7</span></div>
+  <div class="toc-item"><span class="title">5. Stage 1: Registration Engine & Database Auto-Save</span><span class="dots"></span><span class="page-num">8</span></div>
+  <div class="toc-item"><span class="title">6. Stages 2 to 4: Allocation, Hall Tickets and Exam Day</span><span class="dots"></span><span class="page-num">10</span></div>
+  <div class="toc-item"><span class="title">7. One-Way Automated Messaging: WhatsApp and SMS</span><span class="dots"></span><span class="page-num">11</span></div>
+  <div class="toc-item"><span class="title">8. Admin Analytics Dashboard (admin.vadaanya.org)</span><span class="dots"></span><span class="page-num">12</span></div>
+  <div class="toc-item"><span class="title">9. Reports and Data Export Engine (.xlsx)</span><span class="dots"></span><span class="page-num">13</span></div>
+  <div class="toc-item"><span class="title">10. Database Architecture & Complete Prisma Schema</span><span class="dots"></span><span class="page-num">14</span></div>
+  <div class="toc-item"><span class="title">11. Operational Edge Cases and Mitigations</span><span class="dots"></span><span class="page-num">16</span></div>
+  <div class="toc-item"><span class="title">12. Build Roadmap and Engineering Checklist (Oct 4 – Oct 16)</span><span class="dots"></span><span class="page-num">17</span></div>
+  <div class="toc-item"><span class="title">Appendix: Registration Number Format & Glossary</span><span class="dots"></span><span class="page-num">18</span></div>
+
+  <div class="callout callout-blue" style="margin-top: 5mm;">
+    <strong>How to read this guide:</strong> Every section opens with a plain-language summary for project leadership, followed by in-depth technical specifications, SQL schemas, sequence diagrams, and edge-case countermeasures.
+  </div>
+
+  <div class="callout callout-amber">
+    <strong>Two kinds of "phase" in this document:</strong><br>
+    <strong>Operational Stages:</strong> Describe what happens to students and schools over calendar time: Registration (Nov 1–30), Logistics Batch (Dec 1–6), Hall Tickets (Dec 7–15), and Exam Day (Dec 15).<br>
+    <strong>Build Phases:</strong> Describe the engineering sprints from Oct 4 to Oct 16 to build and test the software.
+  </div>
+
+  <div class="page-footer">
+    <span>Vadaanya Foundation · Technical Lead: Himanshu Shetty</span>
+    <span>Page 2</span>
+  </div>
+</div>
+
+<!-- PAGE 3: PROJECT AT A GLANCE -->
+<div class="page-break">
+  <div class="page-header">
+    <span>Vadaanya Talent Test 2026 · System Architecture & Implementation Guide</span>
+    <span>v2.0.0</span>
+  </div>
+
+  <h1>1. Project at a Glance</h1>
+  <p>Vadaanya Talent Test 2026 transitions a five-year-old, paper-based rural talent test onto a resilient, automated cloud platform. It registers 8,000 government school students across Anantapur and Sri Sathya Sai districts, manages exam center allocations, generates verifiable hall tickets, and prepares OMR-ready data for exam day.</p>
+
+  <h2>1.1 What is Changing</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th style="width: 45%;">Before (Manual Paper Process)</th>
+        <th style="width: 55%;">After (Vadaanya 2026 Cloud Platform)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Physical paper forms filled by hand; data transcription errors.</td>
+        <td>Mobile-first web form with instant Verhoeff validation and database auto-save.</td>
+      </tr>
+      <tr>
+        <td>Incomplete forms discarded or lost due to intermittent connectivity.</td>
+        <td><strong>Database-Backed Drafts:</strong> Uncompleted forms saved in DB as <code>PENDING</code> and auto-resumed on Aadhaar re-entry.</td>
+      </tr>
+      <tr>
+        <td>Manual alphabetical sorting across mandals in spreadsheets.</td>
+        <td>Automated spatial and mandal clustering with gender-segregated exam center assignments.</td>
+      </tr>
+      <tr>
+        <td>Hand-delivered hall tickets requiring weeks of logistical delay.</td>
+        <td>Instant PDF hall tickets with QR verification, WhatsApp/SMS links, and one-click Headmaster bulk downloads.</td>
+      </tr>
+      <tr>
+        <td>Zero visibility into registration momentum or drop-off friction.</td>
+        <td>Dedicated <strong>Admin Analytics Dashboard</strong> tracking funnel drop-offs, district quotas, and low-registration school red flags.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>1.2 Operational Lifecycle in Four Stages</h2>
+  <div class="diagram-container">
+    <div class="flow-row">
+      <div class="flow-box box-blue">
+        <strong>STAGE 1</strong><br>Registration Engine<br><small>Nov 1 – Nov 30</small>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-box box-amber">
+        <strong>STAGE 2</strong><br>Logistics Batch<br><small>Dec 1 – Dec 6</small>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-box box-green">
+        <strong>STAGE 3</strong><br>Hall Tickets Live<br><small>Dec 7 – Dec 15</small>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-box box-purple">
+        <strong>STAGE 4</strong><br>Exam Day & OMR<br><small>Dec 15, 2026</small>
+      </div>
+    </div>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Stage</th>
+        <th>Dates</th>
+        <th>What Happens</th>
+        <th>Key Deliverable</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Registration</strong></td>
+        <td>Nov 1 – Nov 30</td>
+        <td>Students or teachers register via mobile. Step 0 gate checks duplicates and resumes drafts. Data auto-saves to database. Quotas enforced at 4,000 each.</td>
+        <td>Registration Number (e.g. <code>V26-ATP-B0016</code>), Digital Receipt, WhatsApp Confirmation.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Logistics Batch</strong></td>
+        <td>Dec 1 – Dec 6</td>
+        <td>Registration is frozen. Proximity algorithm clusters students by mandal/village, separates boys and girls into centers, and assigns seats.</td>
+        <td>Roll numbers, room & bench allocations, center master files.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Hall Tickets</strong></td>
+        <td>Dec 7 – Dec 15</td>
+        <td>Tickets go live 1 week before exam. Mass WhatsApp broadcast triggered. Headmasters download single stitched batch PDFs.</td>
+        <td>Bilingual A4 PDF with high-contrast QR code for gate scanning.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Exam Day & OMR</strong></td>
+        <td>Dec 15</td>
+        <td>Invigilators verify students using the Spot-Verification search tool. Admins export pre-formatted OMR Excel file.</td>
+        <td>Spot-verification lookup, OMR Scanner Master Excel (.xlsx).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Vadaanya Foundation · Technical Lead: Himanshu Shetty</span>
+    <span>Page 3</span>
+  </div>
+</div>
+
+<!-- PAGE 4: RURAL GROUND REALITIES -->
+<div class="page-break">
+  <div class="page-header">
+    <span>Vadaanya Talent Test 2026 · System Architecture & Implementation Guide</span>
+    <span>v2.0.0</span>
+  </div>
+
+  <h1>2. Rural Ground Realities & Technical Responses</h1>
+  <p>The platform is engineered around the actual constraints of rural Andhra Pradesh, ensuring accessibility, data integrity, and high completion rates.</p>
+
+  <h2>2.1 Stakeholder Personas & Realities</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Persona</th>
+        <th>Ground Reality</th>
+        <th>System Requirement</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Rural Student</strong><br>(Class 9 & 10)</td>
+        <td>Lacks personal smartphone, computer, or email address. Official identifier is their 12-digit Aadhaar. Language is Telugu and simple English.</td>
+        <td>Never require email. Use Aadhaar as sole identity and mobile number purely for notifications. Bilingual Telugu/English interface.</td>
+      </tr>
+      <tr>
+        <td><strong>School POC</strong><br>(Headmaster / Math Teacher)</td>
+        <td>Registers 20 to 50 students in one sitting using one school PC, mobile phone, or local MeeSeva center. <strong>One phone number repeats across dozens of students.</strong></td>
+        <td>Allow 1:N phone-to-student mapping. Provide "Quick Add Next Student" mode. Provide one-click School Batch PDF download.</td>
+      </tr>
+      <tr>
+        <td><strong>Field Volunteer</strong><br>(50-Member Campaign Team)</td>
+        <td>Visits remote schools with tablets/phones after District Collector launch. Network drops between 2G, 3G, and 4G.</td>
+        <td>Lightweight Next.js payload (<80KB gzip). Database-backed block auto-saving ensures partially filled forms are never lost.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>2.2 Problem & Technical Countermeasure Matrix</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Ground Hurdle</th>
+        <th>Why Traditional Systems Fail</th>
+        <th>Vadaanya 2026 Architectural Solution</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Phone Number Collisions</strong></td>
+        <td>Using phone numbers as a unique constraint crashes when a teacher registers 30 students.</td>
+        <td><strong>Aadhaar is the sole unique identifier.</strong> Mobile numbers are treated solely as delivery routes, permitting 1:N mapping without conflict.</td>
+      </tr>
+      <tr>
+        <td><strong>Dropped Forms / Power Cuts</strong></td>
+        <td>Unstable internet causes students to lose half-filled forms, leading to abandonment.</td>
+        <td><strong>Database-Backed Auto-Save:</strong> Each block entered is immediately saved to PostgreSQL under <code>status: PENDING</code>. Re-entering Aadhaar auto-restores data on any device.</td>
+      </tr>
+      <tr>
+        <td><strong>Duplicate Registrations</strong></td>
+        <td>Students forget they were registered by a teacher and try again, creating duplicates.</td>
+        <td><strong>Step 0 Gate Check:</strong> Entering Aadhaar immediately tells them: <em>"You have already registered. Your Reg No is V26-ATP-B0016"</em> without loading the form.</td>
+      </tr>
+      <tr>
+        <td><strong>Lost Registration Slips</strong></td>
+        <td>Students lose paper slips or delete SMS, unable to retrieve hall tickets.</td>
+        <td><strong>Dual-Key Recovery:</strong> Hall tickets can be retrieved with Registration Number OR <code>Aadhaar + Mobile Number</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Teacher Bulk Entry Fatigue</strong></td>
+        <td>Re-typing District, Mandal, and School 30 times causes extreme fatigue and typos.</td>
+        <td><strong>"Quick Add Next Student" Mode:</strong> Retains District, Mandal, and School in form state, resetting only student-specific fields.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Vadaanya Foundation · Technical Lead: Himanshu Shetty</span>
+    <span>Page 4</span>
+  </div>
+</div>
+
+<!-- PAGE 5: STEP 0 GATE & BLOCK-BY-BLOCK FLOW -->
+<div class="page-break">
+  <div class="page-header">
+    <span>Vadaanya Talent Test 2026 · System Architecture & Implementation Guide</span>
+    <span>v2.0.0</span>
+  </div>
+
+  <h2>2.3 The Two-Step Registration Architecture</h2>
+  <p>To eliminate friction, the registration process begins with an <strong>Initial Entry Gate (Step 0)</strong> before opening the structured form blocks.</p>
+
+  <div class="diagram-container">
+    <div style="text-align: center; font-weight: 700; margin-bottom: 5px; font-size: 9pt; color: #0f2744;">
+      STEP 0: QUICK ENTRY GATE (AADHAAR & WHATSAPP)
+    </div>
+    <div class="flow-row">
+      <div class="flow-box box-blue">
+        <strong>1. User Enters</strong><br>Aadhaar (12 digits)<br>WhatsApp Mobile
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-box box-dark">
+        <strong>2. Verhoeff Check</strong><br>Validates format<br>Computes HMAC Blind Hash
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-box box-amber">
+        <strong>3. Database Lookup</strong><br>Checks <code>aadhaarHash</code><br>in PostgreSQL
+      </div>
+    </div>
+    <div class="flow-row" style="margin-top: 3mm;">
+      <div class="flow-box box-green" style="flex: 1;">
+        <strong>BRANCH A: COMPLETED</strong><br>
+        Shows immediate banner with Registration No: <code>V26-ATP-B0016</code> & Hall Ticket date. No duplicate form allowed.
+      </div>
+      <div class="flow-box box-purple" style="flex: 1;">
+        <strong>BRANCH B: PENDING DRAFT</strong><br>
+        Fetches saved draft from DB. Pre-fills all previously entered fields and jumps to the unfinished block.
+      </div>
+      <div class="flow-box box-blue" style="flex: 1;">
+        <strong>BRANCH C: BRAND NEW</strong><br>
+        Creates new DB record with <code>status: PENDING</code>. Pre-fills Aadhaar & Mobile and opens Block 1.
+      </div>
+    </div>
+  </div>
+
+  <h2>2.4 Progressive Block-by-Block Form Split & Auto-Save</h2>
+  <p>Rather than presenting a monolithic 12-field form, fields are grouped into three progressive blocks. Each block automatically commits its payload to PostgreSQL via <code>PATCH /api/registration/draft</code>.</p>
+
+  <div class="diagram-container">
+    <div class="flow-row">
+      <div class="flow-box box-blue">
+        <strong>BLOCK 1: Personal</strong><br>
+        Full Name, Relative Name, Gender (M/F), Standard (9/10).<br>
+        <span style="color: #0369a1; font-weight: 600;">&bull; Auto-saves to DB</span>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-box box-amber">
+        <strong>BLOCK 2: School</strong><br>
+        District (ATP/SSS), Mandal, Village, School Name.<br>
+        <span style="color: #b45309; font-weight: 600;">&bull; Auto-saves to DB</span>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-box box-purple">
+        <strong>BLOCK 3: Aspirations</strong><br>
+        Future Stream (MPC/BiPC/etc.), Vocational Skill Trade.<br>
+        <span style="color: #7e22ce; font-weight: 600;">&bull; Ready for Submit</span>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 2.5mm;">
+      <span class="flow-arrow">&darr;</span>
+      <div class="flow-box box-green" style="max-width: 65%; margin: 2mm auto 0 auto;">
+        <strong>FINAL SUBMISSION & QUOTA RESERVATION</strong><br>
+        Atomic District Quota Check (&lt;4,000) &rarr; Status changes to <code>COMPLETED</code> &rarr; Assigns Reg No (<code>V26-ATP-B0016</code>) &rarr; WhatsApp confirmation sent.
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Vadaanya Foundation · Technical Lead: Himanshu Shetty</span>
+    <span>Page 5</span>
+  </div>
+</div>
+
+<!-- PAGE 6: SYSTEM ARCHITECTURE -->
+<div class="page-break">
+  <div class="page-header">
+    <span>Vadaanya Talent Test 2026 · System Architecture & Implementation Guide</span>
+    <span>v2.0.0</span>
+  </div>
+
+  <h1>3. System Architecture</h1>
+  <p>The platform is deployed as a single Next.js 16 application serving two completely isolated entry domains: <code>www.vadaanya.org</code> for public registration and <code>admin.vadaanya.org</code> for internal analytics and monitoring.</p>
+
+  <div class="diagram-container">
+    <div class="flow-row">
+      <div class="flow-box box-blue" style="flex: 1.5;">
+        <strong>USERS & ACTORS</strong><br>
+        Students, Parents, Headmasters, Field Volunteers
+      </div>
+      <div class="flow-box box-purple" style="flex: 1;">
+        <strong>ADMIN & LEADERSHIP</strong><br>
+        Ashok Padapati, Regional Coordinators
+      </div>
+    </div>
+    <div style="text-align: center; font-size: 10pt; color: #64748b; margin: 1.5mm 0;">&darr; Cloudflare Edge & DDoS Protection &darr;</div>
+    <div class="flow-row">
+      <div class="flow-box box-blue" style="flex: 1.5;">
+        <strong>PUBLIC PORTAL (www.vadaanya.org)</strong><br>
+        Step 0 Gate &bull; Progressive Form &bull; Hall Ticket Retrieval
+      </div>
+      <div class="flow-box box-purple" style="flex: 1;">
+        <strong>ANALYTICS PORTAL (admin.vadaanya.org)</strong><br>
+        Funnel KPIs &bull; Drop-Off Tracker &bull; Click-to-Call &bull; Excel Export
+      </div>
+    </div>
+    <div style="text-align: center; font-size: 10pt; color: #64748b; margin: 1.5mm 0;">&darr; Server Actions & API Route Handlers &darr;</div>
+    <div class="flow-row">
+      <div class="flow-box box-amber" style="flex: 1;">
+        <strong>PostgreSQL (Prisma)</strong><br>
+        System of Record<br>
+        Encrypted PII & Drafts
+      </div>
+      <div class="flow-box box-red" style="flex: 1;">
+        <strong>Redis (Atomic Cache)</strong><br>
+        District Quotas (&lt;4,000)<br>
+        Edge Rate Limiting
+      </div>
+      <div class="flow-box box-dark" style="flex: 1;">
+        <strong>AWS / Azure KMS</strong><br>
+        Envelope Encryption<br>
+        HMAC Pepper Secret
+      </div>
+      <div class="flow-box box-green" style="flex: 1;">
+        <strong>Messaging Gateway</strong><br>
+        Meta WhatsApp Cloud API<br>
+        DLT SMS Fallback
+      </div>
+    </div>
+  </div>
+
+  <h2>3.1 Core Technology Stack</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Layer</th>
+        <th>Choice</th>
+        <th>Role in Vadaanya 2026</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Frontend</strong></td>
+        <td>Next.js 16 (App Router), React 19, TypeScript, Vanilla CSS</td>
+        <td>Lightweight, fast-loading bundle (<80KB gzip) designed for rural 2G/3G mobile devices.</td>
+      </tr>
+      <tr>
+        <td><strong>Backend</strong></td>
+        <td>Next.js Server Actions & Route Handlers</td>
+        <td>Server-side validation, Verhoeff checksum verification, draft auto-saving, quota locks.</td>
+      </tr>
+      <tr>
+        <td><strong>Database</strong></td>
+        <td>PostgreSQL with Prisma ORM</td>
+        <td>System of record; atomic seat increments, unique blind index constraints, draft status management.</td>
+      </tr>
+      <tr>
+        <td><strong>Security / KMS</strong></td>
+        <td>AWS KMS or Azure Key Vault</td>
+        <td>AES-256-GCM envelope encryption keys and HMAC pepper secret storage.</td>
+      </tr>
+      <tr>
+        <td><strong>Document Engine</strong></td>
+        <td><code>@react-pdf/renderer</code> / <code>puppeteer-core</code></td>
+        <td>Generates dynamic bilingual A4 Hall Ticket PDFs and concatenated School Batch PDFs.</td>
+      </tr>
+      <tr>
+        <td><strong>Messaging</strong></td>
+        <td>Meta WhatsApp Cloud API + DLT Indian SMS</td>
+        <td>Instant confirmation, hall ticket download broadcast, and 48-hour exam countdown reminder.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Vadaanya Foundation · Technical Lead: Himanshu Shetty</span>
+    <span>Page 6</span>
+  </div>
+</div>
+
+<!-- PAGE 7: AADHAAR DATA PROTECTION -->
+<div class="page-break">
+  <div class="page-header">
+    <span>Vadaanya Talent Test 2026 · System Architecture & Implementation Guide</span>
+    <span>v2.0.0</span>
+  </div>
+
+  <h1>4. Aadhaar Data Protection & Zero-Leakage Architecture</h1>
+  <p>The Aadhaar number is sensitive Personally Identifiable Information (PII) governed by strict UIDAI regulations. <strong>Plain-text Aadhaar numbers must NEVER exist in the database, cache, or logs.</strong></p>
+
+  <h2>4.1 The Four Security Protection Layers</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Layer</th>
+        <th>Mechanism</th>
+        <th>Database Field</th>
+        <th>Visibility & Access</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Deterministic Blind Index</strong></td>
+        <td><code>HMAC-SHA256(normalised_aadhaar, KMS_PEPPER)</code>. Pepper is stored in Key Vault, never in code. Enforces SQL <code>UNIQUE</code> constraint for instant $O(1)$ duplicate checks.</td>
+        <td><code>aadhaarHash</code></td>
+        <td>Irreversible cryptographic hash. Nobody can reverse-engineer the Aadhaar number from it.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Envelope Field Encryption</strong></td>
+        <td>The 12 digits are encrypted with <strong>AES-256-GCM</strong> using a customer-managed key (CMK). GCM provides authenticated encryption, instantly detecting ciphertext tampering.</td>
+        <td><code>aadhaarEncrypted</code></td>
+        <td>Only decryptable via air-gapped administrative script for statutory government audits.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Display Masking</strong></td>
+        <td>Only the last 4 digits are kept in plain text (e.g. <code>XXXX-XXXX-5678</code>).</td>
+        <td><code>aadhaarLast4</code></td>
+        <td>Displayed on public receipts, hall tickets, and admin analytics tables.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Zero-Log Sanitization Middleware</strong></td>
+        <td>Next.js API middleware intercepts all outgoing logs (CloudWatch, Sentry, Azure Monitor) and strips any 12-digit sequence matching <code>\b\d{4}[ -]?\d{4}[ -]?\d{4}\b</code>.</td>
+        <td><em>None</em></td>
+        <td>Guarantees zero accidental PII leakage in debug traces or crash reports.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>4.2 Input Ingestion & Normalization Snippet</h2>
+  <pre><code>import { createHmac } from "crypto";
+
+const normalise = (a: string) => a.replace(/\D/g, ""); // extract digits only
+
+export function deriveAadhaarFields(rawAadhaar: string, pepper: string, kmsKey: string) {
+  const clean = normalise(rawAadhaar);
+  // 1. Blind Hash Index for uniqueness check (O(1) duplicate prevention)
+  const aadhaarHash = createHmac("sha256", pepper).update(clean).digest("hex");
+  // 2. Field-Level AES-256-GCM Ciphertext via Key Management Service
+  const aadhaarEncrypted = encryptWithKms(clean, kmsKey);
+  // 3. Safe Display Mask for public view and hall ticket printing
+  const aadhaarLast4 = clean.slice(-4);
+  return { aadhaarHash, aadhaarEncrypted, aadhaarLast4 };
+}</code></pre>
+
+  <div class="page-footer">
+    <span>Vadaanya Foundation · Technical Lead: Himanshu Shetty</span>
+    <span>Page 7</span>
+  </div>
+</div>
+
+<!-- PAGE 8: STAGE 1 REGISTRATION ENGINE & QUOTAS -->
+<div class="page-break">
+  <div class="page-header">
+    <span>Vadaanya Talent Test 2026 · System Architecture & Implementation Guide</span>
+    <span>v2.0.0</span>
+  </div>
+
+  <h1>5. Stage 1: Registration Engine (Nov 1 – Nov 30)</h1>
+  <p>The registration engine supports single-student entries on mobile phones as well as rapid bulk batch registrations conducted by school headmasters.</p>
+
+  <h2>5.1 Registration Field Specification</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Field Name</th>
+        <th>Format / Input Type</th>
+        <th>Block</th>
+        <th>Operational Purpose</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>aadhaarNumber</code></td>
+        <td>12 digits, Verhoeff checksum</td>
+        <td>Step 0</td>
+        <td>Sole immutable unique identity; encrypted into 3 fields.</td>
+      </tr>
+      <tr>
+        <td><code>whatsappNumber</code></td>
+        <td>10-digit Indian mobile (+91)</td>
+        <td>Step 0</td>
+        <td>Notification routing route; non-unique (shared by teacher).</td>
+      </tr>
+      <tr>
+        <td><code>fullName</code></td>
+        <td>Text, as per school records</td>
+        <td>Block 1</td>
+        <td>Printed on Hall Ticket and mapped to OMR scanning software.</td>
+      </tr>
+      <tr>
+        <td><code>relativeName</code></td>
+        <td>Father / Mother / Guardian</td>
+        <td>Block 1</td>
+        <td>Hall ticket identity verification.</td>
+      </tr>
+      <tr>
+        <td><code>gender</code></td>
+        <td><code>MALE</code> or <code>FEMALE</code></td>
+        <td>Block 1</td>
+        <td><strong>Drives gender-segregated exam center allocation.</strong></td>
+      </tr>
+      <tr>
+        <td><code>standard</code></td>
+        <td><code>CLASS_9</code> or <code>CLASS_10</code></td>
+        <td>Block 1</td>
+        <td>Academic eligibility check.</td>
+      </tr>
+      <tr>
+        <td><code>district</code></td>
+        <td><code>ANANTAPUR</code> / <code>SRI_SATHYA_SAI</code></td>
+        <td>Block 2</td>
+        <td>District quota bucket (4,000 cap per district).</td>
+      </tr>
+      <tr>
+        <td><code>mandalId</code></td>
+        <td>Dropdown (filtered by district)</td>
+        <td>Block 2</td>
+        <td>Proximity clustering for exam center assignment.</td>
+      </tr>
+      <tr>
+        <td><code>village</code></td>
+        <td>Village or Town name</td>
+        <td>Block 2</td>
+        <td>Local school cohort grouping.</td>
+      </tr>
+      <tr>
+        <td><code>schoolId</code></td>
+        <td>Dropdown (filtered by mandal)</td>
+        <td>Block 2</td>
+        <td>Assigns school cohort (Govt, Model, ZPHS, KGBV).</td>
+      </tr>
+      <tr>
+        <td><code>futureStream</code></td>
+        <td>MPC, BiPC, CEC, HEC, Poly, Undecided</td>
+        <td>Block 3</td>
+        <td>Higher secondary educational interest analysis.</td>
+      </tr>
+      <tr>
+        <td><code>vocationalInterest</code></td>
+        <td>Electrical, Painting, Plumbing, Carpentry, None</td>
+        <td>Block 3</td>
+        <td>Aligned with central and AP state skill missions (PMKVY/APSSDC).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>5.2 District Hard Quotas & Atomic Concurrency Control</h2>
+  <p>Each district is strictly capped at <strong>4,000 confirmed registrations</strong> (8,000 total). A two-tier locking mechanism guarantees the cap is never exceeded:</p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Layer</th>
+        <th>Mechanism</th>
+        <th>Behavior</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Fast Edge Gate</strong></td>
+        <td>Redis <code>INCR district_quota:anantapur</code> before DB write</td>
+        <td>If counter > 4,000, rejects request at edge in under 10ms with HTTP 409 "District Quota Exhausted". Reverts via <code>DECR</code> on rollback.</td>
+      </tr>
+      <tr>
+        <td><strong>Database Guard</strong></td>
+        <td>Atomic single-statement conditional update</td>
+        <td>Ensures exact count inside the SQL transaction. Zero updated rows rolls back immediately.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pre><code>BEGIN;
+  -- Atomic seat reservation: check and increment in ONE atomic statement
+  UPDATE districts
+  SET registered_count = registered_count + 1
+  WHERE name = 'ANANTAPUR' AND registered_count < quota_max
+  RETURNING registered_count; -- If 0 rows returned => ROLLBACK & return HTTP 409
+
+  -- Transition status from PENDING to COMPLETED and assign registration number
+  UPDATE students
+  SET registration_status = 'COMPLETED',
+      registration_number = 'V26-ATP-B0016',
+      completed_at = NOW()
+  WHERE id = $studentId;
+COMMIT;</code></pre>
+
+  <div class="page-footer">
+    <span>Vadaanya Foundation · Technical Lead: Himanshu Shetty</span>
+    <span>Page 8</span>
+  </div>
+</div>
+
+<!-- PAGE 9: REGISTRATION NUMBER & RECEIPT -->
+<div class="page-break">
+  <div class="page-header">
+    <span>Vadaanya Talent Test 2026 · System Architecture & Implementation Guide</span>
+    <span>v2.0.0</span>
+  </div>
+
+  <h2>5.3 Simplified Registration Number Format</h2>
+  <p>The registration number format is engineered for clarity and ease of transcription on OMR sheets:</p>
+
+  <div style="background: #f8fafc; border: 2px dashed #0284c7; padding: 10px; border-radius: 6px; text-align: center; margin: 3mm 0;">
+    <span style="font-size: 17pt; font-weight: 800; color: #0f2744; letter-spacing: 0.05em;">
+      V26 - [DIST] - [BATCH][4-DIGIT SEQ]
+    </span>
+    <div style="font-size: 8.5pt; color: #475569; margin-top: 3px;">
+      Example: <strong><code>V26-ATP-B0016</code></strong> (Anantapur, Batch B, Candidate 0016)
+    </div>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Component</th>
+        <th>Allowed Values</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong><code>V26</code></strong></td>
+        <td>Static Prefix</td>
+        <td>Identifies <strong>V</strong>adaanya Talent Test for Year 20**26**.</td>
+      </tr>
+      <tr>
+        <td><strong><code>[DIST]</code></strong></td>
+        <td><code>ATP</code> or <code>SSS</code></td>
+        <td>Identifies District: <strong>ATP</strong> (Anantapur) or <strong>SSS</strong> (Sri Sathya Sai).</td>
+      </tr>
+      <tr>
+        <td><strong><code>[BATCH]</code></strong></td>
+        <td><code>A</code>, <code>B</code>, <code>C</code>, <code>D</code></td>
+        <td>Letter designating candidate batch (e.g. Batch A: 1–1,000; Batch B: 1,001–2,000).</td>
+      </tr>
+      <tr>
+        <td><strong><code>[4-DIGIT SEQ]</code></strong></td>
+        <td><code>0001</code> to <code>1000</code></td>
+        <td>Zero-padded 4-digit sequential integer within the batch.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>5.4 School-Level Cap Control (Pending Policy Decision)</h2>
+  <ul>
+    <li>Controlled by feature flag <code>ENFORCE_SCHOOL_CAP</code>, default <code>false</code> pending final core team alignment.</li>
+    <li>When enabled, restricts registrations to a maximum of <strong>20 students per school</strong>.</li>
+    <li>Built-in exemptions for high-density institutions: AP Model Schools, KGBVs, and AP Residential Schools.</li>
+    <li>Stored in a dynamic database configuration table so the technical lead can toggle or adjust limits instantly without code redeployment.</li>
+  </ul>
+
+  <h2>5.5 Post-Registration Acknowledgment Slip</h2>
+  <p>Immediately upon completion, an on-screen digital receipt is generated with:</p>
+  <ul>
+    <li>Student Full Name, School Name, Mandal, and District.</li>
+    <li>Unique Registration Number: <code>V26-ATP-B0016</code>.</li>
+    <li>High-contrast verification QR code containing encrypted student ID.</li>
+    <li>Exam date notification: <strong>December 15, 2026</strong>.</li>
+    <li>Hall ticket download availability date: <strong>December 7, 2026</strong>.</li>
+    <li>One-click options to <strong>Download Receipt PDF</strong> or <strong>"Quick Add Next Student"</strong> for teachers.</li>
+  </ul>
+
+  <div class="page-footer">
+    <span>Vadaanya Foundation · Technical Lead: Himanshu Shetty</span>
+    <span>Page 9</span>
+  </div>
+</div>
+
+<!-- PAGE 10: STAGES 2 TO 4 ALLOCATION & HALL TICKETS -->
+<div class="page-break">
+  <div class="page-header">
+    <span>Vadaanya Talent Test 2026 · System Architecture & Implementation Guide</span>
+    <span>v2.0.0</span>
+  </div>
+
+  <h1>6. Stages 2 to 4: Allocation, Hall Tickets and Exam Day</h1>
+  <p>Hall tickets are deliberately not generated at the time of registration. Centers and seat numbers require finalized student counts across all mandals before allocation algorithms can run.</p>
+
+  <h2>6.1 Allocation Batch Engine (Dec 1 – Dec 6)</h2>
+  <div class="diagram-container">
+    <div class="flow-row">
+      <div class="flow-box box-amber">
+        <strong>1. Freeze Data</strong><br>Registration closes<br>Nov 30, 23:59:59
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-box box-blue">
+        <strong>2. Spatial Cluster</strong><br>Group students by<br>Mandal & Village proximity
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-box box-purple">
+        <strong>3. Gender Split</strong><br>Segregate boys & girls<br>into designated centers
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-box box-green">
+        <strong>4. Seating Plan</strong><br>Assign Roll No,<br>Room & Bench Nos.
+      </div>
+    </div>
+  </div>
+
+  <h2>6.2 Multi-Channel Hall Ticket Retrieval (Dec 7 – Dec 15)</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Channel</th>
+        <th>Target User</th>
+        <th>Input Required</th>
+        <th>Generated Output</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Direct Portal</strong></td>
+        <td>Student / Parent</td>
+        <td>Registration Number (<code>V26-ATP-B0016</code>)</td>
+        <td>Single bilingual A4 PDF with QR code.</td>
+      </tr>
+      <tr>
+        <td><strong>Recovery Portal</strong></td>
+        <td>Student who lost slip</td>
+        <td>Aadhaar Number + WhatsApp Mobile</td>
+        <td>Single bilingual A4 PDF with QR code.</td>
+      </tr>
+      <tr>
+        <td><strong>School Batch Download</strong></td>
+        <td>School Headmaster / Math Teacher</td>
+        <td>School U-DISE Code + Registered Phone OTP</td>
+        <td><strong>Single concatenated PDF</strong> of all 20–50 students in alphabetical order. Cuts printing time at rural internet cafes from 45 min to 2 min.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>6.3 Hall Ticket Contents & Design</h2>
+  <ul>
+    <li>Vadaanya Foundation official emblem and Government Education Department partnership seal.</li>
+    <li>Student Name, Relative Name, Gender, Class, and School Name.</li>
+    <li>Registration Number (e.g. <code>V26-ATP-B0016</code>) and Hall Ticket Number (e.g. <code>HT-2026-90412</code>).</li>
+    <li>Assigned Examination Center name, complete physical address, and Google Maps QR/link.</li>
+    <li>Exam schedule: <strong>December 15, 2026</strong>; Reporting: <strong>09:00 AM</strong>; Exam: <strong>10:00 AM – 12:30 PM</strong>.</li>
+    <li>High-contrast 2D QR Code for rapid gate scanning on exam morning.</li>
+    <li>Dual-language guidelines in <strong>Telugu and English</strong>.</li>
+  </ul>
+
+  <h2>6.4 Exam Day Operations (Dec 15)</h2>
+  <ul>
+    <li><strong>Invigilator Spot-Verification Tool on <code>admin.vadaanya.org</code>:</strong> If a student misplaces their physical hall ticket on exam morning, the center headmaster searches by Name, School, or Aadhaar Last-4 to immediately verify their roll number and seat allocation.</li>
+    <li><strong>OMR Scanner Integration:</strong> High-speed optical mark recognition scanners ingest candidate rosters exported in pre-formatted Excel order.</li>
+  </ul>
+
+  <div class="page-footer">
+    <span>Vadaanya Foundation · Technical Lead: Himanshu Shetty</span>
+    <span>Page 10</span>
+  </div>
+</div>
+
+<!-- PAGE 11: ONE-WAY MESSAGING -->
+<div class="page-break">
+  <div class="page-header">
+    <span>Vadaanya Talent Test 2026 · System Architecture & Implementation Guide</span>
+    <span>v2.0.0</span>
+  </div>
+
+  <h1>7. One-Way Automated Messaging: WhatsApp and SMS</h1>
+  <p>Rural communications must route through mobile numbers rather than email. A single mobile number may be associated with multiple students, requiring personalized template messages.</p>
+
+  <h2>7.1 Architecture & Setup</h2>
+  <ul>
+    <li><strong>Primary Gateway:</strong> Meta WhatsApp Cloud API via Next.js Server Actions / AWS Lambda.</li>
+    <li><strong>Secondary Gateway:</strong> DLT-compliant Indian transactional SMS (AWS SNS / Kaleyra / Gupshup) triggered automatically if WhatsApp delivery fails within 5 minutes.</li>
+    <li><strong>Verified Profile:</strong> Official Business Account displaying <strong>"Vadaanya NGO"</strong> with verified green badge.</li>
+    <li><strong>Strict One-Way Enforcement:</strong> Incoming messages trigger an automated canned auto-responder:
+      <div style="background: #f1f5f9; padding: 5px 9px; border-left: 3px solid #64748b; font-size: 8.5pt; margin: 2mm 0;">
+        <em>"This is an automated notification service from Vadaanya Foundation. Incoming messages are not monitored. For assistance, please contact your school headmaster or visit www.vadaanya.org."</em>
+      </div>
+    </li>
+  </ul>
+
+  <h2>7.2 The Three Notification Touchpoints</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Trigger Timeline</th>
+        <th>Notification Purpose</th>
+        <th>Message Template Content</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Immediately upon registration</td>
+        <td>Registration Confirmation</td>
+        <td><em>Dear {StudentName}, your registration for Vadaanya Talent Test 2026 is confirmed! Reg No: {RegNo}. School: {SchoolName}. Hall tickets will be available on Dec 7 at www.vadaanya.org. - Vadaanya Foundation</em></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>December 7, 2026</td>
+        <td>Hall Ticket Release</td>
+        <td><em>Dear {StudentName}, your Hall Ticket for Vadaanya Talent Test 2026 is ready! Exam Date: Dec 15, 2026. Center: {CenterName}. Download now: {ShortLink} - Vadaanya Foundation</em></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>December 13, 2026 (48 hrs prior)</td>
+        <td>Exam Countdown Reminder</td>
+        <td><em>Reminder: Vadaanya Talent Test is on Dec 15 at 9:00 AM. Center: {CenterName}. Carry your printed Hall Ticket & pen. All the best! - Vadaanya Foundation</em></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>7.3 Cost Breakdown (8,000 Students &times; 3 Notifications)</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Parameter</th>
+        <th>Projected Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Total Student Volume &times; Touchpoints</td>
+        <td>8,000 students &times; 3 messages = 24,000 notifications</td>
+      </tr>
+      <tr>
+        <td>WhatsApp Utility Template Conversation Rate</td>
+        <td>&asymp; ₹0.12 to ₹0.15 per delivered conversation</td>
+      </tr>
+      <tr>
+        <td>DLT Transactional SMS Rate (India)</td>
+        <td>&asymp; ₹0.12 to ₹0.18 per SMS</td>
+      </tr>
+      <tr>
+        <td><strong>Total Projected Messaging Expense</strong></td>
+        <td><strong>&asymp; ₹3,600 to ₹4,800 INR total</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Vadaanya Foundation · Technical Lead: Himanshu Shetty</span>
+    <span>Page 11</span>
+  </div>
+</div>
+
+<!-- PAGE 12: ADMIN ANALYTICS DASHBOARD -->
+<div class="page-break">
+  <div class="page-header">
+    <span>Vadaanya Talent Test 2026 · System Architecture & Implementation Guide</span>
+    <span>v2.0.0</span>
+  </div>
+
+  <h1>8. Admin Analytics Dashboard (admin.vadaanya.org)</h1>
+  <p>The administrative subdomain is designed <strong>exclusively for real-time analytics, monitoring, funnel drop-off detection, and proactive field outreach</strong>. It does not share public web traffic.</p>
+
+  <h2>8.1 Real-Time Analytics Views & KPIs</h2>
+  <div class="diagram-container">
+    <div class="flow-row">
+      <div class="flow-box box-blue">
+        <strong>TOTAL TARGET</strong><br>
+        <span style="font-size: 15pt; font-weight: 800;">8,000</span><br>
+        ATP: 4,000 | SSS: 4,000
+      </div>
+      <div class="flow-box box-green">
+        <strong>CONFIRMED (COMPLETED)</strong><br>
+        <span style="font-size: 15pt; font-weight: 800;">5,420</span><br>
+        Official Registered Count
+      </div>
+      <div class="flow-box box-amber">
+        <strong>DRAFTS (PENDING)</strong><br>
+        <span style="font-size: 15pt; font-weight: 800;">412</span><br>
+        Incomplete / Abandoned
+      </div>
+      <div class="flow-box box-purple">
+        <strong>CONVERSION RATE</strong><br>
+        <span style="font-size: 15pt; font-weight: 800;">92.9%</span><br>
+        Completed / Initiated
+      </div>
+    </div>
+  </div>
+
+  <h2>8.2 Funnel Drop-Off Tracker</h2>
+  <p>Measures exact student progression across registration steps to identify technical or logistical bottlenecks:</p>
+  <div class="diagram-container">
+    <div class="flow-row">
+      <div class="flow-box box-blue">
+        <strong>Step 0: Gate</strong><br>
+        5,832 Initiated<br>
+        (Aadhaar/Mobile)
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-box box-blue">
+        <strong>Block 1: Personal</strong><br>
+        5,640 Completed<br>
+        <small style="color: #dc2626;">-192 drop-off</small>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-box box-blue">
+        <strong>Block 2: School</strong><br>
+        5,480 Completed<br>
+        <small style="color: #dc2626;">-160 drop-off</small>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-box box-green">
+        <strong>Block 3: Submit</strong><br>
+        5,420 Confirmed<br>
+        <small style="color: #16a34a;">V26 Reg No assigned</small>
+      </div>
+    </div>
+  </div>
+
+  <h2>8.3 Hierarchical Geographic Breakdown & Click-to-Call</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Hierarchy Level</th>
+        <th>Entities</th>
+        <th>Analytics Metrics Displayed</th>
+        <th>Coordinator Action Tools</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>State Level</strong></td>
+        <td>Overall Program</td>
+        <td>Total 8,000 cap, completed vs pending, daily registration velocity.</td>
+        <td>Global CSV/Excel export, school cap policy switch.</td>
+      </tr>
+      <tr>
+        <td><strong>District Level</strong></td>
+        <td>Anantapur (4,000)<br>Sri Sathya Sai (4,000)</td>
+        <td>Live progress bar toward 4,000 limit, gender ratio, class 9 vs 10 split.</td>
+        <td>District-filtered OMR export, quota override controls.</td>
+      </tr>
+      <tr>
+        <td><strong>Mandal Level</strong></td>
+        <td>64 Mandals<br>(32 per district)</td>
+        <td>Completed registrations per mandal, active schools vs inactive schools.</td>
+        <td>Mandal summary sheet download for regional coordinators.</td>
+      </tr>
+      <tr>
+        <td><strong>School Level</strong></td>
+        <td>384+ Rural Schools</td>
+        <td>School name, category (ZPHS/Model/KGBV), completed count, pending count. <strong>Red flag if &lt;5 registrations after Nov 10.</strong></td>
+        <td><strong>Click-to-Call (<code>tel:+91...</code>):</strong> Direct phone link to dial the Headmaster or Math Teacher with one tap.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Vadaanya Foundation · Technical Lead: Himanshu Shetty</span>
+    <span>Page 12</span>
+  </div>
+</div>
+
+<!-- PAGE 13: REPORTS AND DATA EXPORT -->
+<div class="page-break">
+  <div class="page-header">
+    <span>Vadaanya Talent Test 2026 · System Architecture & Implementation Guide</span>
+    <span>v2.0.0</span>
+  </div>
+
+  <h1>9. Reports and Data Export Engine (.xlsx)</h1>
+  <p>The administrative dashboard includes an enterprise-grade reporting engine that filters registration records and downloads structured Microsoft Excel (<code>.xlsx</code>) spreadsheets for operational follow-up and automated OMR evaluation.</p>
+
+  <h2>9.1 Multi-Dimensional Filter Controls</h2>
+  <div class="diagram-container">
+    <table style="width: 100%; font-size: 8.5pt;">
+      <tr>
+        <td style="width: 25%;"><strong>District:</strong><br>All / Anantapur / Sri Sathya Sai</td>
+        <td style="width: 25%;"><strong>Mandal:</strong><br>Dynamic dropdown (64 Mandals)</td>
+        <td style="width: 25%;"><strong>School Category:</strong><br>Govt / ZPHS / Model / KGBV</td>
+        <td style="width: 25%;"><strong>Registration Status:</strong><br>All / COMPLETED / PENDING</td>
+      </tr>
+      <tr>
+        <td style="padding-top: 5px;"><strong>Class:</strong><br>All / Class 9 / Class 10</td>
+        <td style="padding-top: 5px;"><strong>Gender:</strong><br>All / Boys / Girls</td>
+        <td style="padding-top: 5px;"><strong>Hall Ticket Status:</strong><br>All / Downloaded / Pending</td>
+        <td style="padding-top: 5px;"><strong>Action:</strong><br><strong style="color: #1e3a8a;">[Download Filtered Excel]</strong></td>
+      </tr>
+    </table>
+  </div>
+
+  <h2>9.2 Specialized Excel Export Profiles</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Export Profile</th>
+        <th>Target Recipient</th>
+        <th>Column Structure</th>
+        <th>Operational Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>OMR Scanner Master Export</strong></td>
+        <td>OMR Evaluation Team</td>
+        <td><code>Roll_No | Reg_No | Full_Name | Father_Name | Gender | Class | Center_Code | Room_No | Bench_No | School_Name</code></td>
+        <td>Strictly formatted column mapping for high-speed optical mark recognition scanner software.</td>
+      </tr>
+      <tr>
+        <td><strong>Mandal Coordinator Outreach Sheet</strong></td>
+        <td>Regional Coordinators</td>
+        <td><code>District | Mandal | School_Name | Category | Completed_Count | Pending_Count | HM_Name | HM_Mobile_Number</code></td>
+        <td>Highlights lagging schools (<5 count) for field visits and immediate telephone follow-up.</td>
+      </tr>
+      <tr>
+        <td><strong>Incomplete Draft Recovery Sheet</strong></td>
+        <td>Field Volunteer Team</td>
+        <td><code>Aadhaar_Last4 | WhatsApp_Number | Full_Name | District | Mandal | Last_Completed_Block | Started_At</code></td>
+        <td>Allows coordinators to send recovery prompts to students who abandoned their application.</td>
+      </tr>
+      <tr>
+        <td><strong>Vocational & Skills Alignment Report</strong></td>
+        <td>APSSDC / PMKVY Liaison</td>
+        <td><code>Mandal | School | Class | Future_Stream | Vocational_Trade_Choice | Student_Count</code></td>
+        <td>Aggregates student interest in Electrical, Plumbing, Carpentry, and Painting for skill initiatives.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Vadaanya Foundation · Technical Lead: Himanshu Shetty</span>
+    <span>Page 13</span>
+  </div>
+</div>
+
+<!-- PAGE 14: DATABASE SCHEMA PART 1 -->
+<div class="page-break">
+  <div class="page-header">
+    <span>Vadaanya Talent Test 2026 · System Architecture & Implementation Guide</span>
+    <span>v2.0.0</span>
+  </div>
+
+  <h1>10. Database Architecture & Complete Prisma Schema</h1>
+  <p>The relational schema in PostgreSQL uses Prisma ORM to support draft saving (<code>PENDING</code> vs <code>COMPLETED</code>), field-level encryption, atomic district seat counters, and click-to-call phone tracking.</p>
+
+  <div style="display: flex; gap: 10px;">
+    <div style="flex: 1;">
+      <pre><code>datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum RegistrationStatus {
+  PENDING    // Incomplete draft
+  COMPLETED  // Confirmed; counts to cap
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum Standard {
+  CLASS_9
+  CLASS_10
+}
+
+enum DistrictName {
+  ANANTAPUR
+  SRI_SATHYA_SAI
+}
+
+enum VocationalChoice {
+  ELECTRICAL
+  PAINTING
+  PLUMBING
+  CARPENTRY
+  NOT_INTERESTED
+}
+
+model District {
+  id              String       @id @default(cuid())
+  name            DistrictName @unique
+  quotaMax        Int          @default(4000)
+  registeredCount Int          @default(0)
+  mandals         Mandal[]
+  students        Student[]
+  createdAt       DateTime     @default(now())
+}</code></pre>
+    </div>
+    <div style="flex: 1;">
+      <pre><code>model Mandal {
+  id         String       @id @default(cuid())
+  name       String
+  districtId String
+  district   District     @relation(fields: [districtId], references: [id])
+  schools    School[]
+  students   Student[]
+  centers    ExamCenter[]
+
+  @@unique([name, districtId])
+}
+
+model School {
+  id           String      @id @default(cuid())
+  udiseCode    String?     @unique
+  name         String
+  category     String      // Govt, Model, ZPHS, KGBV
+  mandalId     String
+  mandal       Mandal      @relation(fields: [mandalId], references: [id])
+  contactName  String?     // Headmaster / Math Teacher
+  contactPhone String?     // Click-to-call number
+  students     Student[]
+  createdAt    DateTime    @default(now())
+
+  @@index([mandalId])
+}
+
+model ExamCenter {
+  id            String       @id @default(cuid())
+  centerCode    String       @unique
+  name          String
+  address       String
+  mapsUrl       String?
+  mandalId      String
+  mandal        Mandal       @relation(fields: [mandalId], references: [id])
+  capacity      Int
+  genderAllowed Gender?      // NULL = Co-ed
+  hallTickets   HallTicket[]
+}</code></pre>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Vadaanya Foundation · Technical Lead: Himanshu Shetty</span>
+    <span>Page 14</span>
+  </div>
+</div>
+
+<!-- PAGE 15: DATABASE SCHEMA PART 2 -->
+<div class="page-break">
+  <div class="page-header">
+    <span>Vadaanya Talent Test 2026 · System Architecture & Implementation Guide</span>
+    <span>v2.0.0</span>
+  </div>
+
+  <h2>10.1 Student, HallTicket & AuditLog Models</h2>
+  <div style="display: flex; gap: 10px;">
+    <div style="flex: 1.1;">
+      <pre><code>model Student {
+  id                 String             @id @default(cuid())
+  registrationStatus RegistrationStatus @default(PENDING)
+  currentStep        Int                @default(1)
+  registrationNumber String?            @unique // V26-ATP-B0016
+  
+  // Encrypted Security Fields
+  aadhaarHash        String             @unique // HMAC blind index
+  aadhaarEncrypted   String                     // AES-256-GCM via KMS
+  aadhaarLast4       String                     // Masked string (5678)
+  whatsappNumber     String                     // Shared (1:N)
+  
+  // Block 1: Personal Details (nullable until entered)
+  fullName           String?
+  relativeName       String?
+  gender             Gender?
+  standard           Standard?
+  
+  // Block 2: Location Details (nullable until entered)
+  districtId         String?
+  district           District?          @relation(fields: [districtId], references: [id])
+  mandalId           String?
+  mandal             Mandal?            @relation(fields: [mandalId], references: [id])
+  village            String?
+  schoolId           String?
+  school             School?            @relation(fields: [schoolId], references: [id])
+  
+  // Block 3: Aspirations & Skills
+  futureStream       String?
+  vocationalInterest VocationalChoice?
+  
+  hallTicket         HallTicket?
+  completedAt        DateTime?
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+
+  @@index([districtId, registrationStatus])
+  @@index([schoolId])
+  @@index([whatsappNumber])
+}</code></pre>
+    </div>
+    <div style="flex: 0.9;">
+      <pre><code>model HallTicket {
+  id            String      @id @default(cuid())
+  ticketNumber  String      @unique // HT-2026-90412
+  studentId     String      @unique
+  student       Student     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  centerId      String
+  center        ExamCenter  @relation(fields: [centerId], references: [id])
+  roomNumber    String?
+  benchNumber   String?
+  isDownloaded  Boolean     @default(false)
+  downloadedAt  DateTime?
+  downloadCount Int         @default(0)
+  createdAt     DateTime    @default(now())
+
+  @@index([centerId])
+}
+
+model AdminAuditLog {
+  id        String   @id @default(cuid())
+  actor     String   // Admin email
+  action    String   // EXPORT_EXCEL, CAP_TOGGLED
+  details   String?
+  ipAddress String?
+  createdAt DateTime @default(now())
+}</code></pre>
+      <div class="callout callout-green" style="margin-top: 4mm;">
+        <strong>Design Note on Uniqueness:</strong> Notice that <code>whatsappNumber</code> is indexed but <em>not unique</em>. <code>aadhaarHash</code> is strictly unique. This allows teachers to register 35 students while preventing duplicate registrations.
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Vadaanya Foundation · Technical Lead: Himanshu Shetty</span>
+    <span>Page 15</span>
+  </div>
+</div>
+
+<!-- PAGE 16: OPERATIONAL EDGE CASES -->
+<div class="page-break">
+  <div class="page-header">
+    <span>Vadaanya Talent Test 2026 · System Architecture & Implementation Guide</span>
+    <span>v2.0.0</span>
+  </div>
+
+  <h1>11. Operational Edge Cases & Mitigations</h1>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th style="width: 5%;">#</th>
+        <th style="width: 25%;">Operational Situation</th>
+        <th style="width: 35%;">Failure Without Architectural Plan</th>
+        <th style="width: 35%;">Vadaanya 2026 System Mitigation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td><strong>Power cut or network drop midway through form</strong></td>
+        <td>Typed details are lost; rural student or teacher abandons application.</td>
+        <td><strong>Database-Backed Drafts:</strong> As each block finishes, data is committed to PostgreSQL under <code>PENDING</code>. Re-entering Aadhaar restores all fields instantly.</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><strong>Teacher registers 35 students using one phone</strong></td>
+        <td>Phone number collision blocks student entry.</td>
+        <td>Phone number is strictly a delivery channel; Aadhaar is the unique key. "Quick Add" keeps school and mandal selections intact.</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><strong>Student attempts duplicate registration</strong></td>
+        <td>Duplicate records pollute database and steal quota seats.</td>
+        <td><strong>Step 0 Gate Check:</strong> System checks <code>aadhaarHash</code> immediately and displays: <em>"You have already registered. Reg No: V26-ATP-B0016"</em>.</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><strong>50 simultaneous submissions at 3,995 district count</strong></td>
+        <td>Quota overshoots 4,000 due to race conditions.</td>
+        <td>Redis atomic counter + single-statement SQL conditional update: <code>UPDATE ... WHERE registered_count &lt; 4000</code>. Request #4,001 receives HTTP 409.</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td><strong>Student misplaces Hall Ticket on exam morning</strong></td>
+        <td>Student is turned away at the exam hall gate.</td>
+        <td><strong>Invigilator Spot-Verification Tool:</strong> Center headmaster searches student name or school on <code>admin.vadaanya.org</code> to confirm roll number and seat.</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td><strong>Student forgets Registration Number</strong></td>
+        <td>Cannot download Hall Ticket.</td>
+        <td><strong>Dual-Key Recovery:</strong> Download portal accepts <code>Aadhaar Number + Mobile Number</code> as an alternate lookup.</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td><strong>Schools with low sign-ups (<5 by Nov 10)</strong></td>
+        <td>Unequal participation across mandals.</td>
+        <td>Automated red flag on admin analytics; coordinators tap <strong>Click-to-Call</strong> to contact headmasters directly.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Vadaanya Foundation · Technical Lead: Himanshu Shetty</span>
+    <span>Page 16</span>
+  </div>
+</div>
+
+<!-- PAGE 17: BUILD ROADMAP & APPENDIX -->
+<div class="page-break">
+  <div class="page-header">
+    <span>Vadaanya Talent Test 2026 · System Architecture & Implementation Guide</span>
+    <span>v2.0.0</span>
+  </div>
+
+  <h1>12. Build Roadmap & Engineering Checklist (Oct 4 – Oct 16)</h1>
+  <p>Four engineering phases take the platform from database provisioning to full production readiness by October 16, well ahead of the November 1 registration launch.</p>
+
+  <div class="diagram-container">
+    <div class="flow-row">
+      <div class="flow-box box-blue">
+        <strong>Phase 1: Reg Engine</strong><br>
+        Target: Oct 7<br>
+        <small>Step 0, DB Drafts, KMS</small>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-box box-amber">
+        <strong>Phase 2: Hall Tickets</strong><br>
+        Target: Oct 11<br>
+        <small>PDF Engine, Batch Download</small>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-box box-purple">
+        <strong>Phase 3: Analytics</strong><br>
+        Target: Oct 14<br>
+        <small>KPIs, Click-to-Call, Excel</small>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-box box-green">
+        <strong>Phase 4: Go-Live</strong><br>
+        Target: Oct 16<br>
+        <small>Load Testing & Staging Sign-Off</small>
+      </div>
+    </div>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Build Phase & Target Date</th>
+        <th>Engineering Checklist Items</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Phase 1: Secure Reg Engine</strong><br><small>Target: Oct 7, 2026</small></td>
+        <td>
+          &bull; Provision PostgreSQL with Prisma schema (<code>PENDING</code> vs <code>COMPLETED</code>).<br>
+          &bull; Configure KMS Customer-Managed Key for AES-256-GCM encryption & HMAC blind index.<br>
+          &bull; Implement Step 0 entry gate (Aadhaar & Mobile check, duplicate detection, draft resume).<br>
+          &bull; Build progressive 3-block form with asynchronous DB auto-saving (<code>PATCH /api/registration/draft</code>).<br>
+          &bull; Implement atomic 4,000-per-district quota enforcement with atomic SQL increment.<br>
+          &bull; Implement simplified registration number format: <code>V26-[DIST]-[BATCH][SEQ]</code>.<br>
+          &bull; Configure one-way WhatsApp & SMS confirmation dispatcher.
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Phase 2: Hall Tickets</strong><br><small>Target: Oct 11, 2026</small></td>
+        <td>
+          &bull; Design bilingual (Telugu & English) A4 Hall Ticket layout with QR code.<br>
+          &bull; Build serverless dynamic PDF generation engine.<br>
+          &bull; Build individual student credential retrieval portal (<code>/talent-test/hall-ticket</code>).<br>
+          &bull; Build Headmaster "School Batch Concatenated PDF" download portal.<br>
+          &bull; Implement download tracking telemetry (<code>isDownloaded</code>, <code>downloadedAt</code>).
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Phase 3: Analytics & Reports</strong><br><small>Target: Oct 14, 2026</small></td>
+        <td>
+          &bull; Configure <code>admin.vadaanya.org</code> subdomain with role-based access control.<br>
+          &bull; Build real-time analytics dashboard: district progress bars, funnel drop-off tracker, and pending drafts counter.<br>
+          &bull; Build low-registration visual alerting for schools with fewer than 5 students.<br>
+          &bull; Implement click-to-call (<code>tel:+91...</code>) links for all school Headmasters.<br>
+          &bull; Build Advanced Report Export engine (.xlsx) for OMR scanners and field outreach lists.
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Phase 4: Hardening & Go-Live</strong><br><small>Target: Oct 16, 2026</small></td>
+        <td>
+          &bull; High-concurrency load testing (simulating 500 concurrent submissions).<br>
+          &bull; Automated security verification: confirm zero plain-text Aadhaar leaks in network logs or error traces.<br>
+          &bull; End-to-end rehearsal with the 50-member ground volunteer leads.<br>
+          &bull; Final sign-off for public portal launch on <strong>November 1, 2026</strong>.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Vadaanya Foundation · Technical Lead: Himanshu Shetty</span>
+    <span>Page 17</span>
+  </div>
+</div>
+
+</body>
+</html>
+"""
+
+docs_dir = r"c:\Users\himan\Desktop\Vadaanya\docs"
+html_path = os.path.join(docs_dir, "guide_v2.html")
+pdf_path = os.path.join(docs_dir, "Vadaanya_Talent_Test_2026_System_Architecture_Guide.pdf")
+
+with open(html_path, "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print(f"HTML written to {html_path}")
+
+edge_path = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+if not os.path.exists(edge_path):
+    edge_path = r"C:\Program Files\Microsoft\Edge\Application\msedge.exe"
+
+args = [
+    edge_path,
+    "--headless",
+    "--disable-gpu",
+    "--no-pdf-header-footer",
+    f"--print-to-pdf={pdf_path}",
+    f"file:///{html_path.replace(os.sep, '/')}"
+]
+
+print("Running Edge headless PDF generation...")
+result = subprocess.run(args, capture_output=True, text=True)
+print(f"Exit code: {result.returncode}")
+if os.path.exists(pdf_path):
+    size = os.path.getsize(pdf_path)
+    print(f"SUCCESS: PDF generated at {pdf_path} ({size} bytes)")
+else:
+    print(f"FAILED: PDF not found. Stderr: {result.stderr}")

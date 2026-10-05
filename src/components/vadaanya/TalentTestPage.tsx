@@ -224,10 +224,26 @@ export default function TalentTestPage({
   const [carouselPaused, setCarouselPaused] = useState(false);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
-  const announcementsList =
+  const registrationAnnouncement: TalentTestAnnouncement = {
+    title: "Registration for Vadaanya Talent Test 2026 is Open",
+    desc: "Class 9 & 10 students across Anantapur & Sri Sathya Sai districts can now register online. 100% Free Entry.",
+    actionLabel: "Register Now →",
+    actionType: "link",
+    href: "/talent-test2026",
+    date: "05 OCT 2026",
+  };
+
+  const rawAnnouncements =
     talentTestData?.announcements && talentTestData.announcements.length > 0
       ? talentTestData.announcements
       : fallbackTalentTestAnnouncements;
+
+  const announcementsList = [
+    registrationAnnouncement,
+    ...rawAnnouncements.filter(
+      (item) => !item.title.toLowerCase().includes("talent test 2026 is open")
+    ),
+  ];
 
   useEffect(() => {
     const updateVisible = () => {
@@ -477,16 +493,16 @@ export default function TalentTestPage({
                           rel={isExternal ? "noopener noreferrer" : undefined}
                           className="vad-news-card-link"
                         >
-                          <article className="vad-news-card">
+                          <article className={`vad-news-card ${href === "/talent-test2026" ? "vad-news-card--featured" : ""}`}>
                             {/* Card Content */}
                             <div className="vad-news-card__body">
                               <div className="vad-news-card__header">
                                 <span className="vad-news-card__date">
-                                  {dateText}
+                                  {href === "/talent-test2026" ? "NOW OPEN" : dateText}
                                 </span>
-                                <span className="vad-news-card__badge">
-                                  <span className="vad-news-card__red-dot" />
-                                  Update
+                                <span className={`vad-news-card__badge ${href === "/talent-test2026" ? "vad-news-card__badge--open" : ""}`}>
+                                  <span className={href === "/talent-test2026" ? "vad-news-card__green-dot" : "vad-news-card__red-dot"} />
+                                  {href === "/talent-test2026" ? "Now Open" : "Update"}
                                 </span>
                               </div>
                               <h3 className="vad-news-card__title">

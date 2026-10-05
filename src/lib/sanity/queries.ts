@@ -1288,6 +1288,15 @@ export const TALENT_TEST_PAGE_QUERY = defineQuery(`
 
 export const fallbackTalentTestAnnouncements: TalentTestAnnouncement[] = [
   {
+    title: "Registration for Vadaanya Talent Test 2026 is Open",
+    desc: "Class 9 & 10 students across Anantapur & Sri Sathya Sai districts can now register online. 100% Free Entry.",
+    actionLabel: "Register Now →",
+    actionType: "link",
+    href: "/talent-test2026",
+    image: "/events/Digital Teaching at High School/01-1.jpg",
+    date: "05 OCT 2026",
+  },
+  {
     title: "5-Year Solved Booklet (2021–2025)",
     desc: "Official 100-page bilingual question bank & analytical reasoning solutions.",
     actionLabel: "Open PDF ↗",

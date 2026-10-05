@@ -1,0 +1,958 @@
+// ============================================================
+//  VADAANYA TALENT TEST 2026 — REGISTRATION PORTAL STYLES
+// ============================================================
+
+.vad-reg-page {
+  background-color: #f8fafc;
+  min-height: 100vh;
+  padding-bottom: 80px;
+
+  @media (max-width: 640px) {
+    padding-bottom: 120px; // extra space for sticky bottom bar
+  }
+}
+
+// ---- HERO SECTION ----
+.vad-reg-hero {
+  position: relative;
+  background: linear-gradient(135deg, var(--vad-navy-950) 0%, #101a44 60%, #1a2a6a 100%);
+  color: #ffffff;
+  padding: 120px 0 48px;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  &__glow {
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(242, 167, 18, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  &__badge-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(242, 167, 18, 0.15);
+    border: 1px solid rgba(242, 167, 18, 0.35);
+    color: var(--vad-gold-soft);
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 100px;
+
+    &--green {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.35);
+      color: #6ee7b7;
+    }
+  }
+
+  &__title {
+    font-family: var(--vad-font-display);
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 800;
+    line-height: 1.2;
+    color: #ffffff;
+    margin: 0 0 12px;
+
+    span {
+      color: var(--vad-gold);
+    }
+  }
+
+  &__lead {
+    font-size: 15.5px;
+    color: var(--vad-on-navy-muted);
+    max-width: 680px;
+    line-height: 1.6;
+    margin: 0 0 24px;
+
+    @media (max-width: 640px) {
+      font-size: 14px;
+    }
+  }
+
+  // Quota indicators
+  &__quotas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+    max-width: 720px;
+  }
+
+  &__quota-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 12px 16px;
+    backdrop-filter: blur(8px);
+  }
+
+  &__quota-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #cbd5e1;
+    margin-bottom: 6px;
+  }
+
+  &__quota-count {
+    color: var(--vad-gold-soft);
+  }
+
+  &__progress-bar {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  &__progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #10b981, var(--vad-gold));
+    border-radius: 10px;
+    transition: width 0.6s ease;
+  }
+}
+
+// ---- DEMO TESTING TOOLBAR ----
+.vad-reg-toolbar {
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 10px 0;
+  font-size: 12.5px;
+
+  &__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  &__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    color: #475569;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    background: #f1f5f9;
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    &--active {
+      background: rgba(242, 167, 18, 0.15);
+      border-color: var(--vad-gold);
+      color: #92400e;
+    }
+  }
+}
+
+// ---- STEPPER PROGRESS BAR ----
+.vad-stepper {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  padding: 16px 24px;
+  margin: 28px 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+
+  @media (max-width: 640px) {
+    padding: 12px 16px;
+    margin: 16px 0;
+  }
+
+  &__list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    @media (max-width: 768px) {
+      display: none; // hidden on mobile, replaced by mobile compact progress
+    }
+  }
+
+  &__step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    z-index: 2;
+  }
+
+  &__circle {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #f1f5f9;
+    border: 2px solid #cbd5e1;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    transition: all 0.3s ease;
+
+    &.is-active {
+      background: var(--vad-navy-700);
+      border-color: var(--vad-gold);
+      color: #ffffff;
+      box-shadow: 0 0 0 4px rgba(242, 167, 18, 0.2);
+    }
+
+    &.is-completed {
+      background: #10b981;
+      border-color: #10b981;
+      color: #ffffff;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__step-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__step-label {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #334155;
+
+    &.is-active {
+      color: var(--vad-navy-950);
+    }
+  }
+
+  &__divider {
+    flex-grow: 1;
+    height: 2px;
+    background: #e2e8f0;
+    margin: 0 16px;
+
+    &.is-completed {
+      background: #10b981;
+    }
+  }
+
+  // Mobile compact stepper
+  &__mobile {
+    display: none;
+
+    @media (max-width: 768px) {
+      display: block;
+    }
+  }
+
+  &__mobile-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--vad-navy-950);
+    margin-bottom: 8px;
+  }
+
+  &__mobile-bar {
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  &__mobile-fill {
+    height: 100%;
+    background: var(--vad-gold);
+    border-radius: 10px;
+    transition: width 0.3s ease;
+  }
+}
+
+// ---- MAIN FORM CARD & LAYOUT ----
+.vad-form-card {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 8px 30px rgba(10, 25, 70, 0.05);
+  padding: 36px 40px;
+  position: relative;
+
+  @media (max-width: 640px) {
+    padding: 22px 18px;
+    border-radius: 16px;
+  }
+
+  &__header {
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  &__title {
+    font-family: var(--vad-font-display);
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--vad-navy-950);
+    margin: 0 0 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    @media (max-width: 640px) {
+      font-size: 19px;
+    }
+  }
+
+  &__subtitle {
+    font-size: 14px;
+    color: #64748b;
+    margin: 0;
+  }
+
+  &__autosave {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11.5px;
+    color: #059669;
+    font-weight: 600;
+    background: rgba(16, 185, 129, 0.1);
+    padding: 3px 10px;
+    border-radius: 100px;
+    margin-top: 8px;
+  }
+}
+
+// ---- FORM FIELDS & INPUTS ----
+.vad-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 22px;
+
+  &__label {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--vad-navy-950);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    span.req {
+      color: #ef4444;
+      margin-left: 2px;
+    }
+  }
+
+  &__hint {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 400;
+  }
+
+  &__input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  &__prefix {
+    position: absolute;
+    left: 14px;
+    font-weight: 700;
+    color: #475569;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  &__input,
+  &__select {
+    width: 100%;
+    padding: 13px 16px;
+    font-size: 15px;
+    font-family: var(--vad-font-body);
+    border-radius: 12px;
+    border: 1.5px solid #d1d5db;
+    background: #ffffff;
+    color: var(--vad-ink);
+    outline: none;
+    transition: all 0.2s ease;
+
+    &:focus {
+      border-color: var(--vad-gold);
+      box-shadow: 0 0 0 3px rgba(242, 167, 18, 0.2);
+    }
+
+    &.has-prefix {
+      padding-left: 62px;
+    }
+
+    &.has-error {
+      border-color: #ef4444;
+      background: #fef2f2;
+    }
+  }
+
+  &__error {
+    font-size: 12px;
+    color: #dc2626;
+    font-weight: 600;
+  }
+}
+
+// ---- TACTILE CARD SELECTORS (GENDER, CLASS, STREAM) ----
+.vad-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin-top: 4px;
+
+  &--wide {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
+.vad-choice-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1.5px solid #e2e8f0;
+  background: #fdfdfd;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+
+  &:hover {
+    border-color: #cbd5e1;
+    background: #ffffff;
+    transform: translateY(-1px);
+  }
+
+  &.is-selected {
+    border-color: var(--vad-gold-dark, #d97706);
+    background: rgba(242, 167, 18, 0.05);
+    box-shadow: 0 0 0 2px rgba(242, 167, 18, 0.35);
+
+    .vad-choice-card__title {
+      color: var(--vad-navy-950);
+      font-weight: 800;
+    }
+
+    .vad-choice-card__indicator {
+      border-color: var(--vad-gold-dark, #d97706);
+      background: var(--vad-gold);
+      &::after {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #ffffff;
+      }
+    }
+  }
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+
+  &__indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  &__title {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+  }
+
+  &__desc {
+    font-size: 12px;
+    color: #64748b;
+    line-height: 1.4;
+    margin: 4px 0 0;
+  }
+}
+
+// ---- VERIFICATION GATE CARD (STEP 0) ----
+.vad-gate-box {
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+
+  &__icon {
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+
+  &__text {
+    font-size: 13px;
+    color: #475569;
+    line-height: 1.5;
+
+    strong {
+      color: var(--vad-navy-950);
+    }
+  }
+}
+
+// ---- ALREADY REGISTERED STATUS BOX ----
+.vad-already-registered {
+  background: linear-gradient(135deg, rgba(239, 246, 255, 0.9) 0%, rgba(240, 253, 250, 0.9) 100%);
+  border: 1.5px solid #93c5fd;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    font-weight: 800;
+    color: #1e3a8a;
+    margin: 0 0 10px;
+  }
+
+  &__reg-no {
+    font-size: 20px;
+    font-family: monospace;
+    font-weight: 800;
+    color: #1d4ed8;
+    background: #ffffff;
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: 1px solid #bfdbfe;
+    display: inline-block;
+    letter-spacing: 0.05em;
+    margin: 8px 0 14px;
+  }
+
+  &__details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    font-size: 13.5px;
+    color: #334155;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 14px;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 16px;
+  }
+}
+
+// ---- BUTTONS & ACTIONS ----
+.vad-form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #f1f5f9;
+
+  @media (max-width: 640px) {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    padding: 12px 18px;
+    margin: 0;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+    z-index: 100;
+    border-top: 1px solid #e2e8f0;
+  }
+}
+
+.vad-btn-step {
+  padding: 13px 26px;
+  font-size: 14.5px;
+  font-weight: 700;
+  border-radius: 100px;
+  cursor: pointer;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+
+  @media (max-width: 640px) {
+    padding: 12px 20px;
+    font-size: 13.5px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  &--primary {
+    background: var(--vad-gold);
+    color: var(--vad-navy-950);
+    box-shadow: 0 4px 14px rgba(242, 167, 18, 0.35);
+
+    &:hover {
+      background: var(--vad-gold-soft);
+      transform: translateY(-1px);
+    }
+  }
+
+  &--secondary {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+
+    &:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+  }
+}
+
+// ---- SUCCESS / CONFIRMATION SCREEN ----
+.vad-success-view {
+  text-align: center;
+  padding: 20px 0;
+
+  &__icon-ring {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #dcfce7;
+    color: #15803d;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    animation: vadPopIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  &__title {
+    font-family: var(--vad-font-display);
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--vad-navy-950);
+    margin: 0 0 8px;
+
+    @media (max-width: 640px) {
+      font-size: 23px;
+    }
+  }
+
+  &__subtitle {
+    font-size: 15px;
+    color: #475569;
+    max-width: 580px;
+    margin: 0 auto 28px;
+  }
+}
+
+// ---- DIGITAL ACKNOWLEDGMENT SLIP (PRINTABLE) ----
+.vad-receipt-card {
+  max-width: 620px;
+  margin: 0 auto 32px;
+  background: #ffffff;
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  text-align: left;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  position: relative;
+
+  &__header {
+    background: linear-gradient(135deg, var(--vad-navy-950) 0%, #162c6c 100%);
+    color: #ffffff;
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__brand {
+    font-family: var(--vad-font-display);
+    font-weight: 800;
+    font-size: 17px;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+
+    span {
+      color: var(--vad-gold);
+    }
+  }
+
+  &__seal {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: rgba(242, 167, 18, 0.2);
+    border: 1px solid rgba(242, 167, 18, 0.4);
+    color: var(--vad-gold-soft);
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  &__reg-banner {
+    background: rgba(242, 167, 18, 0.12);
+    border-bottom: 1px solid rgba(242, 167, 18, 0.25);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &__reg-code {
+    font-family: monospace;
+    font-size: 22px;
+    font-weight: 800;
+    color: #92400e;
+    letter-spacing: 0.05em;
+  }
+
+  &__body {
+    padding: 24px;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+
+    tr {
+      border-bottom: 1px solid #f1f5f9;
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    th {
+      padding: 10px 0;
+      color: #64748b;
+      font-weight: 600;
+      width: 40%;
+    }
+
+    td {
+      padding: 10px 0;
+      color: var(--vad-navy-950);
+      font-weight: 700;
+      text-align: right;
+    }
+  }
+
+  &__footer {
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    padding: 14px 24px;
+    font-size: 12px;
+    color: #64748b;
+    line-height: 1.5;
+  }
+}
+
+// Simulated WhatsApp Message box
+.vad-wa-preview {
+  max-width: 620px;
+  margin: 0 auto 28px;
+  background: #efeae2;
+  border-radius: 12px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border: 1px solid #d1d5db;
+  text-align: left;
+
+  &__icon {
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+
+  &__bubble {
+    background: #ffffff;
+    border-radius: 0 10px 10px 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    line-height: 1.45;
+    color: #111827;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+
+    strong {
+      color: #075e54;
+    }
+  }
+}
+
+// Hall ticket alert box
+.vad-notice-box {
+  max-width: 620px;
+  margin: 0 auto 32px;
+  background: #fffbeb;
+  border: 1.5px solid #fde68a;
+  border-radius: 12px;
+  padding: 16px 20px;
+  text-align: left;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+
+  &__icon {
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  &__text {
+    font-size: 13.5px;
+    color: #92400e;
+    line-height: 1.5;
+
+    strong {
+      color: #78350f;
+    }
+  }
+}
+
+// Success action buttons
+.vad-success-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+// ---- KEYFRAME ANIMATIONS ----
+@keyframes vadPopIn {
+  0% { transform: scale(0.6); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes vadPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+// ---- PRINT STYLES FOR ADMISSION RECEIPT ----
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  header,
+  footer,
+  .vad-nav,
+  .vad-footer,
+  .vad-reg-hero,
+  .vad-reg-toolbar,
+  .vad-stepper,
+  .vad-success-actions,
+  .vad-wa-preview,
+  .vad-notice-box,
+  .vad-success-view__icon-ring,
+  .vad-success-view__title,
+  .vad-success-view__subtitle {
+    display: none !important;
+  }
+
+  .vad-reg-page {
+    padding: 0 !important;
+    background: #ffffff !important;
+  }
+
+  .vad-receipt-card {
+    max-width: 100% !important;
+    box-shadow: none !important;
+    border: 2px solid #000000 !important;
+    margin: 0 !important;
+  }
+
+  .vad-receipt-card__header {
+    background: #000000 !important;
+    color: #ffffff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .vad-receipt-card__reg-banner {
+    background: #f1f5f9 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
