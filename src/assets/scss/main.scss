@@ -51,3 +51,6 @@
 @forward 'layout/checkout';
 @forward 'layout/footer';
 
+// Admin Command Center styles forwarded last so they have full precedence
+@forward 'layout/admin-dashboard';
+
