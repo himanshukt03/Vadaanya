@@ -121,13 +121,13 @@
   background: #ffffff;
   border-radius: 12px;
   border: 1px solid #e2e8f0;
-  padding: 14px 24px;
-  margin: 22px 0 18px;
+  padding: 10px 20px;
+  margin: 16px 0 14px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
 
   @media (max-width: 640px) {
-    padding: 10px 14px;
-    margin: 14px 0 12px;
+    padding: 8px 12px;
+    margin: 12px 0 10px;
   }
 
   &__list {
@@ -146,14 +146,14 @@
   &__step {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     position: relative;
     z-index: 2;
   }
 
   &__circle {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     background: #f1f5f9;
     border: 2px solid #cbd5e1;
@@ -162,7 +162,7 @@
     align-items: center;
     justify-content: center;
     font-weight: 700;
-    font-size: 13.5px;
+    font-size: 12.5px;
     transition: all 0.25s ease;
 
     &.is-active {
@@ -250,37 +250,37 @@
 // ---- MAIN FORM CARD & LAYOUT ----
 .vad-form-card {
   background: #ffffff;
-  border-radius: 16px;
+  border-radius: 14px;
   border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 20px rgba(10, 25, 70, 0.04);
-  padding: 30px 36px;
+  box-shadow: 0 4px 16px rgba(10, 25, 70, 0.03);
+  padding: 20px 28px;
   position: relative;
 
   @media (max-width: 640px) {
-    padding: 20px 16px;
-    border-radius: 14px;
+    padding: 16px 14px;
+    border-radius: 12px;
   }
 
   &__header {
-    margin-bottom: 22px;
-    padding-bottom: 14px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
     border-bottom: 1px solid #f1f5f9;
   }
 
   &__title {
     font-family: var(--vad-font-display);
-    font-size: 20px;
+    font-size: 18.5px;
     font-weight: 800;
     color: var(--vad-navy-950);
-    margin: 0 0 4px;
+    margin: 0 0 2px;
 
     @media (max-width: 640px) {
-      font-size: 18px;
+      font-size: 17px;
     }
   }
 
   &__subtitle {
-    font-size: 13.5px;
+    font-size: 12.5px;
     color: #64748b;
     margin: 0;
   }
@@ -295,22 +295,22 @@
   &__autosave {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    font-size: 11.5px;
+    gap: 5px;
+    font-size: 11px;
     color: #15803d;
     font-weight: 700;
     background: #f0fdf4;
     border: 1px solid #bbf7d0;
-    padding: 3px 10px;
+    padding: 2px 9px;
     border-radius: 100px;
     white-space: nowrap;
     flex-shrink: 0;
-    margin-top: 2px;
+    margin-top: 1px;
   }
 
   &__autosave-dot {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background: #16a34a;
     display: inline-block;
@@ -321,31 +321,31 @@
 .vad-verified-banner {
   background: #f8fafc;
   border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  padding: 10px 16px;
-  margin-bottom: 22px;
+  border-radius: 8px;
+  padding: 7px 14px;
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
 
   @media (max-width: 640px) {
-    padding: 10px 12px;
-    margin-bottom: 18px;
-    gap: 8px;
+    padding: 7px 10px;
+    margin-bottom: 10px;
+    gap: 6px;
   }
 
   &__content {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     flex-wrap: wrap;
-    font-size: 13px;
+    font-size: 12.5px;
     color: #334155;
 
     @media (max-width: 640px) {
-      font-size: 12px;
-      gap: 6px 10px;
+      font-size: 11.5px;
+      gap: 4px 8px;
     }
   }
 
@@ -379,11 +379,11 @@
   &__btn {
     background: #ffffff;
     border: 1px solid #cbd5e1;
-    border-radius: 6px;
+    border-radius: 5px;
     color: var(--vad-navy-700);
-    font-size: 12px;
+    font-size: 11.5px;
     font-weight: 700;
-    padding: 5px 12px;
+    padding: 3px 10px;
     cursor: pointer;
     white-space: nowrap;
     flex-shrink: 0;
@@ -397,8 +397,8 @@
     }
 
     @media (max-width: 640px) {
-      padding: 4px 10px;
-      font-size: 11.5px;
+      padding: 3px 8px;
+      font-size: 11px;
     }
   }
 }
@@ -407,16 +407,17 @@
 .vad-field-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin-bottom: 18px;
+  gap: 4px;
+  margin-bottom: 12px;
 
   &__label {
-    font-size: 13px;
+    font-size: 12.5px;
     font-weight: 700;
     color: var(--vad-navy-950);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 1px;
 
     span.req {
       color: #ef4444;
@@ -425,7 +426,7 @@
   }
 
   &__hint {
-    font-size: 11.5px;
+    font-size: 11px;
     color: #64748b;
     font-weight: 400;
   }
@@ -441,7 +442,7 @@
     left: 12px;
     font-weight: 700;
     color: #475569;
-    font-size: 13.5px;
+    font-size: 13px;
     pointer-events: none;
     z-index: 2;
   }
@@ -449,11 +450,11 @@
   &__input,
   &__select {
     width: 100%;
-    height: 44px;
-    padding: 0 14px;
-    font-size: 14.5px;
+    height: 40px;
+    padding: 0 12px;
+    font-size: 13.5px;
     font-family: var(--vad-font-body);
-    border-radius: 8px;
+    border-radius: 7px;
     border: 1px solid #cbd5e1;
     background: #ffffff;
     color: var(--vad-navy-950, #0a1946);
@@ -480,7 +481,7 @@
     }
 
     &.has-prefix {
-      padding-left: 54px;
+      padding-left: 50px;
     }
 
     &.has-error {
@@ -493,9 +494,9 @@
     appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 14px center;
-    background-size: 16px;
-    padding-right: 40px;
+    background-position: right 12px center;
+    background-size: 15px;
+    padding-right: 36px;
     cursor: pointer;
 
     option[value=""] {
@@ -508,7 +509,7 @@
   }
 
   &__error {
-    font-size: 11.5px;
+    font-size: 11px;
     color: #dc2626;
     font-weight: 600;
   }
@@ -518,7 +519,7 @@
 .vad-form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 18px;
+  gap: 14px;
 
   @media (max-width: 640px) {
     grid-template-columns: 1fr;
@@ -531,26 +532,29 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 28px;
-  padding: 8px 0;
+  gap: 20px;
+  padding: 2px 0;
+  min-height: 38px;
 
   @media (max-width: 640px) {
-    gap: 18px;
+    gap: 16px;
+    min-height: auto;
+    padding: 3px 0;
   }
 }
 
 .vad-radio-label {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 7px;
   cursor: pointer;
-  font-size: 14.5px;
+  font-size: 13.5px;
   font-weight: 500;
   color: #334155;
   user-select: none;
   background: transparent;
   border: none;
-  padding: 4px 0;
+  padding: 2px 0;
   margin: 0;
   position: relative;
 
@@ -586,12 +590,12 @@
 }
 
 .vad-radio-circle {
-  width: 18px !important;
-  height: 18px !important;
-  min-width: 18px !important;
-  min-height: 18px !important;
-  max-width: 18px !important;
-  max-height: 18px !important;
+  width: 17px !important;
+  height: 17px !important;
+  min-width: 17px !important;
+  min-height: 17px !important;
+  max-width: 17px !important;
+  max-height: 17px !important;
   padding: 0 !important;
   margin: 0 !important;
   box-sizing: border-box !important;
@@ -606,12 +610,12 @@
 
   &::after {
     content: "" !important;
-    width: 8px !important;
-    height: 8px !important;
-    min-width: 8px !important;
-    min-height: 8px !important;
-    max-width: 8px !important;
-    max-height: 8px !important;
+    width: 7px !important;
+    height: 7px !important;
+    min-width: 7px !important;
+    min-height: 7px !important;
+    max-width: 7px !important;
+    max-height: 7px !important;
     padding: 0 !important;
     box-sizing: border-box !important;
     border-radius: 50% !important;
@@ -638,20 +642,20 @@
 .vad-already-registered {
   background: #f0fdf4;
   border: 1.5px solid #86efac;
-  border-radius: 12px;
-  padding: 22px 24px;
-  margin-bottom: 12px;
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 10px;
 
   &__header-wrap {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 6px;
+    gap: 8px;
+    margin-bottom: 4px;
   }
 
   &__icon {
-    width: 26px;
-    height: 26px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     background: #dcfce7;
     color: #16a34a;
@@ -662,78 +666,78 @@
   }
 
   &__title {
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 800;
     color: #166534;
     margin: 0;
   }
 
   &__desc {
-    margin: 0 0 16px;
-    font-size: 13.5px;
+    margin: 0 0 12px;
+    font-size: 13px;
     color: #166534;
-    line-height: 1.5;
+    line-height: 1.45;
   }
 
   &__meta-card {
     background: #ffffff;
     border: 1px solid #bbf7d0;
-    border-radius: 8px;
-    padding: 14px 18px;
-    margin-bottom: 18px;
+    border-radius: 7px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 14px;
+    gap: 10px;
   }
 
   &__reg-label {
-    font-size: 11px;
+    font-size: 10.5px;
     text-transform: uppercase;
     font-weight: 700;
     color: #64748b;
     letter-spacing: 0.05em;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
   }
 
   &__reg-no {
-    font-size: 19px;
+    font-size: 17px;
     font-family: monospace;
     font-weight: 800;
     color: #15803d;
     background: #f0fdf4;
-    padding: 4px 12px;
-    border-radius: 6px;
+    padding: 3px 10px;
+    border-radius: 5px;
     border: 1px solid #86efac;
     display: inline-block;
   }
 
   &__student-label {
-    font-size: 11px;
+    font-size: 10.5px;
     text-transform: uppercase;
     font-weight: 700;
     color: #64748b;
     letter-spacing: 0.05em;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
   }
 
   &__student-name {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 800;
     color: var(--vad-navy-950, #0a1030);
   }
 
   &__actions {
     display: flex;
-    gap: 12px;
+    gap: 10px;
     flex-wrap: wrap;
     align-items: center;
 
     .vad-btn-step {
-      height: 40px;
-      padding: 0 20px;
-      font-size: 13.5px;
+      height: 38px;
+      padding: 0 18px;
+      font-size: 13px;
     }
   }
 }
@@ -743,24 +747,24 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  margin-top: 24px;
-  padding-top: 18px;
+  gap: 10px;
+  margin-top: 12px;
+  padding-top: 12px;
   border-top: 1px solid #f1f5f9;
 
   @media (max-width: 640px) {
-    margin-top: 20px;
-    padding-top: 16px;
-    gap: 10px;
+    margin-top: 10px;
+    padding-top: 10px;
+    gap: 8px;
   }
 }
 
 .vad-btn-step {
-  height: 44px;
-  padding: 0 26px;
-  font-size: 14px;
+  height: 38px;
+  padding: 0 20px;
+  font-size: 13.5px;
   font-weight: 700;
-  border-radius: 8px;
+  border-radius: 7px;
   cursor: pointer;
   border: none;
   display: inline-flex;
@@ -1041,8 +1045,8 @@
 // Discreet Test Helper link (no loud banner)
 .vad-reg-test-helper {
   text-align: center;
-  margin-top: 16px;
-  font-size: 12px;
+  margin-top: 8px;
+  font-size: 11px;
   color: #94a3b8;
 
   button {

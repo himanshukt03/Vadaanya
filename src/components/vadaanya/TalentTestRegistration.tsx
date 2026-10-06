@@ -98,13 +98,9 @@ export default function TalentTestRegistration() {
   }, []);
 
   const scrollToTop = () => {
-    if (typeof window !== "undefined") {
-      const topEl = formTopRef.current || document.getElementById("reg-form-top");
-      if (topEl) {
-        topEl.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    }
+    // Scroll behavior disabled to keep page viewport position intact when moving across steps
   };
+
 
   // Helper to format Aadhaar with spaces: "1234 5678 9012"
   const handleAadhaarChange = (val: string) => {
@@ -1027,7 +1023,7 @@ export default function TalentTestRegistration() {
                   </div>
 
                   {/* 2-Column Row for Gender & Class with Clean Circular Radio Buttons */}
-                  <div className="vad-form-row" style={{ marginTop: "4px" }}>
+                  <div className="vad-form-row">
                     {/* Gender */}
                     <div className="vad-field-group">
                       <label className="vad-field-group__label">
@@ -1257,7 +1253,7 @@ export default function TalentTestRegistration() {
                   )}
 
                   {/* Future Stream & Vocational Interest in a 2-Column Row */}
-                  <div className="vad-form-row" style={{ marginTop: "6px" }}>
+                  <div className="vad-form-row">
                     <div className="vad-field-group">
                       <label htmlFor="stream" className="vad-field-group__label">
                         <span>
@@ -1312,7 +1308,7 @@ export default function TalentTestRegistration() {
                   </div>
 
                   {/* Honor Declaration Checkbox */}
-                  <div style={{ marginTop: "14px", padding: "6px 0" }}>
+                  <div style={{ marginTop: "8px", padding: "2px 0" }}>
                     <label style={{ display: "flex", alignItems: "flex-start", gap: "8px", cursor: "pointer" }}>
                       <input
                         type="checkbox"
