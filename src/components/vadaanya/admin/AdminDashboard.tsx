@@ -19,12 +19,33 @@ import { DISTRICTS_DATA } from "@/data/vadaanya/talentTestDistrictsData";
 
 type AdminTab = "overview" | "students" | "schools" | "funnel" | "reports";
 
-export default function AdminDashboard() {
+export interface AdminDashboardProps {
+  adminEmail?: string;
+  role?: string;
+}
+
+export default function AdminDashboard({
+  adminEmail = "admin@vadaanya.org",
+  role = "Super Admin",
+}: AdminDashboardProps) {
   const [activeTab, setActiveTab] = useState<AdminTab>("overview");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isReloading, setIsReloading] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState<RegisteredStudent | null>(null);
+
+  const handleLogout = async () => {
+    if (isLoggingOut) return;
+    setIsLoggingOut(true);
+    try {
+      await fetch("/api/admin/logout", { method: "POST" });
+    } catch (e) {
+      console.error("Logout request failed:", e);
+    } finally {
+      window.location.reload();
+    }
+  };
 
   // Filters for Students Directory
   const [searchQuery, setSearchQuery] = useState("");
@@ -281,7 +302,7 @@ export default function AdminDashboard() {
               setActiveTab("funnel");
               setIsSidebarOpen(false);
             }}
-            title="Completion rate at every step"
+            title="Completion rate"
           >
             <div className="nav-left">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -344,39 +365,34 @@ export default function AdminDashboard() {
           </Link>
         </nav>
 
-        {/* Bottom Sidebar Collapse Toggle */}
+        {/* Bottom Sidebar Collapse Toggle & Logout */}
         <div className="admin-sidebar__footer">
+          <button
+            type="button"
+            className="sidebar-logout-btn"
+            onClick={handleLogout}
+            disabled={isLoggingOut}
+            title={isCollapsed ? "Log Out" : `Log Out (${adminEmail})`}
+            aria-label="Log Out"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+            {!isCollapsed && <span>{isLoggingOut ? "Signing out..." : "Log Out"}</span>}
+          </button>
+
           <button
             type="button"
             className="bottom-collapse-btn"
             onClick={() => setIsCollapsed(!isCollapsed)}
             title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
             aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-            style={{
-              background: "transparent",
-              border: "1px solid #334155",
-              color: "#94a3b8",
-            }}
           >
-            <svg
-              width={16}
-              height={16}
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              style={{
-                width: 16,
-                height: 16,
-                minWidth: 16,
-                minHeight: 16,
-                color: "#94a3b8",
-                flexShrink: 0,
-              }}
-            >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <polyline points={isCollapsed ? "9 18 15 12 9 6" : "15 18 9 12 15 6"} />
             </svg>
-            <span style={{ color: "#94a3b8" }}>{isCollapsed ? "" : "Collapse sidebar"}</span>
           </button>
         </div>
       </aside>
@@ -422,6 +438,20 @@ export default function AdminDashboard() {
           </div>
 
           <div className="admin-header__right">
+            {/* Authenticated Admin Identity Badge */}
+            <div className="admin-badge-pill" title={`Authenticated as ${adminEmail} (${role})`}>
+              <div className="admin-badge-avatar">
+                {adminEmail.charAt(0).toUpperCase()}
+              </div>
+              <div className="admin-badge-info">
+                <span className="admin-badge-email">{adminEmail}</span>
+                <span className="admin-badge-role">
+                  <span className="role-dot" />
+                  {role}
+                </span>
+              </div>
+            </div>
+
             {/* Reload Button */}
             <button
               type="button"
@@ -441,6 +471,23 @@ export default function AdminDashboard() {
                 <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
               </svg>
               <span className="btn-reload__text">{isReloading ? "Reloading..." : "Reload"}</span>
+            </button>
+
+            {/* Topbar Logout Button */}
+            <button
+              type="button"
+              className="btn-logout"
+              onClick={handleLogout}
+              disabled={isLoggingOut}
+              title="Log Out"
+              aria-label="Log Out"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" y1="12" x2="9" y2="12" />
+              </svg>
+              <span className="btn-logout__text">{isLoggingOut ? "Signing out..." : "Log Out"}</span>
             </button>
           </div>
         </header>
@@ -643,7 +690,7 @@ export default function AdminDashboard() {
               <div className="funnel-card">
                 <div className="funnel-card__header">
                   <div className="title-group">
-                    <h3>Completion Rate at Every Step</h3>
+                    <h3>Completion Rate</h3>
                     <p>Real-time completion rate and drop-off metrics across the 4 registration steps</p>
                   </div>
                 </div>
@@ -655,11 +702,15 @@ export default function AdminDashboard() {
                       className={`step-node ${idx === FUNNEL_STEPS.length - 1 ? "completed" : ""}`}
                     >
                       <div className="node-header">
-                        <span className="step-num">Step {idx}: {step.name}</span>
+                        <span className="step-num">
+                          <span className="step-num__desktop">Step {idx}: {step.name}</span>
+                          <span className="step-num__mobile">Step {idx}</span>
+                        </span>
                       </div>
                       <div className="node-count">{step.count.toLocaleString()}</div>
-                      <div className="node-meta" style={{ fontSize: "11px", color: "#64748b", marginTop: "2px" }}>
-                        {step.conversionRate}% completion
+                      <div className="node-meta">
+                        <span className="node-meta__desktop">{step.conversionRate}% completion</span>
+                        <span className="node-meta__mobile">{step.conversionRate}%</span>
                       </div>
                       <div className="node-bar">
                         <div
@@ -678,7 +729,7 @@ export default function AdminDashboard() {
                 <div className="admin-card">
                   <div className="admin-card__header">
                     <div className="title-area">
-                      <h3>Lagging Schools Red Flag Alert</h3>
+                      <h3>Lagging Schools</h3>
                       <p>Schools with &lt;5 registrations requiring follow-up</p>
                     </div>
                     <div className="action-area">
@@ -752,7 +803,7 @@ export default function AdminDashboard() {
                 <div className="admin-card">
                   <div className="admin-card__header">
                     <div className="title-area">
-                      <h3>Vocational Skills & Stream Alignment</h3>
+                      <h3>Vocational Skills</h3>
                       <p>Student interest distribution across technical trades</p>
                     </div>
                     <div className="action-area">
@@ -802,7 +853,7 @@ export default function AdminDashboard() {
                       className="btn-primary"
                       onClick={() => setActiveTab("students")}
                     >
-                      View All 6,032 Students
+                      View All
                     </button>
                   </div>
                 </div>
@@ -1582,7 +1633,7 @@ export default function AdminDashboard() {
               <div className="funnel-card">
                 <div className="funnel-card__header">
                   <div className="title-group">
-                    <h3>Completion Rate at Every Step</h3>
+                    <h3>Completion Rate</h3>
                     <p>Detailed breakdown of completion rates and drop-off points at every registration step</p>
                   </div>
                   <div className="action-area">
@@ -1608,11 +1659,15 @@ export default function AdminDashboard() {
                       className={`step-node ${idx === FUNNEL_STEPS.length - 1 ? "completed" : ""}`}
                     >
                       <div className="node-header">
-                        <span className="step-num">Step {idx}: {step.name}</span>
+                        <span className="step-num">
+                          <span className="step-num__desktop">Step {idx}: {step.name}</span>
+                          <span className="step-num__mobile">Step {idx}</span>
+                        </span>
                       </div>
                       <div className="node-count">{step.count.toLocaleString()}</div>
-                      <div className="node-meta" style={{ fontSize: "11px", color: "#64748b", marginTop: "2px" }}>
-                        {step.conversionRate}% completion
+                      <div className="node-meta">
+                        <span className="node-meta__desktop">{step.conversionRate}% completion</span>
+                        <span className="node-meta__mobile">{step.conversionRate}%</span>
                       </div>
                       <div className="node-bar">
                         <div
