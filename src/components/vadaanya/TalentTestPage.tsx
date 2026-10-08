@@ -218,7 +218,7 @@ export default function TalentTestPage({
     setOpenFaqIndex(openFaqIndex === idx ? null : idx);
   };
 
-  const pdfUrl = "/talent-test/vadaanya-talent-test-booklet.pdf";
+  const pdfUrl = "/talent-test/Vadaanya-talent-test-2021-2025.pdf";
   const [announcementIdx, setAnnouncementIdx] = useState(0);
   const [visibleCards, setVisibleCards] = useState(3);
   const [carouselPaused, setCarouselPaused] = useState(false);
@@ -459,7 +459,14 @@ export default function TalentTestPage({
                   {announcementsList.map((item, idx) => {
                     const imgSrc = getAnnouncementImage(item, idx);
                     const dateText = getAnnouncementDate(item, idx);
-                    const href = item.href || "#booklet";
+                    let href = item.href || "#booklet";
+                    if (
+                      href === "/talent-test/vadaanya-talent-test-booklet.pdf" ||
+                      href === "/talent-test/Vadaanya-Q.Papers(2021-25)_Booklet.pdf" ||
+                      (href.toLowerCase().includes("booklet") && href.toLowerCase().endsWith(".pdf"))
+                    ) {
+                      href = pdfUrl;
+                    }
                     const isExternal = href.startsWith("http") || href.endsWith(".pdf");
 
                     return (
@@ -792,7 +799,7 @@ export default function TalentTestPage({
 
                 <a
                   href={pdfUrl}
-                  download="Vadaanya-TalentTest-5Year-Booklet(2021-2025).pdf"
+                  download="Vadaanya-talent-test-2021-2025.pdf"
                   className="vad-btn vad-btn--navy"
                 >
                   <DownloadIcon />

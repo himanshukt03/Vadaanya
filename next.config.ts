@@ -246,6 +246,16 @@ const nextConfig: NextConfig = {
         destination: "/#donate",
         permanent: true,
       },
+      {
+        source: "/talent-test/vadaanya-talent-test-booklet.pdf",
+        destination: "/talent-test/Vadaanya-talent-test-2021-2025.pdf",
+        permanent: true,
+      },
+      {
+        source: "/talent-test/Vadaanya-Q.Papers(2021-25)_Booklet.pdf",
+        destination: "/talent-test/Vadaanya-talent-test-2021-2025.pdf",
+        permanent: true,
+      },
     ];
   },
 };

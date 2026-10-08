@@ -101,7 +101,7 @@ async function seedTalentTestPage() {
         image: newsImg1 ? imageRef(newsImg1) : undefined,
         actionLabel: "Open PDF ↗",
         actionType: "link",
-        href: "/talent-test/vadaanya-talent-test-booklet.pdf",
+        href: "/talent-test/Vadaanya-talent-test-2021-2025.pdf",
       },
       {
         _key: "announcement-2",

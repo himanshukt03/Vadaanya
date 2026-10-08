@@ -35,7 +35,7 @@ const ExternalLinkIcon = () => (
 export default function TalentTestPdfViewer({
   isOpen,
   onClose,
-  pdfUrl = "/talent-test/vadaanya-talent-test-booklet.pdf",
+  pdfUrl = "/talent-test/Vadaanya-talent-test-2021-2025.pdf",
   title = "Vadaanya Talent Test 5-Year Question Papers & Solutions Booklet (2021–2025)",
 }: TalentTestPdfViewerProps) {
   const [viewerMode, setViewerMode] = useState<"native" | "google">("native");
@@ -105,7 +105,7 @@ export default function TalentTestPdfViewer({
 
             <a
               href={pdfUrl}
-              download="Vadaanya-TalentTest-5Year-Booklet(2021-2025).pdf"
+              download="Vadaanya-talent-test-2021-2025.pdf"
               className="vad-btn vad-btn--gold vad-pdf-modal__btn"
             >
               <DownloadIcon />
@@ -183,7 +183,7 @@ export default function TalentTestPdfViewer({
             </a>
             <a
               href={pdfUrl}
-              download="Vadaanya-TalentTest-5Year-Booklet.pdf"
+              download="Vadaanya-talent-test-2021-2025.pdf"
               className="vad-btn vad-btn--outline"
               style={{ flex: 1, justifyContent: "center", padding: "10px" }}
             >

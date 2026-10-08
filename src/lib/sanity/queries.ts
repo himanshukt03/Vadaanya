@@ -1292,7 +1292,7 @@ export const fallbackTalentTestAnnouncements: TalentTestAnnouncement[] = [
     desc: "Official 100-page bilingual question bank & analytical reasoning solutions.",
     actionLabel: "Open PDF ↗",
     actionType: "link",
-    href: "/talent-test/vadaanya-talent-test-booklet.pdf",
+    href: "/talent-test/Vadaanya-talent-test-2021-2025.pdf",
     image: "/talent-test/talent_test_booklet_image.jpg",
     date: "01 Feb 2025",
   },
