@@ -142,11 +142,11 @@ export default function FoundersPage({ founderProfile, awards }: FoundersPagePro
         </div>
       </section>
 
-      {/* Toggle Navigation Bar (Exact same toggle component and styling as Media page) */}
+      {/* Toggle Navigation Bar (Tap toggle on desktop and mobile) */}
       <section className="vad-section vad-section--paper" style={{ padding: "44px 0 36px", borderBottom: "1px solid rgba(0, 0, 0, 0.05)" }}>
         <div className="vad-container">
-          {/* Pill Tabs Container (Desktop) */}
-          <div className="vad-media-tabs-desktop" style={{ marginBottom: 0 }}>
+          {/* Pill Tabs Container (All Screen Sizes) */}
+          <div style={{ display: "flex", justifyContent: "center" }}>
             <div
               role="tablist"
               aria-label="Founder and Team selection"
@@ -208,33 +208,6 @@ export default function FoundersPage({ founderProfile, awards }: FoundersPagePro
               >
                 Team
               </button>
-            </div>
-          </div>
-
-          {/* Mobile Dropdown Selector (replaces toggle buttons on mobile) */}
-          <div className="vad-media-tabs-mobile" style={{ marginBottom: 0 }}>
-            <div className="vad-media-select-wrap">
-              <label
-                htmlFor="vad-team-category-select"
-                className="sr-only"
-                style={{ position: "absolute", width: 1, height: 1, overflow: "hidden" }}
-              >
-                Select Category
-              </label>
-              <select
-                id="vad-team-category-select"
-                value={activeTab}
-                onChange={(e) => handleTabChange(e.target.value as "founder" | "team")}
-                className="vad-media-select"
-              >
-                <option value="founder">Founder</option>
-                <option value="team">Team</option>
-              </select>
-              <div className="vad-media-select-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </div>
             </div>
           </div>
         </div>

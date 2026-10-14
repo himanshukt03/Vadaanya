@@ -58,7 +58,7 @@ function TeamPageSkeleton() {
 
       <section className="vad-section vad-section--paper" style={{ padding: "44px 0 36px", borderBottom: "1px solid rgba(0, 0, 0, 0.05)" }}>
         <div className="vad-container">
-          <div className="vad-media-tabs-desktop" style={{ marginBottom: 0 }}>
+          <div style={{ display: "flex", justifyContent: "center" }}>
             <div
               style={{
                 display: "inline-flex",
