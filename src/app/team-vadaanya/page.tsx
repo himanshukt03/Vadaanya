@@ -56,26 +56,32 @@ function TeamPageSkeleton() {
         </div>
       </section>
 
-      <section className="vad-section vad-section--paper" style={{ padding: "44px 0 36px", borderBottom: "1px solid rgba(0, 0, 0, 0.05)" }}>
+      <section
+        className="vad-section vad-section--paper"
+        style={{
+          padding: "clamp(18px, 2.5vw, 28px) 0",
+          borderBottom: "1px solid rgba(0, 0, 0, 0.05)",
+        }}
+      >
         <div className="vad-container">
           <div style={{ display: "flex", justifyContent: "center" }}>
             <div
               style={{
                 display: "inline-flex",
                 alignItems: "center",
-                padding: "5px",
+                padding: "4px",
                 background: "#ffffff",
                 borderRadius: "9999px",
-                boxShadow: "0 10px 30px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0,0,0,0.04)",
+                boxShadow: "0 4px 18px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.03)",
                 border: "1px solid rgba(0, 0, 0, 0.08)",
-                gap: "4px",
+                gap: "3px",
               }}
             >
               <span
                 style={{
-                  padding: "10px 28px",
+                  padding: "8px 24px",
                   borderRadius: "9999px",
-                  fontSize: "14.5px",
+                  fontSize: "14px",
                   fontWeight: 700,
                   background: "linear-gradient(135deg, var(--vad-navy-950), var(--vad-navy-800))",
                   color: "#ffffff",
@@ -85,9 +91,9 @@ function TeamPageSkeleton() {
               </span>
               <span
                 style={{
-                  padding: "10px 28px",
+                  padding: "8px 24px",
                   borderRadius: "9999px",
-                  fontSize: "14.5px",
+                  fontSize: "14px",
                   fontWeight: 700,
                   color: "#475569",
                 }}

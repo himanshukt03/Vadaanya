@@ -143,7 +143,13 @@ export default function FoundersPage({ founderProfile, awards }: FoundersPagePro
       </section>
 
       {/* Toggle Navigation Bar (Tap toggle on desktop and mobile) */}
-      <section className="vad-section vad-section--paper" style={{ padding: "44px 0 36px", borderBottom: "1px solid rgba(0, 0, 0, 0.05)" }}>
+      <section
+        className="vad-section vad-section--paper"
+        style={{
+          padding: "clamp(18px, 2.5vw, 28px) 0",
+          borderBottom: "1px solid rgba(0, 0, 0, 0.05)",
+        }}
+      >
         <div className="vad-container">
           {/* Pill Tabs Container (All Screen Sizes) */}
           <div style={{ display: "flex", justifyContent: "center" }}>
@@ -153,12 +159,12 @@ export default function FoundersPage({ founderProfile, awards }: FoundersPagePro
               style={{
                 display: "inline-flex",
                 alignItems: "center",
-                padding: "5px",
+                padding: "4px",
                 background: "#ffffff",
                 borderRadius: "9999px",
-                boxShadow: "0 10px 30px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0,0,0,0.04)",
+                boxShadow: "0 4px 18px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.03)",
                 border: "1px solid rgba(0, 0, 0, 0.08)",
-                gap: "4px",
+                gap: "3px",
               }}
             >
               <button
@@ -167,19 +173,19 @@ export default function FoundersPage({ founderProfile, awards }: FoundersPagePro
                 aria-selected={activeTab === "founder"}
                 onClick={() => handleTabChange("founder")}
                 style={{
-                  padding: "10px 28px",
+                  padding: "8px 24px",
                   borderRadius: "9999px",
-                  fontSize: "14.5px",
+                  fontSize: "14px",
                   fontWeight: 700,
                   border: "none",
                   cursor: "pointer",
-                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                  transition: "all 0.25s cubic-bezier(0.4, 0, 0.2, 1)",
                   background:
                     activeTab === "founder"
                       ? "linear-gradient(135deg, var(--vad-navy-950), var(--vad-navy-800))"
                       : "transparent",
                   color: activeTab === "founder" ? "#ffffff" : "#475569",
-                  boxShadow: activeTab === "founder" ? "0 4px 14px rgba(7, 14, 39, 0.25)" : "none",
+                  boxShadow: activeTab === "founder" ? "0 3px 10px rgba(7, 14, 39, 0.2)" : "none",
                 }}
               >
                 Founder
@@ -191,19 +197,19 @@ export default function FoundersPage({ founderProfile, awards }: FoundersPagePro
                 aria-selected={activeTab === "team"}
                 onClick={() => handleTabChange("team")}
                 style={{
-                  padding: "10px 28px",
+                  padding: "8px 24px",
                   borderRadius: "9999px",
-                  fontSize: "14.5px",
+                  fontSize: "14px",
                   fontWeight: 700,
                   border: "none",
                   cursor: "pointer",
-                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                  transition: "all 0.25s cubic-bezier(0.4, 0, 0.2, 1)",
                   background:
                     activeTab === "team"
                       ? "linear-gradient(135deg, var(--vad-navy-950), var(--vad-navy-800))"
                       : "transparent",
                   color: activeTab === "team" ? "#ffffff" : "#475569",
-                  boxShadow: activeTab === "team" ? "0 4px 14px rgba(7, 14, 39, 0.25)" : "none",
+                  boxShadow: activeTab === "team" ? "0 3px 10px rgba(7, 14, 39, 0.2)" : "none",
                 }}
               >
                 Team
@@ -222,7 +228,7 @@ export default function FoundersPage({ founderProfile, awards }: FoundersPagePro
           {activeTab === "founder" && (
             <>
               {/* 1. Meet the Founder (Ashok Padapati bio and profile card) */}
-              <section className="vad-section" style={{ background: "#edf0f6", padding: "60px 0" }}>
+              <section className="vad-section" style={{ background: "#edf0f6", padding: "clamp(36px, 4.5vw, 60px) 0" }}>
                 <div className="vad-container">
                   <div style={{ maxWidth: "1060px", margin: "0 auto", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "50px" }}>
                     {/* Left: Compact image with soft shadow and floating card */}
@@ -549,7 +555,7 @@ export default function FoundersPage({ founderProfile, awards }: FoundersPagePro
           {activeTab === "team" && (
             <>
               {/* Voluntary Service & Collective Impact ("Driven by Purpose, Powered by Volunteers") */}
-              <section className="vad-section vad-section--paper" style={{ padding: "60px 0" }}>
+              <section className="vad-section vad-section--paper" style={{ padding: "clamp(36px, 4.5vw, 60px) 0" }}>
                 <div className="vad-container">
                   <div style={{ maxWidth: "1060px", margin: "0 auto", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "40px" }}>
                     {/* Left: Text Content */}
