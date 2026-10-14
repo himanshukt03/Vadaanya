@@ -268,11 +268,21 @@ export default function FoundersPage({ founderProfile, awards }: FoundersPagePro
                         }}
                       >
                         <div>
-                          <p style={{ margin: 0, fontFamily: "var(--vad-font-display)", fontWeight: 800, fontSize: "16px", color: "var(--vad-navy-950)" }}>
+                          <p style={{ margin: 0, fontFamily: "var(--vad-font-display)", fontWeight: 800, fontSize: "16px", color: "var(--vad-navy-950)", lineHeight: 1.25 }}>
                             {founderProfile.name}
                           </p>
-                          <p style={{ margin: "2px 0 0", fontSize: "12px", fontWeight: 600, color: "var(--vad-gold-deep)" }}>
-                            {founderProfile.role}
+                          <p style={{ margin: "3px 0 0", fontSize: "12.5px", fontWeight: 700, color: "var(--vad-gold-deep)", lineHeight: 1.3 }}>
+                            Founder &amp; President
+                          </p>
+                          <p style={{ margin: "2px 0 0", fontSize: "11.5px", fontWeight: 500, color: "#64748b", lineHeight: 1.3 }}>
+                            {(() => {
+                              const role = founderProfile.role;
+                              if (!role || /founder/i.test(role)) return "QA Lead, OpenText";
+                              return role
+                                .replace(/Lead Quality Assurance Developer/i, "QA Lead")
+                                .replace(/Lead QA Engineer/i, "QA Lead")
+                                .trim();
+                            })()}
                           </p>
                         </div>
                         {founderProfile.linkedInUrl && (

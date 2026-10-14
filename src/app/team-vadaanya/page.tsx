@@ -118,7 +118,7 @@ export default async function Page() {
   const safeFounderProfile = founderProfile || {
     id: "fallback-founder",
     name: "Ashok Padapati",
-    role: "Lead QA Engineer, OpenText",
+    role: "QA Lead, OpenText",
     linkedInUrl: "https://www.linkedin.com/in/ashok-padapati-67277b50/",
     imageUrl: "/ashok_founder.jpeg",
     bioParagraphs: [

@@ -820,10 +820,16 @@ export async function getFounderProfile(): Promise<FounderProfileItem | null> {
     );
 
     if (sanityData) {
+      const rawRole = sanityData.role || "";
+      const shortenedRole = rawRole
+        .replace(/Lead Quality Assurance Developer/i, "QA Lead")
+        .replace(/Lead QA Engineer/i, "QA Lead")
+        .trim();
+
       return {
         id: sanityData._id,
         name: sanityData.name || "",
-        role: sanityData.role || "",
+        role: shortenedRole || "QA Lead, OpenText",
         linkedInUrl: sanityData.linkedInUrl || undefined,
         imageUrl: sanityData.image
           ? urlFor(sanityData.image).width(800).auto("format").quality(80).url()

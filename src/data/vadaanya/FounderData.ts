@@ -8,7 +8,7 @@ export interface FounderProfile {
 
 export const founderProfile: FounderProfile = {
   name: "Ashok Padapati",
-  role: "Lead QA Engineer, OpenText",
+  role: "QA Lead, OpenText",
   linkedInUrl: "https://www.linkedin.com/in/ashok-padapati-67277b50/",
   image: "/ashok_founder.jpeg",
   bioParagraphs: [
