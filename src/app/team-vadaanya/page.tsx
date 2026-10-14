@@ -1,6 +1,7 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import Navbar from "@/components/vadaanya/Navbar";
-import FoundersPage from "@/components/vadaanya/FoundersPage";
+import FoundersPage, { TeamTabLoader } from "@/components/vadaanya/FoundersPage";
 import Footer from "@/components/vadaanya/Footer";
 import ScrollToTop from "@/components/common/ScrollToTop";
 import { getFounderProfile, getAwards } from "@/lib/sanity/queries";
@@ -40,6 +41,69 @@ export const metadata: Metadata = {
   },
 };
 
+function TeamPageSkeleton() {
+  return (
+    <>
+      <section className="vad-page-hero vad-section--deep">
+        <div className="vad-container vad-page-hero__inner">
+          <span className="vad-eyebrow">Our People</span>
+          <h1 className="vad-page-hero__title">
+            Team <span className="vad-page-hero__accent">Vadaanya</span>
+          </h1>
+          <p className="vad-page-hero__lead">
+            A collective movement of dedicated volunteers, mentors, and leadership empowering government school students across India.
+          </p>
+        </div>
+      </section>
+
+      <section className="vad-section vad-section--paper" style={{ padding: "44px 0 36px", borderBottom: "1px solid rgba(0, 0, 0, 0.05)" }}>
+        <div className="vad-container">
+          <div className="vad-media-tabs-desktop" style={{ marginBottom: 0 }}>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                padding: "5px",
+                background: "#ffffff",
+                borderRadius: "9999px",
+                boxShadow: "0 10px 30px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0,0,0,0.04)",
+                border: "1px solid rgba(0, 0, 0, 0.08)",
+                gap: "4px",
+              }}
+            >
+              <span
+                style={{
+                  padding: "10px 28px",
+                  borderRadius: "9999px",
+                  fontSize: "14.5px",
+                  fontWeight: 700,
+                  background: "linear-gradient(135deg, var(--vad-navy-950), var(--vad-navy-800))",
+                  color: "#ffffff",
+                }}
+              >
+                Founder
+              </span>
+              <span
+                style={{
+                  padding: "10px 28px",
+                  borderRadius: "9999px",
+                  fontSize: "14.5px",
+                  fontWeight: 700,
+                  color: "#475569",
+                }}
+              >
+                Team
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <TeamTabLoader />
+    </>
+  );
+}
+
 export default async function Page() {
   const founderProfile = await getFounderProfile();
   const awards = await getAwards();
@@ -68,7 +132,9 @@ export default async function Page() {
       <JsonLd data={breadcrumbLd} />
       <Navbar />
       <main id="top">
-        <FoundersPage founderProfile={safeFounderProfile} awards={awards} />
+        <Suspense fallback={<TeamPageSkeleton />}>
+          <FoundersPage founderProfile={safeFounderProfile} awards={awards} />
+        </Suspense>
       </main>
       <Footer />
       <ScrollToTop />
